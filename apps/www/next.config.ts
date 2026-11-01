@@ -18,6 +18,7 @@ const nextConfig: NextConfig = {
 const withMDX = createMDX({
   options: {
     // Plugins are given by name so the config works with Turbopack.
+    remarkPlugins: ["remark-gfm"],
     rehypePlugins: [
       ["@shikijs/rehype", { themes: { light: "github-light", dark: "github-dark" } }],
     ],
