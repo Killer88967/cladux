@@ -1,7 +1,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/bubble
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { Slot } from "radix-ui";
 
 function BubbleGroup({ className, ...props }: React.ComponentProps<"div">) {

@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function FieldDemo() {
   return (

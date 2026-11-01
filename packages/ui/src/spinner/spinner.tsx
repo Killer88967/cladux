@@ -1,7 +1,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/spinner
 import type * as React from "react";
 import { Loader2Icon } from "lucide-react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (

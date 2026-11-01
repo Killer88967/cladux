@@ -1,5 +1,5 @@
 import { BadgeCheckIcon } from "lucide-react";
-import { Badge } from "@component-library/ui";
+import { Badge } from "@cladux/ui";
 
 export default function BadgeDemo() {
   return (

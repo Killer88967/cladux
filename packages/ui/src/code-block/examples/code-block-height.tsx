@@ -5,7 +5,7 @@ import {
   CodeBlockCopyButton,
   CodeBlockHeader,
   CodeBlockTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const logs = Array.from(
   { length: 40 },

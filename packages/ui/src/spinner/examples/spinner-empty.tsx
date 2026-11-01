@@ -7,7 +7,7 @@ import {
   EmptyMedia,
   EmptyTitle,
   Spinner,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function SpinnerEmpty() {
   return (

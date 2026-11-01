@@ -10,7 +10,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const components: { title: string; href: string; description: string }[] = [
   {

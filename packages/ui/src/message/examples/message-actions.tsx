@@ -1,12 +1,5 @@
 import { CopyIcon, RefreshCcwIcon, ThumbsDownIcon, ThumbsUpIcon } from "lucide-react";
-import {
-  Bubble,
-  BubbleContent,
-  Button,
-  Message,
-  MessageContent,
-  MessageFooter,
-} from "@component-library/ui";
+import { Bubble, BubbleContent, Button, Message, MessageContent, MessageFooter } from "@cladux/ui";
 
 export function MessageActionsDemo() {
   return (

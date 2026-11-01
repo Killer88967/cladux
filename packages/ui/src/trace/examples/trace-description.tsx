@@ -1,5 +1,5 @@
 import { FilePenIcon, SearchIcon, TerminalIcon } from "lucide-react";
-import { Trace, TraceDescription, TraceIcon, TraceLine, TraceTitle } from "@component-library/ui";
+import { Trace, TraceDescription, TraceIcon, TraceLine, TraceTitle } from "@cladux/ui";
 
 export function TraceDescriptionDemo() {
   return (

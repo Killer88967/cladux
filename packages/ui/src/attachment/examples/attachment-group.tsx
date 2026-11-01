@@ -8,7 +8,7 @@ import {
   AttachmentGroup,
   AttachmentMedia,
   AttachmentTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 type Item = {
   name: string;

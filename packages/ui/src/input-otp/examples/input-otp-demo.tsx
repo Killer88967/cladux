@@ -1,4 +1,4 @@
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@component-library/ui";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@cladux/ui";
 
 export function InputOTPDemo() {
   return (

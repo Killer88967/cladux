@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Calendar, Card, CardContent } from "@component-library/ui";
+import { Calendar, Card, CardContent } from "@cladux/ui";
 
 export function CalendarWeekNumbers() {
   const [date, setDate] = React.useState<Date | undefined>(

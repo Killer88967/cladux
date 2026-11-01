@@ -10,7 +10,7 @@ import {
   ContextMenuRadioItem,
   ContextMenuSeparator,
   ContextMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function ContextMenuRadio() {
   const [user, setUser] = React.useState("pedro");

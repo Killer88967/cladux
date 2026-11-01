@@ -1,5 +1,5 @@
 import { SquareArrowOutUpRightIcon } from "lucide-react";
-import { Button } from "@component-library/ui";
+import { Button } from "@cladux/ui";
 
 export default function ButtonVariants() {
   return (

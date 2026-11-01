@@ -8,7 +8,7 @@ import {
   TraceIcon,
   TraceLine,
   TraceTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function TraceCollapsibleDemo() {
   return (

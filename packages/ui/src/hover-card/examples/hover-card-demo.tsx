@@ -1,4 +1,4 @@
-import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from "@component-library/ui";
+import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from "@cladux/ui";
 
 export default function HoverCardDemo() {
   return (

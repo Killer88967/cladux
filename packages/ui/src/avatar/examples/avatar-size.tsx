@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@component-library/ui";
+import { Avatar, AvatarFallback, AvatarImage } from "@cladux/ui";
 
 export function AvatarSizeExample() {
   return (

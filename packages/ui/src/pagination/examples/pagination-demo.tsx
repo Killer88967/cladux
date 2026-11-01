@@ -6,7 +6,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function PaginationDemo() {
   return (

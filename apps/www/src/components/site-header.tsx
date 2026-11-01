@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@component-library/ui";
+import { Button } from "@cladux/ui";
 import { CommandMenu } from "@/components/command-menu";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { getNav } from "@/lib/docs";
@@ -11,7 +11,7 @@ export async function SiteHeader() {
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur">
       <div className="cl-container flex h-14 items-center gap-2">
         <Link href="/" className="mr-4 hidden font-semibold sm:block">
-          Component Library
+          Cladux
         </Link>
         <nav className="flex items-center gap-1">
           <Button variant="ghost" size="sm" asChild>

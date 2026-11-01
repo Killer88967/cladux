@@ -4,7 +4,7 @@ import {
   ContextMenuContent,
   ContextMenuGroup,
   ContextMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function ContextMenuCheckboxes() {
   return (

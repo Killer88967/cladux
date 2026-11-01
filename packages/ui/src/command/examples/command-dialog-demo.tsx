@@ -12,7 +12,7 @@ import {
   CommandItem,
   CommandList,
   CommandShortcut,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function CommandDialogDemo() {
   const [open, setOpen] = React.useState(false);

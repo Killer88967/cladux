@@ -1,4 +1,4 @@
-import { Kbd, KbdGroup } from "@component-library/ui";
+import { Kbd, KbdGroup } from "@cladux/ui";
 
 export default function KbdDemo() {
   return (

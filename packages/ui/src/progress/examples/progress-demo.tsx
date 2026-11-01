@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Progress } from "@component-library/ui";
+import { Progress } from "@cladux/ui";
 
 export default function ProgressDemo() {
   const [progress, setProgress] = React.useState(13);

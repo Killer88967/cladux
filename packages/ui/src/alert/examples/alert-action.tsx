@@ -1,4 +1,4 @@
-import { Alert, AlertAction, AlertDescription, AlertTitle, Button } from "@component-library/ui";
+import { Alert, AlertAction, AlertDescription, AlertTitle, Button } from "@cladux/ui";
 
 export default function AlertActionExample() {
   return (

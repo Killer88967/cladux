@@ -15,7 +15,7 @@ import {
   AttachmentMedia,
   AttachmentTitle,
   Spinner,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function AttachmentStates() {
   return (

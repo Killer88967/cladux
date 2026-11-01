@@ -1,4 +1,4 @@
-import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@component-library/ui";
+import { Bubble, BubbleContent, BubbleGroup, BubbleReactions } from "@cladux/ui";
 
 export function BubbleGroupDemo() {
   return (

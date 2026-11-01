@@ -12,7 +12,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function DatePickerWithRange() {
   const [date, setDate] = React.useState<DateRange | undefined>({

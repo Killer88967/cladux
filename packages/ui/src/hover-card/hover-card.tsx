@@ -3,7 +3,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/hover-card
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { HoverCard as HoverCardPrimitive } from "radix-ui";
 
 function HoverCard({ ...props }: React.ComponentProps<typeof HoverCardPrimitive.Root>) {

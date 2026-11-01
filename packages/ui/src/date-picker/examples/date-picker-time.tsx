@@ -13,7 +13,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function DatePickerTime() {
   const [open, setOpen] = React.useState(false);

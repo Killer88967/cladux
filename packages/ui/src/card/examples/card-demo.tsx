@@ -9,7 +9,7 @@ import {
   CardTitle,
   Input,
   Label,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function CardDemo() {
   return (

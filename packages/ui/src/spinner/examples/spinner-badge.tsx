@@ -1,4 +1,4 @@
-import { Badge, Spinner } from "@component-library/ui";
+import { Badge, Spinner } from "@cladux/ui";
 
 export function SpinnerBadge() {
   return (

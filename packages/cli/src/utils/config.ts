@@ -6,9 +6,9 @@ import type { Framework } from "./detect.ts";
 /** Our own config file, so we never touch shadcn's components.json. */
 export const CONFIG_FILE = "cl.json";
 
-// Where the registry lives. Override with --registry or CL_REGISTRY.
+// Where the registry lives. Override with --registry or CLADUX_REGISTRY.
 // TODO: point at the deployed docs site once it has a domain.
-export const DEFAULT_REGISTRY = process.env.CL_REGISTRY ?? "http://localhost:3000/r";
+export const DEFAULT_REGISTRY = process.env.CLADUX_REGISTRY ?? "http://localhost:3000/r";
 
 /** The aliases the registry files are written with; swapped for the user's on install. */
 export const REGISTRY_ALIASES = {

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@component-library/utils";
-import { Badge } from "@component-library/ui";
+import { cn } from "@cladux/utils";
+import { Badge } from "@cladux/ui";
 import type { NavGroup } from "@/lib/docs";
 
 export function DocsSidebar({ nav }: { nav: NavGroup[] }) {

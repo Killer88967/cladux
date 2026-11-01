@@ -9,7 +9,7 @@ import {
   AttachmentMedia,
   AttachmentTitle,
   AttachmentTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const images = [
   {

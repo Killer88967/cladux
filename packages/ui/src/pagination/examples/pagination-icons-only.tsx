@@ -12,7 +12,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function PaginationIconsOnly() {
   return (

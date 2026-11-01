@@ -1,5 +1,5 @@
 import { FileTextIcon, GitBranchIcon, SearchIcon } from "lucide-react";
-import { Marker, MarkerContent, MarkerIcon } from "@component-library/ui";
+import { Marker, MarkerContent, MarkerIcon } from "@cladux/ui";
 
 export function MarkerBorderDemo() {
   return (

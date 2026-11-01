@@ -15,5 +15,5 @@ export function answer<T>(value: T | symbol): Exclude<T, symbol> {
 /** How to run the CLI again, matching the user's package manager. */
 export function runCommand(pm: string, args: string) {
   const runner = { pnpm: "pnpm dlx", yarn: "yarn dlx", bun: "bunx --bun", npm: "npx" }[pm] ?? "npx";
-  return `${runner} @component-library/cli@latest ${args}`;
+  return `${runner} cladux@latest ${args}`;
 }

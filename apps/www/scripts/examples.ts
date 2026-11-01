@@ -29,8 +29,8 @@ const source = [
   'import type { ComponentType } from "react";',
   ...entries.map((e) =>
     e.named
-      ? `import { ${e.named} as ${id(e.name)} } from "@component-library/ui/${e.path}";`
-      : `import ${id(e.name)} from "@component-library/ui/${e.path}";`,
+      ? `import { ${e.named} as ${id(e.name)} } from "@cladux/ui/${e.path}";`
+      : `import ${id(e.name)} from "@cladux/ui/${e.path}";`,
   ),
   "",
   "export const generatedExamples: Record<string, { Component: ComponentType; path: string }> = {",

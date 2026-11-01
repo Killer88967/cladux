@@ -1,4 +1,4 @@
-import { Marker, MarkerContent } from "@component-library/ui";
+import { Marker, MarkerContent } from "@cladux/ui";
 
 export function MarkerShimmerDemo() {
   return (

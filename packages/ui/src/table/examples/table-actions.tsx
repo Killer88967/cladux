@@ -12,7 +12,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function TableActions() {
   return (

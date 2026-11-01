@@ -9,7 +9,7 @@ import {
   TraceIcon,
   TraceLine,
   TraceTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const output = `$ node --version
 v24.18.0`;

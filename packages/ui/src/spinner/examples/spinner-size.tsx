@@ -1,4 +1,4 @@
-import { Spinner } from "@component-library/ui";
+import { Spinner } from "@cladux/ui";
 
 export function SpinnerSize() {
   return (

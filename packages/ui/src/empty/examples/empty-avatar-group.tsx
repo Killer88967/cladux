@@ -10,7 +10,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function EmptyAvatarGroup() {
   return (

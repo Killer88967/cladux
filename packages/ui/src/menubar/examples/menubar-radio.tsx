@@ -10,7 +10,7 @@ import {
   MenubarRadioItem,
   MenubarSeparator,
   MenubarTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MenubarRadio() {
   const [user, setUser] = React.useState("benoit");

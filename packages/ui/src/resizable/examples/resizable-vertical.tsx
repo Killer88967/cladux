@@ -1,4 +1,4 @@
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@component-library/ui";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@cladux/ui";
 
 export function ResizableVertical() {
   return (

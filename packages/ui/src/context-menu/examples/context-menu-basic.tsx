@@ -4,7 +4,7 @@ import {
   ContextMenuGroup,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function ContextMenuBasic() {
   return (

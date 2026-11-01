@@ -1,7 +1,7 @@
 "use client";
 
 import { Bar, BarChart } from "recharts";
-import { ChartContainer, type ChartConfig } from "@component-library/ui";
+import { ChartContainer, type ChartConfig } from "@cladux/ui";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },

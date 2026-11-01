@@ -7,7 +7,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function BubbleTooltipDemo() {
   return (

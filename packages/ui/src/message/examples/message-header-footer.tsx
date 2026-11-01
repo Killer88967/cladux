@@ -5,7 +5,7 @@ import {
   MessageContent,
   MessageFooter,
   MessageHeader,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MessageHeaderFooterDemo() {
   return (

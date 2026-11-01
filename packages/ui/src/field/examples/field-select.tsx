@@ -8,7 +8,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function FieldSelect() {
   return (

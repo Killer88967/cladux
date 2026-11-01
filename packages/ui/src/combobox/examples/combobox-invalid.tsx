@@ -7,7 +7,7 @@ import {
   ComboboxInput,
   ComboboxItem,
   ComboboxList,
-} from "@component-library/ui";
+} from "@cladux/ui";
 const frameworks = ["Next.js", "SvelteKit", "Nuxt.js", "Remix", "Astro"] as const;
 
 export function ComboboxInvalid() {

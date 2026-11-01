@@ -9,7 +9,7 @@ import {
   FieldTitle,
   RadioGroup,
   RadioGroupItem,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function FieldChoiceCard() {
   return (

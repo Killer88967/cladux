@@ -11,7 +11,7 @@ import {
   ItemContent,
   ItemDescription,
   ItemTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 const countries = [
   { code: "", value: "", continent: "", label: "Select country" },
   {

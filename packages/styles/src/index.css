@@ -1,6 +1,6 @@
 @layer cl.base, cl.components, cl.utilities;
 
-@import "@component-library/tokens/tokens.css";
+@import "@cladux/tokens/tokens.css";
 @import "./base.css" layer(cl.base);
 @import "./components/index.css" layer(cl.components);
 @import "./utilities.css" layer(cl.utilities);

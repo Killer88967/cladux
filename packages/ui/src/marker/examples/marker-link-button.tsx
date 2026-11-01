@@ -2,7 +2,7 @@
 
 import { GitBranchIcon, RotateCcwIcon } from "lucide-react";
 import { toast } from "sonner";
-import { Marker, MarkerContent, MarkerIcon } from "@component-library/ui";
+import { Marker, MarkerContent, MarkerIcon } from "@cladux/ui";
 
 export function MarkerLinkButtonDemo() {
   return (

@@ -2,13 +2,7 @@
 
 import * as React from "react";
 import { ChevronDownIcon } from "lucide-react";
-import {
-  Bubble,
-  BubbleContent,
-  Button,
-  Collapsible,
-  CollapsibleTrigger,
-} from "@component-library/ui";
+import { Bubble, BubbleContent, Button, Collapsible, CollapsibleTrigger } from "@cladux/ui";
 
 const text = `The accessibility review found two focus states that were visually too subtle in dark mode.
 

@@ -1,4 +1,4 @@
-import { Skeleton } from "@component-library/ui";
+import { Skeleton } from "@cladux/ui";
 
 export default function SkeletonDemo() {
   return (

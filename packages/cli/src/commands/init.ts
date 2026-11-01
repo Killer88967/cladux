@@ -40,7 +40,7 @@ export async function init(opts: InitOptions) {
     throw new CliError(`No package.json in ${root}. Run this from your project's folder.`);
   }
 
-  p.intro("Component Library");
+  p.intro("Cladux");
 
   if ((await readConfig(root)) && !opts.force) {
     if (opts.yes) throw new CliError(`${CONFIG_FILE} already exists. Use --force to overwrite it.`);
@@ -190,7 +190,7 @@ export async function init(opts: InitOptions) {
   const entryPath = path.join(root, config.css.entry);
   let entry = existsSync(entryPath)
     ? await readFile(entryPath, "utf8")
-    : "/* Managed by the Component Library CLI. Components add their CSS here. */\n";
+    : "/* Managed by the Cladux CLI. Components add their CSS here. */\n";
   for (const spec of entryImports) entry = addImport(entry, spec);
   await mkdir(path.dirname(entryPath), { recursive: true });
   await writeFile(entryPath, entry.endsWith("\n") ? entry : `${entry}\n`);

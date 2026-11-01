@@ -18,7 +18,7 @@ Customizable.
 ## Usage
 
 ```tsx
-import { SidebarProvider, SidebarTrigger } from "@component-library/ui";
+import { SidebarProvider, SidebarTrigger } from "@cladux/ui";
 import { AppSidebar } from "@/components/app-sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -35,13 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 ```
 
 ```tsx
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarHeader,
-} from "@component-library/ui";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarHeader } from "@cladux/ui";
 
 export function AppSidebar() {
   return (
@@ -182,7 +176,7 @@ in a `SidebarInset` component.
 The `useSidebar` hook is used to control the sidebar.
 
 ```tsx
-import { useSidebar } from "@component-library/ui";
+import { useSidebar } from "@cladux/ui";
 
 export function AppSidebar() {
   const { state, open, setOpen, openMobile, setOpenMobile, isMobile, toggleSidebar } = useSidebar();
@@ -388,7 +382,7 @@ The `SidebarMenuSkeleton` component is used to render a skeleton for a `SidebarM
 Use the `SidebarTrigger` component to render a button that toggles the sidebar.
 
 ```tsx
-import { useSidebar } from "@component-library/ui";
+import { useSidebar } from "@cladux/ui";
 
 export function CustomTrigger() {
   const { toggleSidebar } = useSidebar();

@@ -1,6 +1,6 @@
 /*
  * CSS-only Dropdown Menu. Matches the shadcn/ui Dropdown Menu (MIT, "nova" style).
- * A native popover with role="menu". The runtime (@component-library/utils/cl.js)
+ * A native popover with role="menu". The runtime (@cladux/utils/cl.js)
  * positions it, adds arrow-key navigation and closes it when an item is picked.
  *
  * <button class="cl-button" data-variant="outline" popovertarget="account">Open</button>

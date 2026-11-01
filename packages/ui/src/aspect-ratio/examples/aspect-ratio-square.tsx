@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { AspectRatio } from "@component-library/ui";
+import { AspectRatio } from "@cladux/ui";
 
 export function AspectRatioSquare() {
   return (

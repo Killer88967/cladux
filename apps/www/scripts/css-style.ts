@@ -19,7 +19,7 @@ const PRELUDE = `
 @import "tailwindcss/utilities.css" source(none);
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@component-library/tokens/theme.css";
+@import "@cladux/tokens/theme.css";
 `;
 
 /** Non-utility tokens that aren't markers either (kept as-is, reported once). */
@@ -659,7 +659,7 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
   const baseCss = [
     "/* Generated from the Tailwind components. Edit packages/ui, not this file. */",
     sharedRoot.toString().trim(),
-    "/* Tailwind's preflight, applied only to Component Library elements. */",
+    "/* Tailwind's preflight, applied only to Cladux elements. */",
     reset,
     `:where([class*="cl-"]) {\n  border-color: var(--border);\n  outline-color: color-mix(in oklab, var(--ring) 50%, transparent);\n}`,
     `body {\n  background-color: var(--background);\n  color: var(--foreground);\n}`,

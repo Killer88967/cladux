@@ -13,7 +13,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const data = [
   {

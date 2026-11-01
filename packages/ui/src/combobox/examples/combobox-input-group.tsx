@@ -12,7 +12,7 @@ import {
   ComboboxLabel,
   ComboboxList,
   InputGroupAddon,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const timezones = [
   {

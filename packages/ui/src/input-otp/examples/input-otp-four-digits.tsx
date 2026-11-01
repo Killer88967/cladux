@@ -1,7 +1,7 @@
 "use client";
 
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@component-library/ui";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@cladux/ui";
 
 export function InputOTPFourDigits() {
   return (

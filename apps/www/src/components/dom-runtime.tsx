@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cl, start } from "@component-library/utils/dom";
+import { cl, start } from "@cladux/utils/dom";
 
 declare global {
   interface Window {

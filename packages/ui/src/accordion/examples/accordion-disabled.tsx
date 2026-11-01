@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@component-library/ui";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@cladux/ui";
 
 export default function AccordionDisabled() {
   return (

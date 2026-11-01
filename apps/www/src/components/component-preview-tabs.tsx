@@ -1,8 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@component-library/ui";
-import { cn } from "@component-library/utils";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cladux/ui";
+import { cn } from "@cladux/utils";
 import { CopyButton } from "@/components/copy-button";
 
 interface ComponentPreviewTabsProps {

@@ -1,4 +1,4 @@
-import { Field, FieldLabel, Switch } from "@component-library/ui";
+import { Field, FieldLabel, Switch } from "@cladux/ui";
 
 export default function FieldSwitch() {
   return (

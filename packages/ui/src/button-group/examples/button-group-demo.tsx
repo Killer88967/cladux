@@ -26,7 +26,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function ButtonGroupDemo() {
   const [label, setLabel] = React.useState("personal");

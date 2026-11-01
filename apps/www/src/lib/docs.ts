@@ -1,4 +1,4 @@
-import { readdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import type { ComponentType } from "react";
 
@@ -94,4 +94,35 @@ export async function getPager(href: string) {
     prev: index > 0 ? flat[index - 1] : undefined,
     next: index >= 0 ? flat[index + 1] : undefined,
   };
+}
+
+/** Pages whose components aren't registry items themselves. */
+const INSTALL_FROM: Record<string, { items: string[]; packages?: string }> = {
+  "date-picker": { items: ["popover", "calendar"] },
+  "data-table": { items: ["table"], packages: "@tanstack/react-table" },
+};
+
+export interface InstallInfo {
+  /** Registry items for `cladux add`. */
+  items: string[];
+  /** Extra npm packages the page's examples need. */
+  packages?: string;
+  /** The heading the Installation section goes before ("Usage", or the first one). */
+  before: string;
+}
+
+/** What a component page's Installation section shows, or null for other pages. */
+export async function getInstall(slug: string[]): Promise<InstallInfo | null> {
+  if (slug[0] !== "components" || slug.length !== 2) return null;
+  const name = slug[1]!;
+
+  const indexFile = path.join(/* turbopackIgnore: true */ process.cwd(), "public/r/index.json");
+  const index = JSON.parse(await readFile(indexFile, "utf8")) as { items: { name: string }[] };
+  const items = index.items.some((i) => i.name === name) ? [name] : INSTALL_FROM[name]?.items;
+  if (!items) return null;
+
+  const source = await readFile(path.join(DOCS_DIR, `${slug.join("/")}.mdx`), "utf8");
+  const headings = [...source.matchAll(/^## (.+)$/gm)].map((m) => m[1]!.replace(/`/g, "").trim());
+  const before = headings.includes("Usage") ? "Usage" : headings[0];
+  return before ? { items, packages: INSTALL_FROM[name]?.packages, before } : null;
 }

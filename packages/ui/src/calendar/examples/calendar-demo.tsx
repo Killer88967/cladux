@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Calendar } from "@component-library/ui";
+import { Calendar } from "@cladux/ui";
 
 export default function CalendarDemo() {
   const [date, setDate] = React.useState<Date | undefined>(new Date());

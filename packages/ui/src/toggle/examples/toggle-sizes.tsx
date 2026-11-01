@@ -1,4 +1,4 @@
-import { Toggle } from "@component-library/ui";
+import { Toggle } from "@cladux/ui";
 
 export function ToggleSizes() {
   return (

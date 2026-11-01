@@ -5,7 +5,7 @@ import {
   AttachmentDescription,
   AttachmentMedia,
   AttachmentTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function AttachmentSizes() {
   return (

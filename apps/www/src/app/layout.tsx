@@ -3,15 +3,15 @@ import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
-import { Toaster, TooltipProvider } from "@component-library/ui";
+import { Toaster, TooltipProvider } from "@cladux/ui";
 import { SiteHeader } from "@/components/site-header";
 import { DomRuntime } from "@/components/dom-runtime";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Component Library",
-    template: "%s · Component Library",
+    default: "Cladux",
+    template: "%s · Cladux",
   },
   description: "Components, CSS and TypeScript utilities for building websites.",
 };

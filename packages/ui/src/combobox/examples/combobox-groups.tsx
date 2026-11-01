@@ -11,7 +11,7 @@ import {
   ComboboxLabel,
   ComboboxList,
   ComboboxSeparator,
-} from "@component-library/ui";
+} from "@cladux/ui";
 const timezones = [
   {
     value: "Americas",

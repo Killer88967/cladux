@@ -1,4 +1,4 @@
-import { Bubble, BubbleContent } from "@component-library/ui";
+import { Bubble, BubbleContent } from "@cladux/ui";
 
 export function BubbleAlignmentDemo() {
   return (

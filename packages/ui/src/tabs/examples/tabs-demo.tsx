@@ -12,7 +12,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function TabsDemo() {
   return (

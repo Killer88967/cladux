@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
-import { useMediaQuery } from "@component-library/ui";
+import { useMediaQuery } from "@cladux/ui";
 import {
   Button,
   Dialog,
@@ -22,7 +22,7 @@ import {
   DrawerTrigger,
   Input,
   Label,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function DrawerDialogDemo() {
   const [open, setOpen] = React.useState(false);

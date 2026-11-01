@@ -9,7 +9,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function AlertDialogBasic() {
   return (

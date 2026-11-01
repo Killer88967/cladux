@@ -1,7 +1,7 @@
 /*
  * CSS-only Popover. Matches the shadcn/ui Popover (MIT, "nova" style).
  * Uses the native popover attribute, so it opens, closes and light-dismisses
- * with no JavaScript. The runtime (@component-library/utils/cl.js) only
+ * with no JavaScript. The runtime (@cladux/utils/cl.js) only
  * positions it next to its button.
  *
  * <button class="cl-button" data-variant="outline" popovertarget="dims">Open</button>

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { addDays } from "date-fns";
-import { Button, Calendar, Card, CardContent, CardFooter } from "@component-library/ui";
+import { Button, Calendar, Card, CardContent, CardFooter } from "@cladux/ui";
 
 export function CalendarWithPresets() {
   const [date, setDate] = React.useState<Date | undefined>(

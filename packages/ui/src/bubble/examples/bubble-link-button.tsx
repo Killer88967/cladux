@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { Bubble, BubbleContent, BubbleGroup } from "@component-library/ui";
+import { Bubble, BubbleContent, BubbleGroup } from "@cladux/ui";
 
 export function BubbleLinkButtonDemo() {
   return (

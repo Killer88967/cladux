@@ -10,7 +10,7 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 type FileTreeItem = { name: string } | { name: string; items: FileTreeItem[] };
 

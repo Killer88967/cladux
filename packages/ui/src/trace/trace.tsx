@@ -1,7 +1,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/trace
 import { ChevronRightIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../collapsible/collapsible";
 

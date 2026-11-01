@@ -2,7 +2,7 @@
 
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/resizable
 
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import * as ResizablePrimitive from "react-resizable-panels";
 
 function ResizablePanelGroup({ className, ...props }: ResizablePrimitive.GroupProps) {

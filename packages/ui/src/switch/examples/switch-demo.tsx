@@ -1,4 +1,4 @@
-import { Label, Switch } from "@component-library/ui";
+import { Label, Switch } from "@cladux/ui";
 
 export default function SwitchDemo() {
   return (

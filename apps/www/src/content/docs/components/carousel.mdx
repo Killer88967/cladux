@@ -18,7 +18,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@component-library/ui";
+} from "@cladux/ui";
 ```
 
 ```tsx
@@ -142,7 +142,7 @@ Use a state and the `setApi` props to get an instance of the carousel API.
 <ComponentPreview name="carousel-api" previewClassName="sm:h-[32rem]" />
 
 ```tsx
-import { type CarouselApi } from "@component-library/ui";
+import { type CarouselApi } from "@cladux/ui";
 
 export function Example() {
   const [api, setApi] = React.useState<CarouselApi>();
@@ -179,7 +179,7 @@ export function Example() {
 You can listen to events using the api instance from `setApi`.
 
 ```tsx
-import { type CarouselApi } from "@component-library/ui";
+import { type CarouselApi } from "@cladux/ui";
 
 export function Example() {
   const [api, setApi] = React.useState<CarouselApi>();

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { addDays } from "date-fns";
 import { type DateRange } from "react-day-picker";
-import { Calendar, CalendarDayButton, Card, CardContent } from "@component-library/ui";
+import { Calendar, CalendarDayButton, Card, CardContent } from "@cladux/ui";
 
 export function CalendarCustomDays() {
   const [range, setRange] = React.useState<DateRange | undefined>({

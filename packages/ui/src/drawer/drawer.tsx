@@ -3,7 +3,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/drawer
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { Drawer as DrawerPrimitive } from "vaul";
 
 function Drawer({ ...props }: React.ComponentProps<typeof DrawerPrimitive.Root>) {

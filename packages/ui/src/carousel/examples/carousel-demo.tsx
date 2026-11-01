@@ -7,7 +7,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function CarouselDemo() {
   return (

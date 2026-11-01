@@ -7,7 +7,7 @@ import {
   CodeBlockHeader,
   CodeBlockLine,
   CodeBlockTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 const code = `  if (!session) {
     redirect("/login")
   }

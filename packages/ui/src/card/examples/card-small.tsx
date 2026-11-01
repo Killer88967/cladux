@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@component-library/ui";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@cladux/ui";
 
 export default function CardSmall() {
   return (

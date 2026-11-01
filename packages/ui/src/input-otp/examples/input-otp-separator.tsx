@@ -1,4 +1,4 @@
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@component-library/ui";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@cladux/ui";
 
 export default function InputOTPWithSeparator() {
   return (

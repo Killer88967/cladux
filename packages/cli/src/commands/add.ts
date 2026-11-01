@@ -28,7 +28,7 @@ export async function add(opts: AddOptions) {
   const alias = await findPathAlias(root);
   if (!alias) throw new CliError("Couldn't find the import alias in tsconfig.json anymore.");
 
-  p.intro("Component Library");
+  p.intro("Cladux");
 
   // 1. Which components.
   const index = await fetchIndex(config.registry);

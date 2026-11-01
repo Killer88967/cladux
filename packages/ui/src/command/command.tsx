@@ -5,7 +5,7 @@
 import { CheckIcon, SearchIcon } from "lucide-react";
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 import {
   Dialog,

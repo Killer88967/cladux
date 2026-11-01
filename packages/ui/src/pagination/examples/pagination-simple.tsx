@@ -1,9 +1,4 @@
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-} from "@component-library/ui";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink } from "@cladux/ui";
 
 export function PaginationSimple() {
   return (

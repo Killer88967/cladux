@@ -11,7 +11,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function DropdownMenuCheckboxes() {
   const [statusBar, setStatusBar] = React.useState(true);

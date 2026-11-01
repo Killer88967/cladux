@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from "sonner";
-import { Button } from "@component-library/ui";
+import { Button } from "@cladux/ui";
 
 export default function SonnerDemo() {
   return (

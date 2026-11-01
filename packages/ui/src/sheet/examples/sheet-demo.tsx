@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function SheetDemo() {
   return (

@@ -23,7 +23,7 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const messages = [
   {

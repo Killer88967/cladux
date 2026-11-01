@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, ButtonGroupSeparator } from "@component-library/ui";
+import { Button, ButtonGroup, ButtonGroupSeparator } from "@cladux/ui";
 
 export default function ButtonGroupSeparatorDemo() {
   return (

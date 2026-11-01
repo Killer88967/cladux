@@ -5,7 +5,7 @@
 import { CheckIcon } from "lucide-react";
 import * as React from "react";
 import { Questionnaire as QuestionnairePrimitive } from "@shadcn/react/questionnaire";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 import { buttonVariants, type Button } from "../button/button";
 

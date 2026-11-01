@@ -1,11 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSet,
-  Textarea,
-} from "@component-library/ui";
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet, Textarea } from "@cladux/ui";
 
 export default function FieldTextarea() {
   return (

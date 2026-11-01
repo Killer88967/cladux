@@ -72,7 +72,7 @@ function processSource(code: string) {
       // ../button/button, ./button/button, ../hooks/use-mobile, ../lib/highlighter
       const local = /^\.\.?\/(?:([\w-]+)\/)?([\w-]+)$/.exec(spec);
 
-      if (spec === "@component-library/utils") {
+      if (spec === "@cladux/utils") {
         registryDependencies.add("utils");
         to = DEFAULT_ALIASES.utils;
       } else if (local) {
@@ -170,7 +170,7 @@ for (const dir of await readdir(UI, { withFileTypes: true })) {
   });
 }
 
-// init: what `cl init` writes for this style. Separate files so the CLI can
+// init: what `cladux init` writes for this style. Separate files so the CLI can
 // skip the parts a project already has (e.g. shadcn's variables or variants).
 {
   const tokens = await readFile(new URL("packages/tokens/dist/tokens.css", ROOT), "utf8");
@@ -298,8 +298,7 @@ export function cn(...inputs: ClassValue[]) {
       if (item.type === "registry:style") {
         return {
           ...css,
-          description:
-            "Theme variables, a reset scoped to Component Library elements, and shared CSS.",
+          description: "Theme variables, a reset scoped to Cladux elements, and shared CSS.",
           dependencies: [],
           files: [
             { path: "cl-tokens.css", type: "css", content: result.tokens },

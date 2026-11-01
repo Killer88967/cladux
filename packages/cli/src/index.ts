@@ -4,7 +4,7 @@ import { init } from "./commands/init.ts";
 import { add } from "./commands/add.ts";
 import { CliError } from "./utils/ui.ts";
 
-const HELP = `Usage: cl <command> [options]
+const HELP = `Usage: cladux <command> [options]
 
 Commands
   init                Set up cl.json, the theme and the cn() helper
@@ -26,8 +26,8 @@ add
   -o, --overwrite     Replace files that already exist
 
 Examples
-  cl init
-  cl add button card dialog`;
+  cladux init
+  cladux add button card dialog`;
 
 async function main() {
   const { positionals, values } = parseArgs({

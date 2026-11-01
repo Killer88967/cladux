@@ -4,23 +4,21 @@ export const metadata = {
   order: 0,
 };
 
+Cladux is a set of accessible React components you copy into your project with a CLI, and own from then on. Every component looks the same with or without Tailwind: projects with Tailwind v4 get Tailwind classes, projects without it get plain CSS files.
+
 ## What's included
 
-- **Tokens**: colors, spacing, radius, type and motion as CSS variables, JSON and TypeScript.
-- **Styles**: a base layer and CSS-only components that work in plain HTML.
-- **UI**: React components built on the same CSS.
-- **Utils**: framework-free TypeScript helpers.
+- **Components**: 60+ React components built on Radix, from buttons to sidebars, charts and data tables.
+- **Two styles**: Tailwind v4 classes, or a CSS file per component. The CLI picks the one that fits your project.
+- **CSS-only components**: `cl-*` classes and a tiny script for sites without React.
+- **Tokens**: colors and radius as CSS variables you can theme.
 
-## Using the CSS
+## Get started
 
-With Tailwind v4, import the Tailwind entry in your main stylesheet:
+Run `init` in your project, then add what you need:
 
-```css
-@import "@component-library/styles/tailwind.css";
-```
+<CliCommand args="init" />
 
-Without Tailwind, import the plain CSS entry instead:
+<CliCommand args="add button" />
 
-```css
-@import "@component-library/styles";
-```
+See [Installation](/docs/installation) for what `init` sets up, theming and dark mode, or browse the [components](/docs/components).

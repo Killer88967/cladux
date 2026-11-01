@@ -14,7 +14,7 @@ import {
   CommandList,
   Kbd,
   KbdGroup,
-} from "@component-library/ui";
+} from "@cladux/ui";
 import type { NavGroup } from "@/lib/docs";
 
 export function CommandMenu({ nav }: { nav: NavGroup[] }) {

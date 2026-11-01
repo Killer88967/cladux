@@ -13,7 +13,7 @@ import {
   ItemMedia,
   ItemSeparator,
   ItemTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const people = [
   {

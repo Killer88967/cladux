@@ -3,7 +3,7 @@
 import * as React from "react";
 import { format } from "date-fns";
 import { ChevronDownIcon } from "lucide-react";
-import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from "@component-library/ui";
+import { Button, Calendar, Popover, PopoverContent, PopoverTrigger } from "@cladux/ui";
 
 export function DatePickerDemo() {
   const [date, setDate] = React.useState<Date>();

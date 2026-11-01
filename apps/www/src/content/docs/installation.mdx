@@ -1,63 +1,181 @@
 export const metadata = {
   title: "Installation",
-  description: "Add the packages to your project and set up the styles.",
+  description: "Set up your project with the CLI, then add the components you need.",
   order: 1,
 };
 
+The CLI copies each component's source into your project, so the code is yours to read and change. It works with or without Tailwind: it detects which one you use and installs the matching style.
+
 ## Requirements
 
-- React 19 or newer for the React components.
-- Tailwind CSS v4 if you want Tailwind utilities. The plain CSS works without it.
+- React 19 and TypeScript.
+- An import alias in `tsconfig.json` (Vite keeps it in `tsconfig.app.json`):
 
-## Install the packages
-
-```bash
-pnpm add @component-library/ui @component-library/styles @component-library/tokens
+```json
+{
+  "compilerOptions": {
+    "paths": { "@/*": ["./src/*"] }
+  }
+}
 ```
 
-`ui` holds the React components. `styles` and `tokens` hold the CSS, so on a site without React you only need those two.
+With Vite, add the same alias to `vite.config.ts` under `resolve.alias`.
 
-## Set up the styles
+## Set up your project
 
-### With Tailwind
+Run `init` in your project's folder:
 
-Import the Tailwind entry at the top of your main stylesheet. It brings in Tailwind, the theme and every component's styles:
+<CliCommand args="init" />
+
+It reads your project to decide where things go: the framework, whether Tailwind v4 is installed, your main stylesheet, your import alias and your package manager. Then it writes `cl.json`, a `cn()` helper and the theme, and adds one line to your stylesheet.
+
+<StyleTabs>
+<StyleTab value="tailwind">
+
+**With Tailwind v4.** Components use Tailwind classes, exactly like shadcn/ui.
+
+```text
+src/
+├── lib/cl-utils.ts       cn(): clsx + tailwind-merge
+└── styles/
+    ├── cl.css            imports the files below
+    ├── cl-tokens.css     theme variables (--primary, --border, ...)
+    ├── cl-variants.css   data-open:, data-checked: and other variants
+    └── cl-theme.css      maps the variables to Tailwind and sets the base layer
+```
+
+Your stylesheet gets one import, after `@import "tailwindcss"`:
 
 ```css
-@import "@component-library/styles/tailwind.css";
+@import "tailwindcss";
+@import "../styles/cl.css";
 ```
 
-Then point Tailwind at the components so it generates the classes they use:
+</StyleTab>
+<StyleTab value="css">
+
+**Without Tailwind.** Components use readable class names (`cl-button`, `cl-button--outline`) and each one comes with its own CSS file. The CSS is generated from the Tailwind version, so both look identical.
+
+```text
+src/
+├── lib/cl-utils.ts       cn(): clsx
+└── styles/
+    ├── cl.css            imports the files below, plus each component's CSS
+    ├── cl-tokens.css     theme variables (--cl-primary, --cl-border, ...)
+    └── cl-base.css       a reset that only touches Cladux elements
+```
+
+Your stylesheet gets one import at the top:
 
 ```css
-@source "../node_modules/@component-library/ui/src";
+@import "../styles/cl.css";
 ```
 
-### Without Tailwind
+</StyleTab>
+</StyleTabs>
 
-Import the plain CSS entry instead. This gives you the theme, a base reset and the CSS-only `cl-*` components:
+Pass `--yes` to accept the defaults without questions, or `--style tailwind` / `--style css` to pick the style yourself.
+
+## Add components
+
+Add components by name. Anything they depend on comes with them:
+
+<CliCommand args="add button card dialog" />
+
+Run `add` with no names to pick from a list, or `add --all` for everything. Files you already have are left alone unless you pass `--overwrite`, which only replaces the components you named, never their dependencies.
+
+Then import them through your alias:
+
+```tsx
+import { Button } from "@/components/cl/button";
+
+export default function Page() {
+  return <Button>Click me</Button>;
+}
+```
+
+## cl.json
+
+`init` writes this file; `add` reads it. It sits next to shadcn's `components.json` without touching it.
+
+```json
+{
+  "style": "tailwind",
+  "tsx": true,
+  "framework": "next",
+  "registry": "https://your-site.com/r",
+  "css": {
+    "globals": "src/app/globals.css",
+    "dir": "src/styles",
+    "entry": "src/styles/cl.css",
+    "tokens": true
+  },
+  "aliases": {
+    "components": "@/components/cl",
+    "hooks": "@/hooks",
+    "lib": "@/lib",
+    "utils": "@/lib/cl-utils"
+  }
+}
+```
+
+| Field         | What it does                                                                 |
+| ------------- | ---------------------------------------------------------------------------- |
+| `style`       | `tailwind` or `css`: which version of each component `add` installs.         |
+| `css.globals` | The stylesheet your app loads. `init` adds one import to it.                 |
+| `css.dir`     | Where the CSS files go.                                                      |
+| `css.entry`   | The one file your stylesheet imports. `add` appends component CSS here.      |
+| `css.tokens`  | `false` when your project already defines the theme variables (e.g. shadcn). |
+| `aliases`     | Where components, hooks and helpers go. Imports in added files use these.    |
+
+## Theming
+
+Colors and the radius are CSS variables. Change them in your own stylesheet, after the import:
+
+<StyleTabs>
+<StyleTab value="tailwind">
+
+The Tailwind style uses the same names as shadcn/ui, so existing shadcn themes work as they are.
 
 ```css
-@import "@component-library/styles";
+:root {
+  --primary: oklch(0.55 0.22 263);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --primary: oklch(0.7 0.16 263);
+}
 ```
 
-## CSS-only components
+</StyleTab>
+<StyleTab value="css">
 
-Most `cl-*` components are pure CSS. Dialog, Popover, Dropdown Menu, Tooltip, Tabs and Toast also need a small script (about 9 KB) that opens, positions and switches them. It has no dependencies.
+The CSS style prefixes every variable with `cl-`, so it can't clash with variables your site already has (`--border` and `--accent` are common).
 
-On a plain HTML page, load it once:
+```css
+:root {
+  --cl-primary: oklch(0.55 0.22 263);
+  --cl-radius: 0.5rem;
+}
 
-```html
-<script src="/node_modules/@component-library/utils/dist/cl.js" defer></script>
+.dark {
+  --cl-primary: oklch(0.7 0.16 263);
+}
 ```
 
-With a bundler, import it instead:
+To restyle one component, write CSS for its class. Your rules win over the component's when they come later:
 
-```ts
-import { start } from "@component-library/utils/dom";
-
-start();
+```css
+.cl-button--outline {
+  border-width: 2px;
+}
 ```
+
+</StyleTab>
+</StyleTabs>
+
+The variables: `background`, `foreground`, `card`, `popover`, `primary`, `secondary`, `muted`, `accent` (each with a `-foreground` pair), `destructive`, `border`, `input`, `ring`, `chart-1` to `chart-5`, the `sidebar-*` set and `radius`.
 
 ## Dark mode
 
@@ -79,7 +197,8 @@ Two components need something added once, near the root of your app:
 - **Toast** needs a `<Toaster />` somewhere on the page.
 
 ```tsx
-import { Toaster, TooltipProvider } from "@component-library/ui";
+import { Toaster } from "@/components/cl/sonner";
+import { TooltipProvider } from "@/components/cl/tooltip";
 
 <TooltipProvider>
   {children}
@@ -87,12 +206,10 @@ import { Toaster, TooltipProvider } from "@component-library/ui";
 </TooltipProvider>;
 ```
 
-## Use a component
+## Using it alongside shadcn/ui
 
-```tsx
-import { Button } from "@component-library/ui";
+Both can live in one project. The CLI keeps to its own config (`cl.json`) and folder (`components/cl`). With the Tailwind style, it reuses the theme variables shadcn already set up instead of adding its own.
 
-export default function Page() {
-  return <Button>Click me</Button>;
-}
-```
+## Plain HTML
+
+On a site without React, the CSS-only `cl-*` components work with plain HTML. Dialog, Popover, Dropdown Menu, Tooltip, Tabs and Toast also need a small script (about 10 KB, no dependencies) that opens, positions and switches them. Each component's page shows the HTML version next to the React one.

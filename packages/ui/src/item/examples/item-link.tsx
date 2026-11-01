@@ -1,5 +1,5 @@
 import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
-import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@component-library/ui";
+import { Item, ItemActions, ItemContent, ItemDescription, ItemTitle } from "@cladux/ui";
 
 export function ItemLink() {
   return (

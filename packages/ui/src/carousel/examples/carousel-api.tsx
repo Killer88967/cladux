@@ -10,7 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
   type CarouselApi,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function CarouselDApiDemo() {
   const [api, setApi] = React.useState<CarouselApi>();

@@ -1,4 +1,4 @@
-import { Button, Kbd, Tooltip, TooltipContent, TooltipTrigger } from "@component-library/ui";
+import { Button, Kbd, Tooltip, TooltipContent, TooltipTrigger } from "@cladux/ui";
 
 export default function TooltipDemo() {
   return (

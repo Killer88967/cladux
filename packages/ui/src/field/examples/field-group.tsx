@@ -6,7 +6,7 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldSet,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function FieldGroupExample() {
   return (

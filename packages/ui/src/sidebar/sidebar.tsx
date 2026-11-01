@@ -5,7 +5,7 @@
 import { PanelLeftIcon } from "lucide-react";
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { Slot } from "radix-ui";
 
 import { useIsMobile } from "../hooks/use-mobile";

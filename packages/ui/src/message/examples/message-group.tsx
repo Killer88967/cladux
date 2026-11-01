@@ -8,7 +8,7 @@ import {
   MessageAvatar,
   MessageContent,
   MessageGroup,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MessageGroupDemo() {
   return (

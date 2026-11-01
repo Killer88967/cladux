@@ -58,7 +58,7 @@ import {
   SidebarRail,
   SidebarTrigger,
   useSidebar,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 // This is sample data.
 const data = {

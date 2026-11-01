@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { es } from "react-day-picker/locale";
-import { Calendar, Card, CardContent } from "@component-library/ui";
+import { Calendar, Card, CardContent } from "@cladux/ui";
 
 export function CalendarBookedDates() {
   const [date, setDate] = React.useState<Date | undefined>(

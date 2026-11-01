@@ -57,7 +57,7 @@ markdown.
 ## Usage
 
 ```tsx
-import { Message } from "@component-library/ui";
+import { Message } from "@cladux/ui";
 import {
   MessageScroller,
   MessageScrollerButton,
@@ -65,7 +65,7 @@ import {
   MessageScrollerItem,
   MessageScrollerProvider,
   MessageScrollerViewport,
-} from "@component-library/ui";
+} from "@cladux/ui";
 ```
 
 ```tsx
@@ -329,7 +329,7 @@ in any component inside the provider, including controls rendered outside the
 `MessageScroller` frame.
 
 ```tsx
-import { useMessageScroller } from "@component-library/ui";
+import { useMessageScroller } from "@cladux/ui";
 ```
 
 ```tsx
@@ -352,7 +352,7 @@ conversation. A common example is a table-of-contents or a jump menu that
 highlights the current anchored turn.
 
 ```tsx
-import { useMessageScrollerVisibility } from "@component-library/ui";
+import { useMessageScrollerVisibility } from "@cladux/ui";
 ```
 
 ```tsx
@@ -376,7 +376,7 @@ edges the viewport can still scroll toward; "at the start/end" is the negation
 scroller itself, prefer the `data-scrollable` attribute.
 
 ```tsx
-import { useMessageScrollerScrollable } from "@component-library/ui";
+import { useMessageScrollerScrollable } from "@cladux/ui";
 ```
 
 ```tsx

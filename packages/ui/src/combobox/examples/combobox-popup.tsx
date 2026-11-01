@@ -10,7 +10,7 @@ import {
   ComboboxList,
   ComboboxTrigger,
   ComboboxValue,
-} from "@component-library/ui";
+} from "@cladux/ui";
 const countries = [
   { code: "", value: "", continent: "", label: "Select country" },
   {

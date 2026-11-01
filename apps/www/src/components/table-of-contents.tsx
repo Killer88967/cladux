@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 interface Heading {
   id: string;

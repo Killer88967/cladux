@@ -15,7 +15,7 @@ import {
   CommandList,
   CommandSeparator,
   CommandShortcut,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function CommandDemo() {
   return (

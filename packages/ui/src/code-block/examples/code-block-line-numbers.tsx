@@ -1,4 +1,4 @@
-import { CodeBlock, CodeBlockContent } from "@component-library/ui";
+import { CodeBlock, CodeBlockContent } from "@cladux/ui";
 
 const code = `{
   "name": "chat",

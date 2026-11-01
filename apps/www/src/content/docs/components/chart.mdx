@@ -20,7 +20,7 @@ We designed the `chart` component with composition in mind. **You build your cha
 ```tsx
 import { Bar, BarChart } from "recharts";
 
-import { ChartContainer, ChartTooltipContent } from "@component-library/ui";
+import { ChartContainer, ChartTooltipContent } from "@cladux/ui";
 
 export function MyChart() {
   return (
@@ -73,7 +73,7 @@ const chartData = [
 The chart config holds configuration for the chart. This is where you place human-readable strings, such as labels, icons and color tokens for theming.
 
 ```tsx
-import { type ChartConfig } from "@component-library/ui";
+import { type ChartConfig } from "@cladux/ui";
 
 const chartConfig = {
   desktop: {
@@ -159,7 +159,7 @@ To add a tooltip, we'll use the custom `ChartTooltip` and `ChartTooltipContent` 
 **Import the `ChartTooltip` and `ChartTooltipContent` components.**
 
 ```tsx
-import { ChartTooltip, ChartTooltipContent } from "@component-library/ui";
+import { ChartTooltip, ChartTooltipContent } from "@cladux/ui";
 ```
 
 **Add the components to your chart.**
@@ -193,7 +193,7 @@ We'll do the same for the legend. We'll use the `ChartLegend` and `ChartLegendCo
 **Import the `ChartLegend` and `ChartLegendContent` components.**
 
 ```tsx
-import { ChartLegend, ChartLegendContent } from "@component-library/ui";
+import { ChartLegend, ChartLegendContent } from "@cladux/ui";
 ```
 
 **Add the components to your chart.**
@@ -236,7 +236,7 @@ This allows you to share config and color tokens between charts. It can also wor
 ```tsx
 import { Monitor } from "lucide-react";
 
-import { type ChartConfig } from "@component-library/ui";
+import { type ChartConfig } from "@cladux/ui";
 
 const chartConfig = {
   desktop: {
@@ -353,7 +353,7 @@ Use `labelKey` and `nameKey` to use a custom key for the tooltip label and name.
 Chart comes with the `<ChartTooltip>` and `<ChartTooltipContent>` components. You can use these two components to add custom tooltips to your chart.
 
 ```tsx
-import { ChartTooltip, ChartTooltipContent } from "@component-library/ui";
+import { ChartTooltip, ChartTooltipContent } from "@cladux/ui";
 ```
 
 ```tsx
@@ -412,7 +412,7 @@ This will use `Total Visitors` for label and `Chrome` and `Safari` for the toolt
 You can use the custom `<ChartLegend>` and `<ChartLegendContent>` components to add a legend to your chart.
 
 ```tsx
-import { ChartLegend, ChartLegendContent } from "@component-library/ui";
+import { ChartLegend, ChartLegendContent } from "@cladux/ui";
 ```
 
 ```tsx

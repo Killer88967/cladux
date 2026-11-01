@@ -1,5 +1,5 @@
 import { SearchIcon } from "lucide-react";
-import { Button, ButtonGroup, Input } from "@component-library/ui";
+import { Button, ButtonGroup, Input } from "@cladux/ui";
 
 export default function ButtonGroupInput() {
   return (

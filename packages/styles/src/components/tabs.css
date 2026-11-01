@@ -1,6 +1,6 @@
 /*
  * CSS-only Tabs. Matches the shadcn/ui Tabs (MIT, "nova" style).
- * The runtime (@component-library/utils/cl.js) switches panels on click and
+ * The runtime (@cladux/utils/cl.js) switches panels on click and
  * with the arrow keys.
  *
  * <div class="cl-tabs">

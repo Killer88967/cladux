@@ -10,7 +10,7 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function BubblePopoverDemo() {
   return (

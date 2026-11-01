@@ -2,8 +2,8 @@
 
 import { CheckIcon, CopyIcon } from "lucide-react";
 import * as React from "react";
-import { Button } from "@component-library/ui";
-import { cn } from "@component-library/utils";
+import { Button } from "@cladux/ui";
+import { cn } from "@cladux/utils";
 
 interface CopyButtonProps extends Omit<React.ComponentProps<typeof Button>, "value"> {
   /** Text to copy, or a function that returns it when clicked. */

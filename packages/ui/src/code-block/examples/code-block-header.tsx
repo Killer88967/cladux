@@ -6,7 +6,7 @@ import {
   CodeBlockCopyButton,
   CodeBlockHeader,
   CodeBlockTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const command = "pnpm add ai @ai-sdk/react zod";
 

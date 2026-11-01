@@ -10,7 +10,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function CarouselPlugin() {
   const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));

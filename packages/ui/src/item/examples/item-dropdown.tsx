@@ -16,7 +16,7 @@ import {
   ItemDescription,
   ItemMedia,
   ItemTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const people = [
   {

@@ -1,4 +1,4 @@
-import { Field, FieldLabel, RadioGroup, RadioGroupItem } from "@component-library/ui";
+import { Field, FieldLabel, RadioGroup, RadioGroupItem } from "@cladux/ui";
 
 export function RadioGroupDisabled() {
   return (

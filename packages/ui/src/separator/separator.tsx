@@ -3,7 +3,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/separator
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { Separator as SeparatorPrimitive } from "radix-ui";
 
 function Separator({

@@ -16,7 +16,7 @@ import {
   FieldGroup,
   FieldLabel,
   Input,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function CollapsibleSettings() {
   const [isOpen, setIsOpen] = React.useState(false);

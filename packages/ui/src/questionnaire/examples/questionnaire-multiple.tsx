@@ -12,7 +12,7 @@ import {
   QuestionnaireItem,
   QuestionnaireSubmit,
   QuestionnaireTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const items = [
   {

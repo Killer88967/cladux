@@ -1,9 +1,4 @@
-import {
-  CodeBlock,
-  CodeBlockActions,
-  CodeBlockContent,
-  CodeBlockCopyButton,
-} from "@component-library/ui";
+import { CodeBlock, CodeBlockActions, CodeBlockContent, CodeBlockCopyButton } from "@cladux/ui";
 
 const output = `$ pnpm add ai @ai-sdk/react zod
 Progress: resolved 412, reused 398, downloaded 14, added 14, done

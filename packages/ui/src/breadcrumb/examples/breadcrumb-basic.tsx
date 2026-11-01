@@ -5,7 +5,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function BreadcrumbBasic() {
   return (

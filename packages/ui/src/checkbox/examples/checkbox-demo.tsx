@@ -1,4 +1,4 @@
-import { Checkbox, Label } from "@component-library/ui";
+import { Checkbox, Label } from "@cladux/ui";
 
 export default function CheckboxDemo() {
   return (

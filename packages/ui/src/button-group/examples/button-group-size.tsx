@@ -1,5 +1,5 @@
 import { PlusIcon } from "lucide-react";
-import { Button, ButtonGroup } from "@component-library/ui";
+import { Button, ButtonGroup } from "@cladux/ui";
 
 export default function ButtonGroupSize() {
   return (

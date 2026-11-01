@@ -8,7 +8,7 @@ export const metadata = {
 ## Usage
 
 ```tsx
-import { Calendar } from "@component-library/ui";
+import { Calendar } from "@cladux/ui";
 ```
 
 ```tsx
@@ -18,6 +18,31 @@ return <Calendar mode="single" selected={date} onSelect={setDate} className="rou
 ```
 
 See the [React DayPicker](https://react-day-picker.js.org) documentation for more information.
+
+## Next.js and Cache Components
+
+New Next.js apps turn on `cacheComponents`. In that mode, Next.js won't prerender a component that reads today's date, and the calendar does (to show the current month). Render it per request inside `Suspense`:
+
+```tsx
+import { connection } from "next/server";
+import { Suspense } from "react";
+import { Calendar } from "@/components/cl/calendar";
+
+export default function Page() {
+  return (
+    <Suspense>
+      <TodayCalendar />
+    </Suspense>
+  );
+}
+
+async function TodayCalendar() {
+  await connection();
+  return <Calendar mode="single" />;
+}
+```
+
+The same goes for the date picker. Inside a client component that's already rendered per request, no change is needed.
 
 ## About
 

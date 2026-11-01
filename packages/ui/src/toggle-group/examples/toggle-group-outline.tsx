@@ -1,4 +1,4 @@
-import { ToggleGroup, ToggleGroupItem } from "@component-library/ui";
+import { ToggleGroup, ToggleGroupItem } from "@cladux/ui";
 
 export function ToggleGroupOutline() {
   return (

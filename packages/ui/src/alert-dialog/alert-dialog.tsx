@@ -3,7 +3,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/alert-dialog
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { AlertDialog as AlertDialogPrimitive } from "radix-ui";
 
 import { Button } from "../button/button";

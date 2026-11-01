@@ -5,7 +5,7 @@ import {
   FieldLabel,
   RadioGroup,
   RadioGroupItem,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function RadioGroupDescription() {
   return (

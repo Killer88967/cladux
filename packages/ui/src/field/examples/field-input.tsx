@@ -1,11 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldGroup,
-  FieldLabel,
-  FieldSet,
-  Input,
-} from "@component-library/ui";
+import { Field, FieldDescription, FieldGroup, FieldLabel, FieldSet, Input } from "@cladux/ui";
 
 export default function FieldInput() {
   return (

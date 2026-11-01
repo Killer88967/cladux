@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { tokens } from "@component-library/tokens";
-import { Button } from "@component-library/ui";
+import { tokens } from "@cladux/tokens";
+import { Button } from "@cladux/ui";
 
 const colors = Object.keys(tokens.themes.neutral.light);
 
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="cl-container py-16">
       <section className="flex flex-col items-start gap-4 py-12">
-        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Component Library</h1>
+        <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">Cladux</h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
           Components, CSS and TypeScript utilities for building websites. Built on shadcn/ui, with
           more on top.

@@ -1,4 +1,4 @@
-import { CodeBlock, CodeBlockContent, CodeBlockLine } from "@component-library/ui";
+import { CodeBlock, CodeBlockContent, CodeBlockLine } from "@cladux/ui";
 
 const code = `export default {
   experimental: {

@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const DRAWER_SIDES = ["top", "right", "bottom", "left"] as const;
 

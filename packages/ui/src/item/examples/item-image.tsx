@@ -1,12 +1,5 @@
 import Image from "next/image";
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemMedia,
-  ItemTitle,
-} from "@component-library/ui";
+import { Item, ItemContent, ItemDescription, ItemGroup, ItemMedia, ItemTitle } from "@cladux/ui";
 
 const music = [
   {

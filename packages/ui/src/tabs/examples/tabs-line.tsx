@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@component-library/ui";
+import { Tabs, TabsList, TabsTrigger } from "@cladux/ui";
 
 export default function TabsLine() {
   return (

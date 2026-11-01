@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@component-library/ui";
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from "@cladux/ui";
 
 export function AvatarGroupExample() {
   return (

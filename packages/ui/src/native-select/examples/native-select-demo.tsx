@@ -1,4 +1,4 @@
-import { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from "@component-library/ui";
+import { NativeSelect, NativeSelectOptGroup, NativeSelectOption } from "@cladux/ui";
 
 export default function NativeSelectDemo() {
   return (

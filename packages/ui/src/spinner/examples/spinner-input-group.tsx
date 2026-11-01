@@ -6,7 +6,7 @@ import {
   InputGroupInput,
   InputGroupTextarea,
   Spinner,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function SpinnerInputGroup() {
   return (

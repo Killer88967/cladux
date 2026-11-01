@@ -12,7 +12,7 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function BreadcrumbDropdown() {
   return (

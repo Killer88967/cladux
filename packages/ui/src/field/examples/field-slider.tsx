@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Field, FieldDescription, FieldTitle, Slider } from "@component-library/ui";
+import { Field, FieldDescription, FieldTitle, Slider } from "@cladux/ui";
 
 export default function FieldSlider() {
   const [value, setValue] = React.useState([200, 800]);

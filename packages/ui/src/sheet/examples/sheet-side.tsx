@@ -8,7 +8,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
 

@@ -7,7 +7,7 @@ import {
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function ContextMenuGroups() {
   return (

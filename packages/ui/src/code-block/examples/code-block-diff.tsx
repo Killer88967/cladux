@@ -6,7 +6,7 @@ import {
   CodeBlockHeader,
   CodeBlockLine,
   CodeBlockTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const patch = ` export function Greeting({ name }: { name: string }) {
 -  return <p>Hello, {name}</p>

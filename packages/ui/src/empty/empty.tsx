@@ -1,7 +1,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/empty
 import type * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 function Empty({ className, ...props }: React.ComponentProps<"div">) {
   return (

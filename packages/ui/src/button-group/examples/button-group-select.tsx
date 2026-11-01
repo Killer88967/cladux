@@ -11,7 +11,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const CURRENCIES = [
   {

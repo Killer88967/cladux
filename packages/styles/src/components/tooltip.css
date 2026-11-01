@@ -1,7 +1,7 @@
 /*
  * CSS-only Tooltip. Matches the shadcn/ui Tooltip (MIT, "nova" style).
  * Point a control at it with aria-describedby. The runtime
- * (@component-library/utils/cl.js) shows it on hover and keyboard focus.
+ * (@cladux/utils/cl.js) shows it on hover and keyboard focus.
  *
  * <button class="cl-button" data-variant="outline" aria-describedby="tip">Hover</button>
  * <div class="cl-tooltip" id="tip" role="tooltip" popover="manual">Add to library</div>

@@ -4,7 +4,7 @@
 
 import * as React from "react";
 import { type VariantProps } from "class-variance-authority";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { ToggleGroup as ToggleGroupPrimitive } from "radix-ui";
 
 import { toggleVariants } from "../toggle/toggle";

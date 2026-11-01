@@ -1,5 +1,5 @@
 import { GitBranchIcon } from "lucide-react";
-import { Trace, TraceIcon, TraceLine, TraceTitle } from "@component-library/ui";
+import { Trace, TraceIcon, TraceLine, TraceTitle } from "@cladux/ui";
 
 export function TraceStatic() {
   return (

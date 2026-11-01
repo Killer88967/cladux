@@ -10,7 +10,7 @@ import {
   useMessageScrollerScrollable,
   useMessageScrollerVisibility,
 } from "@shadcn/react/message-scroller";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 import { Button } from "../button/button";
 

@@ -1,4 +1,4 @@
-import { Button, Spinner } from "@component-library/ui";
+import { Button, Spinner } from "@cladux/ui";
 
 export function SpinnerButton() {
   return (

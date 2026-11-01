@@ -4,7 +4,7 @@
 
 import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { DayPicker, getDefaultClassNames, type DayButton, type Locale } from "react-day-picker";
 
 import { Button, buttonVariants } from "../button/button";

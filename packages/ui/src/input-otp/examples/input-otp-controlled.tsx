@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@component-library/ui";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@cladux/ui";
 
 export default function InputOTPControlled() {
   const [value, setValue] = React.useState("");

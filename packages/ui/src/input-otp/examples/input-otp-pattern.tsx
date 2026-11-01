@@ -1,7 +1,7 @@
 "use client";
 
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { Field, FieldLabel, InputOTP, InputOTPGroup, InputOTPSlot } from "@component-library/ui";
+import { Field, FieldLabel, InputOTP, InputOTPGroup, InputOTPSlot } from "@cladux/ui";
 
 export function InputOTPPattern() {
   return (

@@ -15,7 +15,7 @@ import {
   QuestionnaireProgress,
   QuestionnaireSubmit,
   QuestionnaireTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function QuestionnaireConditional() {
   const [runtime, setRuntime] = React.useState("local");

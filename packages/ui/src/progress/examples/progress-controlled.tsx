@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Progress, Slider } from "@component-library/ui";
+import { Progress, Slider } from "@cladux/ui";
 
 export function ProgressControlled() {
   const [value, setValue] = React.useState([50]);

@@ -179,14 +179,7 @@ Next, we'll create a `<DataTable />` component to render our table.
 
 import { useTable, type ColumnDef, type RowData } from "@tanstack/react-table";
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@component-library/ui";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@cladux/ui";
 
 import { features, type DataTableFeatures } from "./data-table-features";
 
@@ -322,7 +315,7 @@ Update our columns definition to add a new `actions` column. The `actions` cell 
 import { createColumnHelper } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
 
-import { Button } from "@component-library/ui";
+import { Button } from "@cladux/ui";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -330,7 +323,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export const columns = columnHelper.columns([
   // ...
@@ -379,7 +372,7 @@ Because our features object includes `rowPaginationFeature` and `createPaginated
 We can add pagination controls to our table using the `<Button />` component and the `table.previousPage()`, `table.nextPage()` API methods.
 
 ```tsx
-import { Button } from "@component-library/ui"
+import { Button } from "@cladux/ui"
 
 export function DataTable<TData extends RowData>({
   columns,
@@ -517,8 +510,8 @@ import {
   type SortingState,
 } from "@tanstack/react-table"
 
-import { Button } from "@component-library/ui"
-import { Input } from "@component-library/ui"
+import { Button } from "@cladux/ui"
+import { Input } from "@cladux/ui"
 
 export function DataTable<TData extends RowData>({
   columns,
@@ -582,13 +575,13 @@ import {
   type SortingState,
 } from "@tanstack/react-table"
 
-import { Button } from "@component-library/ui"
+import { Button } from "@cladux/ui"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "@component-library/ui"
+} from "@cladux/ui"
 
 export function DataTable<TData extends RowData>({
   columns,
@@ -676,8 +669,8 @@ Next, we're going to add row selection to our table.
 
 import { createColumnHelper } from "@tanstack/react-table";
 
-import { Badge } from "@component-library/ui";
-import { Checkbox } from "@component-library/ui";
+import { Badge } from "@cladux/ui";
+import { Checkbox } from "@cladux/ui";
 
 export const columns = columnHelper.columns([
   columnHelper.display({

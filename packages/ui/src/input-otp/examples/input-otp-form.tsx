@@ -14,7 +14,7 @@ import {
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function InputOTPForm() {
   return (

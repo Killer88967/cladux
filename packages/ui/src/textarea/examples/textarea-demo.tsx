@@ -1,4 +1,4 @@
-import { Label, Textarea } from "@component-library/ui";
+import { Label, Textarea } from "@cladux/ui";
 
 export default function TextareaDemo() {
   return (

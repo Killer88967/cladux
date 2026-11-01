@@ -1,4 +1,4 @@
-import { Item, ItemContent, ItemMedia, ItemTitle, Spinner } from "@component-library/ui";
+import { Item, ItemContent, ItemMedia, ItemTitle, Spinner } from "@cladux/ui";
 
 export function SpinnerDemo() {
   return (

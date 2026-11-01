@@ -1,5 +1,5 @@
 import { BoldIcon, ItalicIcon } from "lucide-react";
-import { Toggle } from "@component-library/ui";
+import { Toggle } from "@cladux/ui";
 
 export function ToggleOutline() {
   return (

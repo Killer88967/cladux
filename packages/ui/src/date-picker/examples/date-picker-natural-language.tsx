@@ -14,7 +14,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 function formatDate(date: Date | undefined) {
   if (!date) {

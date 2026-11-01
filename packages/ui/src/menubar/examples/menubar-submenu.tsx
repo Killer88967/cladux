@@ -9,7 +9,7 @@ import {
   MenubarSubContent,
   MenubarSubTrigger,
   MenubarTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MenubarSubmenu() {
   return (

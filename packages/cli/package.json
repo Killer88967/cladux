@@ -1,10 +1,10 @@
 {
-  "name": "@component-library/cli",
+  "name": "cladux",
   "version": "0.0.0",
-  "description": "Add Component Library components to your project.",
+  "description": "Add Cladux components to your project.",
   "type": "module",
   "bin": {
-    "cl": "./dist/index.js"
+    "cladux": "./dist/index.js"
   },
   "files": [
     "dist"

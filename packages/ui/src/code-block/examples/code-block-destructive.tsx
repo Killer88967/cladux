@@ -5,7 +5,7 @@ import {
   CodeBlockCopyButton,
   CodeBlockHeader,
   CodeBlockTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const error = `TypeError: Cannot read properties of undefined (reading 'map')
     at MessageList (components/message-list.tsx:18:22)

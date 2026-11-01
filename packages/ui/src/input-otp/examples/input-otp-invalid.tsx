@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@component-library/ui";
+import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@cladux/ui";
 
 export function InputOTPInvalid() {
   const [value, setValue] = React.useState("000000");

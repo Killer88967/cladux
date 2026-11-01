@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 export function ChartTooltipDemo() {
   return (

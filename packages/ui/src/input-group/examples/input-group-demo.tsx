@@ -6,7 +6,7 @@ import {
   InputGroupInput,
   InputGroupText,
   InputGroupTextarea,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function InputGroupDemo() {
   return (

@@ -1,5 +1,5 @@
 import { GitBranchIcon, SearchIcon } from "lucide-react";
-import { Marker, MarkerContent, MarkerIcon, Spinner } from "@component-library/ui";
+import { Marker, MarkerContent, MarkerIcon, Spinner } from "@cladux/ui";
 
 export function MarkerDemo() {
   return (

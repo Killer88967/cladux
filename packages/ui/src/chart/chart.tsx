@@ -3,7 +3,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/chart
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import * as RechartsPrimitive from "recharts";
 import type { TooltipValueType } from "recharts";
 

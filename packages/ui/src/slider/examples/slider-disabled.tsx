@@ -1,4 +1,4 @@
-import { Slider } from "@component-library/ui";
+import { Slider } from "@cladux/ui";
 
 export function SliderDisabled() {
   return (

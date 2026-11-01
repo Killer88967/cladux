@@ -12,7 +12,7 @@ import {
   MessageAvatar,
   MessageContent,
   MessageFooter,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MessageDemo() {
   return (

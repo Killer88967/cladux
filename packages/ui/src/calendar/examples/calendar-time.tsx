@@ -13,7 +13,7 @@ import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function CalendarWithTime() {
   const [date, setDate] = React.useState<Date | undefined>(

@@ -4,7 +4,7 @@
 
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 import { Button } from "../button/button";
 import { Input } from "../input/input";

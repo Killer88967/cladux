@@ -13,7 +13,7 @@ import {
   BubbleContent,
   Message,
   MessageContent,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MessageAttachmentDemo() {
   return (

@@ -12,7 +12,7 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function ButtonGroupInputGroup() {
   const [voiceEnabled, setVoiceEnabled] = React.useState(false);

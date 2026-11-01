@@ -8,7 +8,7 @@ import {
   FieldLegend,
   FieldSet,
   Input,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function FieldResponsive() {
   return (

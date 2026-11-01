@@ -1,4 +1,4 @@
-import { Field, FieldLabel, Progress } from "@component-library/ui";
+import { Field, FieldLabel, Progress } from "@cladux/ui";
 
 export function ProgressWithLabel() {
   return (

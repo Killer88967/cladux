@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollArea, Separator } from "@component-library/ui";
+import { ScrollArea, Separator } from "@cladux/ui";
 
 const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
 

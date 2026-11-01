@@ -12,7 +12,7 @@ import {
   PopoverTitle,
   PopoverTrigger,
   Textarea,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function ButtonGroupPopover() {
   return (

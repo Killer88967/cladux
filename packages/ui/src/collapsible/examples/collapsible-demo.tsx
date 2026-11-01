@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { ChevronsUpDown } from "lucide-react";
-import { Button, Collapsible, CollapsibleContent, CollapsibleTrigger } from "@component-library/ui";
+import { Button, Collapsible, CollapsibleContent, CollapsibleTrigger } from "@cladux/ui";
 
 export default function CollapsibleDemo() {
   const [isOpen, setIsOpen] = React.useState(false);

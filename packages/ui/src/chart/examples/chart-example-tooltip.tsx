@@ -1,12 +1,7 @@
 "use client";
 
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-  type ChartConfig,
-} from "@component-library/ui";
+import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@cladux/ui";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },

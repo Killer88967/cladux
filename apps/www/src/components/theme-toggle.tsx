@@ -2,7 +2,7 @@
 
 import { MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { Button } from "@component-library/ui";
+import { Button } from "@cladux/ui";
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();

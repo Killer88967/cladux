@@ -4,7 +4,7 @@
 
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { Menubar as MenubarPrimitive } from "radix-ui";
 
 function Menubar({ className, ...props }: React.ComponentProps<typeof MenubarPrimitive.Root>) {

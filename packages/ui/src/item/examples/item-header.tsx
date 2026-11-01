@@ -1,12 +1,5 @@
 import Image from "next/image";
-import {
-  Item,
-  ItemContent,
-  ItemDescription,
-  ItemGroup,
-  ItemHeader,
-  ItemTitle,
-} from "@component-library/ui";
+import { Item, ItemContent, ItemDescription, ItemGroup, ItemHeader, ItemTitle } from "@cladux/ui";
 
 const models = [
   {

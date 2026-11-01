@@ -19,7 +19,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function ButtonGroupDropdown() {
   return (

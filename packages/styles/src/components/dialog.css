@@ -2,7 +2,7 @@
  * CSS-only Dialog. Matches the shadcn/ui Dialog (MIT, "nova" style).
  * Uses the native <dialog> element. Open it with a button that has
  * data-dialog-open="<dialog id>", close it with any [data-dialog-close] inside.
- * The small runtime (@component-library/utils/cl.js) wires those up.
+ * The small runtime (@cladux/utils/cl.js) wires those up.
  *
  * <button class="cl-button" data-variant="outline" data-dialog-open="edit">Edit</button>
  * <dialog class="cl-dialog" id="edit">

@@ -4,7 +4,7 @@
 
 import { MinusIcon } from "lucide-react";
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { OTPInput, OTPInputContext } from "input-otp";
 
 function InputOTP({

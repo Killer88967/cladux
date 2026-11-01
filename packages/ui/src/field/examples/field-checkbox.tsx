@@ -8,7 +8,7 @@ import {
   FieldLegend,
   FieldSeparator,
   FieldSet,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function FieldCheckbox() {
   return (

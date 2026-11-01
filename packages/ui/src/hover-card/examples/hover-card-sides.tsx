@@ -1,4 +1,4 @@
-import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from "@component-library/ui";
+import { Button, HoverCard, HoverCardContent, HoverCardTrigger } from "@cladux/ui";
 
 const HOVER_CARD_SIDES = ["left", "top", "bottom", "right"] as const;
 

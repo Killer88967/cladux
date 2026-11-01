@@ -6,7 +6,7 @@ import {
   FieldSet,
   RadioGroup,
   RadioGroupItem,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function RadioGroupFieldset() {
   return (

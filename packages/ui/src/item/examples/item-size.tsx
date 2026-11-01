@@ -1,5 +1,5 @@
 import { InboxIcon } from "lucide-react";
-import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@component-library/ui";
+import { Item, ItemContent, ItemDescription, ItemMedia, ItemTitle } from "@cladux/ui";
 
 export function ItemSizeDemo() {
   return (

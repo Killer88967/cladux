@@ -1,6 +1,6 @@
 import * as React from "react";
 import Image from "next/image";
-import { ScrollArea, ScrollBar } from "@component-library/ui";
+import { ScrollArea, ScrollBar } from "@cladux/ui";
 
 export interface Artwork {
   artist: string;

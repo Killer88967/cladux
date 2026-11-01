@@ -1,6 +1,6 @@
 /*
  * CSS-only Toast. Matches the shadcn/ui Toast (Sonner, MIT, "nova" style).
- * Toasts are created by the runtime (@component-library/utils/cl.js):
+ * Toasts are created by the runtime (@cladux/utils/cl.js):
  *
  *   cl.toast("Event has been created", { description: "Sunday at 9:00 AM" });
  *

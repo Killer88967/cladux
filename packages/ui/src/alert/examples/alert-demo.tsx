@@ -1,5 +1,5 @@
 import { CheckCircle2Icon, InfoIcon } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "@component-library/ui";
+import { Alert, AlertDescription, AlertTitle } from "@cladux/ui";
 
 export default function AlertDemo() {
   return (

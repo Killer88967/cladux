@@ -1,4 +1,4 @@
-import { Input } from "@component-library/ui";
+import { Input } from "@cladux/ui";
 
 export default function InputStates() {
   return (

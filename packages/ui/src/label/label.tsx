@@ -3,7 +3,7 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/label
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { Label as LabelPrimitive } from "radix-ui";
 
 function Label({ className, ...props }: React.ComponentProps<typeof LabelPrimitive.Root>) {

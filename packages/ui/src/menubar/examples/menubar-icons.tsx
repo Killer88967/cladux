@@ -15,7 +15,7 @@ import {
   MenubarSeparator,
   MenubarShortcut,
   MenubarTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function MenubarIcons() {
   return (

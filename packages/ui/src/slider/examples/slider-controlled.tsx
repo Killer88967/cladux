@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Label, Slider } from "@component-library/ui";
+import { Label, Slider } from "@cladux/ui";
 
 export function SliderControlled() {
   const [value, setValue] = React.useState([0.3, 0.7]);

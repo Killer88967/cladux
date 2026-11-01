@@ -1,4 +1,4 @@
-import { Label, RadioGroup, RadioGroupItem } from "@component-library/ui";
+import { Label, RadioGroup, RadioGroupItem } from "@cladux/ui";
 
 export function RadioGroupDemo() {
   return (

@@ -10,7 +10,7 @@ import {
   DialogTrigger,
   Input,
   Label,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function DialogDemo() {
   return (

@@ -9,7 +9,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
   Kbd,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export default function EmptyInputGroup() {
   return (

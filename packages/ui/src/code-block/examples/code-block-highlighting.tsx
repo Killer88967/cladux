@@ -7,7 +7,7 @@ import {
   CodeBlockHeader,
   CodeBlockLine,
   CodeBlockTitle,
-} from "@component-library/ui";
+} from "@cladux/ui";
 const code = `{
   "location": "San Francisco",
   "temperature": 18,

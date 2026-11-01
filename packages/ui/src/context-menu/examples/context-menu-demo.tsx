@@ -13,7 +13,7 @@ import {
   ContextMenuSubContent,
   ContextMenuSubTrigger,
   ContextMenuTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function ContextMenuDemo() {
   return (

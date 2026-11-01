@@ -1,4 +1,4 @@
-import { Input, Label } from "@component-library/ui";
+import { Input, Label } from "@cladux/ui";
 
 export default function LabelDemo() {
   return (

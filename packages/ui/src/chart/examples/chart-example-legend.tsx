@@ -8,7 +8,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },

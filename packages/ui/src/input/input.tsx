@@ -1,6 +1,6 @@
 // Based on shadcn/ui (MIT), "nova" style - https://ui.shadcn.com/docs/components/input
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (

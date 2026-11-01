@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@component-library/ui";
+} from "@cladux/ui";
 
 export function AttachmentTriggerDemo() {
   return (

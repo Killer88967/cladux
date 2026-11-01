@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { cn } from "@component-library/utils";
+import { cn } from "@cladux/utils";
 import { CopyButton } from "@/components/copy-button";
 
 /** Replaces MDX's <pre>: same markup, plus a copy button in the corner. */
