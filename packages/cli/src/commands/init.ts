@@ -130,7 +130,7 @@ export async function init(opts: InitOptions) {
 
   const globalsPath = path.join(root, globals);
   let globalsCss = await readFile(globalsPath, "utf8");
-  const tokens = !info.shadcn && !definesThemeVariables(globalsCss);
+  const tokens = style === "css" || (!info.shadcn && !definesThemeVariables(globalsCss));
 
   const config: Config = {
     style,
@@ -199,7 +199,7 @@ export async function init(opts: InitOptions) {
   let updated = addImport(globalsCss, relativeImport(globalsPath, entryPath));
   // The starter template's own --background/--foreground would override the theme.
   let removedStarter = false;
-  if (tokens && hasStarterVariables(updated)) {
+  if (style === "tailwind" && tokens && hasStarterVariables(updated)) {
     const remove = opts.yes
       ? true
       : answer(
@@ -225,7 +225,7 @@ export async function init(opts: InitOptions) {
   );
   if (skip.size)
     p.log.info(`Kept what your project already has from shadcn (skipped ${[...skip].join(", ")}).`);
-  if (tokens && hasStarterVariables(globalsCss)) {
+  if (style === "tailwind" && tokens && hasStarterVariables(globalsCss)) {
     p.log.warn(`${globals} still defines --background/--foreground, which override the theme.`);
   }
 

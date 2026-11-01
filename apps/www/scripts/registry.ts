@@ -4,6 +4,8 @@
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { createRequire } from "node:module";
+import * as prettier from "prettier";
+import { buildCssStyle } from "./css-style.ts";
 
 const ROOT = new URL("../../../", import.meta.url);
 const UI = new URL("packages/ui/src/", ROOT);
@@ -228,16 +230,25 @@ for (const item of items) {
 
 items.sort((a, b) => a.name.localeCompare(b.name));
 
+// The css style: the same components with `cl-*` classes and a stylesheet each,
+// generated from the Tailwind ones so the two always match.
+const cssItems = await buildCssItems(items);
+
 await rm(OUT, { recursive: true, force: true });
-await mkdir(new URL(`${STYLE}/`, OUT), { recursive: true });
-await Promise.all(
-  items.map((item) =>
-    writeFile(new URL(`${STYLE}/${item.name}.json`, OUT), `${JSON.stringify(item, null, 2)}\n`),
-  ),
-);
+for (const [style, list] of [
+  [STYLE, items],
+  ["css", cssItems],
+] as const) {
+  await mkdir(new URL(`${style}/`, OUT), { recursive: true });
+  await Promise.all(
+    list.map((item) =>
+      writeFile(new URL(`${style}/${item.name}.json`, OUT), `${JSON.stringify(item, null, 2)}\n`),
+    ),
+  );
+}
 
 const index = {
-  styles: [STYLE],
+  styles: [STYLE, "css"],
   aliases: DEFAULT_ALIASES,
   items: items.map(({ name, type, description, registryDependencies }) => ({
     name,
@@ -248,4 +259,69 @@ const index = {
 };
 await writeFile(new URL("index.json", OUT), `${JSON.stringify(index, null, 2)}\n`);
 
-console.log(`registry: ${items.length} items -> public/r/${STYLE}`);
+console.log(`registry: ${items.length} items -> public/r/${STYLE} and public/r/css`);
+
+async function buildCssItems(tailwind: RegistryItem[]): Promise<RegistryItem[]> {
+  const sources = new Map<string, string>();
+  for (const item of tailwind) {
+    if (item.type === "registry:style" || item.name === "utils") continue;
+    for (const file of item.files) sources.set(item.name, file.content);
+  }
+  const result = await buildCssStyle(sources);
+
+  // Tidy the rewritten sources the same way the repo is formatted.
+  const format = (code: string) => prettier.format(code, { parser: "typescript", printWidth: 100 });
+
+  return Promise.all(
+    tailwind.map(async (item): Promise<RegistryItem> => {
+      const css = { ...item, style: "css" };
+      if (item.name === "utils") {
+        return {
+          ...css,
+          description: "The cn() helper for joining class names.",
+          dependencies: [`clsx@${versions.clsx}`],
+          files: [
+            {
+              path: "cl-utils.ts",
+              type: "lib",
+              content: `import { clsx, type ClassValue } from "clsx";
+
+/** Joins class names, skipping falsy ones. */
+export function cn(...inputs: ClassValue[]) {
+  return clsx(inputs);
+}
+`,
+            },
+          ],
+        };
+      }
+      if (item.type === "registry:style") {
+        return {
+          ...css,
+          description:
+            "Theme variables, a reset scoped to Component Library elements, and shared CSS.",
+          dependencies: [],
+          files: [
+            { path: "cl-tokens.css", type: "css", content: result.tokens },
+            { path: "cl-base.css", type: "css", content: result.base },
+          ],
+        };
+      }
+      const stylesheet = result.css.get(item.name);
+      return {
+        ...css,
+        files: [
+          ...(await Promise.all(
+            item.files.map(async (f) => ({
+              ...f,
+              content: await format(result.files.get(item.name) ?? f.content),
+            })),
+          )),
+          ...(stylesheet
+            ? [{ path: `${item.name}.css`, type: "css" as const, content: stylesheet }]
+            : []),
+        ],
+      };
+    }),
+  );
+}
