@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@component-library/utils";
+import { Badge } from "@component-library/ui";
 import type { NavGroup } from "@/lib/docs";
 
 export function DocsSidebar({ nav }: { nav: NavGroup[] }) {
@@ -19,15 +20,24 @@ export function DocsSidebar({ nav }: { nav: NavGroup[] }) {
               href={item.href}
               data-active={pathname === item.href || undefined}
               className={cn(
-                "rounded-md px-2 py-1 font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground",
+                "flex items-center gap-2 rounded-md px-2 py-1 font-medium text-foreground/80 transition-colors hover:bg-muted hover:text-foreground",
                 "data-active:bg-muted data-active:text-foreground",
               )}
             >
               {item.title}
+              {item.isNew && <NewBadge />}
             </Link>
           ))}
         </div>
       ))}
     </nav>
+  );
+}
+
+export function NewBadge() {
+  return (
+    <Badge variant="secondary" className="h-4 px-1.5 text-[0.625rem]">
+      New
+    </Badge>
   );
 }

@@ -9,11 +9,14 @@ export interface DocMeta {
   description?: string;
   /** Sort position inside its sidebar group. Docs without one sort by title after the rest. */
   order?: number;
+  /** Shows a "New" badge in the sidebar and on /docs/components. */
+  new?: boolean;
 }
 
 export interface NavItem {
   title: string;
   href: string;
+  isNew?: boolean;
 }
 
 export interface NavGroup {
@@ -66,6 +69,7 @@ export async function getNav(): Promise<NavGroup[]> {
       title: doc.metadata.title,
       href: `/docs/${slug.join("/")}`.replace(/\/$/, ""),
       order: doc.metadata.order ?? Number.POSITIVE_INFINITY,
+      isNew: doc.metadata.new,
     });
     groups.set(key, items);
   }
@@ -77,7 +81,7 @@ export async function getNav(): Promise<NavGroup[]> {
       title: GROUPS[key] ?? key.charAt(0).toUpperCase() + key.slice(1),
       items: items
         .sort((a, b) => a.order - b.order || a.title.localeCompare(b.title))
-        .map(({ title, href }) => ({ title, href })),
+        .map(({ title, href, isNew }) => ({ title, href, isNew })),
     }));
 }
 

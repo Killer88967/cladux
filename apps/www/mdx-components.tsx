@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { Kbd } from "@component-library/ui";
 import { CodeBlock } from "@/components/code-block";
 import { ComponentPreview } from "@/components/component-preview";
+import { ComponentsList } from "@/components/components-list";
 import { HtmlPreview } from "@/components/html-preview";
 
 /** Plain text of a heading, used to build its anchor id. */
@@ -59,6 +60,7 @@ const components: MDXComponents = {
   ),
   hr: (props) => <hr className="my-8" {...props} />,
   ComponentPreview,
+  ComponentsList,
   HtmlPreview,
   Kbd,
 };

@@ -18,7 +18,7 @@ export async function SiteHeader() {
             <Link href="/docs">Docs</Link>
           </Button>
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/docs/components/">Components</Link>
+            <Link href="/docs/components">Components</Link>
           </Button>
         </nav>
         <div className="ml-auto flex flex-1 items-center justify-end gap-2">
