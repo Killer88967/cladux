@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Rating",
-  description: "A star rating you can set by click, hover or keyboard, or show read-only with exact fractions.",
+  description:
+    "A star rating you can set by click, hover or keyboard, or show read-only with exact fractions.",
   new: true,
 };
 
@@ -42,18 +43,18 @@ Pass any icon to `icon`, and color it with a text color on the root. `getLabel` 
 
 ## API Reference
 
-| Prop            | Type                                   | Default                   |
-| --------------- | -------------------------------------- | ------------------------- |
-| `value`         | `number`                               |                           |
-| `defaultValue`  | `number`                               | `0`                       |
-| `onValueChange` | `(value: number) => void`              |                           |
-| `max`           | `number`                               | `5`                       |
-| `allowHalf`     | `boolean`                              | `false`                   |
-| `readOnly`      | `boolean`                              | `false`                   |
-| `disabled`      | `boolean`                              | `false`                   |
-| `size`          | `"sm" \| "default" \| "lg"`            | `"default"`               |
-| `icon`          | `ReactNode`                            | `<StarIcon />`            |
-| `getLabel`      | `(value: number, max: number) => string` | `"3 out of 5 stars"`    |
+| Prop            | Type                                     | Default              |
+| --------------- | ---------------------------------------- | -------------------- |
+| `value`         | `number`                                 |                      |
+| `defaultValue`  | `number`                                 | `0`                  |
+| `onValueChange` | `(value: number) => void`                |                      |
+| `max`           | `number`                                 | `5`                  |
+| `allowHalf`     | `boolean`                                | `false`              |
+| `readOnly`      | `boolean`                                | `false`              |
+| `disabled`      | `boolean`                                | `false`              |
+| `size`          | `"sm" \| "default" \| "lg"`              | `"default"`          |
+| `icon`          | `ReactNode`                              | `<StarIcon />`       |
+| `getLabel`      | `(value: number, max: number) => string` | `"3 out of 5 stars"` |
 
 ## Accessibility
 

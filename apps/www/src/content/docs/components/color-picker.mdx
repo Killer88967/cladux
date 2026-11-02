@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Color Picker",
-  description: "Pick a color with a saturation area, hue and opacity sliders, a hex field, swatches and the eye dropper.",
+  description:
+    "Pick a color with a saturation area, hue and opacity sliders, a hex field, swatches and the eye dropper.",
   new: true,
 };
 
@@ -67,8 +68,8 @@ Keep the color in state, show it in the trigger with `ColorPickerSwatch`, and pu
 
 ```tsx
 function Lightness() {
-  const { hsva, update } = useColorPicker()
-  return <button onClick={() => update({ v: 1 })}>Brightest</button>
+  const { hsva, update } = useColorPicker();
+  return <button onClick={() => update({ v: 1 })}>Brightest</button>;
 }
 ```
 

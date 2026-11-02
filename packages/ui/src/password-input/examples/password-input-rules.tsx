@@ -5,7 +5,10 @@ import { Label, PasswordInput, PasswordStrength, type PasswordRule } from "@clad
 
 const rules: PasswordRule[] = [
   { label: "At least 12 characters", test: (p) => p.length >= 12 },
-  { label: "Not a common password", test: (p) => !["password", "123456"].includes(p.toLowerCase()) },
+  {
+    label: "Not a common password",
+    test: (p) => !["password", "123456"].includes(p.toLowerCase()),
+  },
   { label: "No spaces", test: (p) => p.length > 0 && !/\s/.test(p) },
 ];
 

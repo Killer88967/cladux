@@ -6,8 +6,10 @@ import { cn } from "@cladux/utils";
 
 import { useControllableState } from "../hooks/use-controllable-state";
 
-interface TagsInputProps
-  extends Omit<React.ComponentProps<"input">, "value" | "defaultValue" | "onChange"> {
+interface TagsInputProps extends Omit<
+  React.ComponentProps<"input">,
+  "value" | "defaultValue" | "onChange"
+> {
   value?: string[];
   defaultValue?: string[];
   onValueChange?: (value: string[]) => void;
@@ -85,7 +87,7 @@ function TagsInput({
         if (e.target === e.currentTarget) inputRef.current?.focus();
       }}
       className={cn(
-        "flex min-h-8 w-full min-w-0 cursor-text flex-wrap items-center gap-1 rounded-lg border border-input px-1 py-[3px] transition-colors outline-none has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-ring/50 has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40",
+        "flex min-h-8 w-full min-w-0 cursor-text flex-wrap items-center gap-1 rounded-lg border border-input px-1 py-[3px] transition-colors outline-none has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-ring/50 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50",
         className,
       )}
     >

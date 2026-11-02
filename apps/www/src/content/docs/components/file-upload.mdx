@@ -1,6 +1,7 @@
 export const metadata = {
   title: "File Upload",
-  description: "A drop zone and file picker with type, size and count checks, previews and a list you render yourself.",
+  description:
+    "A drop zone and file picker with type, size and count checks, previews and a list you render yourself.",
   new: true,
 };
 
@@ -74,9 +75,9 @@ Without a drop zone, `FileUploadTrigger` opens the file dialog from any button. 
 ```tsx
 <FileUpload
   onValueChange={async (files) => {
-    const body = new FormData()
-    for (const file of files) body.append("files", file)
-    await fetch("/api/upload", { method: "POST", body })
+    const body = new FormData();
+    for (const file of files) body.append("files", file);
+    await fetch("/api/upload", { method: "POST", body });
   }}
 />
 ```
@@ -87,27 +88,27 @@ For progress, give each file an `Attachment` with `state="uploading"`.
 
 ### FileUpload
 
-| Prop            | Type                                         | Default    |
-| --------------- | -------------------------------------------- | ---------- |
-| `value`         | `File[]`                                     |            |
-| `defaultValue`  | `File[]`                                     | `[]`       |
-| `onValueChange` | `(files: File[]) => void`                    |            |
-| `onReject`      | `(rejections: FileUploadRejection[]) => void` |           |
-| `accept`        | `string`                                     |            |
-| `maxSize`       | `number` (bytes)                             |            |
-| `maxFiles`      | `number`                                     | `Infinity` |
-| `multiple`      | `boolean`                                    | `true`     |
-| `disabled`      | `boolean`                                    | `false`    |
-| `invalid`       | `boolean`                                    | `false`    |
-| `name`          | `string`                                     |            |
+| Prop            | Type                                          | Default    |
+| --------------- | --------------------------------------------- | ---------- |
+| `value`         | `File[]`                                      |            |
+| `defaultValue`  | `File[]`                                      | `[]`       |
+| `onValueChange` | `(files: File[]) => void`                     |            |
+| `onReject`      | `(rejections: FileUploadRejection[]) => void` |            |
+| `accept`        | `string`                                      |            |
+| `maxSize`       | `number` (bytes)                              |            |
+| `maxFiles`      | `number`                                      | `Infinity` |
+| `multiple`      | `boolean`                                     | `true`     |
+| `disabled`      | `boolean`                                     | `false`    |
+| `invalid`       | `boolean`                                     | `false`    |
+| `name`          | `string`                                      |            |
 
 ### Helpers
 
-| Export                 | Returns                                                    |
-| ---------------------- | ---------------------------------------------------------- |
-| `useFileUpload()`      | `files`, `add`, `remove`, `clear` and `open`               |
-| `useFilePreview(file)` | An object URL for an image file, or `undefined`            |
-| `formatBytes(bytes)`   | A size such as `"1.5 MB"`                                  |
+| Export                 | Returns                                         |
+| ---------------------- | ----------------------------------------------- |
+| `useFileUpload()`      | `files`, `add`, `remove`, `clear` and `open`    |
+| `useFilePreview(file)` | An object URL for an image file, or `undefined` |
+| `formatBytes(bytes)`   | A size such as `"1.5 MB"`                       |
 
 ## Accessibility
 

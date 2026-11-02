@@ -4,8 +4,18 @@ import * as React from "react";
 import { ColorPicker, ColorPickerSwatches } from "@cladux/ui";
 
 const colors = [
-  "#0f172a", "#64748b", "#ef4444", "#f97316", "#f59e0b", "#84cc16",
-  "#10b981", "#06b6d4", "#3b82f6", "#6366f1", "#a855f7", "#ec4899",
+  "#0f172a",
+  "#64748b",
+  "#ef4444",
+  "#f97316",
+  "#f59e0b",
+  "#84cc16",
+  "#10b981",
+  "#06b6d4",
+  "#3b82f6",
+  "#6366f1",
+  "#a855f7",
+  "#ec4899",
 ];
 
 export default function ColorPickerSwatchesDemo() {

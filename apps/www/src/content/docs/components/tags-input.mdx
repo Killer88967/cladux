@@ -1,6 +1,7 @@
 export const metadata = {
   title: "Tags Input",
-  description: "A field that turns typed text into removable tags, with validation, limits and paste support.",
+  description:
+    "A field that turns typed text into removable tags, with validation, limits and paste support.",
   new: true,
 };
 
@@ -41,16 +42,16 @@ import { TagsInput } from "@cladux/ui";
 
 `TagsInput` takes every `input` prop except `value`, `defaultValue` and `onChange`. Those go to the text field, plus:
 
-| Prop              | Type                                              | Default    |
-| ----------------- | ------------------------------------------------- | ---------- |
-| `value`           | `string[]`                                        |            |
-| `defaultValue`    | `string[]`                                        | `[]`       |
-| `onValueChange`   | `(value: string[]) => void`                       |            |
-| `max`             | `number`                                          | `Infinity` |
-| `delimiters`      | `string[]`                                        | `[","]`    |
-| `allowDuplicates` | `boolean`                                         | `false`    |
-| `validate`        | `(tag: string, tags: string[]) => boolean \| string` |         |
-| `addOnBlur`       | `boolean`                                         | `true`     |
+| Prop              | Type                                                 | Default    |
+| ----------------- | ---------------------------------------------------- | ---------- |
+| `value`           | `string[]`                                           |            |
+| `defaultValue`    | `string[]`                                           | `[]`       |
+| `onValueChange`   | `(value: string[]) => void`                          |            |
+| `max`             | `number`                                             | `Infinity` |
+| `delimiters`      | `string[]`                                           | `[","]`    |
+| `allowDuplicates` | `boolean`                                            | `false`    |
+| `validate`        | `(tag: string, tags: string[]) => boolean \| string` |            |
+| `addOnBlur`       | `boolean`                                            | `true`     |
 
 ## Accessibility
 

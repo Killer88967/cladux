@@ -17,7 +17,12 @@ export default function FileUploadButton() {
           <div className="flex items-center gap-2 rounded-lg border px-2.5 py-1.5 text-sm">
             <span className="min-w-0 flex-1 truncate">{file.name}</span>
             <span className="text-xs text-muted-foreground">{formatBytes(file.size)}</span>
-            <Button variant="ghost" size="icon-xs" aria-label={`Remove ${file.name}`} onClick={remove}>
+            <Button
+              variant="ghost"
+              size="icon-xs"
+              aria-label={`Remove ${file.name}`}
+              onClick={remove}
+            >
               <XIcon />
             </Button>
           </div>

@@ -24,7 +24,8 @@ const ratingVariants = cva(
 );
 
 interface RatingProps
-  extends Omit<React.ComponentProps<"div">, "defaultValue" | "onChange">,
+  extends
+    Omit<React.ComponentProps<"div">, "defaultValue" | "onChange">,
     VariantProps<typeof ratingVariants> {
   value?: number;
   defaultValue?: number;

@@ -15,7 +15,16 @@ import {
   PopoverTrigger,
 } from "@cladux/ui";
 
-const presets = ["#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4", "#3b82f6", "#8b5cf6", "#ec4899"];
+const presets = [
+  "#ef4444",
+  "#f97316",
+  "#eab308",
+  "#22c55e",
+  "#06b6d4",
+  "#3b82f6",
+  "#8b5cf6",
+  "#ec4899",
+];
 
 export default function ColorPickerPopover() {
   const [color, setColor] = React.useState("#3b82f6");
@@ -25,7 +34,11 @@ export default function ColorPickerPopover() {
       <Label htmlFor="color-picker-popover">Brand color</Label>
       <Popover>
         <PopoverTrigger asChild>
-          <Button id="color-picker-popover" variant="outline" className="w-40 justify-start font-mono">
+          <Button
+            id="color-picker-popover"
+            variant="outline"
+            className="w-40 justify-start font-mono"
+          >
             <ColorPickerSwatch color={color} />
             {color.toUpperCase()}
           </Button>

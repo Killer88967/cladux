@@ -8,8 +8,10 @@ import { useControllableState } from "../hooks/use-controllable-state";
 
 const decimals = (n: number) => (String(n).split(".")[1] ?? "").length;
 
-interface NumberInputProps
-  extends Omit<React.ComponentProps<"input">, "value" | "defaultValue" | "onChange" | "type"> {
+interface NumberInputProps extends Omit<
+  React.ComponentProps<"input">,
+  "value" | "defaultValue" | "onChange" | "type"
+> {
   value?: number | null;
   defaultValue?: number | null;
   onValueChange?: (value: number | null) => void;
@@ -74,7 +76,7 @@ function NumberInput({
       data-slot="number-input"
       data-disabled={disabled || undefined}
       className={cn(
-        "flex h-8 w-full min-w-0 items-center rounded-lg border border-input transition-colors outline-none has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-ring/50 has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40",
+        "flex h-8 w-full min-w-0 items-center rounded-lg border border-input transition-colors outline-none has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-ring/50 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50",
         className,
       )}
     >

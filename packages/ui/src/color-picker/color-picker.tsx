@@ -98,9 +98,7 @@ function ColorPicker({
     onChange: onValueChange,
   });
   // Hue and saturation are kept separately so they survive black, white and grey.
-  const [hsva, setHsva] = React.useState<Hsva>(
-    () => hexToHsva(hex) ?? { h: 0, s: 0, v: 0, a: 1 },
-  );
+  const [hsva, setHsva] = React.useState<Hsva>(() => hexToHsva(hex) ?? { h: 0, s: 0, v: 0, a: 1 });
 
   // Follow a controlled value that changed outside the picker.
   if (hsvaToHex(hsva) !== hex.toLowerCase()) {
@@ -295,7 +293,7 @@ function ChannelSlider({
         style={{ background }}
       />
       <div
-        className="pointer-events-none absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_1px_rgb(0_0_0/0.2),0_1px_3px_rgb(0_0_0/0.3)] transition-shadow top-1/2"
+        className="pointer-events-none absolute top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white shadow-[0_0_0_1px_rgb(0_0_0/0.2),0_1px_3px_rgb(0_0_0/0.3)] transition-shadow"
         style={{ left: `${(value / max) * 100}%`, backgroundColor: thumbColor }}
       />
     </div>
@@ -339,7 +337,12 @@ function ColorPickerAlpha({ className, ...props }: React.ComponentProps<"div">) 
   );
 }
 
-function ColorPickerInput({ className, onBlur, onKeyDown, ...props }: React.ComponentProps<"input">) {
+function ColorPickerInput({
+  className,
+  onBlur,
+  onKeyDown,
+  ...props
+}: React.ComponentProps<"input">) {
   const { hex, setHex, disabled } = useColorPicker();
   const [draft, setDraft] = React.useState<string | null>(null);
   const commit = () => {
@@ -395,7 +398,11 @@ function ColorPickerEyeDropper({ className, ...props }: React.ComponentProps<"bu
       disabled={disabled}
       onClick={async () => {
         try {
-          const Dropper = (window as unknown as { EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> } }).EyeDropper;
+          const Dropper = (
+            window as unknown as {
+              EyeDropper: new () => { open: () => Promise<{ sRGBHex: string }> };
+            }
+          ).EyeDropper;
           const result = await new Dropper().open();
           setHex(result.sRGBHex);
         } catch {

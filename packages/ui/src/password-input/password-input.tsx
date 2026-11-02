@@ -16,7 +16,7 @@ function PasswordInput({
       data-slot="password-input"
       data-disabled={disabled || undefined}
       className={cn(
-        "relative flex h-8 w-full min-w-0 items-center rounded-lg border border-input transition-colors outline-none has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-ring/50 has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40",
+        "relative flex h-8 w-full min-w-0 items-center rounded-lg border border-input transition-colors outline-none has-aria-invalid:border-destructive has-aria-invalid:ring-3 has-aria-invalid:ring-destructive/20 has-[input:focus-visible]:border-ring has-[input:focus-visible]:ring-3 has-[input:focus-visible]:ring-ring/50 dark:bg-input/30 dark:has-aria-invalid:border-destructive/50 dark:has-aria-invalid:ring-destructive/40 data-disabled:pointer-events-none data-disabled:cursor-not-allowed data-disabled:bg-input/50 data-disabled:opacity-50",
         className,
       )}
     >
@@ -115,11 +115,7 @@ function PasswordStrength({
                 data-met={met || undefined}
                 className="flex items-center gap-1.5 text-muted-foreground data-met:text-foreground [&_svg]:size-3.5 [&_svg]:shrink-0"
               >
-                {met ? (
-                  <CheckIcon className="text-emerald-600 dark:text-emerald-500" />
-                ) : (
-                  <XIcon />
-                )}
+                {met ? <CheckIcon className="text-emerald-600 dark:text-emerald-500" /> : <XIcon />}
                 <span>{rule.label}</span>
                 <span className="sr-only">{met ? "(met)" : "(not met)"}</span>
               </li>

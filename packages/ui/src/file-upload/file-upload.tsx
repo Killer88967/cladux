@@ -130,7 +130,11 @@ function FileUpload({
         const base = limit === 1 ? [] : files;
         for (const file of Array.from(incoming)) {
           if (!matchesAccept(file, accept)) {
-            rejected.push({ file, reason: "type", message: `${file.name} isn't an accepted type.` });
+            rejected.push({
+              file,
+              reason: "type",
+              message: `${file.name} isn't an accepted type.`,
+            });
           } else if (maxSize !== undefined && file.size > maxSize) {
             rejected.push({
               file,
@@ -144,7 +148,12 @@ function FileUpload({
               message: `You can add up to ${limit} file${limit === 1 ? "" : "s"}.`,
             });
           } else if (
-            !base.some((f) => f.name === file.name && f.size === file.size && f.lastModified === file.lastModified)
+            !base.some(
+              (f) =>
+                f.name === file.name &&
+                f.size === file.size &&
+                f.lastModified === file.lastModified,
+            )
           ) {
             accepted.push(file);
           }
