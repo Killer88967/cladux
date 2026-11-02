@@ -84,7 +84,6 @@ function Countdown({
   const units = (["days", "hours", "minutes", "seconds"] as const).filter(
     (unit) => !(unit === "days" && hideZeroDays && parts && parts.days === 0),
   );
-  const iso = new Date(target).toISOString();
 
   return (
     <div
@@ -113,7 +112,8 @@ function Countdown({
         </div>
       ))}
       {/* One summary for screen readers instead of four numbers ticking every second. */}
-      <time dateTime={iso} className="sr-only">
+      {/* Set in the browser only: a target computed from Date.now() differs between server and client. */}
+      <time dateTime={parts ? new Date(target).toISOString() : undefined} className="sr-only">
         {parts
           ? `${parts.days} ${labels.days}, ${parts.hours} ${labels.hours}, ${parts.minutes} ${labels.minutes}`
           : ""}

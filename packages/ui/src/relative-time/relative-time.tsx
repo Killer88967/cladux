@@ -62,7 +62,7 @@ function RelativeTime({
   locale?: string;
   numeric?: Intl.RelativeTimeFormatNumeric;
   style?: Intl.RelativeTimeFormatStyle;
-  /** Shown before the page hydrates, since the server can't know the viewer's clock. */
+  /** Shown until the page hydrates, since the server can't know the viewer's clock. Empty by default. */
   children?: React.ReactNode;
 }) {
   const time = new Date(date).getTime();
@@ -85,22 +85,23 @@ function RelativeTime({
     };
   }, [time]);
 
-  const iso = Number.isNaN(time) ? undefined : new Date(time).toISOString();
-  const full =
-    now === null || iso === undefined
-      ? undefined
-      : new Intl.DateTimeFormat(locale, { dateStyle: "full", timeStyle: "short" }).format(time);
+  // Everything that depends on the date is set in the browser only. The server and the
+  // viewer disagree on the time zone, and a date computed from Date.now() differs between them.
+  const valid = now !== null && !Number.isNaN(time);
+  const full = valid
+    ? new Intl.DateTimeFormat(locale, { dateStyle: "full", timeStyle: "short" }).format(time)
+    : undefined;
 
   return (
     <time
       data-slot="relative-time"
-      dateTime={iso}
+      dateTime={valid ? new Date(time).toISOString() : undefined}
       title={title ?? full}
       className={cn("tabular-nums", className)}
       {...props}
     >
       {now === null
-        ? (children ?? iso?.slice(0, 10))
+        ? children
         : formatRelativeTime(time, { now, locale, numeric, style: formatStyle })}
     </time>
   );

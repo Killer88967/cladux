@@ -216,10 +216,18 @@ export function Launch() {
 
 export function Schedule() {
   const [date, setDate] = React.useState<Date | undefined>(undefined);
+  // "Today" depends on the viewer's clock and time zone, which the server can't
+  // know, so the calendar renders in the browser only.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
   return (
     <Card className="py-3">
       <CardContent className="flex justify-center px-3">
-        <Calendar mode="single" selected={date} onSelect={setDate} className="p-0" />
+        {mounted ? (
+          <Calendar mode="single" selected={date} onSelect={setDate} className="p-0" />
+        ) : (
+          <div className="h-60 w-full" aria-hidden />
+        )}
       </CardContent>
     </Card>
   );
