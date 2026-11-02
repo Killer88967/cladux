@@ -276,6 +276,7 @@ export {
   KanbanHandle,
   KanbanItem,
   type KanbanProps,
+  type KanbanValue,
 } from "./kanban/kanban";
 export { Kbd, KbdGroup } from "./kbd/kbd";
 export { Label } from "./label/label";

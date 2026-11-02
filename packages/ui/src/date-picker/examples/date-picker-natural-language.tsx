@@ -59,7 +59,7 @@ export function DatePickerNaturalLanguage() {
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <InputGroupButton
-                id="date-picker"
+                id="date-optional-picker"
                 variant="ghost"
                 size="icon-xs"
                 aria-label="Select date"

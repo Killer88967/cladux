@@ -16,22 +16,25 @@ const defaultGetId = (item: unknown) =>
     ? String((item as { id: unknown }).id)
     : String(item);
 
-interface KanbanProps<T> extends Omit<
+/** The columns: arrays of items keyed by column id. */
+type KanbanValue = Record<string, readonly unknown[]>;
+
+interface KanbanProps<V extends KanbanValue> extends Omit<
   React.ComponentProps<"div">,
   "defaultValue" | "onChange" | "onDragStart" | "onDragEnd"
 > {
   /** Items per column, keyed by column id. The key order is the column order. */
-  value: Record<string, T[]>;
-  onValueChange: (value: Record<string, T[]>) => void;
+  value: V;
+  onValueChange: (value: V) => void;
   /** Defaults to `item.id`. */
-  getItemId?: (item: T) => string;
+  getItemId?: (item: V[keyof V][number]) => string;
   onDragStart?: (id: string) => void;
   onDragEnd?: (event: DragEndEvent) => void;
   getItemLabel?: (id: string) => string;
   disabled?: boolean;
 }
 
-function Kanban<T>({
+function Kanban<V extends KanbanValue>({
   value,
   onValueChange,
   getItemId = defaultGetId,
@@ -41,10 +44,11 @@ function Kanban<T>({
   disabled,
   className,
   ...props
-}: KanbanProps<T>) {
+}: KanbanProps<V>) {
+  type T = V[keyof V][number];
   const byId = new Map<string, T>();
   const ids: Record<string, string[]> = {};
-  for (const [column, items] of Object.entries(value)) {
+  for (const [column, items] of Object.entries(value) as [string, T[]][]) {
     ids[column] = items.map((item) => {
       const id = getItemId(item);
       byId.set(id, item);
@@ -57,9 +61,11 @@ function Kanban<T>({
       ids={ids}
       onMove={(next) => {
         const out: Record<string, T[]> = {};
-        for (const [column, list] of Object.entries(next))
+        for (const [column, list] of Object.entries(next)) {
           out[column] = list.map((id) => byId.get(id)!);
-        onValueChange(out);
+        }
+        // Same columns, new order: the shape of V is kept.
+        onValueChange(out as unknown as V);
       }}
       orientation="vertical"
       containerOrientation="horizontal"
@@ -170,4 +176,4 @@ export {
   KanbanHandle,
   KanbanItem,
 };
-export type { KanbanProps };
+export type { KanbanProps, KanbanValue };

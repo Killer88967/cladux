@@ -37,7 +37,7 @@ export function TraceSteps() {
                 <Badge variant="secondary">github.com</Badge>
               </TraceCollapsibleContent>
             </TraceCollapsible>
-            <a href="#steps">
+            <a href="#">
               <TraceLine>
                 <TraceIcon>
                   <FileTextIcon />

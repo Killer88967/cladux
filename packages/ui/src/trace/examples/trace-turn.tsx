@@ -77,7 +77,7 @@ export function TraceTurn() {
           </Trace>
           <p>Node is installed and pnpm is not. Reading the docs config.</p>
           <Trace>
-            <a href="#turn">
+            <a href="#">
               <TraceLine>
                 <TraceIcon>
                   <FileTextIcon />

@@ -31,29 +31,29 @@ export function CollapsibleSettings() {
         <Collapsible open={isOpen} onOpenChange={setIsOpen} className="flex items-start gap-2">
           <FieldGroup className="grid w-full grid-cols-2 gap-2">
             <Field>
-              <FieldLabel htmlFor="radius-x" className="sr-only">
-                Radius X
+              <FieldLabel htmlFor="radius-top-left" className="sr-only">
+                Top left radius
               </FieldLabel>
-              <Input id="radius" placeholder="0" defaultValue={0} />
+              <Input id="radius-top-left" placeholder="0" defaultValue={0} />
             </Field>
             <Field>
-              <FieldLabel htmlFor="radius-y" className="sr-only">
-                Radius Y
+              <FieldLabel htmlFor="radius-top-right" className="sr-only">
+                Top right radius
               </FieldLabel>
-              <Input id="radius" placeholder="0" defaultValue={0} />
+              <Input id="radius-top-right" placeholder="0" defaultValue={0} />
             </Field>
             <CollapsibleContent className="col-span-full grid grid-cols-subgrid gap-2">
               <Field>
-                <FieldLabel htmlFor="radius-x" className="sr-only">
-                  Radius X
+                <FieldLabel htmlFor="radius-bottom-left" className="sr-only">
+                  Bottom left radius
                 </FieldLabel>
-                <Input id="radius" placeholder="0" defaultValue={0} />
+                <Input id="radius-bottom-left" placeholder="0" defaultValue={0} />
               </Field>
               <Field>
-                <FieldLabel htmlFor="radius-y" className="sr-only">
-                  Radius Y
+                <FieldLabel htmlFor="radius-bottom-right" className="sr-only">
+                  Bottom right radius
                 </FieldLabel>
-                <Input id="radius" placeholder="0" defaultValue={0} />
+                <Input id="radius-bottom-right" placeholder="0" defaultValue={0} />
               </Field>
             </CollapsibleContent>
           </FieldGroup>

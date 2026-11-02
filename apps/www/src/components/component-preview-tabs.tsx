@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import type { ReactNode } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cladux/ui";
 import { cn } from "@cladux/utils";
@@ -12,6 +13,7 @@ interface ComponentPreviewTabsProps {
   html: string;
   align?: "center" | "start" | "end";
   previewClassName?: string;
+  clientOnly?: boolean;
 }
 
 export function ComponentPreviewTabs({
@@ -20,7 +22,12 @@ export function ComponentPreviewTabs({
   html,
   align = "center",
   previewClassName,
+  clientOnly = false,
 }: ComponentPreviewTabsProps) {
+  // Demos that read today's date would render a different day on the server
+  // (another time zone, or past midnight there), so they wait for the browser.
+  const [mounted, setMounted] = React.useState(!clientOnly);
+  React.useEffect(() => setMounted(true), []);
   return (
     <Tabs defaultValue="preview" className="my-6 gap-3">
       <TabsList variant="line">
@@ -35,7 +42,7 @@ export function ComponentPreviewTabs({
             previewClassName,
           )}
         >
-          {preview}
+          {mounted ? preview : null}
         </div>
       </TabsContent>
       <TabsContent value="code">

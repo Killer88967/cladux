@@ -20,7 +20,7 @@ export function BreadcrumbLinkDemo() {
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/components">Components</Link>
+            <Link href="/docs/components">Components</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />

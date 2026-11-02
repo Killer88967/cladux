@@ -260,14 +260,17 @@ export function MailExample() {
   );
   const current = mails.find((m) => m.id === selected);
 
+  // Rendered twice (desktop and phone layouts), so each copy gets its own Tabs and ids.
   const listHeader = (
     <>
       <div className="flex h-12 items-center px-3">
         <h2 className="text-lg font-semibold">{folder}</h2>
-        <TabsList className="ms-auto">
-          <TabsTrigger value="all">All mail</TabsTrigger>
-          <TabsTrigger value="unread">Unread</TabsTrigger>
-        </TabsList>
+        <Tabs value={tab} onValueChange={setTab} className="ms-auto">
+          <TabsList>
+            <TabsTrigger value="all">All mail</TabsTrigger>
+            <TabsTrigger value="unread">Unread</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
       <div className="p-3">
         <div className="relative">
@@ -285,7 +288,7 @@ export function MailExample() {
   );
 
   return (
-    <Tabs value={tab} onValueChange={setTab} className="gap-0">
+    <>
       {/* Desktop: three resizable panes. */}
       <div className="hidden h-[680px] md:block">
         <ResizablePanelGroup orientation="horizontal">
@@ -352,6 +355,6 @@ export function MailExample() {
           </>
         )}
       </div>
-    </Tabs>
+    </>
   );
 }

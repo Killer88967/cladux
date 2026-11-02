@@ -57,8 +57,16 @@ interface RichTextEditorProps extends Omit<
   children?: React.ReactNode;
 }
 
-function RichTextEditor({
-  className,
+function RichTextEditor(props: RichTextEditorProps) {
+  // Tiptap creates the editor with random ids, which Next.js won't prerender (and the
+  // server can't render an editor anyway). Until the browser takes over, the frame
+  // and toolbar render without an editor, so the layout doesn't jump.
+  const [mounted, setMounted] = React.useState(false);
+  React.useEffect(() => setMounted(true), []);
+  return mounted ? <EditorHost {...props} /> : <EditorFrame {...props} editor={null} />;
+}
+
+function EditorHost({
   value,
   defaultValue = "",
   onValueChange,
@@ -66,14 +74,12 @@ function RichTextEditor({
   editable = true,
   autofocus = false,
   extensions = [],
-  children,
   ...props
 }: RichTextEditorProps) {
   const onChange = React.useRef(onValueChange);
   onChange.current = onValueChange;
 
   const editor = useEditor({
-    // Render on the client only, so server and client HTML match.
     immediatelyRender: false,
     editable,
     autofocus,
@@ -99,6 +105,23 @@ function RichTextEditor({
     editor?.setEditable(editable);
   }, [editor, editable]);
 
+  return <EditorFrame {...props} editable={editable} editor={editor} />;
+}
+
+function EditorFrame({
+  className,
+  children,
+  editable = true,
+  editor,
+  // Editor options are handled by EditorHost; keep them off the div.
+  value: _value,
+  defaultValue: _defaultValue,
+  onValueChange: _onValueChange,
+  placeholder: _placeholder,
+  autofocus: _autofocus,
+  extensions: _extensions,
+  ...props
+}: RichTextEditorProps & { editor: Editor | null }) {
   return (
     <RichTextEditorContext.Provider value={editor}>
       <div
@@ -148,7 +171,8 @@ function RichTextEditorContent({ className, ...props }: React.ComponentProps<"di
       )}
       {...props}
     >
-      <EditorContent editor={editor} />
+      {/* EditorContent makes random ids too, so it waits for the editor. */}
+      {editor && <EditorContent editor={editor} />}
     </div>
   );
 }

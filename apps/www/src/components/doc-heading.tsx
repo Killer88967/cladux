@@ -16,10 +16,10 @@ export const headingId = (node: ReactNode) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export function DocH2({ children, ...props }: ComponentProps<"h2">) {
+export function DocH2({ children, id, ...props }: ComponentProps<"h2">) {
   return (
     <h2
-      id={headingId(children)}
+      id={id ?? headingId(children)}
       className="mt-12 mb-4 scroll-mt-20 text-xl font-semibold tracking-tight"
       {...props}
     >
@@ -28,10 +28,10 @@ export function DocH2({ children, ...props }: ComponentProps<"h2">) {
   );
 }
 
-export function DocH3({ children, ...props }: ComponentProps<"h3">) {
+export function DocH3({ children, id, ...props }: ComponentProps<"h3">) {
   return (
     <h3
-      id={headingId(children)}
+      id={id ?? headingId(children)}
       className="mt-8 mb-3 scroll-mt-20 text-lg font-semibold"
       {...props}
     >

@@ -67,7 +67,7 @@ export function DatePickerInput() {
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
               <InputGroupButton
-                id="date-picker"
+                id="date-required-picker"
                 variant="ghost"
                 size="icon-xs"
                 aria-label="Select date"

@@ -13,9 +13,16 @@ interface ComponentPreviewProps {
   align?: "center" | "start" | "end";
   /** Extra classes for the preview box, e.g. a fixed height. */
   previewClassName?: string;
+  /** Render the demo in the browser only, for demos that depend on today's date. */
+  clientOnly?: boolean;
 }
 
-export async function ComponentPreview({ name, align, previewClassName }: ComponentPreviewProps) {
+export async function ComponentPreview({
+  name,
+  align,
+  previewClassName,
+  clientOnly,
+}: ComponentPreviewProps) {
   const example = examples[name];
   if (!example) throw new Error(`Unknown example "${name}"`);
 
@@ -34,6 +41,7 @@ export async function ComponentPreview({ name, align, previewClassName }: Compon
       html={html}
       align={align}
       previewClassName={previewClassName}
+      clientOnly={clientOnly}
     />
   );
 }

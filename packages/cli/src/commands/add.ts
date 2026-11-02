@@ -52,9 +52,12 @@ export async function add(opts: AddOptions) {
   const unknown = names.filter((n) => !known.has(n));
   if (unknown.length) {
     const hints = unknown.map((n) => {
+      // Suggest components and blocks, not hooks or lib files.
       const close = closest(
         n,
-        components.map((c) => c.name),
+        index.items
+          .filter((i) => i.type === "registry:ui" || i.type === "registry:block")
+          .map((i) => i.name),
       );
       return close ? `"${n}" (did you mean ${close}?)` : `"${n}"`;
     });

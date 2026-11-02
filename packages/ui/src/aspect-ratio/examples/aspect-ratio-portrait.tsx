@@ -9,6 +9,7 @@ export function AspectRatioPortrait() {
           src="https://avatar.vercel.sh/shadcn1"
           alt="Photo"
           fill
+          sizes="160px"
           className="rounded-lg object-cover grayscale dark:brightness-20"
         />
       </AspectRatio>

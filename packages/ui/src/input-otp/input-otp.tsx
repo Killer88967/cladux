@@ -10,16 +10,28 @@ import { OTPInput, OTPInputContext } from "input-otp";
 function InputOTP({
   className,
   containerClassName,
+  value,
+  defaultValue,
+  onChange,
   ...props
 }: React.ComponentProps<typeof OTPInput> & {
   containerClassName?: string;
 }) {
+  // input-otp forwards defaultValue to its <input> next to value, which React warns
+  // about. Keep the uncontrolled value here and always pass it as value instead.
+  const [inner, setInner] = React.useState(typeof defaultValue === "string" ? defaultValue : "");
+  const controlled = value !== undefined;
   return (
     <OTPInput
       data-slot="input-otp"
       containerClassName={cn("flex items-center gap-2 has-disabled:opacity-50", containerClassName)}
       spellCheck={false}
       className={cn("disabled:cursor-not-allowed", className)}
+      value={controlled ? value : inner}
+      onChange={(next: string) => {
+        if (!controlled) setInner(next);
+        onChange?.(next);
+      }}
       {...props}
     />
   );

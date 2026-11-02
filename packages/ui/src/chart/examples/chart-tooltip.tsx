@@ -191,7 +191,7 @@ function TooltipDemo({
                     <span className="text-muted-foreground">{item.name}</span>
                   </div>
                   <span className="font-mono font-medium text-foreground tabular-nums">
-                    {item.value.toLocaleString()}
+                    {item.value.toLocaleString("en-US")}
                   </span>
                 </div>
               </>

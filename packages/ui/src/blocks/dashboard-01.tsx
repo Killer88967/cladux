@@ -9,7 +9,6 @@ import {
   SettingsIcon,
   UsersIcon,
 } from "lucide-react";
-import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import { Avatar, AvatarFallback } from "../avatar/avatar";
