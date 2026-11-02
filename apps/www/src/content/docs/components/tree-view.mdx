@@ -1,0 +1,73 @@
+export const metadata = {
+  title: "Tree View",
+  description: "A file-explorer style tree with keyboard navigation, selection and type-to-find.",
+  new: true,
+};
+
+<ComponentPreview name="tree-view-demo" />
+
+## Usage
+
+```tsx
+import { TreeView, type TreeNode } from "@cladux/ui";
+```
+
+```tsx
+const files: TreeNode[] = [
+  {
+    id: "app",
+    name: "app",
+    children: [{ id: "app/page.tsx", name: "page.tsx" }],
+  },
+  { id: "package.json", name: "package.json" },
+];
+
+<TreeView aria-label="Files" data={files} defaultExpanded={["app"]} />;
+```
+
+## Features
+
+- **It takes data.** Pass a nested array of nodes. Each needs a unique `id` and a `name`, and may have `children`, an `icon` and `disabled`.
+- **It follows the ARIA tree pattern.** Up and Down move between rows, Right opens a folder or moves into it, Left closes it or moves to its parent, `Home` and `End` jump to the ends, and `*` opens every folder at that level.
+- **It finds as you type.** Typing a few letters moves to the next row whose name starts with them.
+- **It is one tab stop.** Tab enters the tree on the selected row and leaves it on the next Tab.
+
+## Controlled
+
+`expanded` and `selectedId` can be controlled. `onSelectedChange` gets the id and the node.
+
+<ComponentPreview name="tree-view-controlled" />
+
+## Custom Rows
+
+`renderItem` replaces everything after the chevron. It gets the node and whether it is open and selected.
+
+<ComponentPreview name="tree-view-custom" />
+
+## API Reference
+
+| Prop                | Type                                                   | Default |
+| ------------------- | ------------------------------------------------------ | ------- |
+| `data`              | `TreeNode[]`                                           |         |
+| `selectedId`        | `string \| null`                                       |         |
+| `defaultSelectedId` | `string \| null`                                       | `null`  |
+| `onSelectedChange`  | `(id: string \| null, node: TreeNode \| null) => void` |         |
+| `expanded`          | `string[]`                                             |         |
+| `defaultExpanded`   | `string[]`                                             | `[]`    |
+| `onExpandedChange`  | `(expanded: string[]) => void`                         |         |
+| `renderItem`        | `(node, { expanded, selected }) => ReactNode`          |         |
+| `indent`            | `number` (px per level)                                | `16`    |
+
+```ts
+interface TreeNode {
+  id: string;
+  name: string;
+  icon?: React.ReactNode;
+  children?: TreeNode[];
+  disabled?: boolean;
+}
+```
+
+## Accessibility
+
+The tree has `role="tree"`, and each row is a `treeitem` with `aria-level`, `aria-expanded` and `aria-selected`. Rows are rendered as a flat list with `aria-posinset` and `aria-setsize`, so screen readers still announce where each one sits. Give the tree an `aria-label` or `aria-labelledby`.

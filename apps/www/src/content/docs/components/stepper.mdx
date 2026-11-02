@@ -1,0 +1,109 @@
+export const metadata = {
+  title: "Stepper",
+  description:
+    "Shows progress through numbered steps, horizontally or vertically, with optional click-to-jump.",
+  new: true,
+};
+
+<ComponentPreview name="stepper-demo" />
+
+## Usage
+
+```tsx
+import {
+  Stepper,
+  StepperIndicator,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger,
+} from "@cladux/ui";
+```
+
+```tsx
+<Stepper defaultValue={2}>
+  <StepperItem step={1}>
+    <StepperTrigger>
+      <StepperIndicator />
+      <StepperTitle>Account</StepperTitle>
+    </StepperTrigger>
+    <StepperSeparator />
+  </StepperItem>
+  <StepperItem step={2}>
+    <StepperTrigger>
+      <StepperIndicator />
+      <StepperTitle>Profile</StepperTitle>
+    </StepperTrigger>
+  </StepperItem>
+</Stepper>
+```
+
+## Composition
+
+```text
+Stepper
+└── StepperItem
+    ├── StepperTrigger
+    │   ├── StepperIndicator
+    │   ├── StepperTitle
+    │   └── StepperDescription
+    └── StepperSeparator
+```
+
+Steps before the active one are completed and show a check. Put a `StepperSeparator` in every item except the last.
+
+## Features
+
+- **It works controlled or not.** Pass `value` and `onValueChange` to drive it from your own Back and Next buttons, or `defaultValue` to let it manage itself.
+- **It jumps on click.** Clicking a step makes it active. Set `interactive={false}` for a stepper that only shows progress.
+- **It has states for real flows.** `completed` marks a step done out of order, `disabled` skips it, and `loading` shows a spinner in the indicator.
+- **It moves by keyboard.** The arrow keys move between steps, and `Home` and `End` jump to the first and last.
+
+## Vertical
+
+<ComponentPreview name="stepper-vertical" />
+
+## Description
+
+<ComponentPreview name="stepper-description" />
+
+## Icons
+
+Pass children to `StepperIndicator` to replace the number. A completed step shows your icon too.
+
+<ComponentPreview name="stepper-icons" />
+
+## Styling
+
+Each item and indicator has `data-state` set to `completed`, `active` or `inactive`.
+
+```tsx
+<StepperIndicator className="data-[state=completed]:bg-emerald-600" />
+```
+
+## API Reference
+
+### Stepper
+
+| Prop            | Type                         | Default        |
+| --------------- | ---------------------------- | -------------- |
+| `value`         | `number`                     |                |
+| `defaultValue`  | `number`                     | `1`            |
+| `onValueChange` | `(value: number) => void`    |                |
+| `orientation`   | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `interactive`   | `boolean`                    | `true`         |
+
+### StepperItem
+
+| Prop        | Type      | Default |
+| ----------- | --------- | ------- |
+| `step`      | `number`  |         |
+| `completed` | `boolean` |         |
+| `disabled`  | `boolean` | `false` |
+| `loading`   | `boolean` | `false` |
+
+`useStepper()` returns `value` and `setValue` inside a `Stepper`.
+
+## Accessibility
+
+Each trigger is a button, and the active one has `aria-current="step"`. When `interactive` is off, the triggers are disabled so they aren't announced as clickable.

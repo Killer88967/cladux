@@ -41,6 +41,15 @@ export {
 } from "./avatar/avatar";
 export { Badge, badgeVariants } from "./badge/badge";
 export {
+  Banner,
+  BannerActions,
+  BannerClose,
+  BannerContent,
+  BannerDescription,
+  BannerTitle,
+  bannerVariants,
+} from "./banner/banner";
+export {
   Breadcrumb,
   BreadcrumbEllipsis,
   BreadcrumbItem,
@@ -413,6 +422,28 @@ export { Skeleton } from "./skeleton/skeleton";
 export { Slider } from "./slider/slider";
 export { Toaster } from "./sonner/sonner";
 export { Spinner } from "./spinner/spinner";
+export {
+  Stat,
+  StatDelta,
+  statDeltaVariants,
+  StatDescription,
+  StatGroup,
+  StatHeader,
+  StatIcon,
+  StatLabel,
+  StatSparkline,
+  StatValue,
+} from "./stat/stat";
+export {
+  Stepper,
+  StepperDescription,
+  StepperIndicator,
+  StepperItem,
+  StepperSeparator,
+  StepperTitle,
+  StepperTrigger,
+  useStepper,
+} from "./stepper/stepper";
 export { Switch } from "./switch/switch";
 export {
   Table,
@@ -427,6 +458,17 @@ export {
 export { Tabs, TabsContent, TabsList, tabsListVariants, TabsTrigger } from "./tabs/tabs";
 export { TagsInput, type TagsInputProps } from "./tags-input/tags-input";
 export { Textarea } from "./textarea/textarea";
+export {
+  Timeline,
+  TimelineContent,
+  TimelineDescription,
+  TimelineDot,
+  timelineDotVariants,
+  TimelineHeader,
+  TimelineItem,
+  TimelineTime,
+  TimelineTitle,
+} from "./timeline/timeline";
 export { Toggle, toggleVariants } from "./toggle/toggle";
 export { ToggleGroup, ToggleGroupItem } from "./toggle-group/toggle-group";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip/tooltip";
@@ -440,6 +482,7 @@ export {
   TraceLine,
   TraceTitle,
 } from "./trace/trace";
+export { TreeView, type TreeNode, type TreeViewProps } from "./tree-view/tree-view";
 export { useIsMobile } from "./hooks/use-mobile";
 export { useHighlightedCode } from "./hooks/use-highlighted-code";
 export { useMediaQuery } from "./hooks/use-media-query";

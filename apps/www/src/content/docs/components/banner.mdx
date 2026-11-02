@@ -1,0 +1,73 @@
+export const metadata = {
+  title: "Banner",
+  description:
+    "A full-width announcement strip with actions and a dismiss button that can remember itself.",
+  new: true,
+};
+
+<ComponentPreview name="banner-demo" />
+
+## Usage
+
+```tsx
+import { Banner, BannerClose, BannerContent, BannerDescription, BannerTitle } from "@cladux/ui";
+```
+
+```tsx
+<Banner>
+  <BannerContent>
+    <BannerTitle>Cladux 2.1 is out.</BannerTitle>
+    <BannerDescription>Tree View, Stepper and Timeline are here.</BannerDescription>
+  </BannerContent>
+  <BannerClose />
+</Banner>
+```
+
+Put it at the top of your layout, above the header. Unlike [Alert](/docs/components/alert), it spans the page and is meant for site-wide news rather than a message about one part of a page.
+
+## Composition
+
+```text
+Banner
+├── (icon)
+├── BannerContent
+│   ├── BannerTitle
+│   └── BannerDescription
+├── BannerActions
+└── BannerClose
+```
+
+## Variants
+
+`default`, `muted`, `primary`, `warning` and `destructive`.
+
+<ComponentPreview name="banner-variants" />
+
+## Remember Dismissal
+
+Pass `storageKey`, and a dismissed banner stays hidden on later visits. To show a new announcement to everyone, change the key.
+
+<ComponentPreview name="banner-remember" />
+
+```tsx
+<Banner storageKey="announcement-2026-11">
+```
+
+The saved dismissal is read after the page loads, so server and client render the same HTML. That means a dismissed banner can show for a moment before it hides. If that matters, store the dismissal in a cookie and skip rendering the banner on the server.
+
+## Controlled
+
+Pass `open` and `onOpenChange` to decide yourself when it shows.
+
+## API Reference
+
+| Prop           | Type                                                              | Default     |
+| -------------- | ----------------------------------------------------------------- | ----------- |
+| `variant`      | `"default" \| "muted" \| "primary" \| "warning" \| "destructive"` | `"default"` |
+| `open`         | `boolean`                                                         |             |
+| `onOpenChange` | `(open: boolean) => void`                                         |             |
+| `storageKey`   | `string`                                                          |             |
+
+## Accessibility
+
+The banner is a `region` labeled "Announcement", so screen-reader users can jump to it. Pass `aria-label` to change the label. The close button is labeled "Dismiss".

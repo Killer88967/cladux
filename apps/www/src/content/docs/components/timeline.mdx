@@ -1,0 +1,68 @@
+export const metadata = {
+  title: "Timeline",
+  description: "A vertical list of events with markers, times and a connecting line.",
+  new: true,
+};
+
+<ComponentPreview name="timeline-demo" />
+
+## Usage
+
+```tsx
+import {
+  Timeline,
+  TimelineContent,
+  TimelineDescription,
+  TimelineDot,
+  TimelineHeader,
+  TimelineItem,
+  TimelineTime,
+  TimelineTitle,
+} from "@cladux/ui";
+```
+
+```tsx
+<Timeline>
+  <TimelineItem>
+    <TimelineDot />
+    <TimelineContent>
+      <TimelineHeader>
+        <TimelineTitle>Beta launch</TimelineTitle>
+        <TimelineTime dateTime="2026-03-18">Mar 18</TimelineTime>
+      </TimelineHeader>
+      <TimelineDescription>Opened sign-ups to the first 500 people.</TimelineDescription>
+    </TimelineContent>
+  </TimelineItem>
+</Timeline>
+```
+
+## Composition
+
+```text
+Timeline
+└── TimelineItem
+    ├── TimelineDot
+    └── TimelineContent
+        ├── TimelineHeader
+        │   ├── TimelineTitle
+        │   └── TimelineTime
+        └── TimelineDescription
+```
+
+The line between items is drawn for you and stops at the last item.
+
+## Icons
+
+Set `size="icon"` on `TimelineDot` and pass an icon. The variants are `default`, `primary`, `muted`, `success`, `warning` and `destructive`.
+
+<ComponentPreview name="timeline-icons" />
+
+## Cards
+
+`TimelineContent` takes any classes, so an event can be a card.
+
+<ComponentPreview name="timeline-card" />
+
+## Accessibility
+
+A timeline is an ordered list, so screen readers announce how many events there are. `TimelineTime` renders a `time` element. Give it a `dateTime` so the date can be read by machines. The dots are hidden from screen readers, so put anything important, like a failed status, in the text.

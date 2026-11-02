@@ -1,0 +1,78 @@
+export const metadata = {
+  title: "Stat",
+  description:
+    "KPI cards with a label, value, trend and an optional sparkline that needs no chart library.",
+  new: true,
+};
+
+<ComponentPreview name="stat-demo" />
+
+## Usage
+
+```tsx
+import { Stat, StatDelta, StatDescription, StatLabel, StatValue } from "@cladux/ui";
+```
+
+```tsx
+<Stat>
+  <StatLabel>Monthly revenue</StatLabel>
+  <StatValue>$48,290</StatValue>
+  <StatDescription>
+    <StatDelta trend="up">12.4%</StatDelta>
+    vs. last month
+  </StatDescription>
+</Stat>
+```
+
+## Composition
+
+```text
+StatGroup
+└── Stat
+    ├── StatHeader
+    │   ├── StatLabel
+    │   └── StatIcon
+    ├── StatValue
+    ├── StatDescription
+    │   └── StatDelta
+    └── StatSparkline
+```
+
+## Group
+
+`StatGroup` is a grid with one column on phones, two on tablets and four on desktops.
+
+<ComponentPreview name="stat-group" />
+
+## Trend
+
+`StatDelta` takes `trend="up"`, `"down"` or `"neutral"`, which sets its icon and color. When going down is good, like refunds or latency, add `invert`. The arrow still points the way the number moved, but the color flips.
+
+## Sparkline
+
+`StatSparkline` draws a small line from an array of numbers. It is a plain SVG that stretches to its container and uses `currentColor`, so set a text color on it.
+
+<ComponentPreview name="stat-sparkline" />
+
+For axes, tooltips or more than one series, use [Chart](/docs/components/chart) instead.
+
+## API Reference
+
+### StatDelta
+
+| Prop     | Type                          | Default     |
+| -------- | ----------------------------- | ----------- |
+| `trend`  | `"up" \| "down" \| "neutral"` | `"neutral"` |
+| `invert` | `boolean`                     | `false`     |
+
+### StatSparkline
+
+| Prop          | Type       | Default |
+| ------------- | ---------- | ------- |
+| `data`        | `number[]` |         |
+| `fill`        | `boolean`  | `true`  |
+| `strokeWidth` | `number`   | `1.5`   |
+
+## Accessibility
+
+`StatDelta` adds hidden text, "(increase)", "(decrease)" or "(no change)", so the trend isn't conveyed by color alone. The sparkline is decorative and hidden from screen readers. If the trend matters, say it in the text.
