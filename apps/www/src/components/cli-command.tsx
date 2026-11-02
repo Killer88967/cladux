@@ -26,7 +26,7 @@ const ADD: Record<Manager, string> = {
 const STORAGE_KEY = "cl-package-manager";
 const EVENT = "cl-package-manager";
 
-function usePackageManager() {
+export function usePackageManager() {
   const [manager, setManager] = React.useState<Manager>("npm");
 
   React.useEffect(() => {
@@ -53,6 +53,9 @@ function usePackageManager() {
 
   return [manager, choose] as const;
 }
+
+/** `npx cladux@latest <args>` for the chosen package manager. */
+export const cliCommand = (manager: Manager, args: string) => `${RUN[manager]} ${CLI} ${args}`;
 
 interface CliCommandProps {
   args?: string;

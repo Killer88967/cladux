@@ -138,7 +138,9 @@ export async function add(opts: AddOptions) {
     p.log.warn(`Skipped installing: ${deps.join(" ")}`);
   }
 
-  const first = items.find((i) => requested.has(i.name) && i.type === "registry:ui");
+  const first = items.find(
+    (i) => requested.has(i.name) && (i.type === "registry:ui" || i.type === "registry:block"),
+  );
   p.outro(
     first ? `Done. Use it with:\n  ${importLine(first, config.aliases.components)}` : "Done.",
   );
@@ -176,10 +178,18 @@ function distance(a: string, b: string) {
 function importLine(item: RegistryItem, componentsAlias: string) {
   // input-otp -> InputOTP: match function names case-insensitively, ignoring dashes.
   const wanted = item.name.replaceAll("-", "").toLowerCase();
-  const content = item.files[0]?.content ?? "";
+  const file = item.files.find((f) => f.type === "ui");
+  const content = file?.content ?? "";
+  const functions = [...content.matchAll(/\bfunction (\w+)/g)].map((m) => m[1]!);
+  // A block exports one component; a component file's main export matches its name.
   const name =
-    [...content.matchAll(/\bfunction (\w+)/g)]
-      .map((m) => m[1]!)
-      .find((n) => n.toLowerCase() === wanted) ?? "...";
-  return `import { ${name} } from "${componentsAlias}/${item.name}"`;
+    functions.find((n) => n.toLowerCase() === wanted) ??
+    (item.type === "registry:block"
+      ? /export default function (\w+)/.exec(content)?.[1]
+      : undefined) ??
+    "...";
+  const from = file ? file.path.replace(/\.tsx?$/, "") : item.name;
+  return item.type === "registry:block"
+    ? `import ${name} from "${componentsAlias}/${from}"`
+    : `import { ${name} } from "${componentsAlias}/${from}"`;
 }

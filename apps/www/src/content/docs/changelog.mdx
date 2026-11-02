@@ -1,0 +1,53 @@
+export const metadata = {
+  title: "Changelog",
+  description: "What's new in Cladux.",
+  order: 3,
+};
+
+## November 2026
+
+### A new site: blocks, examples, themes and colors
+
+- **[Blocks](/blocks).** 14 page sections, from navbars and heroes to pricing, login screens and a dashboard. Preview them at desktop, tablet and phone widths, read the code, or add one with `cladux add hero-01`. Blocks install to `components/cl/blocks/` in either style.
+- **[Examples](/examples).** Five full app screens built only from Cladux: a dashboard, a task board with a list view, a mail client, settings and a sign-up page.
+- **[Themes](/themes).** Pick one of 7 base colors and 17 accents and a radius, watch the whole page follow, then copy the variables for the Tailwind or CSS style.
+- **[Colors](/colors).** The Tailwind palette. Click a color to copy it as a class, variable, hex, RGB, HSL or OKLCH.
+- **A new home page.** It has a live wall of components, a menu for phones, and links to GitHub.
+- **The CLI installs blocks.** `cladux add` accepts block names and prints the import line when it's done.
+
+### Heavier interactive components
+
+- [Sortable](/docs/components/sortable) and [Kanban](/docs/components/kanban): drag and drop by mouse, touch or keyboard, with animations and screen reader announcements. There's no drag-and-drop library to install.
+- [Virtual List](/docs/components/virtual-list): renders only the rows in view, and rows can be any height.
+- [Rich Text Editor](/docs/components/rich-text-editor): built on Tiptap, with a toolbar, Markdown shortcuts and links.
+
+### Feedback and motion
+
+- [Copy Button](/docs/components/copy-button), [Marquee](/docs/components/marquee), [Relative Time](/docs/components/relative-time), [Countdown](/docs/components/countdown) and [Tour](/docs/components/tour).
+
+### Layout and display
+
+- [Stepper](/docs/components/stepper), [Timeline](/docs/components/timeline), [Tree View](/docs/components/tree-view), [Stat](/docs/components/stat) and [Banner](/docs/components/banner).
+- **Fix:** In the CSS style, components added after `init` now carry the theme variables they need.
+
+### Form inputs
+
+- [Number Input](/docs/components/number-input), [Password Input](/docs/components/password-input), [Tags Input](/docs/components/tags-input), [Rating](/docs/components/rating), [Color Picker](/docs/components/color-picker) and [File Upload](/docs/components/file-upload).
+
+### Cladux
+
+- The project has a name. The packages are named `@cladux/*`, and the CLI is `cladux`.
+
+## October 2026
+
+### The CSS style
+
+- Every component also comes without Tailwind: plain class names and one CSS file per component, generated from the Tailwind version so the two always look the same.
+
+### The CLI
+
+- `cladux init` and `cladux add` work in Next.js, Vite and other React projects. They detect Tailwind, write `cl.json`, and work alongside shadcn/ui without touching `components.json`.
+
+### First components
+
+- Every shadcn/ui component in the nova style, plus [Code Block](/docs/components/code-block) and [Trace](/docs/components/trace).

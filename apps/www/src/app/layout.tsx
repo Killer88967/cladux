@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import type { ReactNode } from "react";
 import { Toaster, TooltipProvider } from "@cladux/ui";
-import { SiteHeader } from "@/components/site-header";
 import { DomRuntime } from "@/components/dom-runtime";
 import "./globals.css";
 
@@ -31,7 +30,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <SiteHeader />
             {children}
             <Toaster />
             <DomRuntime />

@@ -6,6 +6,7 @@ import { existsSync } from "node:fs";
 import { createRequire } from "node:module";
 import * as prettier from "prettier";
 import { buildCssStyle } from "./css-style.ts";
+import { blocks } from "../../../packages/ui/src/blocks/_blocks.ts";
 
 const ROOT = new URL("../../../", import.meta.url);
 const UI = new URL("packages/ui/src/", ROOT);
@@ -34,7 +35,7 @@ interface RegistryFile {
 
 interface RegistryItem {
   name: string;
-  type: "registry:ui" | "registry:hook" | "registry:lib" | "registry:style";
+  type: "registry:ui" | "registry:block" | "registry:hook" | "registry:lib" | "registry:style";
   style: string;
   description?: string;
   /** npm packages, with the version range we build and test against. */
@@ -167,6 +168,20 @@ for (const dir of await readdir(UI, { withFileTypes: true })) {
     dependencies: processed.dependencies,
     registryDependencies: processed.registryDependencies,
     files: [{ path: `${dir.name}.tsx`, type: "ui", content: processed.content }],
+  });
+}
+
+// Blocks: packages/ui/src/blocks/<name>.tsx, installed to <components>/blocks/.
+for (const block of blocks) {
+  const processed = processSource(await readFile(new URL(`blocks/${block.name}.tsx`, UI), "utf8"));
+  items.push({
+    name: block.name,
+    type: "registry:block",
+    style: STYLE,
+    description: block.description,
+    dependencies: processed.dependencies,
+    registryDependencies: processed.registryDependencies,
+    files: [{ path: `blocks/${block.name}.tsx`, type: "ui", content: processed.content }],
   });
 }
 

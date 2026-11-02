@@ -9,7 +9,7 @@ export interface RegistryFile {
 
 export interface RegistryItem {
   name: string;
-  type: "registry:ui" | "registry:hook" | "registry:lib" | "registry:style";
+  type: "registry:ui" | "registry:block" | "registry:hook" | "registry:lib" | "registry:style";
   style: string;
   description?: string;
   dependencies: string[];
