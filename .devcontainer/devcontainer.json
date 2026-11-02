@@ -18,7 +18,7 @@
     },
     "ghcr.io/devcontainers/features/git-lfs:1": {},
     "ghcr.io/devcontainers/features/node:1": {
-      "version": "latest",
+      "version": "lts",
       "pnpmVersion": "latest",
       "nodeGypDependencies": true
     }
