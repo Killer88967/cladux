@@ -1,0 +1,100 @@
+export const metadata = {
+  title: "Color Picker",
+  description: "Pick a color with a saturation area, hue and opacity sliders, a hex field, swatches and the eye dropper.",
+  new: true,
+};
+
+<ComponentPreview name="color-picker-demo" />
+
+## Usage
+
+```tsx
+import {
+  ColorPicker,
+  ColorPickerAlpha,
+  ColorPickerArea,
+  ColorPickerEyeDropper,
+  ColorPickerHue,
+  ColorPickerInput,
+} from "@cladux/ui";
+```
+
+```tsx
+<ColorPicker defaultValue="#6366f1">
+  <ColorPickerArea />
+  <ColorPickerHue />
+  <ColorPickerAlpha />
+  <ColorPickerInput />
+</ColorPicker>
+```
+
+## Composition
+
+```text
+ColorPicker
+├── ColorPickerArea
+├── ColorPickerHue
+├── ColorPickerAlpha
+├── ColorPickerSwatches
+├── ColorPickerEyeDropper
+└── ColorPickerInput
+```
+
+Use only the parts you need. Every part is optional, and the order is up to you.
+
+## Features
+
+- **It has no dependencies.** The color math is about 50 lines and is exported: `hexToHsva`, `hsvaToHex` and `hsvaToRgba`.
+- **It keeps hue through grey.** Dragging to black or white and back keeps the hue you had, instead of jumping to red.
+- **It speaks hex.** `value` is `#rrggbb`, or `#rrggbbaa` when the opacity is below 100%. It also accepts `#rgb`.
+- **It uses the eye dropper where the browser has one.** `ColorPickerEyeDropper` renders nothing in browsers without the EyeDropper API.
+
+## Popover
+
+Keep the color in state, show it in the trigger with `ColorPickerSwatch`, and put the picker in a `Popover`.
+
+<ComponentPreview name="color-picker-popover" />
+
+## Swatches
+
+`ColorPickerSwatches` can be the whole picker when you only offer presets.
+
+<ComponentPreview name="color-picker-swatches" />
+
+## Custom Parts
+
+`useColorPicker()` returns `hsva`, `hex`, `update(patch)` and `setHex(hex)`, for building your own parts inside `ColorPicker`.
+
+```tsx
+function Lightness() {
+  const { hsva, update } = useColorPicker()
+  return <button onClick={() => update({ v: 1 })}>Brightest</button>
+}
+```
+
+## API Reference
+
+### ColorPicker
+
+| Prop            | Type                      | Default     |
+| --------------- | ------------------------- | ----------- |
+| `value`         | `string`                  |             |
+| `defaultValue`  | `string`                  | `"#000000"` |
+| `onValueChange` | `(value: string) => void` |             |
+| `disabled`      | `boolean`                 | `false`     |
+
+### ColorPickerSwatches
+
+| Prop     | Type       |
+| -------- | ---------- |
+| `colors` | `string[]` |
+
+### ColorPickerSwatch
+
+| Prop    | Type     |
+| ------- | -------- |
+| `color` | `string` |
+
+## Accessibility
+
+The area, hue and opacity are sliders that you can focus. The arrow keys move by 1%, or by 10% with `Shift`. The area uses left and right for saturation and up and down for brightness. The hex field applies a full color as you type and puts the last value back on `Escape`.

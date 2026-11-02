@@ -37,7 +37,7 @@
           "type": "text",
           "style": "plain",
           "foreground": "#C678DD",
-          "template": "{{ if .Env.COMPONENT_LIBRARY_PM }} [{{ .Env.COMPONENT_LIBRARY_PM }}]{{ end }}"
+          "template": "{{ if .Env.CLADUX_PM }} [{{ .Env.CLADUX_PM }}]{{ end }}"
         },
         {
           "type": "node",

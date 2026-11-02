@@ -1,0 +1,57 @@
+export const metadata = {
+  title: "Tags Input",
+  description: "A field that turns typed text into removable tags, with validation, limits and paste support.",
+  new: true,
+};
+
+<ComponentPreview name="tags-input-demo" />
+
+## Usage
+
+```tsx
+import { TagsInput } from "@cladux/ui";
+```
+
+```tsx
+<TagsInput defaultValue={["react"]} placeholder="Add a topic..." />
+```
+
+## Features
+
+- **It adds tags as you type.** Enter or a delimiter adds the text as a tag. By default the delimiter is a comma, and text left in the field is added when it loses focus.
+- **It splits pasted lists.** Pasting `a, b, c` or one item per line adds every item at once.
+- **It removes by keyboard.** Backspace in an empty field removes the last tag. The arrow keys move between tags, and Backspace or Delete removes the focused one.
+- **It skips duplicates.** Set `allowDuplicates` to keep them.
+
+## Validation
+
+`validate` runs before each tag is added. Return `false` to reject it, or a string to change it, for example to lowercase an email. `max` caps the number of tags, and the field hides once the cap is reached.
+
+<ComponentPreview name="tags-input-validate" />
+
+```tsx
+<TagsInput
+  max={5}
+  delimiters={[",", " ", ";"]}
+  validate={(tag) => (isEmail(tag) ? tag.toLowerCase() : false)}
+/>
+```
+
+## API Reference
+
+`TagsInput` takes every `input` prop except `value`, `defaultValue` and `onChange`. Those go to the text field, plus:
+
+| Prop              | Type                                              | Default    |
+| ----------------- | ------------------------------------------------- | ---------- |
+| `value`           | `string[]`                                        |            |
+| `defaultValue`    | `string[]`                                        | `[]`       |
+| `onValueChange`   | `(value: string[]) => void`                       |            |
+| `max`             | `number`                                          | `Infinity` |
+| `delimiters`      | `string[]`                                        | `[","]`    |
+| `allowDuplicates` | `boolean`                                         | `false`    |
+| `validate`        | `(tag: string, tags: string[]) => boolean \| string` |         |
+| `addOnBlur`       | `boolean`                                         | `true`     |
+
+## Accessibility
+
+Each tag has a remove button labeled "Remove" followed by the tag. When a tag is removed, focus moves to the previous tag, or back to the field when none is left. Give the field a `Label` through `id`, or an `aria-label`.

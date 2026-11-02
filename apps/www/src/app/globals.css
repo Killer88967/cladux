@@ -7,7 +7,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* Shiki code blocks: the wrapper sets the background, colours follow the theme. */
+/* Shiki code blocks: the wrapper sets the background, colors follow the theme. */
 .shiki {
   background-color: transparent !important;
 }

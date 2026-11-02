@@ -23,7 +23,7 @@ let started = false;
 const asElement = (target: EventTarget | null) => (target instanceof Element ? target : null);
 
 /**
- * Turns on the behaviour for the CSS-only components: dialogs, popovers,
+ * Turns on the behavior for the CSS-only components: dialogs, popovers,
  * dropdown menus, tooltips, tabs and toasts. Listeners are delegated to the
  * document, so markup added later works too. Safe to call more than once.
  */

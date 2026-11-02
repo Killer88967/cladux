@@ -1,0 +1,114 @@
+export const metadata = {
+  title: "File Upload",
+  description: "A drop zone and file picker with type, size and count checks, previews and a list you render yourself.",
+  new: true,
+};
+
+<ComponentPreview name="file-upload-demo" />
+
+## Usage
+
+```tsx
+import {
+  FileUpload,
+  FileUploadDescription,
+  FileUploadDropzone,
+  FileUploadList,
+  FileUploadTitle,
+} from "@cladux/ui";
+```
+
+```tsx
+<FileUpload maxFiles={4} maxSize={5 * 1024 * 1024} onValueChange={setFiles}>
+  <FileUploadDropzone>
+    <FileUploadTitle>Drop files here or click to browse</FileUploadTitle>
+    <FileUploadDescription>Up to 4 files, 5 MB each</FileUploadDescription>
+  </FileUploadDropzone>
+  <FileUploadList>
+    {(file, { remove }) => (
+      <div>
+        {file.name} <button onClick={remove}>Remove</button>
+      </div>
+    )}
+  </FileUploadList>
+</FileUpload>
+```
+
+## Composition
+
+```text
+FileUpload
+├── FileUploadDropzone
+│   ├── FileUploadIcon
+│   ├── FileUploadTitle
+│   └── FileUploadDescription
+├── FileUploadTrigger
+└── FileUploadList
+```
+
+`FileUploadList` takes a function and calls it for each file, so a file can look however you like. The demos use [Attachment](/docs/components/attachment).
+
+## Features
+
+- **It checks dropped files too.** `accept` only filters the file dialog in the browser. `FileUpload` applies the same rules to dropped files, along with `maxSize` and `maxFiles`.
+- **It tells you what it turned away.** `onReject` gets each rejected file with a `reason` of `"type"`, `"size"` or `"count"`, and a message you can show.
+- **It works in a plain form.** Pass `name`, and the files are submitted with the form like a normal file input.
+- **It skips the same file twice.** A file with the same name, size and date is only added once.
+
+## Images
+
+`useFilePreview(file)` returns an object URL for an image and revokes it when the file goes away.
+
+<ComponentPreview name="file-upload-images" />
+
+## Button
+
+Without a drop zone, `FileUploadTrigger` opens the file dialog from any button. With `multiple={false}`, a new file replaces the old one.
+
+<ComponentPreview name="file-upload-button" />
+
+## Uploading
+
+`FileUpload` only holds the files. Send them yourself when they change, or when the form is submitted.
+
+```tsx
+<FileUpload
+  onValueChange={async (files) => {
+    const body = new FormData()
+    for (const file of files) body.append("files", file)
+    await fetch("/api/upload", { method: "POST", body })
+  }}
+/>
+```
+
+For progress, give each file an `Attachment` with `state="uploading"`.
+
+## API Reference
+
+### FileUpload
+
+| Prop            | Type                                         | Default    |
+| --------------- | -------------------------------------------- | ---------- |
+| `value`         | `File[]`                                     |            |
+| `defaultValue`  | `File[]`                                     | `[]`       |
+| `onValueChange` | `(files: File[]) => void`                    |            |
+| `onReject`      | `(rejections: FileUploadRejection[]) => void` |           |
+| `accept`        | `string`                                     |            |
+| `maxSize`       | `number` (bytes)                             |            |
+| `maxFiles`      | `number`                                     | `Infinity` |
+| `multiple`      | `boolean`                                    | `true`     |
+| `disabled`      | `boolean`                                    | `false`    |
+| `invalid`       | `boolean`                                    | `false`    |
+| `name`          | `string`                                     |            |
+
+### Helpers
+
+| Export                 | Returns                                                    |
+| ---------------------- | ---------------------------------------------------------- |
+| `useFileUpload()`      | `files`, `add`, `remove`, `clear` and `open`               |
+| `useFilePreview(file)` | An object URL for an image file, or `undefined`            |
+| `formatBytes(bytes)`   | A size such as `"1.5 MB"`                                  |
+
+## Accessibility
+
+The drop zone is a button, so Enter and Space open the file dialog. While a file is dragged over it, it has `data-dragging` for styling. Buttons inside the list or the zone keep their own clicks.

@@ -1,0 +1,60 @@
+export const metadata = {
+  title: "Rating",
+  description: "A star rating you can set by click, hover or keyboard, or show read-only with exact fractions.",
+  new: true,
+};
+
+<ComponentPreview name="rating-demo" />
+
+## Usage
+
+```tsx
+import { Rating } from "@cladux/ui";
+```
+
+```tsx
+<Rating defaultValue={3} aria-label="Rate this product" />
+```
+
+Hovering previews a value, and clicking the current value clears it back to 0.
+
+## Half Steps
+
+Set `allowHalf` to pick half stars. The left half of a star picks the half value. In right-to-left layouts it is the right half.
+
+<ComponentPreview name="rating-half" />
+
+## Read Only
+
+A read-only rating draws any fraction exactly, so an average of 4.3 fills 30% of the fifth star. It is announced as one image, for example "Average rating: 4.3 out of 5 stars".
+
+<ComponentPreview name="rating-read-only" />
+
+## Sizes
+
+<ComponentPreview name="rating-sizes" />
+
+## Custom Icon
+
+Pass any icon to `icon`, and color it with a text color on the root. `getLabel` changes what screen readers hear.
+
+<ComponentPreview name="rating-custom-icon" />
+
+## API Reference
+
+| Prop            | Type                                   | Default                   |
+| --------------- | -------------------------------------- | ------------------------- |
+| `value`         | `number`                               |                           |
+| `defaultValue`  | `number`                               | `0`                       |
+| `onValueChange` | `(value: number) => void`              |                           |
+| `max`           | `number`                               | `5`                       |
+| `allowHalf`     | `boolean`                              | `false`                   |
+| `readOnly`      | `boolean`                              | `false`                   |
+| `disabled`      | `boolean`                              | `false`                   |
+| `size`          | `"sm" \| "default" \| "lg"`            | `"default"`               |
+| `icon`          | `ReactNode`                            | `<StarIcon />`            |
+| `getLabel`      | `(value: number, max: number) => string` | `"3 out of 5 stars"`    |
+
+## Accessibility
+
+An interactive rating is a single `slider`, so it is one tab stop. The arrow keys change it by one step, `Home` and `End` go to 0 and the max, and a number key sets that value.

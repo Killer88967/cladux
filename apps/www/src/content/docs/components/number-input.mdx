@@ -1,0 +1,62 @@
+export const metadata = {
+  title: "Number Input",
+  description: "A numeric field with step buttons, keyboard stepping, min, max and decimal steps.",
+  new: true,
+};
+
+<ComponentPreview name="number-input-demo" />
+
+## Usage
+
+```tsx
+import { NumberInput } from "@cladux/ui";
+```
+
+```tsx
+<NumberInput defaultValue={1} min={1} max={99} />
+```
+
+## Features
+
+- **It steps like a native spinner.** Click the buttons, or hold one down to repeat.
+- **It clamps and rounds.** Values stay inside `min` and `max` and are rounded to the precision of `step`, so `0.1 + 0.2` stays `0.3`.
+- **It lets you type freely.** The text is checked when the field loses focus or you press Enter. Anything that isn't a number puts the last value back.
+- **It can be empty.** Clearing the field sets the value to `null`.
+
+## Step
+
+Use `step` for decimal values. The value stays a number, and `onValueChange` gets `null` when the field is cleared.
+
+<ComponentPreview name="number-input-step" />
+
+## States
+
+<ComponentPreview name="number-input-states" />
+
+## Keyboard
+
+| Key                         | Action                         |
+| --------------------------- | ------------------------------ |
+| `ArrowUp` / `ArrowDown`     | Step up or down.               |
+| `Shift` + arrow             | Step by `step × largeStep`.    |
+| `PageUp` / `PageDown`       | Step by `step × largeStep`.    |
+| `Home` / `End`              | Jump to `min` or `max`.        |
+| `Enter`                     | Commit what you typed.         |
+
+## API Reference
+
+`NumberInput` takes every `input` prop except `type`, `value`, `defaultValue` and `onChange`, plus:
+
+| Prop            | Type                              | Default     |
+| --------------- | --------------------------------- | ----------- |
+| `value`         | `number \| null`                  |             |
+| `defaultValue`  | `number \| null`                  | `null`      |
+| `onValueChange` | `(value: number \| null) => void` |             |
+| `min`           | `number`                          | `-Infinity` |
+| `max`           | `number`                          | `Infinity`  |
+| `step`          | `number`                          | `1`         |
+| `largeStep`     | `number`                          | `10`        |
+
+## Accessibility
+
+The field has the `spinbutton` role with `aria-valuenow`, `aria-valuemin` and `aria-valuemax`. The step buttons are left out of the tab order, because the arrow keys do the same thing. Give the field a `Label` or an `aria-label`.

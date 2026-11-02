@@ -98,6 +98,21 @@ export {
 } from "./code-block/code-block";
 export { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./collapsible/collapsible";
 export {
+  ColorPicker,
+  ColorPickerAlpha,
+  ColorPickerArea,
+  ColorPickerEyeDropper,
+  ColorPickerHue,
+  ColorPickerInput,
+  ColorPickerSwatch,
+  ColorPickerSwatches,
+  hexToHsva,
+  hsvaToHex,
+  hsvaToRgba,
+  useColorPicker,
+  type Hsva,
+} from "./color-picker/color-picker";
+export {
   Combobox,
   ComboboxChip,
   ComboboxChips,
@@ -205,6 +220,19 @@ export {
   FieldSet,
   FieldTitle,
 } from "./field/field";
+export {
+  FileUpload,
+  FileUploadDescription,
+  FileUploadDropzone,
+  FileUploadIcon,
+  FileUploadList,
+  FileUploadTitle,
+  FileUploadTrigger,
+  formatBytes,
+  useFilePreview,
+  useFileUpload,
+  type FileUploadRejection,
+} from "./file-upload/file-upload";
 export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card/hover-card";
 export { Input } from "./input/input";
 export {
@@ -284,6 +312,7 @@ export {
   navigationMenuTriggerStyle,
   NavigationMenuViewport,
 } from "./navigation-menu/navigation-menu";
+export { NumberInput, type NumberInputProps } from "./number-input/number-input";
 export {
   Pagination,
   PaginationContent,
@@ -293,6 +322,13 @@ export {
   PaginationNext,
   PaginationPrevious,
 } from "./pagination/pagination";
+export {
+  defaultPasswordRules,
+  getPasswordStrength,
+  PasswordInput,
+  PasswordStrength,
+  type PasswordRule,
+} from "./password-input/password-input";
 export {
   Popover,
   PopoverAnchor,
@@ -321,6 +357,7 @@ export {
   QuestionnaireTitle,
 } from "./questionnaire/questionnaire";
 export { RadioGroup, RadioGroupItem } from "./radio-group/radio-group";
+export { Rating, ratingVariants, type RatingProps } from "./rating/rating";
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./resizable/resizable";
 export { ScrollArea, ScrollBar } from "./scroll-area/scroll-area";
 export {
@@ -388,6 +425,7 @@ export {
   TableRow,
 } from "./table/table";
 export { Tabs, TabsContent, TabsList, tabsListVariants, TabsTrigger } from "./tabs/tabs";
+export { TagsInput, type TagsInputProps } from "./tags-input/tags-input";
 export { Textarea } from "./textarea/textarea";
 export { Toggle, toggleVariants } from "./toggle/toggle";
 export { ToggleGroup, ToggleGroupItem } from "./toggle-group/toggle-group";
@@ -405,3 +443,4 @@ export {
 export { useIsMobile } from "./hooks/use-mobile";
 export { useHighlightedCode } from "./hooks/use-highlighted-code";
 export { useMediaQuery } from "./hooks/use-media-query";
+export { useControllableState } from "./hooks/use-controllable-state";

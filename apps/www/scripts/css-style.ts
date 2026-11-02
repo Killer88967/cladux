@@ -665,6 +665,36 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
     `body {\n  background-color: var(--background);\n  color: var(--foreground);\n}`,
   ].join("\n\n");
 
+  // Each file also carries the theme variables it uses (--color-amber-400...), so a
+  // component added after `init` still works when init's shared file predates it.
+  // :where() keeps them at zero specificity: init's copy and the user's overrides win.
+  const themeDecls = new Map<string, string>();
+  for (const node of sharedRoot.nodes) {
+    if (node.type !== "rule" || node.selector !== ":root, :host") continue;
+    node.walkDecls((decl) => {
+      if (decl.prop.startsWith("--")) themeDecls.set(decl.prop, decl.value);
+    });
+  }
+  const usedVars = (text: string) => {
+    const found = new Set<string>();
+    const visit = (s: string) => {
+      for (const m of s.matchAll(/var\((--[\w-]+)/g)) {
+        const name = m[1]!;
+        if (found.has(name) || !themeDecls.has(name)) continue;
+        found.add(name);
+        visit(themeDecls.get(name)!);
+      }
+    };
+    visit(text);
+    return [...found].sort();
+  };
+  for (const [owner, text] of css) {
+    const vars = usedVars(text);
+    if (!vars.length) continue;
+    const block = vars.map((name) => `  ${name}: ${themeDecls.get(name)};`).join("\n");
+    css.set(owner, `:where(:root, :host) {\n${block}\n}\n\n${text}`);
+  }
+
   // Namespace the theme variables (--border -> --cl-border): plain-CSS projects
   // often define generic names like --border or --accent themselves. Tailwind's
   // --tw-* and variables components set from TSX (--sidebar-width) keep theirs.

@@ -4,14 +4,76 @@ set -euo pipefail
 
 # Resolve repository and configuration paths.
 DEVCONTAINER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="${CODESPACE_VSCODE_FOLDER:-$PWD}"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/oh-my-posh"
+OMP_BIN_DIR="$HOME/.local/bin"
 ZSHRC="$HOME/.zshrc"
 
-# Ensure Oh My Posh is already available.
+# Install Oh My Posh if it isn't already installed.
 if ! command -v oh-my-posh >/dev/null 2>&1; then
-  echo "Error: Oh My Posh is not installed."
+  echo "Installing Oh My Posh..."
+
+  for dependency in curl unzip realpath dirname; do
+    if ! command -v "$dependency" >/dev/null 2>&1; then
+      echo "Error: Missing required dependency: $dependency"
+      exit 1
+    fi
+  done
+
+  mkdir -p "$OMP_BIN_DIR"
+
+  curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$OMP_BIN_DIR"
+fi
+
+# Ensure Oh My Posh is available in this script.
+export PATH="$OMP_BIN_DIR:$PATH"
+
+if ! command -v oh-my-posh >/dev/null 2>&1; then
+  echo "Error: Oh My Posh installation failed."
   exit 1
 fi
+
+# Detect the project's package manager.
+PACKAGE_MANAGER=""
+
+if [[ -f "$PROJECT_DIR/package.json" ]] && command -v node >/dev/null 2>&1; then
+  PACKAGE_MANAGER="$(
+    node -e '
+      try {
+        const pkg = require(process.argv[1]);
+        const manager = pkg.packageManager || "";
+        process.stdout.write(manager.split("@")[0]);
+      } catch {
+        process.exit(0);
+      }
+    ' "$PROJECT_DIR/package.json"
+  )"
+fi
+
+# Fall back to detecting the package manager from lockfiles.
+if [[ -z "$PACKAGE_MANAGER" ]]; then
+  if [[ -f "$PROJECT_DIR/pnpm-lock.yaml" ]]; then
+    PACKAGE_MANAGER="pnpm"
+  elif [[ -f "$PROJECT_DIR/yarn.lock" ]]; then
+    PACKAGE_MANAGER="yarn"
+  elif [[ -f "$PROJECT_DIR/bun.lock" || -f "$PROJECT_DIR/bun.lockb" ]]; then
+    PACKAGE_MANAGER="bun"
+  elif [[ -f "$PROJECT_DIR/package-lock.json" || -f "$PROJECT_DIR/npm-shrinkwrap.json" ]]; then
+    PACKAGE_MANAGER="npm"
+  fi
+fi
+
+# Default to npm if no package manager was detected.
+PACKAGE_MANAGER="${PACKAGE_MANAGER:-npm}"
+
+case "$PACKAGE_MANAGER" in
+  npm|pnpm|yarn|bun)
+    ;;
+  *)
+    echo "Warning: Unknown package manager '$PACKAGE_MANAGER'. Defaulting to npm."
+    PACKAGE_MANAGER="npm"
+    ;;
+esac
 
 # Find the repository's OMP theme.
 THEMES=("$DEVCONTAINER_DIR"/*.omp.json)
@@ -29,19 +91,30 @@ THEME_DEST="$CONFIG_DIR/$THEME_NAME"
 mkdir -p "$CONFIG_DIR"
 install -m 644 "$THEME" "$THEME_DEST"
 
-# Add Oh My Posh initialization to Zsh (only once).
+# Configure Oh My Posh in Zsh.
+touch "$ZSHRC"
+
 MARKER="# Oh My Posh configuration"
+END_MARKER="# End Oh My Posh configuration"
 
-if ! grep -Fq "$MARKER" "$ZSHRC" 2>/dev/null; then
-  THEME_ESCAPED="$(printf '%q' "$THEME_DEST")"
+THEME_ESCAPED="$(printf '%q' "$THEME_DEST")"
 
-  cat >> "$ZSHRC" <<EOF
+# Remove the previous managed configuration block, if present.
+if grep -Fq "$MARKER" "$ZSHRC"; then
+  sed -i "/^$MARKER$/,/^$END_MARKER$/d" "$ZSHRC"
+fi
+
+# Add the current configuration.
+cat >> "$ZSHRC" <<EOF
 
 $MARKER
+export PATH="$OMP_BIN_DIR:\$PATH"
+export CLADUX_PM="$PACKAGE_MANAGER"
 export CLADUX_OMP_CONFIG=$THEME_ESCAPED
 eval "\$(oh-my-posh init zsh --config "\$CLADUX_OMP_CONFIG")"
+$END_MARKER
 EOF
-fi
 
 echo "Oh My Posh configured successfully."
 echo "Theme: $THEME_NAME"
+echo "Package manager: $PACKAGE_MANAGER"
