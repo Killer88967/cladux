@@ -13,11 +13,11 @@ changelog at /docs/changelog.
 
 ## 0.1 - Publish
 
-- [ ] Changesets for versioning and changelogs
-- [ ] `prepublishOnly` build, check the published files with `npm pack --dry-run`
-- [ ] README for the `cladux` package (install, commands, links)
+- [x] Changesets for versioning and changelogs
+- [x] `prepublishOnly` build, check the published files with `npm pack --dry-run`
+- [x] README for the `cladux` package (install, commands, links)
 - [ ] Publish `cladux` to npm
-- [ ] GitHub Actions: typecheck, build and format check on every push
+- [x] GitHub Actions: typecheck, build and format check on every push
 
 ## 0.2 - CLI essentials
 
@@ -57,6 +57,6 @@ changelog at /docs/changelog.
 
 ## Always
 
-- [ ] The parity, behaviour and end-to-end tests from the full-scale test, in CI
+- [ ] The parity, behavior and end-to-end tests from the full-scale test, in CI
 - [ ] Accessibility checks (axe) on the docs pages
 - [ ] Keep up with the latest stable React, Next.js, Tailwind and Radix

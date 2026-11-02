@@ -1,7 +1,29 @@
 {
   "name": "cladux",
-  "version": "0.0.0",
-  "description": "Add Cladux components to your project.",
+  "version": "0.1.0",
+  "description": "Add Cladux components and blocks to your React project, as Tailwind classes or plain CSS.",
+  "keywords": [
+    "cladux",
+    "components",
+    "react",
+    "tailwind",
+    "css",
+    "shadcn",
+    "cli",
+    "ui",
+    "design-system"
+  ],
+  "homepage": "https://cladux.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Killer88967/cladux.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/Killer88967/cladux/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Killer88967",
   "type": "module",
   "bin": {
     "cladux": "./dist/index.js"
@@ -12,9 +34,13 @@
   "engines": {
     "node": ">=20"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist/index.js --banner:js=\"#!/usr/bin/env node\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@clack/prompts": "^1.8.1",

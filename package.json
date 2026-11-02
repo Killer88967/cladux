@@ -7,9 +7,14 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "turbo build --filter=cladux && changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^3.0.3",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "turbo": "^2.11.10",
