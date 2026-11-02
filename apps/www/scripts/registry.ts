@@ -114,7 +114,10 @@ async function description(name: string) {
   const file = new URL(`${name}.mdx`, DOCS);
   if (!existsSync(file)) return undefined;
   const mdx = await readFile(file, "utf8");
-  return mdx.match(/description:\s*"([^"]*)"/)?.[1] || undefined;
+  // The metadata is our own JS: a single- or double-quoted string, maybe on the next line,
+  // with escapes like \u2014 or \" that need decoding.
+  const literal = mdx.match(/description:\s*("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/)?.[1];
+  return literal ? (new Function(`return ${literal}`)() as string) || undefined : undefined;
 }
 
 const items: RegistryItem[] = [];
