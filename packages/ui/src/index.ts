@@ -267,6 +267,16 @@ export {
   ItemSeparator,
   ItemTitle,
 } from "./item/item";
+export {
+  Kanban,
+  KanbanColumn,
+  KanbanColumnContent,
+  KanbanColumnHeader,
+  KanbanColumnTitle,
+  KanbanHandle,
+  KanbanItem,
+  type KanbanProps,
+} from "./kanban/kanban";
 export { Kbd, KbdGroup } from "./kbd/kbd";
 export { Label } from "./label/label";
 export { Marker, MarkerContent, MarkerIcon, markerVariants } from "./marker/marker";
@@ -372,6 +382,21 @@ export { RadioGroup, RadioGroupItem } from "./radio-group/radio-group";
 export { Rating, ratingVariants, type RatingProps } from "./rating/rating";
 export { formatRelativeTime, RelativeTime } from "./relative-time/relative-time";
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./resizable/resizable";
+export {
+  RichTextEditor,
+  RichTextEditorContent,
+  RichTextEditorFooter,
+  RichTextEditorHorizontalRule,
+  RichTextEditorLink,
+  RichTextEditorRedo,
+  RichTextEditorSeparator,
+  RichTextEditorToggle,
+  RichTextEditorToolbar,
+  RichTextEditorUndo,
+  useRichTextEditor,
+  type RichTextEditorFormat,
+  type RichTextEditorProps,
+} from "./rich-text-editor/rich-text-editor";
 export { ScrollArea, ScrollBar } from "./scroll-area/scroll-area";
 export {
   Select,
@@ -425,6 +450,13 @@ export {
 export { Skeleton } from "./skeleton/skeleton";
 export { Slider } from "./slider/slider";
 export { Toaster } from "./sonner/sonner";
+export {
+  Sortable,
+  SortableHandle,
+  SortableItem,
+  type DragEndEvent,
+  type SortableProps,
+} from "./sortable/sortable";
 export { Spinner } from "./spinner/spinner";
 export {
   Stat,
@@ -488,6 +520,11 @@ export {
   TraceTitle,
 } from "./trace/trace";
 export { TreeView, type TreeNode, type TreeViewProps } from "./tree-view/tree-view";
+export {
+  VirtualList,
+  type VirtualListHandle,
+  type VirtualListProps,
+} from "./virtual-list/virtual-list";
 export { useIsMobile } from "./hooks/use-mobile";
 export { useHighlightedCode } from "./hooks/use-highlighted-code";
 export { useMediaQuery } from "./hooks/use-media-query";

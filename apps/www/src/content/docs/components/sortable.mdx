@@ -1,0 +1,93 @@
+export const metadata = {
+  title: "Sortable",
+  description:
+    "Reorder a list by dragging or with the keyboard, with smooth animations and screen reader support.",
+  new: true,
+};
+
+<ComponentPreview name="sortable-demo" />
+
+## Usage
+
+```tsx
+import { Sortable, SortableHandle, SortableItem } from "@cladux/ui";
+```
+
+```tsx
+const [tasks, setTasks] = React.useState(initialTasks)
+
+<Sortable value={tasks} onValueChange={setTasks}>
+  {tasks.map((task) => (
+    <SortableItem key={task.id} id={task.id}>
+      <SortableHandle />
+      {task.title}
+    </SortableItem>
+  ))}
+</Sortable>
+```
+
+`value` is your array. Each `SortableItem` needs the `id` of its item, which is `item.id` by default. Change that with `getItemId`. For an array of strings, the string is the id.
+
+## Features
+
+- **It has no dependencies.** Dragging, animation and keyboard support are built in. There's no drag-and-drop library to install.
+- **Your state is always the order.** `onValueChange` is called on every step of a drag, so the list re-renders in the new order as you go. Escape puts it back.
+- **It works with mouse, touch and pen.** A drag starts after the pointer moves 5px, so clicks and taps still work.
+- **It works with the keyboard.** Focus an item or handle and press Space to pick it up. The arrow keys move it, Space drops it, and Escape cancels.
+- **It speaks.** Each step is announced, like "Picked up Record the demo video, position 2 of 5".
+- **It scrolls.** Dragging near the top or bottom of the window scrolls the page.
+
+## Handle
+
+With a `SortableHandle`, only the handle starts a drag, so the rest of the item can hold buttons, checkboxes and links. It also lets people scroll on touch screens by swiping the item. Without a handle, the whole item drags, except for any controls inside it.
+
+## Horizontal
+
+<ComponentPreview name="sortable-horizontal" />
+
+## Styling the Dragged Item
+
+While it's dragged, an item has `data-dragging`, set to `pointer` or `keyboard`. By default it gets a shadow, or a ring when dragged by keyboard.
+
+```tsx
+<SortableItem className="data-dragging:opacity-90 data-[dragging=pointer]:rotate-1" />
+```
+
+## Saving the Order
+
+`onValueChange` fires many times during one drag. To save once, use `onDragEnd`, which tells you where the item started and ended, and whether the drag was cancelled.
+
+```tsx
+<Sortable
+  value={tasks}
+  onValueChange={setTasks}
+  onDragEnd={({ cancelled }) => {
+    if (!cancelled) saveOrder(tasks);
+  }}
+/>
+```
+
+Between columns, use [Kanban](/docs/components/kanban).
+
+## API Reference
+
+### Sortable
+
+| Prop            | Type                            | Default                |
+| --------------- | ------------------------------- | ---------------------- |
+| `value`         | `T[]`                           |                        |
+| `onValueChange` | `(value: T[]) => void`          |                        |
+| `getItemId`     | `(item: T) => string`           | `item.id`, or the item |
+| `orientation`   | `"vertical" \| "horizontal"`    | `"vertical"`           |
+| `onDragStart`   | `(id: string) => void`          |                        |
+| `onDragEnd`     | `(event: DragEndEvent) => void` |                        |
+| `getItemLabel`  | `(id: string) => string`        | the item's text        |
+| `disabled`      | `boolean`                       | `false`                |
+
+### SortableItem
+
+| Prop | Type     |
+| ---- | -------- |
+| `id` | `string` |
+
+A wrapping grid isn't supported yet. The order is worked out along one axis.

@@ -1,0 +1,110 @@
+export const metadata = {
+  title: "Rich Text Editor",
+  description:
+    "A WYSIWYG editor with a toolbar, links, lists, code and shortcuts, built on Tiptap.",
+  new: true,
+};
+
+<ComponentPreview name="rich-text-editor-demo" />
+
+## About
+
+The editor is built on [Tiptap](https://tiptap.dev), the editor framework on top of ProseMirror. It's the one component in Cladux that needs packages of its own: `@tiptap/react`, `@tiptap/starter-kit`, `@tiptap/extensions`, `@tiptap/pm` and `@tiptap/core`. The CLI installs them for you.
+
+## Usage
+
+```tsx
+import { RichTextEditor } from "@cladux/ui";
+```
+
+```tsx
+<RichTextEditor defaultValue="<p>Hello</p>" onValueChange={(html) => save(html)} />
+```
+
+## Composition
+
+With no children, the editor shows the full toolbar above the content. Pass children to choose the parts and their order.
+
+```text
+RichTextEditor
+├── RichTextEditorToolbar
+│   ├── RichTextEditorUndo / RichTextEditorRedo
+│   ├── RichTextEditorToggle (format="bold" ...)
+│   ├── RichTextEditorLink
+│   ├── RichTextEditorHorizontalRule
+│   └── RichTextEditorSeparator
+├── RichTextEditorContent
+└── RichTextEditorFooter
+```
+
+## Features
+
+- **It has the formats people expect.** Bold, italic, underline, strikethrough, inline code, three heading levels, bulleted and numbered lists, quotes, code blocks, links and dividers.
+- **It has Markdown shortcuts.** Typing `# `, `- `, `1. `, `> ` or three backticks starts a heading, list, quote or code block. `**bold**` and `*italic*` work as you type.
+- **It has keyboard shortcuts.** ⌘B, ⌘I, ⌘U, ⌘E and ⌘K for a link (Ctrl on Windows and Linux). Each button's tooltip shows its shortcut.
+- **It hydrates cleanly.** The editor renders in the browser only, so server and client HTML match in Next.js.
+- **It takes Tiptap extensions.** Pass them to `extensions`, then build your own buttons with `useRichTextEditor()`.
+
+## Controlled
+
+`value` is HTML. `onValueChange` gets the HTML and the Tiptap editor, which also has `getJSON()` and `getText()`.
+
+<ComponentPreview name="rich-text-editor-controlled" />
+
+Never put user HTML into a page without cleaning it. Sanitize it on the server, with a library such as DOMPurify, before you show it to anyone else.
+
+## Custom Toolbar
+
+<ComponentPreview name="rich-text-editor-custom" />
+
+The formats are `bold`, `italic`, `underline`, `strike`, `code`, `heading1`, `heading2`, `heading3`, `bulletList`, `orderedList`, `blockquote` and `codeBlock`.
+
+## Your Own Buttons
+
+```tsx
+import { Highlight } from "@tiptap/extension-highlight";
+
+function HighlightButton() {
+  const editor = useRichTextEditor();
+  return (
+    <Button
+      variant="ghost"
+      size="icon-sm"
+      onClick={() => editor?.chain().focus().toggleHighlight().run()}
+    >
+      <HighlighterIcon />
+    </Button>
+  );
+}
+
+<RichTextEditor extensions={[Highlight]}>
+  <RichTextEditorToolbar>
+    <HighlightButton />
+  </RichTextEditorToolbar>
+  <RichTextEditorContent />
+</RichTextEditor>;
+```
+
+## API Reference
+
+### RichTextEditor
+
+| Prop            | Type                                     | Default              |
+| --------------- | ---------------------------------------- | -------------------- |
+| `value`         | `string` (HTML)                          |                      |
+| `defaultValue`  | `string` (HTML)                          | `""`                 |
+| `onValueChange` | `(html: string, editor: Editor) => void` |                      |
+| `placeholder`   | `string`                                 | `"Write something…"` |
+| `editable`      | `boolean`                                | `true`               |
+| `autofocus`     | `boolean`                                | `false`              |
+| `extensions`    | `AnyExtension[]`                         | `[]`                 |
+
+### RichTextEditorToggle
+
+| Prop     | Type                   |
+| -------- | ---------------------- |
+| `format` | `RichTextEditorFormat` |
+
+## Accessibility
+
+The toolbar is a `toolbar`, and the arrow keys move between its buttons. Each toggle has a label and `aria-pressed`, so screen readers announce "Bold, toggle button, pressed". The content is a standard `contenteditable` text area, which screen readers support.

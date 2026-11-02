@@ -1,0 +1,104 @@
+export const metadata = {
+  title: "Kanban",
+  description:
+    "A board of columns with cards you drag within and between columns, by pointer or keyboard.",
+  new: true,
+};
+
+<ComponentPreview name="kanban-demo" />
+
+## Usage
+
+```tsx
+import {
+  Kanban,
+  KanbanColumn,
+  KanbanColumnContent,
+  KanbanColumnHeader,
+  KanbanColumnTitle,
+  KanbanItem,
+} from "@cladux/ui";
+```
+
+```tsx
+const [columns, setColumns] = React.useState({
+  todo: [{ id: "1", title: "Design" }],
+  doing: [],
+  done: [],
+})
+
+<Kanban value={columns} onValueChange={setColumns}>
+  {Object.entries(columns).map(([column, tasks]) => (
+    <KanbanColumn key={column} id={column}>
+      <KanbanColumnHeader>
+        <KanbanColumnTitle>{column}</KanbanColumnTitle>
+      </KanbanColumnHeader>
+      <KanbanColumnContent>
+        {tasks.map((task) => (
+          <KanbanItem key={task.id} id={task.id}>
+            {task.title}
+          </KanbanItem>
+        ))}
+      </KanbanColumnContent>
+    </KanbanColumn>
+  ))}
+</Kanban>
+```
+
+`value` is an object of arrays, one per column. The key order is the column order.
+
+## Composition
+
+```text
+Kanban
+└── KanbanColumn
+    ├── KanbanColumnHeader
+    │   └── KanbanColumnTitle
+    └── KanbanColumnContent
+        └── KanbanItem
+            └── KanbanHandle (optional)
+```
+
+## Features
+
+Kanban is built on [Sortable](/docs/components/sortable), so it shares its pointer, touch, keyboard, animation and screen reader support. On top of that:
+
+- **Cards move between columns.** Drop anywhere on a column, header included. Empty columns accept cards too.
+- **The keyboard crosses columns.** While a card is picked up, Left and Right move it to the next column, keeping its position where it can.
+- **Moves are announced with the column**, like "position 1 of 3 in doing".
+
+## Handle
+
+Add a `KanbanHandle` when cards hold buttons or menus. Then only the handle drags.
+
+<ComponentPreview name="kanban-handle" />
+
+## Saving
+
+`onDragEnd` gets `{ id, from, to, cancelled }`, where `from` and `to` are `{ container, index }`. It's a good place to save a move to your server.
+
+```tsx
+<Kanban
+  value={columns}
+  onValueChange={setColumns}
+  onDragEnd={({ id, to, cancelled }) => {
+    if (!cancelled) api.moveCard(id, to.container, to.index);
+  }}
+/>
+```
+
+## API Reference
+
+### Kanban
+
+| Prop            | Type                                   | Default         |
+| --------------- | -------------------------------------- | --------------- |
+| `value`         | `Record<string, T[]>`                  |                 |
+| `onValueChange` | `(value: Record<string, T[]>) => void` |                 |
+| `getItemId`     | `(item: T) => string`                  | `item.id`       |
+| `onDragStart`   | `(id: string) => void`                 |                 |
+| `onDragEnd`     | `(event: DragEndEvent) => void`        |                 |
+| `getItemLabel`  | `(id: string) => string`               | the card's text |
+| `disabled`      | `boolean`                              | `false`         |
+
+`KanbanColumn` and `KanbanItem` each need an `id`.

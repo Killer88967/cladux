@@ -1,0 +1,70 @@
+export const metadata = {
+  title: "Virtual List",
+  description:
+    "Renders only the rows in view, so lists of any length scroll smoothly. Rows can be any height.",
+  new: true,
+};
+
+<ComponentPreview name="virtual-list-demo" />
+
+## Usage
+
+```tsx
+import { VirtualList } from "@cladux/ui";
+```
+
+```tsx
+<VirtualList
+  items={rows}
+  estimateSize={40}
+  getItemKey={(row) => row.id}
+  className="h-80"
+  renderItem={(row) => <div className="h-10">{row.name}</div>}
+/>
+```
+
+Give the list a height: it's the element that scrolls. The default is `h-80`.
+
+## Features
+
+- **It has no dependencies.** Under 250 lines, with no virtualization library.
+- **Rows can be any height.** `estimateSize` is only a first guess. Each row is measured as it renders and re-measured if it changes size, for example when an image loads.
+- **The view holds still.** When rows above the view turn out taller or shorter than estimated, the scroll position is adjusted so what you're reading doesn't jump.
+- **It scrolls to any row.** Use `scrollToIndex` on the ref, with `align` set to `start`, `center`, `end` or `auto`.
+- **It loads more.** `onEndReached` fires once per length of the list, when the last rows come into view.
+
+## Different Heights
+
+<ComponentPreview name="virtual-list-dynamic" />
+
+## Infinite Loading
+
+<ComponentPreview name="virtual-list-infinite" />
+
+```tsx
+<VirtualList items={items} onEndReached={loadMore} renderItem={...} />
+```
+
+## Keys
+
+Pass `getItemKey` when items can be added, removed or reordered. Measured heights are stored by key, so they follow their row. Without it, the index is the key.
+
+## API Reference
+
+| Prop                  | Type                                    | Default   |
+| --------------------- | --------------------------------------- | --------- |
+| `items`               | `T[]`                                   |           |
+| `renderItem`          | `(item: T, index: number) => ReactNode` |           |
+| `estimateSize`        | `number \| (index: number) => number`   | `36`      |
+| `overscan`            | `number`                                | `6`       |
+| `getItemKey`          | `(item: T, index: number) => Key`       | the index |
+| `gap`                 | `number` (px)                           | `0`       |
+| `onEndReached`        | `() => void`                            |           |
+| `endReachedThreshold` | `number` (rows)                         | `5`       |
+| `ref`                 | `Ref<VirtualListHandle>`                |           |
+
+`VirtualListHandle` has `scrollToIndex(index, { align, behavior })` and `element`.
+
+## Accessibility
+
+The rows are a `list`, and each row has `aria-posinset` and `aria-setsize`, so screen readers announce "12 of 10,000" even though only a few rows exist in the page. Find in page (Ctrl+F) only finds rows that are rendered. For short lists, a normal list is better.
