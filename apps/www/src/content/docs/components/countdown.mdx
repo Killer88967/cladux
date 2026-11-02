@@ -1,0 +1,47 @@
+export const metadata = {
+  title: "Countdown",
+  description:
+    "Counts down to a date in days, hours, minutes and seconds, with a hook for custom layouts.",
+  new: true,
+};
+
+<ComponentPreview name="countdown-demo" />
+
+## Usage
+
+```tsx
+import { Countdown } from "@cladux/ui";
+```
+
+```tsx
+<Countdown target="2026-12-01T09:00:00Z" />
+```
+
+## Features
+
+- **It ticks on the second.** Each update lines up with the next whole second, so it doesn't drift or skip.
+- **It hides the days when there are none.** Below a day, it shows three boxes. Set `hideZeroDays={false}` to keep four.
+- **It hydrates cleanly.** The server renders `--`, and the numbers appear in the browser. That also keeps it out of Next.js's Cache Components restrictions on reading the current time.
+- **It doesn't chatter.** Screen readers get one summary down to the minute, instead of four numbers changing every second.
+
+## On Complete
+
+Children replace the boxes when the countdown ends, and `onComplete` fires once.
+
+<ComponentPreview name="countdown-complete" />
+
+## Custom Layout
+
+`useCountdown(target)` returns `days`, `hours`, `minutes`, `seconds`, `total` and `done`. Before hydration it returns `null`.
+
+<ComponentPreview name="countdown-custom" />
+
+## API Reference
+
+| Prop           | Type                                | Default                    |
+| -------------- | ----------------------------------- | -------------------------- |
+| `target`       | `Date \| number \| string`          |                            |
+| `onComplete`   | `() => void`                        |                            |
+| `labels`       | `{ days, hours, minutes, seconds }` | English                    |
+| `hideZeroDays` | `boolean`                           | `true`                     |
+| `children`     | `ReactNode`                         | shown once it reaches zero |

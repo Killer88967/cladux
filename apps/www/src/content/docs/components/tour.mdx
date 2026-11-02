@@ -1,0 +1,92 @@
+export const metadata = {
+  title: "Tour",
+  description:
+    "A guided product tour that highlights elements one by one with a card next to each.",
+  new: true,
+};
+
+<ComponentPreview name="tour-demo" />
+
+## Usage
+
+```tsx
+import { Tour, type TourStep } from "@cladux/ui";
+```
+
+```tsx
+const steps: TourStep[] = [
+  { title: "Welcome", content: "Here's a quick look around." },
+  { target: "#search", title: "Search", content: "Find anything." },
+  { target: createButtonRef, title: "Create", content: "Start a project.", side: "left" },
+];
+
+const [open, setOpen] = React.useState(false)
+
+<Tour steps={steps} open={open} onOpenChange={setOpen} />
+```
+
+## Features
+
+- **It points at anything.** A step's `target` is a CSS selector, a ref, or a function that returns an element. A step with no target shows a centered card.
+- **It keeps up with the page.** It scrolls each element into view, and the highlight and card follow it through scrolling, resizing and layout changes.
+- **The highlight is clickable.** The dimmed overlay has a hole cut out, so people can try the highlighted control during the tour.
+- **It moves by keyboard.** The arrow keys go back and forward, Escape ends the tour, and focus moves to the card's main button on each step.
+
+## Selectors
+
+Targets can be selectors. Here, clicking the dimmed area ends the tour, and `onComplete` runs after the last step.
+
+<ComponentPreview name="tour-selectors" />
+
+## Showing It Once
+
+The tour doesn't remember itself, so you decide when it shows. For example, show it once per browser:
+
+```tsx
+const [open, setOpen] = React.useState(false)
+
+React.useEffect(() => {
+  if (!localStorage.getItem("tour-seen")) setOpen(true)
+}, [])
+
+<Tour
+  steps={steps}
+  open={open}
+  onOpenChange={(next) => {
+    setOpen(next)
+    if (!next) localStorage.setItem("tour-seen", "1")
+  }}
+/>
+```
+
+## API Reference
+
+### Tour
+
+| Prop                  | Type                             | Default |
+| --------------------- | -------------------------------- | ------- |
+| `steps`               | `TourStep[]`                     |         |
+| `open`                | `boolean`                        |         |
+| `defaultOpen`         | `boolean`                        | `false` |
+| `onOpenChange`        | `(open: boolean) => void`        |         |
+| `step`                | `number`                         |         |
+| `defaultStep`         | `number`                         | `0`     |
+| `onStepChange`        | `(step: number) => void`         |         |
+| `onComplete`          | `() => void`                     |         |
+| `closeOnOverlayClick` | `boolean`                        | `false` |
+| `labels`              | `{ next, back, done, skip, of }` | English |
+
+### TourStep
+
+| Field     | Type                                            | Default    |
+| --------- | ----------------------------------------------- | ---------- |
+| `target`  | `string \| RefObject<Element> \| () => Element` | centered   |
+| `title`   | `ReactNode`                                     |            |
+| `content` | `ReactNode`                                     |            |
+| `side`    | `"top" \| "right" \| "bottom" \| "left"`        | `"bottom"` |
+| `align`   | `"start" \| "center" \| "end"`                  | `"center"` |
+| `padding` | `number` (px around the element)                | `8`        |
+
+## Accessibility
+
+The card is a `dialog` labeled by its title. The close button is labeled "Skip tour", and the card says which step this is, like "2 of 4". The tour doesn't trap focus, so people can still use the highlighted element.

@@ -1,0 +1,60 @@
+export const metadata = {
+  title: "Copy Button",
+  description: "A button that copies text to the clipboard and confirms with a check.",
+  new: true,
+};
+
+<ComponentPreview name="copy-button-demo" />
+
+## Usage
+
+```tsx
+import { CopyButton } from "@cladux/ui";
+```
+
+```tsx
+<CopyButton value="pnpm dlx cladux@latest init" />
+```
+
+## Features
+
+- **It confirms.** The icon turns into a check for two seconds, and screen readers hear "Copied".
+- **It copies what's current.** Pass a function to `value` to work out the text at the moment of the click.
+- **It works without HTTPS.** Outside a secure context, where the Clipboard API is missing, it falls back to `execCommand("copy")`.
+- **It is a Button.** It takes every `variant` and `size` that [Button](/docs/components/button) does.
+
+## With Text
+
+Children turn it into a text button. The text changes to "Copied" while the check shows.
+
+<ComponentPreview name="copy-button-text" />
+
+## Sizes
+
+<ComponentPreview name="copy-button-sizes" />
+
+## Hook
+
+`useCopyToClipboard()` gives you the same behavior for your own UI.
+
+```tsx
+const { copied, copy } = useCopyToClipboard({ timeout: 2000 })
+
+<button onClick={() => copy(url)}>{copied ? "Copied!" : "Share"}</button>
+```
+
+`copy` returns `true` when the text was copied.
+
+## API Reference
+
+`CopyButton` takes every `Button` prop, plus:
+
+| Prop          | Type                      | Default     |
+| ------------- | ------------------------- | ----------- |
+| `value`       | `string \| () => string`  |             |
+| `onCopy`      | `(value: string) => void` |             |
+| `timeout`     | `number`                  | `2000`      |
+| `label`       | `string`                  | `"Copy"`    |
+| `copiedLabel` | `string`                  | `"Copied"`  |
+| `variant`     | Button variant            | `"ghost"`   |
+| `size`        | Button size               | `"icon-sm"` |

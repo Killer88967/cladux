@@ -167,6 +167,8 @@ export {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "./context-menu/context-menu";
+export { CopyButton } from "./copy-button/copy-button";
+export { Countdown, useCountdown, type CountdownParts } from "./countdown/countdown";
 export {
   Dialog,
   DialogClose,
@@ -268,6 +270,7 @@ export {
 export { Kbd, KbdGroup } from "./kbd/kbd";
 export { Label } from "./label/label";
 export { Marker, MarkerContent, MarkerIcon, markerVariants } from "./marker/marker";
+export { Marquee, type MarqueeProps } from "./marquee/marquee";
 export {
   Menubar,
   MenubarCheckboxItem,
@@ -367,6 +370,7 @@ export {
 } from "./questionnaire/questionnaire";
 export { RadioGroup, RadioGroupItem } from "./radio-group/radio-group";
 export { Rating, ratingVariants, type RatingProps } from "./rating/rating";
+export { formatRelativeTime, RelativeTime } from "./relative-time/relative-time";
 export { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "./resizable/resizable";
 export { ScrollArea, ScrollBar } from "./scroll-area/scroll-area";
 export {
@@ -472,6 +476,7 @@ export {
 export { Toggle, toggleVariants } from "./toggle/toggle";
 export { ToggleGroup, ToggleGroupItem } from "./toggle-group/toggle-group";
 export { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip/tooltip";
+export { Tour, type TourProps, type TourStep } from "./tour/tour";
 export {
   Trace,
   TraceCollapsible,
@@ -487,3 +492,4 @@ export { useIsMobile } from "./hooks/use-mobile";
 export { useHighlightedCode } from "./hooks/use-highlighted-code";
 export { useMediaQuery } from "./hooks/use-media-query";
 export { useControllableState } from "./hooks/use-controllable-state";
+export { useCopyToClipboard } from "./hooks/use-copy-to-clipboard";

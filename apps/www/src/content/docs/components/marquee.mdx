@@ -1,0 +1,54 @@
+export const metadata = {
+  title: "Marquee",
+  description: "Scrolls content in an endless loop: logos, testimonials or a live feed.",
+  new: true,
+};
+
+<ComponentPreview name="marquee-demo" />
+
+## Usage
+
+```tsx
+import { Marquee } from "@cladux/ui";
+```
+
+```tsx
+<Marquee gap={48}>
+  <Logo1 />
+  <Logo2 />
+  <Logo3 />
+</Marquee>
+```
+
+## Features
+
+- **It fills any width.** The content is measured and repeated as often as needed, so there's no gap even on wide screens or with only a few items.
+- **It needs no CSS.** The motion runs on the Web Animations API, so there are no keyframes to add to your stylesheet, in either style.
+- **It moves at a steady speed.** `speed` is in pixels per second, so a long row moves as fast as a short one.
+- **It respects reduced motion.** When the system asks for less motion, the content stands still.
+- **It pauses for people.** It pauses while hovered with a mouse, and while anything inside has focus.
+- **It is read once.** The repeats are hidden from screen readers and can't be tabbed to.
+
+## Cards
+
+<ComponentPreview name="marquee-cards" />
+
+## Vertical
+
+Set `direction="up"` or `"down"` and give the marquee a height.
+
+<ComponentPreview name="marquee-vertical" />
+
+## API Reference
+
+| Prop           | Type                                  | Default  |
+| -------------- | ------------------------------------- | -------- |
+| `direction`    | `"left" \| "right" \| "up" \| "down"` | `"left"` |
+| `speed`        | `number` (px per second)              | `40`     |
+| `pauseOnHover` | `boolean`                             | `true`   |
+| `gap`          | `number` (px)                         | `16`     |
+| `fade`         | `boolean`                             | `true`   |
+
+## Accessibility
+
+Moving content can be distracting. Keep it decorative, and don't put anything there people must read in time. WCAG asks for a way to pause motion that lasts more than five seconds. The marquee pauses on hover and focus, and stops for anyone with reduced motion turned on.

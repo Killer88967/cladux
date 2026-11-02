@@ -1,0 +1,42 @@
+export const metadata = {
+  title: "Relative Time",
+  description: 'Shows a date as "3 minutes ago" or "in 2 days" and keeps it up to date.',
+  new: true,
+};
+
+<ComponentPreview name="relative-time-demo" />
+
+## Usage
+
+```tsx
+import { RelativeTime } from "@cladux/ui";
+```
+
+```tsx
+<RelativeTime date={comment.createdAt} />
+```
+
+## Features
+
+- **It speaks every language.** It uses `Intl.RelativeTimeFormat`, so `locale="fr"` gives "il y a 2 jours" with no translation files.
+- **It updates itself, but not too often.** It updates every few seconds for recent times, then every few minutes, then hourly. It catches up straight away when you come back to the tab.
+- **It shows the full date on hover.** The `title` is the date in full, and the `time` element has a machine-readable `dateTime`.
+- **It hydrates cleanly.** The server can't know the viewer's clock, so it renders the date (`2026-11-01`) and switches to the relative text in the browser. Pass children to change that placeholder.
+
+## Styles
+
+<ComponentPreview name="relative-time-styles" />
+
+## Formatting Without the Component
+
+`formatRelativeTime(date, { now, locale, numeric, style })` returns the string, for places like a tooltip or a table cell you render yourself.
+
+## API Reference
+
+| Prop       | Type                                 | Default      |
+| ---------- | ------------------------------------ | ------------ |
+| `date`     | `Date \| number \| string`           |              |
+| `locale`   | `string`                             | browser      |
+| `numeric`  | `"auto" \| "always"`                 | `"auto"`     |
+| `style`    | `"long" \| "short" \| "narrow"`      | `"long"`     |
+| `children` | `ReactNode` (shown before hydration) | the ISO date |
