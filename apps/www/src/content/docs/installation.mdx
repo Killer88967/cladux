@@ -96,14 +96,15 @@ export default function Page() {
 
 ## cl.json
 
-`init` writes this file; `add` reads it. It sits next to shadcn's `components.json` without touching it.
+`init` writes this file; `add` reads it. It sits next to shadcn's `components.json` without touching it. The `$schema` line lets your editor check it and suggest fields as you type.
 
 ```json
 {
+  "$schema": "https://cladux.vercel.app/schema/cl.json",
   "style": "tailwind",
   "tsx": true,
   "framework": "next",
-  "registry": "https://your-site.com/r",
+  "registry": "https://cladux.vercel.app/r",
   "css": {
     "globals": "src/app/globals.css",
     "dir": "src/styles",

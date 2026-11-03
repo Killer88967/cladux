@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cladux.vercel.app/schema/registry.json",
+  "title": "Cladux registry index",
+  "description": "index.json at the root of a registry: its styles and every item in it. Each item's files are at <style>/<name>.json.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "styles": {
+      "description": "The styles this registry publishes, such as tailwind and css.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "aliases": {
+      "description": "The import paths the files are written with. The CLI swaps them for the ones in cl.json.",
+      "type": "object",
+      "properties": {
+        "components": { "type": "string" },
+        "hooks": { "type": "string" },
+        "lib": { "type": "string" },
+        "utils": { "type": "string" }
+      },
+      "required": ["components", "hooks", "lib", "utils"],
+      "additionalProperties": false
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "registry-item.json#/$defs/name"
+          },
+          "type": {
+            "$ref": "registry-item.json#/$defs/type"
+          },
+          "description": {
+            "type": "string"
+          },
+          "new": {
+            "type": "boolean"
+          },
+          "registryDependencies": {
+            "type": "array",
+            "items": {
+              "$ref": "registry-item.json#/$defs/name"
+            }
+          }
+        },
+        "required": ["name", "type", "registryDependencies"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["styles", "items"],
+  "additionalProperties": false
+}

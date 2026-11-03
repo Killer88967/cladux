@@ -14,6 +14,7 @@ const DOCS = new URL("apps/www/src/content/docs/components/", ROOT);
 const OUT = new URL("apps/www/public/r/", ROOT);
 
 const STYLE = "tailwind";
+const SCHEMA = "https://cladux.vercel.app/schema";
 
 // Imports in the published files use the default aliases from cl.json.
 // The CLI swaps these prefixes for whatever the user configured.
@@ -285,7 +286,10 @@ for (const [style, list] of [
   await mkdir(new URL(`${style}/`, OUT), { recursive: true });
   await Promise.all(
     list.map((item) =>
-      writeFile(new URL(`${style}/${item.name}.json`, OUT), `${JSON.stringify(item, null, 2)}\n`),
+      writeFile(
+        new URL(`${style}/${item.name}.json`, OUT),
+        `${JSON.stringify({ $schema: `${SCHEMA}/registry-item.json`, ...item }, null, 2)}\n`,
+      ),
     ),
   );
 }
@@ -296,6 +300,7 @@ await Promise.all(
 );
 
 const index = {
+  $schema: `${SCHEMA}/registry.json`,
   styles: [STYLE, "css"],
   aliases: DEFAULT_ALIASES,
   items: items.map(({ name, type, description, new: isNew, registryDependencies }) => ({

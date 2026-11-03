@@ -17,9 +17,13 @@ export const REGISTRY_ALIASES = {
   utils: "@/lib/cl-utils",
 };
 
+/** Lets editors validate and autocomplete cl.json. */
+export const CONFIG_SCHEMA = "https://cladux.vercel.app/schema/cl.json";
+
 export type Aliases = typeof REGISTRY_ALIASES;
 
 export interface Config {
+  $schema?: string;
   style: "tailwind" | "css";
   tsx: boolean;
   framework: Framework;
@@ -44,5 +48,8 @@ export async function readConfig(root: string): Promise<Config | null> {
 }
 
 export async function writeConfig(root: string, config: Config) {
-  await writeFile(path.join(root, CONFIG_FILE), `${JSON.stringify(config, null, 2)}\n`);
+  await writeFile(
+    path.join(root, CONFIG_FILE),
+    `${JSON.stringify({ $schema: CONFIG_SCHEMA, ...config }, null, 2)}\n`,
+  );
 }

@@ -42,6 +42,7 @@ beforeEach(() =>
 describe("init", () => {
   it("writes cl.json, the helper and the lock", async () => {
     const config = JSON.parse(await read(ctx.root, "cl.json"));
+    expect(config.$schema).toBe("https://cladux.vercel.app/schema/cl.json");
     expect(config.style).toBe("css");
     expect(existsSync(path.join(ctx.root, "src/lib/cl-utils.ts"))).toBe(true);
     const lock = JSON.parse(await read(ctx.root, "cl-lock.json"));
