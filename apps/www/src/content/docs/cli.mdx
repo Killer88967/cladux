@@ -83,6 +83,19 @@ Brings installed components up to date. Files you haven't changed are replaced. 
 
 To tell your edits apart, the CLI saves a fingerprint of every file it writes in `cl-lock.json`. Commit it with your project. Components added before version 0.2 have no fingerprints yet, so `update` keeps them if they differ. `update <name> --force` replaces them and starts tracking them.
 
+## registry validate
+
+Checks a registry folder or URL before you publish it. Without one, it checks the registry in your `cl.json`.
+
+<CliCommand args="registry validate ./public/r" />
+
+It checks `index.json` and every item file against the [schemas](/schema/registry.json), and for what a schema can't see:
+
+- **Errors**: a missing file, a dependency that isn't in the registry, a circular dependency, two items writing the same file.
+- **Warnings**: a file that imports a package or an item it doesn't list, so `add` wouldn't install it, and relative imports, which break once the files are installed.
+
+It exits with code 1 when there are errors, so you can run it in CI.
+
 ## Options for every command
 
 | Option             | What it does                                           |

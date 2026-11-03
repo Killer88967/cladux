@@ -2,6 +2,8 @@ import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import type { Framework } from "./detect.ts";
+import { configIssues } from "./schema.ts";
+import { CliError } from "./ui.ts";
 
 /** Our own config file, so we never touch shadcn's components.json. */
 export const CONFIG_FILE = "cl.json";
@@ -44,7 +46,18 @@ export interface Config {
 export async function readConfig(root: string): Promise<Config | null> {
   const file = path.join(root, CONFIG_FILE);
   if (!existsSync(file)) return null;
-  return JSON.parse(await readFile(file, "utf8")) as Config;
+  let config: unknown;
+  try {
+    config = JSON.parse(await readFile(file, "utf8"));
+  } catch (error) {
+    throw new CliError(`${CONFIG_FILE} isn't valid JSON: ${(error as Error).message}`);
+  }
+  // Say what's wrong up front, instead of failing somewhere later.
+  const problems = configIssues(config);
+  if (problems.length) {
+    throw new CliError(`${CONFIG_FILE} has problems:\n${problems.map((m) => `  ${m}`).join("\n")}`);
+  }
+  return config as Config;
 }
 
 export async function writeConfig(root: string, config: Config) {

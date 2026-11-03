@@ -19,6 +19,8 @@ export interface RegistryItem {
 
 export interface RegistryIndex {
   styles: string[];
+  /** The import paths the files are written with. */
+  aliases?: { components: string; hooks: string; lib: string; utils: string };
   items: {
     name: string;
     type: string;
@@ -29,7 +31,7 @@ export interface RegistryIndex {
 }
 
 /** Reads a registry file from a URL, or from a folder (handy for local testing). */
-async function loadText(registry: string, file: string): Promise<string> {
+export async function loadText(registry: string, file: string): Promise<string> {
   if (/^https?:\/\//.test(registry)) {
     const url = `${registry.replace(/\/$/, "")}/${file}`;
     let res: Response;

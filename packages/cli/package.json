@@ -44,10 +44,11 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
+    "@cfworker/json-schema": "^4.1.4",
     "@clack/prompts": "^1.8.1",
     "@types/node": "^26.6.6",
     "diff": "^9.0.0",
     "esbuild": "^0.28.2",
-    "vitest": "^5.0.5"
+    "vitest": "^5.1.0"
   }
 }
