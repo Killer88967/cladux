@@ -4,7 +4,16 @@ import * as React from "react";
 import { cn } from "@cladux/utils";
 
 type AnimatedTextEffect =
-  "fade-up" | "blur-in" | "mask" | "pop" | "typewriter" | "rotate" | "shimmer" | "gradient";
+  | "fade-up"
+  | "blur-in"
+  | "mask"
+  | "pop"
+  | "typewriter"
+  | "rotate"
+  | "shimmer"
+  | "gradient"
+  | "highlight"
+  | "scramble";
 
 interface AnimatedTextProps extends Omit<React.ComponentProps<"span">, "children"> {
   /** The text. Not needed for `rotate`, or for `typewriter` with `phrases`. */
@@ -20,7 +29,7 @@ interface AnimatedTextProps extends Omit<React.ComponentProps<"span">, "children
   delay?: number;
   /** Entrance effects: milliseconds between one piece and the next. */
   stagger?: number;
-  /** Entrance effects: milliseconds each piece takes. */
+  /** Milliseconds it takes: each piece of an entrance effect, the highlight, or the scramble. */
   duration?: number;
   /** `rotate`: the words to cycle through. */
   words?: string[];
@@ -32,6 +41,8 @@ interface AnimatedTextProps extends Omit<React.ComponentProps<"span">, "children
   speed?: number;
   /** `typewriter`: show a blinking cursor. */
   cursor?: boolean;
+  /** `scramble`: the characters it cycles through before settling. */
+  characters?: string;
 }
 
 const EASE_OUT = "cubic-bezier(0.22, 1, 0.36, 1)";
@@ -58,6 +69,8 @@ const KEYFRAMES: Record<"fade-up" | "blur-in" | "mask" | "pop", Keyframe[]> = {
 };
 
 const STAGGER = { word: 80, char: 30, line: 160 };
+const SCRAMBLE_CHARACTERS =
+  "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!<>-_/[]{}=+*^?#";
 
 const reducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -90,9 +103,10 @@ function useInView(ref: React.RefObject<HTMLElement | null>, enabled: boolean, o
 /**
  * Animated headlines and phrases: entrance effects that reveal text word by
  * word, character by character or line by line, plus rotating words, a
- * typewriter, a shimmer and a flowing gradient. The motion runs on the Web
- * Animations API, so there are no keyframes to add, and screen readers get the
- * plain text once. With reduced motion turned on, the text just shows.
+ * typewriter, a shimmer, a flowing gradient, a highlighter and a scramble.
+ * The motion runs on the Web Animations API, so there are no keyframes to add,
+ * and screen readers get the plain text once. With reduced motion turned on,
+ * the text just shows.
  */
 function AnimatedText({
   effect = "fade-up",
@@ -102,18 +116,37 @@ function AnimatedText({
   once = true,
   delay = 0,
   stagger,
-  duration = 600,
+  duration,
   words = [],
   interval = 2500,
   phrases,
   speed = 50,
   cursor = true,
+  characters = SCRAMBLE_CHARACTERS,
   ...props
 }: AnimatedTextProps) {
   if (effect === "rotate") return <RotateText words={words} interval={interval} {...props} />;
   if (effect === "typewriter") {
     const list = phrases?.length ? phrases : [children];
     return <TypewriterText {...{ list, speed, cursor, delay, trigger, once }} {...props} />;
+  }
+  if (effect === "highlight") {
+    return (
+      <HighlightText {...{ delay, trigger, once }} duration={duration ?? 1000} {...props}>
+        {children}
+      </HighlightText>
+    );
+  }
+  if (effect === "scramble") {
+    return (
+      <ScrambleText
+        {...{ delay, trigger, once, characters }}
+        duration={duration ?? 1200}
+        {...props}
+      >
+        {children}
+      </ScrambleText>
+    );
   }
   if (effect === "shimmer" || effect === "gradient") {
     return (
@@ -124,7 +157,8 @@ function AnimatedText({
   }
   return (
     <EntranceText
-      {...{ effect, by, trigger, once, delay, duration }}
+      {...{ effect, by, trigger, once, delay }}
+      duration={duration ?? 600}
       stagger={stagger ?? STAGGER[by]}
       {...props}
     >
@@ -415,6 +449,118 @@ function FlowText({
       {...props}
     >
       {children}
+    </span>
+  );
+}
+
+function HighlightText({
+  className,
+  children,
+  delay,
+  duration,
+  trigger,
+  once,
+  ...props
+}: SpanProps & { children: string } & Required<
+    Pick<AnimatedTextProps, "delay" | "duration" | "trigger" | "once">
+  >) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, trigger === "view", once);
+
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (reducedMotion() || typeof el.animate !== "function") {
+      el.style.backgroundSize = "100% 100%";
+      return;
+    }
+    if (!inView) return;
+    // One background runs through every line, so it draws them in reading order.
+    const draw = el.animate([{ backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%" }], {
+      duration,
+      delay,
+      easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+      fill: "both",
+    });
+    return () => draw.cancel();
+  }, [inView, delay, duration]);
+
+  return (
+    <span
+      ref={ref}
+      data-slot="animated-text"
+      data-effect="highlight"
+      className={cn(
+        "rounded-[0.15em] bg-linear-to-r from-primary/20 to-primary/20 bg-size-[0%_100%] bg-no-repeat px-[0.1em]",
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </span>
+  );
+}
+
+function ScrambleText({
+  className,
+  children,
+  delay,
+  duration,
+  trigger,
+  once,
+  characters,
+  ...props
+}: SpanProps & { children: string; characters: string } & Required<
+    Pick<AnimatedTextProps, "delay" | "duration" | "trigger" | "once">
+  >) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, trigger === "view", once);
+  const [shown, setShown] = React.useState(children);
+
+  React.useEffect(() => {
+    setShown(children);
+    if (!inView || reducedMotion()) return;
+
+    const chars = graphemes(children);
+    const pool = graphemes(characters);
+    // Each character settles at its own moment, roughly from start to end.
+    const settle = chars.map(
+      (_, i) => (i / chars.length) * duration * 0.6 + Math.random() * duration * 0.4,
+    );
+    const random = () => pool[Math.floor(Math.random() * pool.length)];
+    const start = performance.now() + delay;
+    let last = 0;
+    let frame = requestAnimationFrame(function step(now) {
+      const t = now - start;
+      if (t >= duration) return setShown(children);
+      // About 25 changes a second: fast enough to flicker, slow enough to read as letters.
+      if (now - last > 40) {
+        last = now;
+        setShown(
+          chars.map((c, i) => (/\s/.test(c) || (t > 0 && t >= settle[i]!) ? c : random())).join(""),
+        );
+      }
+      frame = requestAnimationFrame(step);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [inView, children, characters, delay, duration]);
+
+  return (
+    <span
+      ref={ref}
+      data-slot="animated-text"
+      data-effect="scramble"
+      className={cn("inline-grid", className)}
+      {...props}
+    >
+      <span className="sr-only">{children}</span>
+      {/* The real text holds the space; the scrambled copy sits on top of it. */}
+      <span aria-hidden className="invisible col-start-1 row-start-1">
+        {children}
+      </span>
+      <span aria-hidden className="col-start-1 row-start-1">
+        {shown}
+      </span>
     </span>
   );
 }

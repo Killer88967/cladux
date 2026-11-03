@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Animated Text",
   description:
-    "Headlines that reveal word by word, rotating words, a typewriter, a shimmer and a flowing gradient.",
+    "Headlines that reveal word by word, rotating words, a typewriter, a shimmer, a gradient, a highlighter and a scramble.",
   new: true,
 };
 
@@ -25,7 +25,7 @@ import { AnimatedText } from "@cladux/ui";
 
 - **It needs no CSS.** The motion runs on the Web Animations API, so there are no keyframes to add to your stylesheet, in either style.
 - **It's read once.** Screen readers get the plain text, not a word or a letter at a time. `rotate` and `typewriter` give them every phrase, without announcing each change.
-- **It waits until you can see it.** Entrance effects and the typewriter start when the text scrolls into view. Set `trigger="mount"` to start right away, and `once={false}` to replay every time it comes back into view.
+- **It waits until you can see it.** Entrance effects, the typewriter, the highlighter and the scramble start when the text scrolls into view. Set `trigger="mount"` to start right away, and `once={false}` to replay every time it comes back into view.
 - **Nothing around it jumps.** The typewriter holds the space of its longest phrase, and `rotate` eases its width from one word to the next.
 - **It respects reduced motion.** When the system asks for less motion, the text just shows: `rotate` stays on its first word and the typewriter shows its first phrase in full.
 
@@ -90,23 +90,43 @@ In the CSS style, set the colors with a `background-image` of your own:
 }
 ```
 
+## Highlight and scramble
+
+`highlight` draws a marker behind the text, line by line in reading order. `scramble` cycles through random characters until each one settles on the real text, like it's being decoded. Both play when they scroll into view, and `duration` sets how long they take.
+
+<ComponentPreview name="animated-text-highlight" />
+
+```tsx
+<p>
+  Every component shadcn/ui has,{" "}
+  <AnimatedText effect="highlight" className="from-yellow-300/60 to-yellow-300/60">
+    plus the ones you'd otherwise build yourself
+  </AnimatedText>
+  .
+</p>
+
+<AnimatedText effect="scramble">ACCESS GRANTED</AnimatedText>
+```
+
+The highlight uses your theme's primary color. Set your own with a `from-` and a `to-` class of the same color, as above. `scramble` cycles through letters, digits and symbols; pass `characters` to use your own set, such as `"01"` or `"ABCDEF0123456789"`. Before JavaScript loads, it shows the real text.
+
 ## API Reference
 
-| Prop       | Type                                                                                               | Default             |
-| ---------- | -------------------------------------------------------------------------------------------------- | ------------------- |
-| `effect`   | `"fade-up" \| "blur-in" \| "mask" \| "pop" \| "typewriter" \| "rotate" \| "shimmer" \| "gradient"` | `"fade-up"`         |
-| `children` | `string`                                                                                           |                     |
-| `by`       | `"word" \| "char" \| "line"`                                                                       | `"word"`            |
-| `trigger`  | `"mount" \| "view"`                                                                                | `"view"`            |
-| `once`     | `boolean`                                                                                          | `true`              |
-| `delay`    | `number`                                                                                           | `0`                 |
-| `stagger`  | `number`                                                                                           | 80 / 30 / 160 ms    |
-| `duration` | `number`                                                                                           | `600`               |
-| `words`    | `string[]`                                                                                         | for `rotate`        |
-| `interval` | `number`                                                                                           | `2500`              |
-| `phrases`  | `string[]`                                                                                         | for `typewriter`    |
-| `speed`    | `number`                                                                                           | `50` ms a character |
-| `cursor`   | `boolean`                                                                                          | `true`              |
+| Prop         | Type        | Default                                              |
+| ------------ | ----------- | ---------------------------------------------------- | -------- | -------- | -------------- | ---------- | ----------- | ------------ | ------------- | ------------ | ----------- | --- | ---------- | -------- | --- |
+| `effect`     | `"fade-up"` | `"blur-in"`                                          | `"mask"` | `"pop"`  | `"typewriter"` | `"rotate"` | `"shimmer"` | `"gradient"` | `"highlight"` | `"scramble"` | `"fade-up"` |     | `children` | `string` |     |
+| `by`         | `"word"`    | `"char"`                                             | `"line"` | `"word"` |
+| `trigger`    | `"mount"`   | `"view"`                                             | `"view"` |
+| `once`       | `boolean`   | `true`                                               |
+| `delay`      | `number`    | `0`                                                  |
+| `stagger`    | `number`    | 80 / 30 / 160 ms                                     |
+| `duration`   | `number`    | `600`, `1000` for `highlight`, `1200` for `scramble` |
+| `words`      | `string[]`  | for `rotate`                                         |
+| `interval`   | `number`    | `2500`                                               |
+| `phrases`    | `string[]`  | for `typewriter`                                     |
+| `speed`      | `number`    | `50` ms a character                                  |
+| `cursor`     | `boolean`   | `true`                                               |
+| `characters` | `string`    | letters, digits and symbols, for `scramble`          |
 
 ## Accessibility
 
