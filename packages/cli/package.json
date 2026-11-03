@@ -40,11 +40,14 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist/index.js --banner:js=\"#!/usr/bin/env node\" && chmod +x dist/index.js",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "@clack/prompts": "^1.8.1",
     "@types/node": "^26.6.6",
-    "esbuild": "^0.28.2"
+    "diff": "^9.0.0",
+    "esbuild": "^0.28.2",
+    "vitest": "^5.0.5"
   }
 }

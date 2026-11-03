@@ -99,7 +99,14 @@ export async function findPathAlias(root: string): Promise<PathAlias | null> {
   return null;
 }
 
-/** "@/components/cl" -> "<root>/src/components/cl" */
+/** "\<root>/src/ui" -> "@/ui", or null when the folder is outside the alias. */
+export function pathToAlias(root: string, alias: PathAlias, dir: string) {
+  const rel = path.relative(path.join(root, alias.dir), dir).split(path.sep).join("/");
+  if (rel.startsWith("..") || path.isAbsolute(rel)) return null;
+  return rel ? `${alias.prefix}/${rel}` : alias.prefix;
+}
+
+/** "@/components/cl" -> "\<root>/src/components/cl" */
 export function aliasToPath(root: string, alias: PathAlias, value: string) {
   if (value !== alias.prefix && !value.startsWith(`${alias.prefix}/`)) {
     throw new Error(`"${value}" doesn't start with the "${alias.prefix}/" alias`);

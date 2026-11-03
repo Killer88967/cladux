@@ -1,15 +1,19 @@
 import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { styleText } from "node:util";
 import * as p from "@clack/prompts";
-import { CONFIG_FILE, readConfig } from "../utils/config.ts";
+import { CONFIG_FILE, readConfig, type Config } from "../utils/config.ts";
 import { addImport } from "../utils/css.ts";
 import { detectProject } from "../utils/detect.ts";
-import { targetPath, writeItemFiles } from "../utils/files.ts";
+import { rewriteImports, targetPath, writeItemFiles } from "../utils/files.ts";
 import { install, missingDeps } from "../utils/install.ts";
+import { normalize } from "../utils/lock.ts";
 import { fetchIndex, NotFoundError, resolveItems, type RegistryItem } from "../utils/registry.ts";
-import { findPathAlias } from "../utils/tsconfig.ts";
+import { findPathAlias, pathToAlias, type PathAlias } from "../utils/tsconfig.ts";
 import { answer, CliError } from "../utils/ui.ts";
+import { printPatch } from "./diff.ts";
+import { createTwoFilesPatch } from "diff";
 
 export interface AddOptions {
   cwd: string;
@@ -18,6 +22,10 @@ export interface AddOptions {
   all: boolean;
   overwrite: boolean;
   skipInstall: boolean;
+  dryRun: boolean;
+  view: boolean;
+  diff: boolean;
+  path?: string;
 }
 
 export async function add(opts: AddOptions) {
@@ -79,15 +87,26 @@ export async function add(opts: AddOptions) {
   }
   spin.stop(`Fetched ${items.length} item${items.length === 1 ? "" : "s"}`);
 
+  // --path moves what you named; its dependencies go where they always do.
+  const requested = new Set(names);
+  const dir = opts.path ? path.resolve(root, opts.path) : undefined;
+  const dirFor = (item: RegistryItem) => (requested.has(item.name) ? dir : undefined);
+
+  // --dry-run, --view and --diff show what would happen and change nothing.
+  if (opts.dryRun || opts.view || opts.diff) {
+    return preview(root, alias, config, items, requested, dirFor, opts);
+  }
+
   // 3. Write. What you asked for may replace existing files (with a yes);
   //    dependencies that already exist are left alone so your edits survive.
-  const requested = new Set(names);
   const written: string[] = [];
   const skipped: string[] = [];
   const cssFiles: string[] = [];
 
   for (const item of items) {
-    const existing = item.files.filter((f) => existsSync(targetPath(root, alias, config, item, f)));
+    const existing = item.files.filter((f) =>
+      existsSync(targetPath(root, alias, config, item, f, dirFor(item))),
+    );
     // --overwrite (or a yes) only replaces what you named, never its dependencies.
     let overwrite = opts.overwrite && requested.has(item.name);
     if (!overwrite && existing.length && requested.has(item.name) && !opts.yes) {
@@ -99,7 +118,7 @@ export async function add(opts: AddOptions) {
       );
     }
 
-    const res = await writeItemFiles(root, alias, config, item, { overwrite });
+    const res = await writeItemFiles(root, alias, config, item, { overwrite, dir: dirFor(item) });
     written.push(...res.written);
     // Only mention skipped files for what you asked for; existing dependencies are expected.
     if (requested.has(item.name)) skipped.push(...res.skipped);
@@ -144,9 +163,76 @@ export async function add(opts: AddOptions) {
   const first = items.find(
     (i) => requested.has(i.name) && (i.type === "registry:ui" || i.type === "registry:block"),
   );
+  // With --path the file sits right in that folder, so import it from there.
+  const from = dir ? pathToAlias(root, alias, dir) : config.aliases.components;
   p.outro(
-    first ? `Done. Use it with:\n  ${importLine(first, config.aliases.components)}` : "Done.",
+    first && from ? `Done. Use it with:\n  ${importLine(first, from, Boolean(dir))}` : "Done.",
   );
+}
+
+/**
+ * What add would write and install, without doing it. --view adds the new
+ * files' contents, --diff the changes to files that already exist.
+ */
+async function preview(
+  root: string,
+  alias: PathAlias,
+  config: Config,
+  items: RegistryItem[],
+  requested: Set<string>,
+  dirFor: (item: RegistryItem) => string | undefined,
+  opts: AddOptions,
+) {
+  const files = items.flatMap((item) =>
+    item.files.map((file) => {
+      const dest = targetPath(root, alias, config, item, file, dirFor(item));
+      // Same rule as a real add: only what you named can be replaced.
+      const action = !existsSync(dest)
+        ? "add"
+        : opts.overwrite && requested.has(item.name)
+          ? "replace"
+          : "exists";
+      return { file, action, dest, rel: path.relative(root, dest) };
+    }),
+  );
+
+  p.log.info(`Files\n${files.map((f) => `  ${f.action.padEnd(7)} ${f.rel}`).join("\n")}`);
+  if (files.some((f) => f.action === "exists")) {
+    p.log.info("Existing files are left as they are. Use --overwrite to replace them.");
+  }
+  if (files.some((f) => f.file.type === "css" && f.action !== "exists")) {
+    p.log.info(`The CSS files would be imported in ${config.css.entry}.`);
+  }
+  const deps = await missingDeps(
+    root,
+    items.flatMap((i) => i.dependencies),
+  );
+  if (deps.length) p.log.info(`Packages to install\n${deps.map((d) => `  ${d}`).join("\n")}`);
+
+  if (opts.view) {
+    for (const f of files) {
+      if (f.action === "exists") continue;
+      const content =
+        f.file.type === "css" ? f.file.content : rewriteImports(f.file.content, config);
+      console.log(`\n${styleText("cyan", `── ${f.rel}`)}\n${content.trimEnd()}\n`);
+    }
+  }
+
+  if (opts.diff) {
+    for (const f of files) {
+      if (f.action === "add") continue;
+      const yours = normalize(await readFile(f.dest, "utf8"));
+      const theirs = normalize(
+        f.file.type === "css" ? f.file.content : rewriteImports(f.file.content, config),
+      );
+      if (yours !== theirs) {
+        const rel = f.rel.split(path.sep).join("/");
+        printPatch(createTwoFilesPatch(`yours/${rel}`, `registry/${rel}`, yours, theirs));
+      }
+    }
+  }
+
+  p.outro("Nothing was written.");
 }
 
 /** The closest name within two edits, for "did you mean" hints. */
@@ -178,7 +264,7 @@ function distance(a: string, b: string) {
 }
 
 /** `import { Button } from "@/components/cl/button"` when the main export is obvious. */
-function importLine(item: RegistryItem, componentsAlias: string) {
+function importLine(item: RegistryItem, componentsAlias: string, flat = false) {
   // input-otp -> InputOTP: match function names case-insensitively, ignoring dashes.
   const wanted = item.name.replaceAll("-", "").toLowerCase();
   const file = item.files.find((f) => f.type === "ui");
@@ -191,7 +277,8 @@ function importLine(item: RegistryItem, componentsAlias: string) {
       ? /export default function (\w+)/.exec(content)?.[1]
       : undefined) ??
     "...";
-  const from = file ? file.path.replace(/\.tsx?$/, "") : item.name;
+  const filePath = file ? (flat ? path.basename(file.path) : file.path) : item.name;
+  const from = filePath.replace(/\.tsx?$/, "");
   return item.type === "registry:block"
     ? `import ${name} from "${componentsAlias}/${from}"`
     : `import { ${name} } from "${componentsAlias}/${from}"`;

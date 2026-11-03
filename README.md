@@ -62,14 +62,19 @@ style, theming, dark mode and using Cladux with shadcn/ui.
 
 ## CLI
 
-| Command                 | What it does                                            |
-| ----------------------- | ------------------------------------------------------- |
-| `cladux init`           | Creates `cl.json`, adds the theme and the `cn()` helper |
-| `cladux add <names...>` | Adds components or blocks and their dependencies        |
-| `cladux add --all`      | Adds every component                                    |
+| Command                    | What it does                                            |
+| -------------------------- | ------------------------------------------------------- |
+| `cladux init`              | Creates `cl.json`, adds the theme and the `cn()` helper |
+| `cladux add <names...>`    | Adds components or blocks and their dependencies        |
+| `cladux list`              | Lists every component and block                         |
+| `cladux search <query>`    | Finds components and blocks                             |
+| `cladux view <names...>`   | Shows an item's files without installing it             |
+| `cladux docs <names...>`   | Shows a component's docs in the terminal                |
+| `cladux info`              | Shows your setup and what's installed                   |
+| `cladux diff [names...]`   | Compares your components with the registry              |
+| `cladux update [names...]` | Updates components, keeping the files you changed       |
 
-Useful flags: `--yes` (no questions), `--overwrite`, `--style tailwind|css`,
-`--cwd <dir>`, `--skip-install`.
+See the [CLI docs](https://cladux.vercel.app/docs/cli) for every option.
 
 ## This repo
 

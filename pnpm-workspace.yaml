@@ -7,7 +7,7 @@ allowBuilds:
 
 minimumReleaseAgeExclude:
   - lucide-react@1.64.0 || 1.65.0
-  - react-resizable-panels@4.15.2 || 4.15.3 || 4.16.1
+  - react-resizable-panels@4.15.2 || 4.15.3 || 4.16.1 || 4.17.0
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"
   - "@shikijs/engine-oniguruma@4.6.0"
@@ -17,6 +17,35 @@ minimumReleaseAgeExclude:
   - "@shikijs/themes@4.6.0"
   - "@shikijs/types@4.6.0"
   - shiki@4.6.0
+  - "@babel/parser@8.1.0"
+  - "@babel/types@8.1.0"
+  - "@next/env@16.4.4"
+  - "@next/mdx@16.4.4"
+  - "@next/swc-darwin-arm64@16.4.4"
+  - "@next/swc-darwin-x64@16.4.4"
+  - "@next/swc-linux-arm64-gnu@16.4.4"
+  - "@next/swc-linux-arm64-musl@16.4.4"
+  - "@next/swc-linux-x64-gnu@16.4.4"
+  - "@next/swc-linux-x64-musl@16.4.4"
+  - "@next/swc-win32-arm64-msvc@16.4.4"
+  - "@next/swc-win32-x64-msvc@16.4.4"
+  - "@tailwindcss/node@4.3.4"
+  - "@tailwindcss/oxide-android-arm64@4.3.4"
+  - "@tailwindcss/oxide-darwin-arm64@4.3.4"
+  - "@tailwindcss/oxide-darwin-x64@4.3.4"
+  - "@tailwindcss/oxide-freebsd-x64@4.3.4"
+  - "@tailwindcss/oxide-linux-arm-gnueabihf@4.3.4"
+  - "@tailwindcss/oxide-linux-arm64-gnu@4.3.4"
+  - "@tailwindcss/oxide-linux-arm64-musl@4.3.4"
+  - "@tailwindcss/oxide-linux-x64-gnu@4.3.4"
+  - "@tailwindcss/oxide-linux-x64-musl@4.3.4"
+  - "@tailwindcss/oxide-wasm32-wasi@4.3.4"
+  - "@tailwindcss/oxide-win32-arm64-msvc@4.3.4"
+  - "@tailwindcss/oxide-win32-x64-msvc@4.3.4"
+  - "@tailwindcss/oxide@4.3.4"
+  - "@tailwindcss/postcss@4.3.4"
+  - next@16.4.4
+  - tailwindcss@4.3.4
 
 permissions:
   "@tanstack/react-table":

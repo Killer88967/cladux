@@ -16,20 +16,20 @@ changelog at /docs/changelog.
 - [x] Changesets for versioning and changelogs
 - [x] `prepublishOnly` build, check the published files with `npm pack --dry-run`
 - [x] README for the `cladux-ui` package (install, commands, links)
-- [ ] Publish `cladux-ui` to npm
+- [x] Publish `cladux-ui` to npm
 - [x] GitHub Actions: typecheck, build and format check on every push
 
 ## 0.2 - CLI essentials
 
-- [ ] `add --dry-run`, `--diff`, `--view`, `--path`, `--silent`
-- [ ] `cladux list`: components and blocks, the new ones marked
-- [ ] `cladux search <query>`
-- [ ] `cladux view <name>`: an item's files without installing it
-- [ ] `cladux info`: style, aliases, installed items, versions
-- [ ] `cladux docs <name>`: usage and props in the terminal
-- [ ] `cladux diff`: what changed upstream since you added a component
-- [ ] `cladux update`: pull upstream changes without losing your edits
-- [ ] Vitest tests for every command
+- [x] `add --dry-run`, `--diff`, `--view`, `--path`, `--silent`
+- [x] `cladux list`: components and blocks, the new ones marked
+- [x] `cladux search <query>`
+- [x] `cladux view <name>`: an item's files without installing it
+- [x] `cladux info`: style, aliases, installed items, versions
+- [x] `cladux docs <name>`: usage and props in the terminal
+- [x] `cladux diff`: what changed upstream since you added a component
+- [x] `cladux update`: pull upstream changes without losing your edits
+- [x] Vitest tests for every command
 
 ## 0.3 - Registry
 

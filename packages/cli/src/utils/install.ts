@@ -1,5 +1,6 @@
 import { spawn } from "node:child_process";
 import { allDeps, readPackageJson, type PackageManager } from "./detect.ts";
+import { output } from "./ui.ts";
 
 /** "@base-ui/react@^1.9.0" -> "@base-ui/react" */
 export const depName = (spec: string) => spec.replace(/(?!^)@.*$/, "");
@@ -16,7 +17,7 @@ export function install(root: string, pm: PackageManager, specs: string[]) {
   return new Promise<void>((resolve, reject) => {
     const child = spawn(pm, args, {
       cwd: root,
-      stdio: "inherit",
+      stdio: output.silent ? "ignore" : "inherit",
       // Windows runs package managers through .cmd shims.
       shell: process.platform === "win32",
     });

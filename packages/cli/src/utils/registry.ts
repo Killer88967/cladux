@@ -19,11 +19,17 @@ export interface RegistryItem {
 
 export interface RegistryIndex {
   styles: string[];
-  items: { name: string; type: string; description?: string; registryDependencies: string[] }[];
+  items: {
+    name: string;
+    type: string;
+    description?: string;
+    new?: boolean;
+    registryDependencies: string[];
+  }[];
 }
 
-/** Reads a registry JSON file from a URL, or from a folder (handy for local testing). */
-async function load<T>(registry: string, file: string): Promise<T> {
+/** Reads a registry file from a URL, or from a folder (handy for local testing). */
+async function loadText(registry: string, file: string): Promise<string> {
   if (/^https?:\/\//.test(registry)) {
     const url = `${registry.replace(/\/$/, "")}/${file}`;
     let res: Response;
@@ -34,15 +40,18 @@ async function load<T>(registry: string, file: string): Promise<T> {
     }
     if (res.status === 404) throw new NotFoundError(file);
     if (!res.ok) throw new Error(`Registry returned ${res.status} for ${url}`);
-    return (await res.json()) as T;
+    return res.text();
   }
   try {
-    return JSON.parse(await readFile(path.resolve(registry, file), "utf8")) as T;
+    return await readFile(path.resolve(registry, file), "utf8");
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code === "ENOENT") throw new NotFoundError(file);
     throw error;
   }
 }
+
+const load = async <T>(registry: string, file: string) =>
+  JSON.parse(await loadText(registry, file)) as T;
 
 export class NotFoundError extends Error {
   constructor(file: string) {
@@ -51,6 +60,9 @@ export class NotFoundError extends Error {
 }
 
 export const fetchIndex = (registry: string) => load<RegistryIndex>(registry, "index.json");
+
+/** A component's docs page as Markdown. */
+export const fetchDocs = (registry: string, name: string) => loadText(registry, `docs/${name}.md`);
 
 export const fetchItem = (registry: string, style: string, name: string) =>
   load<RegistryItem>(registry, `${style}/${name}.json`);

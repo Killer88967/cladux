@@ -38,6 +38,7 @@ interface RegistryItem {
   type: "registry:ui" | "registry:block" | "registry:hook" | "registry:lib" | "registry:style";
   style: string;
   description?: string;
+  new?: boolean;
   /** npm packages, with the version range we build and test against. */
   dependencies: string[];
   /** Other registry items this one needs (installed first). */
@@ -109,16 +110,37 @@ function processSource(code: string) {
   };
 }
 
-/** The description from the component's docs page, if it has one. */
-async function description(name: string) {
+interface DocMetadata {
+  title?: string;
+  description?: string;
+  new?: boolean;
+}
+
+/** A component's docs page: its metadata, and the page as Markdown for `cladux docs`. */
+async function readDoc(name: string) {
   const file = new URL(`${name}.mdx`, DOCS);
   if (!existsSync(file)) return undefined;
   const mdx = await readFile(file, "utf8");
-  // The metadata is our own JS: a single- or double-quoted string, maybe on the next line,
-  // with escapes like \u2014 or \" that need decoding.
-  const literal = mdx.match(/description:\s*("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/)?.[1];
-  return literal ? (new Function(`return ${literal}`)() as string) || undefined : undefined;
+
+  // The metadata is our own JS object literal, so evaluate it instead of parsing it.
+  const block = /^export const metadata = (\{[\s\S]*?\n\});\n/m.exec(mdx);
+  const metadata: DocMetadata = block ? new Function(`return ${block[1]}`)() : {};
+
+  // Live previews (<ComponentPreview />, <HtmlPreview />) only work on the site. Drop them
+  // outside code blocks; they can span several lines.
+  const body = mdx
+    .replace(block?.[0] ?? "", "")
+    .split(/(^```[\s\S]*?^```)/m)
+    .map((part, i) => (i % 2 ? part : part.replace(/^<[A-Z]\w*\b[^>]*\/>[ \t]*$/gm, "")))
+    .join("");
+  const markdown = `# ${metadata.title ?? name}\n\n${metadata.description ?? ""}\n\n${body}`
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  return { metadata, markdown: `${markdown}\n` };
 }
+
+/** Docs pages for `cladux docs`, written next to the registry items. */
+const docs = new Map<string, string>();
 
 const items: RegistryItem[] = [];
 
@@ -163,11 +185,14 @@ for (const dir of await readdir(UI, { withFileTypes: true })) {
   const file = new URL(`${dir.name}/${dir.name}.tsx`, UI);
   if (!existsSync(file)) continue;
   const processed = processSource(await readFile(file, "utf8"));
+  const doc = await readDoc(dir.name);
+  if (doc) docs.set(dir.name, doc.markdown);
   items.push({
     name: dir.name,
     type: "registry:ui",
     style: STYLE,
-    description: await description(dir.name),
+    description: doc?.metadata.description,
+    ...(doc?.metadata.new ? { new: true } : {}),
     dependencies: processed.dependencies,
     registryDependencies: processed.registryDependencies,
     files: [{ path: `${dir.name}.tsx`, type: "ui", content: processed.content }],
@@ -265,13 +290,19 @@ for (const [style, list] of [
   );
 }
 
+await mkdir(new URL("docs/", OUT), { recursive: true });
+await Promise.all(
+  [...docs].map(([name, markdown]) => writeFile(new URL(`docs/${name}.md`, OUT), markdown)),
+);
+
 const index = {
   styles: [STYLE, "css"],
   aliases: DEFAULT_ALIASES,
-  items: items.map(({ name, type, description, registryDependencies }) => ({
+  items: items.map(({ name, type, description, new: isNew, registryDependencies }) => ({
     name,
     type,
     description,
+    ...(isNew ? { new: true } : {}),
     registryDependencies,
   })),
 };

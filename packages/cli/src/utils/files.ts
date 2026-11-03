@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { REGISTRY_ALIASES, type Config } from "./config.ts";
+import { fingerprint, lockKey, recordFiles } from "./lock.ts";
 import type { RegistryFile, RegistryItem } from "./registry.ts";
 import { aliasToPath, type PathAlias } from "./tsconfig.ts";
 
@@ -22,6 +23,10 @@ export function rewriteImports(content: string, config: Config) {
   });
 }
 
+/** A file's content as it's written to the project: CSS as is, code with your aliases. */
+export const fileContent = (file: RegistryFile, config: Config) =>
+  file.type === "css" ? file.content : rewriteImports(file.content, config);
+
 /** Where a registry file lands in the user's project. */
 export function targetPath(
   root: string,
@@ -29,7 +34,9 @@ export function targetPath(
   config: Config,
   item: RegistryItem,
   file: RegistryFile,
+  dir?: string,
 ) {
+  if (dir && file.type !== "css") return path.join(dir, path.basename(file.path));
   // The cn() helper goes wherever aliases.utils points.
   if (item.name === "utils")
     return `${aliasToPath(root, alias, config.aliases.utils)}${path.extname(file.path)}`;
@@ -53,22 +60,23 @@ export async function writeItemFiles(
   alias: PathAlias,
   config: Config,
   item: RegistryItem,
-  { overwrite = false }: { overwrite?: boolean } = {},
+  { overwrite = false, dir }: { overwrite?: boolean; dir?: string } = {},
 ): Promise<WriteResult> {
   const result: WriteResult = { written: [], skipped: [] };
+  const fingerprints: Record<string, string> = {};
   for (const file of item.files) {
-    const dest = targetPath(root, alias, config, item, file);
+    const dest = targetPath(root, alias, config, item, file, dir);
     const rel = path.relative(root, dest);
     if (existsSync(dest) && !overwrite) {
       result.skipped.push(rel);
       continue;
     }
     await mkdir(path.dirname(dest), { recursive: true });
-    await writeFile(
-      dest,
-      file.type === "css" ? file.content : rewriteImports(file.content, config),
-    );
+    const content = fileContent(file, config);
+    await writeFile(dest, content);
+    fingerprints[lockKey(root, dest)] = fingerprint(content);
     result.written.push(rel);
   }
+  await recordFiles(root, fingerprints);
   return result;
 }

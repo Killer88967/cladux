@@ -1,5 +1,8 @@
 import * as p from "@clack/prompts";
 
+/** --silent: nothing on screen, package managers included. */
+export const output = { silent: false };
+
 /** An error meant for the user: printed without a stack trace. */
 export class CliError extends Error {}
 

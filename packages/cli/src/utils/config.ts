@@ -7,7 +7,6 @@ import type { Framework } from "./detect.ts";
 export const CONFIG_FILE = "cl.json";
 
 // Where the registry lives. Override with --registry or CLADUX_REGISTRY.
-// TODO: point at the deployed docs site once it has a domain.
 export const DEFAULT_REGISTRY = process.env.CLADUX_REGISTRY ?? "https://cladux.vercel.app/r";
 
 /** The aliases the registry files are written with; swapped for the user's on install. */
