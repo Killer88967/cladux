@@ -25,9 +25,9 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       - run: pnpm format:check
       - run: pnpm typecheck
-      - run: pnpm build
 
       # The CLI must start and print its help from the built bundle.
       - run: node packages/cli/dist/index.js --help
