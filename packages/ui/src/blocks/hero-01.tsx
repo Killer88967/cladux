@@ -1,5 +1,6 @@
 import { ArrowRightIcon, PlayIcon } from "lucide-react";
 
+import { AnimatedText } from "../animated-text/animated-text";
 import { Badge } from "../badge/badge";
 import { Button } from "../button/button";
 
@@ -11,7 +12,9 @@ export default function Hero01() {
           <span className="size-1.5 rounded-full bg-emerald-500" /> New: workflows are here
         </Badge>
         <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-          Ship your product faster than your roadmap
+          <AnimatedText effect="blur-in" trigger="mount">
+            Ship your product faster than your roadmap
+          </AnimatedText>
         </h1>
         <p className="mt-5 max-w-xl text-lg text-balance text-muted-foreground">
           Acme brings planning, docs and releases into one place, so your team spends less time

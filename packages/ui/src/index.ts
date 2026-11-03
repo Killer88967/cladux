@@ -19,6 +19,11 @@ export {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./alert-dialog/alert-dialog";
+export {
+  AnimatedText,
+  type AnimatedTextEffect,
+  type AnimatedTextProps,
+} from "./animated-text/animated-text";
 export { AspectRatio } from "./aspect-ratio/aspect-ratio";
 export {
   Attachment,

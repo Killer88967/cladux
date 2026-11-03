@@ -1,0 +1,113 @@
+export const metadata = {
+  title: "Animated Text",
+  description:
+    "Headlines that reveal word by word, rotating words, a typewriter, a shimmer and a flowing gradient.",
+  new: true,
+};
+
+<ComponentPreview name="animated-text-demo" />
+
+## Usage
+
+```tsx
+import { AnimatedText } from "@cladux/ui";
+```
+
+```tsx
+<h1>
+  <AnimatedText effect="blur-in">Components that ship with more</AnimatedText>
+</h1>
+```
+
+`AnimatedText` renders an inline `<span>`, so put it inside the heading or paragraph that carries the font size and weight.
+
+## Features
+
+- **It needs no CSS.** The motion runs on the Web Animations API, so there are no keyframes to add to your stylesheet, in either style.
+- **It's read once.** Screen readers get the plain text, not a word or a letter at a time. `rotate` and `typewriter` give them every phrase, without announcing each change.
+- **It waits until you can see it.** Entrance effects and the typewriter start when the text scrolls into view. Set `trigger="mount"` to start right away, and `once={false}` to replay every time it comes back into view.
+- **Nothing around it jumps.** The typewriter holds the space of its longest phrase, and `rotate` eases its width from one word to the next.
+- **It respects reduced motion.** When the system asks for less motion, the text just shows: `rotate` stays on its first word and the typewriter shows its first phrase in full.
+
+## Entrance effects
+
+`fade-up`, `blur-in`, `mask` and `pop` play once. `by` sets what comes in one after another: each `word` (the default), each `char`, or each `line` as the text wraps.
+
+<ComponentPreview name="animated-text-split" />
+
+```tsx
+<AnimatedText effect="blur-in" by="char">
+  One character at a time
+</AnimatedText>
+```
+
+Tune it with `stagger` (the milliseconds between one piece and the next), `duration` and `delay`.
+
+## Rotating words
+
+`rotate` cycles through `words`. Each word slides out and the next slides in, every `interval` milliseconds.
+
+<ComponentPreview name="animated-text-rotate" />
+
+```tsx
+<h2>
+  Build <AnimatedText effect="rotate" words={["dashboards", "landing pages", "apps"]} /> faster
+</h2>
+```
+
+## Typewriter
+
+`typewriter` types its text with a blinking cursor. Pass `phrases` to type, delete and type the next one in a loop.
+
+<ComponentPreview name="animated-text-typewriter" />
+
+```tsx
+<AnimatedText
+  effect="typewriter"
+  phrases={["npx cladux-ui@latest init", "npx cladux-ui@latest add button"]}
+/>
+```
+
+## Shimmer and gradient
+
+`shimmer` sweeps a band of light across the text, for "thinking" or "loading" states. `gradient` flows the text's colors. It uses your theme's colors by default; set your own with gradient classes, ending on the color you started with so the loop is seamless.
+
+<ComponentPreview name="animated-text-shimmer" />
+
+```tsx
+<AnimatedText effect="shimmer">Thinking about your question…</AnimatedText>
+
+<AnimatedText effect="gradient" className="from-pink-500 via-violet-500 to-pink-500">
+  Make it yours
+</AnimatedText>
+```
+
+In the CSS style, set the colors with a `background-image` of your own:
+
+```css
+.my-title {
+  background-image: linear-gradient(to right, #ec4899, #8b5cf6, #ec4899);
+}
+```
+
+## API Reference
+
+| Prop       | Type                                                                                               | Default             |
+| ---------- | -------------------------------------------------------------------------------------------------- | ------------------- |
+| `effect`   | `"fade-up" \| "blur-in" \| "mask" \| "pop" \| "typewriter" \| "rotate" \| "shimmer" \| "gradient"` | `"fade-up"`         |
+| `children` | `string`                                                                                           |                     |
+| `by`       | `"word" \| "char" \| "line"`                                                                       | `"word"`            |
+| `trigger`  | `"mount" \| "view"`                                                                                | `"view"`            |
+| `once`     | `boolean`                                                                                          | `true`              |
+| `delay`    | `number`                                                                                           | `0`                 |
+| `stagger`  | `number`                                                                                           | 80 / 30 / 160 ms    |
+| `duration` | `number`                                                                                           | `600`               |
+| `words`    | `string[]`                                                                                         | for `rotate`        |
+| `interval` | `number`                                                                                           | `2500`              |
+| `phrases`  | `string[]`                                                                                         | for `typewriter`    |
+| `speed`    | `number`                                                                                           | `50` ms a character |
+| `cursor`   | `boolean`                                                                                          | `true`              |
+
+## Accessibility
+
+The text is split into pieces for the animation, and those are hidden from screen readers. A visually hidden copy of the full text is read instead.
