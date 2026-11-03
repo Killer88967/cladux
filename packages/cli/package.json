@@ -1,6 +1,6 @@
 {
   "name": "cladux-ui",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Add Cladux components and blocks to your React project, as Tailwind classes or plain CSS.",
   "keywords": [
     "cladux",
