@@ -13,7 +13,6 @@ jobs:
     permissions:
       contents: write # commit version bumps and push tags
       pull-requests: write # open the "Version Packages" pull request
-      id-token: write # npm trusted publishing and provenance
     steps:
       - uses: actions/checkout@v7
 
@@ -38,4 +37,3 @@ jobs:
           create-github-releases: true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
