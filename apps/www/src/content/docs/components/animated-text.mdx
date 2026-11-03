@@ -112,21 +112,22 @@ The highlight uses your theme's primary color. Set your own with a `from-` and a
 
 ## API Reference
 
-| Prop         | Type        | Default                                              |
-| ------------ | ----------- | ---------------------------------------------------- | -------- | -------- | -------------- | ---------- | ----------- | ------------ | ------------- | ------------ | ----------- | --- | ---------- | -------- | --- |
-| `effect`     | `"fade-up"` | `"blur-in"`                                          | `"mask"` | `"pop"`  | `"typewriter"` | `"rotate"` | `"shimmer"` | `"gradient"` | `"highlight"` | `"scramble"` | `"fade-up"` |     | `children` | `string` |     |
-| `by`         | `"word"`    | `"char"`                                             | `"line"` | `"word"` |
-| `trigger`    | `"mount"`   | `"view"`                                             | `"view"` |
-| `once`       | `boolean`   | `true`                                               |
-| `delay`      | `number`    | `0`                                                  |
-| `stagger`    | `number`    | 80 / 30 / 160 ms                                     |
-| `duration`   | `number`    | `600`, `1000` for `highlight`, `1200` for `scramble` |
-| `words`      | `string[]`  | for `rotate`                                         |
-| `interval`   | `number`    | `2500`                                               |
-| `phrases`    | `string[]`  | for `typewriter`                                     |
-| `speed`      | `number`    | `50` ms a character                                  |
-| `cursor`     | `boolean`   | `true`                                               |
-| `characters` | `string`    | letters, digits and symbols, for `scramble`          |
+| Prop         | Type                                                                                                                            | Default                                              |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `effect`     | `"fade-up" \| "blur-in" \| "mask" \| "pop" \| "typewriter" \| "rotate" \| "shimmer" \| "gradient" \| "highlight" \| "scramble"` | `"fade-up"`                                          |
+| `children`   | `string`                                                                                                                        |                                                      |
+| `by`         | `"word" \| "char" \| "line"`                                                                                                    | `"word"`                                             |
+| `trigger`    | `"mount" \| "view"`                                                                                                             | `"view"`                                             |
+| `once`       | `boolean`                                                                                                                       | `true`                                               |
+| `delay`      | `number`                                                                                                                        | `0`                                                  |
+| `stagger`    | `number`                                                                                                                        | 80 / 30 / 160 ms                                     |
+| `duration`   | `number`                                                                                                                        | `600`, `1000` for `highlight`, `1200` for `scramble` |
+| `words`      | `string[]`                                                                                                                      | for `rotate`                                         |
+| `interval`   | `number`                                                                                                                        | `2500`                                               |
+| `phrases`    | `string[]`                                                                                                                      | for `typewriter`                                     |
+| `speed`      | `number`                                                                                                                        | `50` ms a character                                  |
+| `cursor`     | `boolean`                                                                                                                       | `true`                                               |
+| `characters` | `string`                                                                                                                        | letters, digits and symbols, for `scramble`          |
 
 ## Accessibility
 
