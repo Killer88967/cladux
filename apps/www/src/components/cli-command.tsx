@@ -4,8 +4,7 @@ import * as React from "react";
 import { Tabs, TabsList, TabsTrigger } from "@cladux/ui";
 import { CopyButton } from "@/components/copy-button";
 
-// TODO: Rename when I come up with a name before publish (if published)
-const CLI = "cladux@latest";
+const CLI = "cladux-ui@latest";
 
 const MANAGERS = ["npm", "pnpm", "bun", "yarn"] as const;
 type Manager = (typeof MANAGERS)[number];
@@ -54,7 +53,7 @@ export function usePackageManager() {
   return [manager, choose] as const;
 }
 
-/** `npx cladux@latest <args>` for the chosen package manager. */
+/** `npx cladux-ui@latest <args>` for the chosen package manager. */
 export const cliCommand = (manager: Manager, args: string) => `${RUN[manager]} ${CLI} ${args}`;
 
 interface CliCommandProps {

@@ -80,7 +80,7 @@ export default async function Home() {
         </Button>
       </PageHeader>
       <div className="-mt-4 mb-10 flex justify-center px-4 md:-mt-8">
-        <InstallCommand command="npx cladux@latest init" />
+        <InstallCommand command="npx cladux-ui@latest init" />
       </div>
 
       <div className="cl-container">

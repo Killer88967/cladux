@@ -11,7 +11,7 @@
     "format:check": "prettier --check .",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "release": "turbo build --filter=cladux && changeset publish"
+    "release": "turbo build --filter=cladux-ui && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",

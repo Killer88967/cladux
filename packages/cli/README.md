@@ -1,4 +1,4 @@
-# cladux
+# cladux-ui
 
 The CLI for [Cladux](https://cladux.vercel.app): accessible React components in
 shadcn/ui's look, plus the ones it leaves out. It copies components into your
@@ -10,9 +10,9 @@ Run it in a React project (Next.js, Vite, React Router...) with an `@/*` import
 alias:
 
 ```bash
-npx cladux@latest init
-npx cladux@latest add button card dialog
-npx cladux@latest add hero-01
+npx cladux-ui@latest init
+npx cladux-ui@latest add button card dialog
+npx cladux-ui@latest add hero-01
 ```
 
 `init` creates `cl.json`, adds the theme and the `cn()` helper, and detects
@@ -24,7 +24,7 @@ they depend on, and installs their npm packages.
 ### `init`
 
 ```bash
-npx cladux@latest init [options]
+npx cladux-ui@latest init [options]
 ```
 
 | Option             | What it does                                |
@@ -39,7 +39,7 @@ npx cladux@latest init [options]
 ### `add`
 
 ```bash
-npx cladux@latest add [names...] [options]
+npx cladux-ui@latest add [names...] [options]
 ```
 
 With no names, it shows a list to pick from.

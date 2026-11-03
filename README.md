@@ -39,14 +39,14 @@ checks which one you use and copies in the matching code. It's yours to change.
 In a React project (Next.js, Vite, React Router...) with an `@/*` import alias:
 
 ```bash
-npx cladux@latest init
-npx cladux@latest add button card dialog
+npx cladux-ui@latest init
+npx cladux-ui@latest add button card dialog
 ```
 
 Add a block:
 
 ```bash
-npx cladux@latest add hero-01
+npx cladux-ui@latest add hero-01
 ```
 
 ```tsx

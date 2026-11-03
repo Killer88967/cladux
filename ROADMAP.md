@@ -15,8 +15,8 @@ changelog at /docs/changelog.
 
 - [x] Changesets for versioning and changelogs
 - [x] `prepublishOnly` build, check the published files with `npm pack --dry-run`
-- [x] README for the `cladux` package (install, commands, links)
-- [ ] Publish `cladux` to npm
+- [x] README for the `cladux-ui` package (install, commands, links)
+- [ ] Publish `cladux-ui` to npm
 - [x] GitHub Actions: typecheck, build and format check on every push
 
 ## 0.2 - CLI essentials
