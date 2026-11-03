@@ -1,5 +1,11 @@
 # cladux-ui
 
+## 0.1.1
+
+### Patch Changes
+
+- 5d609fd: Release through CI
+
 ## 0.1.0
 
 ### Minor Changes
