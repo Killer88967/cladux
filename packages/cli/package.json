@@ -38,7 +38,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist/index.js --banner:js=\"#!/usr/bin/env node\" && chmod +x dist/index.js",
+    "build": "node scripts/bundle.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "prepublishOnly": "pnpm build"
@@ -46,9 +46,12 @@
   "devDependencies": {
     "@cfworker/json-schema": "^4.1.6",
     "@clack/prompts": "^1.8.1",
+    "@cladux/css-style": "workspace:*",
+    "@tailwindcss/node": "^4.3.4",
     "@types/node": "^26.6.6",
     "diff": "^9.0.0",
     "esbuild": "^0.28.2",
+    "tailwindcss": "^4.3.4",
     "vitest": "^5.1.0"
   }
 }

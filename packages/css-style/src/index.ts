@@ -2,25 +2,29 @@
 // identical by construction: every Tailwind class string in a component is
 // replaced with a readable `cl-*` class, and each utility's CSS is emitted for
 // those classes in Tailwind's own order, so the cascade works the same way.
-import { readFile } from "node:fs/promises";
-import { createRequire } from "node:module";
 import { parse } from "@babel/parser";
-import { __unstable__loadDesignSystem, compile, optimize } from "@tailwindcss/node";
+import type * as TailwindNode from "@tailwindcss/node";
 import MagicString from "magic-string";
 import postcss from "postcss";
 import { twMerge } from "tailwind-merge";
 
-const ROOT = new URL("../../../", import.meta.url);
-const STYLES_DIR = new URL("packages/styles/src/", ROOT).pathname;
+/** The parts of @tailwindcss/node the conversion uses, from wherever it's installed. */
+export type Tailwind = Pick<
+  typeof TailwindNode,
+  "__unstable__loadDesignSystem" | "compile" | "optimize"
+>;
 
-/** Everything the Tailwind components are written against. */
-const PRELUDE = `
-@import "tailwindcss/theme.css";
-@import "tailwindcss/utilities.css" source(none);
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "@cladux/tokens/theme.css";
-`;
+export interface CssStyleOptions {
+  /** The Tailwind stylesheet the components are written against (@import "tailwindcss" ...). */
+  css: string;
+  /** The folder its @imports resolve from. */
+  base: string;
+  tailwind: Tailwind;
+  /** Theme variables (a :root block) that get the --cl- prefix too, and come back renamed. */
+  tokens?: string;
+  /** Tailwind's preflight.css, for the shared base stylesheet. Without it, base has no reset. */
+  preflight?: string;
+}
 
 /** Non-utility tokens that aren't markers either (kept as-is, reported once). */
 export const unknown = new Set<string>();
@@ -499,9 +503,7 @@ function referencedTokens(allUtilities: string[]) {
 }
 
 /** Tailwind's preflight, limited to our own elements so the rest of the page is untouched. */
-async function scopedPreflight() {
-  const require = createRequire(new URL("packages/styles/package.json", ROOT));
-  const css = await readFile(require.resolve("tailwindcss/preflight.css"), "utf8");
+function scopedPreflight(css: string) {
   const root = postcss.parse(css);
   const scope = ':where([class*="cl-"])';
   root.walkRules((rule) => {
@@ -546,8 +548,11 @@ export interface CssStyleResult {
  * Converts Tailwind component sources (keyed by an id, e.g. "button") into the
  * css style: sources with `cl-*` classes plus one stylesheet per source.
  */
-export async function buildCssStyle(sources: Map<string, string>): Promise<CssStyleResult> {
-  const ds = await __unstable__loadDesignSystem(PRELUDE, { base: STYLES_DIR });
+export async function buildCssStyle(
+  sources: Map<string, string>,
+  { css: entry, base, tailwind, tokens = "", preflight }: CssStyleOptions,
+): Promise<CssStyleResult> {
+  const ds = await tailwind.__unstable__loadDesignSystem(entry, { base });
   const isUtility = (tokens: string[]) => ds.candidatesToCss(tokens).map(Boolean);
 
   // Pass 1: every utility in use, to learn which tokens other rules refer to.
@@ -623,8 +628,14 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
 
   // Shared CSS: the theme variables in use (--spacing, --radius-md...), @property,
   // the properties fallback layer and keyframes.
-  const compiled = await compile(PRELUDE, { base: STYLES_DIR, onDependency() {} });
-  const sharedRoot = postcss.parse(optimize(compiled.build(utilities), { minify: false }).code);
+  const compiled = await tailwind.compile(entry, { base, onDependency() {} });
+  const sharedRoot = postcss.parse(
+    tailwind.optimize(compiled.build(utilities), { minify: false }).code,
+  );
+  // `@import "tailwindcss"` puts the theme variables in a theme layer; take them out of it.
+  sharedRoot.walkAtRules("layer", (at) => {
+    if (at.params === "theme") at.replaceWith(at.nodes ?? []);
+  });
   const keyframeNames = new Set<string>();
   sharedRoot.walkAtRules("keyframes", (at) => {
     keyframeNames.add(at.params);
@@ -645,7 +656,7 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
 
   const css = new Map<string, string>();
   for (const [owner, list] of perOwner) {
-    const root = postcss.parse(optimize(list.join("\n"), { minify: false }).code);
+    const root = postcss.parse(tailwind.optimize(list.join("\n"), { minify: false }).code);
     if (markerRe) {
       root.walkRules((rule) => {
         rule.selector = rule.selector.replace(markerRe, (_, c: string) => `:is(.${c}, .cl-${c})`);
@@ -655,12 +666,12 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
     css.set(owner, `${root.toString().trim()}\n`);
   }
 
-  const reset = await scopedPreflight();
   const baseCss = [
     "/* Generated from the Tailwind components. Edit packages/ui, not this file. */",
     sharedRoot.toString().trim(),
-    "/* Tailwind's preflight, applied only to Cladux elements. */",
-    reset,
+    ...(preflight
+      ? ["/* Tailwind's preflight, applied only to Cladux elements. */", scopedPreflight(preflight)]
+      : []),
     `:where([class*="cl-"]) {\n  border-color: var(--border);\n  outline-color: color-mix(in oklab, var(--ring) 50%, transparent);\n}`,
     `body {\n  background-color: var(--background);\n  color: var(--foreground);\n}`,
   ].join("\n\n");
@@ -698,9 +709,8 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
   // Namespace the theme variables (--border -> --cl-border): plain-CSS projects
   // often define generic names like --border or --accent themselves. Tailwind's
   // --tw-* and variables components set from TSX (--sidebar-width) keep theirs.
-  const tokensCss = await readFile(new URL("packages/tokens/dist/tokens.css", ROOT), "utf8");
   const themeVars = new Set<string>();
-  for (const m of `${tokensCss}\n${sharedRoot.toString()}`.matchAll(/(--[\w-]+)\s*:/g)) {
+  for (const m of `${tokens}\n${sharedRoot.toString()}`.matchAll(/(--[\w-]+)\s*:/g)) {
     if (!m[1]!.startsWith("--tw-")) themeVars.add(m[1]!);
   }
   // Variables a component sets inline (style={{ "--color-border": ... }}) must keep their name.
@@ -713,5 +723,5 @@ export async function buildCssStyle(sources: Map<string, string>): Promise<CssSt
     );
   for (const [owner, text] of css) css.set(owner, rename(text));
 
-  return { files, css, base: rename(`${baseCss}\n`), tokens: rename(tokensCss) };
+  return { files, css, base: rename(`${baseCss}\n`), tokens: rename(tokens) };
 }

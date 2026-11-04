@@ -12,6 +12,7 @@
     "registry": "node scripts/registry.ts"
   },
   "dependencies": {
+    "@cladux/css-style": "workspace:*",
     "@cladux/styles": "workspace:*",
     "@cladux/tokens": "workspace:*",
     "@cladux/ui": "workspace:*",
@@ -32,17 +33,14 @@
     "sonner": "^2.0.8"
   },
   "devDependencies": {
-    "@babel/parser": "^8.1.0",
     "@tailwindcss/node": "^4.3.4",
     "@tailwindcss/postcss": "^4.3.4",
     "@types/mdx": "^2.0.14",
     "@types/node": "^26.6.6",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "magic-string": "^1.4.5",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",
-    "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.3.4",
     "typescript": "^7.0.2"
   }

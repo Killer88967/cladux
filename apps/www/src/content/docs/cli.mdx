@@ -135,7 +135,11 @@ You don't list dependencies. `build` reads the imports:
 - **A Cladux component you added** becomes `@cladux/<name>`, so it's installed from Cladux.
 - **A package** becomes an npm dependency, at the version in your `package.json`.
 
-An import that isn't covered (a file in no item, or a package that isn't in `package.json`) stops the build and says which file to add. The registry goes to `public/r` (set `output` to change it), in the style your project uses (set `style` to change it), and is checked the same way `registry validate` checks it. Publish that folder with your site, and others add your items through [other registries](#other-registries).
+An import that isn't covered (a file in no item, or a package that isn't in `package.json`) stops the build and says which file to add.
+
+**Both styles.** When your components use Tailwind, `build` also writes the plain-CSS style, with the same converter Cladux's own registry uses: readable `cl-*` classes and a stylesheet per item, with the theme variables renamed to `--cl-*` to match Cladux's. Projects without Tailwind can then install your items too. It reads the stylesheet in `cl.json` (`css.globals`) to know your theme; set `stylesheet` to use another, or `"css": false` to skip it. It needs Tailwind's compiler, `@tailwindcss/node`, which Tailwind's PostCSS and Vite plugins already install.
+
+The registry goes to `public/r` (set `output` to change it), and is checked the same way `registry validate` checks it. Publish that folder with your site, and others add your items through [other registries](#other-registries).
 
 ## registry validate
 

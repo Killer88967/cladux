@@ -1,0 +1,22 @@
+{
+  "name": "@cladux/css-style",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@babel/parser": "^8.1.0",
+    "magic-string": "^1.4.5",
+    "postcss": "^8.5.32",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/node": "^4.3.4",
+    "@types/node": "^26.6.6"
+  }
+}

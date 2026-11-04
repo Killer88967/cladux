@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { beforeEach, describe, expect, it } from "vitest";
@@ -15,9 +16,12 @@ async function put(file: string, content: string) {
   await writeFile(path.join(ctx.root, file), content);
 }
 
-const source = (items: unknown[]) => put("cl-registry.json", JSON.stringify({ items }));
-const readItem = async (name: string) =>
-  JSON.parse(await readFile(path.join(ctx.root, "public/r/css", `${name}.json`), "utf8"));
+const source = (items: unknown[], options: object = {}) =>
+  put("cl-registry.json", JSON.stringify({ ...options, items }));
+const readItem = async (name: string, style = "css") =>
+  JSON.parse(await readFile(path.join(ctx.root, "public/r", style, `${name}.json`), "utf8"));
+
+const STYLESHEET = path.join(import.meta.dirname, "fixtures/tailwind.css");
 
 beforeEach(async () => {
   await init({
@@ -84,6 +88,37 @@ describe("build", () => {
     await expect(build({ cwd: ctx.root })).rejects.toThrow(
       "imports canvas-confetti, which isn't in package.json",
     );
+  });
+
+  it("generates the css style from Tailwind files", async () => {
+    await put(
+      "src/components/acme/badge-x.tsx",
+      'export function BadgeX() {\n  return <span className="inline-flex px-2 text-primary hover:underline" />;\n}\n',
+    );
+    await source([{ name: "badge-x", files: ["src/components/acme/badge-x.tsx"] }], {
+      style: "tailwind",
+      stylesheet: STYLESHEET,
+    });
+    await build({ cwd: ctx.root, tailwind: await import("@tailwindcss/node") });
+
+    const css = await readItem("badge-x", "css");
+    expect(css.files.map((f: { path: string }) => f.path)).toEqual(["badge-x.tsx", "badge-x.css"]);
+    expect(css.files[0].content).toContain('className="cl-badge-x__span"');
+    // Same names as Cladux's own css style: --primary becomes --cl-primary.
+    expect(css.files[1].content).toContain("color: var(--cl-primary)");
+    expect(css.files[1].content).toContain("--cl-spacing: .25rem");
+    const index = JSON.parse(await readFile(path.join(ctx.root, "public/r/index.json"), "utf8"));
+    expect(index.styles).toEqual(["tailwind", "css"]);
+  });
+
+  it('skips the css style with "css": false', async () => {
+    await source([{ name: "sparkle", files: ["src/components/acme/sparkle.tsx"] }], {
+      style: "tailwind",
+      css: false,
+    });
+    await build({ cwd: ctx.root });
+    expect(existsSync(path.join(ctx.root, "public/r/tailwind/sparkle.json"))).toBe(true);
+    expect(existsSync(path.join(ctx.root, "public/r/css"))).toBe(false);
   });
 
   it("checks cl-registry.json first", async () => {

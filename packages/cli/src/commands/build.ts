@@ -1,6 +1,9 @@
 import { existsSync, statSync } from "node:fs";
 import { copyFile, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createRequire } from "node:module";
 import path from "node:path";
+import { pathToFileURL } from "node:url";
+import type { Tailwind } from "@cladux/css-style";
 import * as p from "@clack/prompts";
 import { readConfig, REGISTRY_ALIASES } from "../utils/config.ts";
 import { allDeps, readPackageJson } from "../utils/detect.ts";
@@ -27,6 +30,8 @@ interface SourceItem {
 
 interface Source {
   style?: string;
+  css?: boolean;
+  stylesheet?: string;
   output?: string;
   items: SourceItem[];
 }
@@ -35,6 +40,8 @@ export interface BuildOptions {
   cwd: string;
   /** Path to the source file. Defaults to cl-registry.json. */
   source?: string;
+  /** @tailwindcss/node to use instead of the project's own (for tests). */
+  tailwind?: Tailwind;
 }
 
 const FILE_TYPE: Record<RegistryItem["type"], RegistryFile["type"]> = {
@@ -209,15 +216,41 @@ export async function build(opts: BuildOptions) {
   }
   if (problems.length) throw new CliError([...new Set(problems)].join("\n"));
 
-  // 3. Write: the old item files go first, so nothing stale is left behind.
-  const styleDir = path.join(out, style);
-  await mkdir(styleDir, { recursive: true });
-  for (const file of await readdir(styleDir)) {
-    if (file.endsWith(".json")) await rm(path.join(styleDir, file));
+  // 3. The plain-CSS style, generated from the Tailwind files, as Cladux's own is.
+  const styles = new Map([[style, items]]);
+  if (style === "tailwind" && source.css !== false) {
+    const stylesheet = source.stylesheet ?? config?.css.globals;
+    if (!stylesheet) {
+      throw new CliError(
+        `Which stylesheet are your components styled with? Set "stylesheet" in ${SOURCE_FILE}, or "css": false to skip the css style.`,
+      );
+    }
+    const spin = p.spinner();
+    spin.start("Building the css style");
+    try {
+      const tailwind = opts.tailwind ?? (await loadTailwind(root));
+      styles.set("css", await cssItems(items, path.resolve(root, stylesheet), tailwind));
+      spin.stop("Built the css style");
+    } catch (error) {
+      spin.stop("The css style failed");
+      throw error;
+    }
   }
-  for (const item of items) {
-    const json = { $schema: `${SCHEMA}/registry-item.json`, ...item };
-    await writeFile(path.join(styleDir, `${item.name}.json`), `${JSON.stringify(json, null, 2)}\n`);
+
+  // 4. Write: the old item files go first, so nothing stale is left behind.
+  for (const [name, list] of styles) {
+    const styleDir = path.join(out, name);
+    await mkdir(styleDir, { recursive: true });
+    for (const file of await readdir(styleDir)) {
+      if (file.endsWith(".json")) await rm(path.join(styleDir, file));
+    }
+    for (const item of list) {
+      const json = { $schema: `${SCHEMA}/registry-item.json`, ...item };
+      await writeFile(
+        path.join(styleDir, `${item.name}.json`),
+        `${JSON.stringify(json, null, 2)}\n`,
+      );
+    }
   }
   for (const item of source.items) {
     if (!item.docs) continue;
@@ -226,7 +259,7 @@ export async function build(opts: BuildOptions) {
   }
   const index = {
     $schema: `${SCHEMA}/registry.json`,
-    styles: [style],
+    styles: [...styles.keys()],
     aliases: REGISTRY_ALIASES,
     items: items.map(({ name, type, description, new: isNew, registryDependencies }) => ({
       name,
@@ -237,9 +270,11 @@ export async function build(opts: BuildOptions) {
     })),
   };
   await writeFile(path.join(out, "index.json"), `${JSON.stringify(index, null, 2)}\n`);
-  p.log.success(`Built ${items.length} item${items.length === 1 ? "" : "s"} into ${rel(out)}`);
+  p.log.success(
+    `Built ${items.length} item${items.length === 1 ? "" : "s"} into ${rel(out)}, in ${[...styles.keys()].join(" and ")}`,
+  );
 
-  // 4. The same checks `registry validate` runs.
+  // 5. The same checks `registry validate` runs.
   const { issues: found } = await validateRegistry(out);
   for (const issue of found) p.log.warn(`${issue.file}: ${issue.message}`);
   if (found.some((i) => i.level === "error")) throw new CliError("The registry has errors.");
@@ -249,4 +284,74 @@ export async function build(opts: BuildOptions) {
       `  "registries": { "@you": "https://your-site.com/${rel(out).replace(/^public\//, "")}" }\n` +
       `  cladux add @you/${items[0]!.name}`,
   );
+}
+
+/**
+ * Loads Tailwind's compiler from the project, the way its own build finds it:
+ * directly, or through @tailwindcss/postcss, /vite or /cli.
+ */
+async function loadTailwind(root: string): Promise<Tailwind> {
+  const require = createRequire(path.join(root, "package.json"));
+  for (const via of ["", "@tailwindcss/postcss", "@tailwindcss/vite", "@tailwindcss/cli"]) {
+    try {
+      const from = via ? createRequire(require.resolve(via)) : require;
+      return await import(pathToFileURL(from.resolve("@tailwindcss/node")).href);
+    } catch {
+      // Try the next way in.
+    }
+  }
+  throw new CliError(
+    `Building the css style needs Tailwind v4's compiler. Install it with: npm i -D @tailwindcss/node\n` +
+      `Or set "css": false in ${SOURCE_FILE} to build only the Tailwind style.`,
+  );
+}
+
+/**
+ * The css style of each item: the same files with readable `cl-*` classes, plus
+ * one stylesheet per item, generated by the converter Cladux's registry uses.
+ */
+async function cssItems(items: RegistryItem[], stylesheet: string, tailwind: Tailwind) {
+  if (!isFile(stylesheet)) throw new CliError(`The stylesheet ${stylesheet} doesn't exist.`);
+  // Loaded here, so the other commands don't pay for the converter.
+  const { buildCssStyle, unknown } = await import("@cladux/css-style");
+  const css = await readFile(stylesheet, "utf8");
+  const base = path.dirname(stylesheet);
+
+  // One source per code file, named after it, as Cladux names its components.
+  const sources = new Map<string, string>();
+  for (const item of items) {
+    for (const file of item.files) {
+      if (file.type !== "css")
+        sources.set(path.basename(withoutExtension(file.path)), file.content);
+    }
+  }
+  // The theme variables the project defines, so they get the --cl- prefix the css style uses.
+  const compiled = await tailwind.compile(css, { base, onDependency() {} });
+  let result: Awaited<ReturnType<typeof buildCssStyle>>;
+  try {
+    result = await buildCssStyle(sources, { css, base, tailwind, tokens: compiled.build([]) });
+  } catch (error) {
+    throw new CliError(`Couldn't build the css style: ${(error as Error).message}`);
+  }
+  if (unknown.size)
+    p.log.warn(`Kept as they are (not Tailwind classes):\n  ${[...unknown].join("\n  ")}`);
+
+  return items.map((item): RegistryItem => {
+    const name = (file: RegistryFile) => path.basename(withoutExtension(file.path));
+    const sheet = item.files
+      .filter((f) => f.type !== "css")
+      .map((f) => result.css.get(name(f)))
+      .filter(Boolean)
+      .join("\n");
+    return {
+      ...item,
+      style: "css",
+      files: [
+        ...item.files.map((f) =>
+          f.type === "css" ? f : { ...f, content: result.files.get(name(f)) ?? f.content },
+        ),
+        ...(sheet ? [{ path: `${item.name}.css`, type: "css" as const, content: sheet }] : []),
+      ],
+    };
+  });
 }

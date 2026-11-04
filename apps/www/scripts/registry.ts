@@ -5,7 +5,8 @@ import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { createRequire } from "node:module";
 import * as prettier from "prettier";
-import { buildCssStyle } from "./css-style.ts";
+import { buildCssStyle } from "@cladux/css-style";
+import * as tailwindNode from "@tailwindcss/node";
 import { blocks } from "../../../packages/ui/src/blocks/_blocks.ts";
 
 const ROOT = new URL("../../../", import.meta.url);
@@ -321,7 +322,22 @@ async function buildCssItems(tailwind: RegistryItem[]): Promise<RegistryItem[]> 
     if (item.type === "registry:style" || item.name === "utils") continue;
     for (const file of item.files) sources.set(item.name, file.content);
   }
-  const result = await buildCssStyle(sources);
+  // What the Tailwind components are written against, and what the css style ships besides them.
+  const styles = new URL("packages/styles/", ROOT);
+  const resolveFromStyles = createRequire(new URL("package.json", styles)).resolve;
+  const result = await buildCssStyle(sources, {
+    css: [
+      '@import "tailwindcss/theme.css";',
+      '@import "tailwindcss/utilities.css" source(none);',
+      '@import "tw-animate-css";',
+      '@import "shadcn/tailwind.css";',
+      '@import "@cladux/tokens/theme.css";',
+    ].join("\n"),
+    base: new URL("src/", styles).pathname,
+    tailwind: tailwindNode,
+    tokens: await readFile(new URL("packages/tokens/dist/tokens.css", ROOT), "utf8"),
+    preflight: await readFile(resolveFromStyles("tailwindcss/preflight.css"), "utf8"),
+  });
 
   // Tidy the rewritten sources the same way the repo is formatted.
   const format = (code: string) => prettier.format(code, { parser: "typescript", printWidth: 100 });
