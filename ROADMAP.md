@@ -55,6 +55,17 @@ changelog at /docs/changelog.
 - [ ] Right-to-left support and an RTL docs section
 - [ ] Open Graph images for every page
 
+## Component ideas
+
+For after 0.4:
+
+- [ ] Number Ticker: numbers that count up or roll to a new value, for Stat and dashboards
+- [ ] Image Compare: a before and after slider
+- [ ] Date Range Picker with presets (last 7 days, this month)
+- [ ] Dock: a macOS-style bar of icons that grow under the pointer
+- [ ] Signature Pad: draw a signature and export it as an image
+- [ ] Animated Text: more effects
+
 ## Always
 
 - [ ] The parity, behavior and end-to-end tests from the full-scale test, in CI
