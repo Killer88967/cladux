@@ -50,7 +50,7 @@
           "registryDependencies": {
             "type": "array",
             "items": {
-              "$ref": "registry-item.json#/$defs/name"
+              "$ref": "registry-item.json#/$defs/dependency"
             }
           }
         },

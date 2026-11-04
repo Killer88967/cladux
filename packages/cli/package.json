@@ -44,7 +44,7 @@
     "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
-    "@cfworker/json-schema": "^4.1.4",
+    "@cfworker/json-schema": "^4.1.6",
     "@clack/prompts": "^1.8.1",
     "@types/node": "^26.6.6",
     "diff": "^9.0.0",

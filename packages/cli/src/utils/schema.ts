@@ -32,6 +32,10 @@ function explain(unit: OutputUnit) {
       return `${at} must be one of ${unit.error.slice(unit.error.indexOf("[") + 1, -2).replaceAll(",", ", ")}`;
     case "type":
       return `${at} must be ${unit.error.match(/Expected "(\w+)"/)?.[1] ?? "a different type"}`;
+    case "propertyNames":
+      return `${at}: "${quoted}" must start with @, such as @acme`;
+    case "anyOf":
+      return `${at} must be a URL or folder, or { "url": ..., "headers": { ... } }`;
     case "minItems":
     case "minLength":
       return `${at} can't be empty`;
@@ -51,10 +55,19 @@ function explain(unit: OutputUnit) {
 }
 
 function check(validator: Validator, data: unknown) {
-  return validator
-    .validate(data)
-    .errors.filter((unit) => !WRAPPERS.has(unit.keyword))
-    .map(explain);
+  const errors = validator.validate(data).errors;
+  const anyOf = errors.filter((u) => u.keyword === "anyOf").map((u) => u.instanceLocation);
+  const names = errors.filter((u) => u.keyword === "propertyNames").map((u) => u.instanceLocation);
+  const under = (unit: OutputUnit) => {
+    const at = unit.instanceLocation;
+    const key = `${at}/${unit.error.match(/"([^"]+)"/)?.[1]}`;
+    return (
+      anyOf.some((l) => (at === l && unit.keyword !== "anyOf") || at.startsWith(`${l}/`)) ||
+      (unit.keyword === "additionalProperties" && anyOf.includes(key)) ||
+      names.some((l) => at.startsWith(`${l}/`))
+    );
+  };
+  return errors.filter((unit) => !WRAPPERS.has(unit.keyword) && !under(unit)).map(explain);
 }
 
 /** Problems with a cl.json, as sentences. Empty when it's valid. */

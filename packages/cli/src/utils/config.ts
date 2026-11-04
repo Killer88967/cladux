@@ -24,12 +24,15 @@ export const CONFIG_SCHEMA = "https://cladux.vercel.app/schema/cl.json";
 
 export type Aliases = typeof REGISTRY_ALIASES;
 
+export type Registries = Record<string, string | { url: string; headers?: Record<string, string> }>;
+
 export interface Config {
   $schema?: string;
   style: "tailwind" | "css";
   tsx: boolean;
   framework: Framework;
   registry: string;
+  registries?: Registries;
   css: {
     /** The stylesheet the app already loads (globals.css, index.css...). */
     globals: string;

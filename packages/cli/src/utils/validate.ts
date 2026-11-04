@@ -54,7 +54,7 @@ export async function validateRegistry(registry: string) {
   }
   for (const entry of index.items) {
     for (const dep of entry.registryDependencies ?? []) {
-      if (!entries.has(dep)) {
+      if (!dep.startsWith("@") || !entries.has(dep)) {
         report("error", "index.json", `${entry.name} needs "${dep}", which isn't in the registry`);
       }
     }
@@ -144,7 +144,7 @@ export async function validateRegistry(registry: string) {
 function importIssues(content: string, item: RegistryItem, aliases: Aliases) {
   const messages: string[] = [];
   const packages = new Set(item.dependencies.map(packageName));
-  const needs = new Set(item.registryDependencies);
+  const needs = new Set(item.registryDependencies.map((d) => d.split("/").at(-1)!));
 
   for (const [, spec] of content.matchAll(/(?:from\s+|import\s+)"([^"]+)"/g)) {
     if (!spec) continue;

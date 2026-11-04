@@ -36,6 +36,30 @@ Adds components or blocks, everything they depend on, and their npm packages. Wi
 
 Components added with `--path` live outside your components folder, so `list`, `info`, `diff` and `update` don't see them.
 
+## Other registries
+
+Install from other registries that use the Cladux format by naming them in `cl.json`, then putting the name in front of the item:
+
+```json
+{
+  "registries": {
+    "@acme": "https://acme.dev/r",
+    "@internal": {
+      "url": "https://registry.example.com/r",
+      "headers": { "Authorization": "Bearer ${INTERNAL_TOKEN}" }
+    }
+  }
+}
+```
+
+<CliCommand args="add @acme/fancy-card" />
+
+- **Dependencies follow the item.** A plain name in its `registryDependencies` comes from the same registry; `@cladux/button` comes from Cladux, whatever registry the item is in.
+- **Secrets stay out of the file.** `${INTERNAL_TOKEN}` is read from the environment, and the CLI stops with a clear message when it isn't set.
+- **`view`, `docs`, `diff` and `update` take the same names**, as in `cladux diff @acme/fancy-card`.
+
+`@cladux` always means Cladux's own registry, so other registries can build on its components.
+
 ## list and search
 
 `list` shows every component and block. `search` shows the ones whose name or description matches. In a project, installed items get a green dot, and new components are marked **new**.

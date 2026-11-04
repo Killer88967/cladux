@@ -1,7 +1,7 @@
 import path from "node:path";
 import { styleText } from "node:util";
 import { DEFAULT_REGISTRY, readConfig } from "../utils/config.ts";
-import { fetchDocs, NotFoundError } from "../utils/registry.ts";
+import { fetchDocs, locate, NotFoundError } from "../utils/registry.ts";
 import { CliError } from "../utils/ui.ts";
 
 export interface DocsOptions {
@@ -21,7 +21,8 @@ export async function docs(opts: DocsOptions) {
   for (const name of opts.names) {
     let markdown: string;
     try {
-      markdown = await fetchDocs(registry, name);
+      const found = locate({ registry, registries: config?.registries }, name);
+      markdown = await fetchDocs(found.source, found.name);
     } catch (error) {
       if (error instanceof NotFoundError) {
         throw new CliError(`No docs for "${name}". Try: cladux search ${name}`);
@@ -32,7 +33,7 @@ export async function docs(opts: DocsOptions) {
     if (config) {
       markdown = markdown.replaceAll(
         'from "@cladux/ui"',
-        `from "${config.aliases.components}/${name}"`,
+        `from "${config.aliases.components}/${name.split("/").at(-1)}"`,
       );
     }
     console.log(`\n${render(markdown)}`);

@@ -25,6 +25,41 @@
       "type": "string",
       "minLength": 1
     },
+    "registries": {
+      "description": "More registries, by namespace. `cladux add @acme/button` installs button from the one named @acme. @cladux always means Cladux's own registry.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^@[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "description": "The registry's URL, or a folder.",
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "object",
+            "properties": {
+              "url": {
+                "description": "The registry's URL, or a folder.",
+                "type": "string",
+                "minLength": 1
+              },
+              "headers": {
+                "description": "Sent with every request, for private registries. ${NAME} is replaced with the environment variable NAME, so tokens stay out of the file.",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["url"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
     "css": {
       "type": "object",
       "properties": {

@@ -9,7 +9,13 @@ import { detectProject } from "../utils/detect.ts";
 import { rewriteImports, targetPath, writeItemFiles } from "../utils/files.ts";
 import { install, missingDeps } from "../utils/install.ts";
 import { normalize } from "../utils/lock.ts";
-import { fetchIndex, NotFoundError, resolveItems, type RegistryItem } from "../utils/registry.ts";
+import {
+  fetchIndex,
+  NotFoundError,
+  qualified,
+  resolveItems,
+  type RegistryItem,
+} from "../utils/registry.ts";
 import { findPathAlias, pathToAlias, type PathAlias } from "../utils/tsconfig.ts";
 import { answer, CliError } from "../utils/ui.ts";
 import { printPatch } from "./diff.ts";
@@ -57,7 +63,7 @@ export async function add(opts: AddOptions) {
   }
 
   const known = new Set(index.items.map((i) => i.name));
-  const unknown = names.filter((n) => !known.has(n));
+  const unknown = names.filter((n) => !n.startsWith("@") && !known.has(n));
   if (unknown.length) {
     const hints = unknown.map((n) => {
       // Suggest components and blocks, not hooks or lib files.
@@ -77,7 +83,7 @@ export async function add(opts: AddOptions) {
   spin.start("Fetching from the registry");
   let items: RegistryItem[];
   try {
-    items = (await resolveItems(config.registry, config.style, names)).filter(
+    items = (await resolveItems(config, config.style, names)).filter(
       (i) => i.type !== "registry:style",
     );
   } catch (error) {
@@ -90,7 +96,8 @@ export async function add(opts: AddOptions) {
   // --path moves what you named; its dependencies go where they always do.
   const requested = new Set(names);
   const dir = opts.path ? path.resolve(root, opts.path) : undefined;
-  const dirFor = (item: RegistryItem) => (requested.has(item.name) ? dir : undefined);
+  const isRequested = (item: RegistryItem) => requested.has(qualified(item));
+  const dirFor = (item: RegistryItem) => (isRequested(item) ? dir : undefined);
 
   // --dry-run, --view and --diff show what would happen and change nothing.
   if (opts.dryRun || opts.view || opts.diff) {
@@ -108,11 +115,11 @@ export async function add(opts: AddOptions) {
       existsSync(targetPath(root, alias, config, item, f, dirFor(item))),
     );
     // --overwrite (or a yes) only replaces what you named, never its dependencies.
-    let overwrite = opts.overwrite && requested.has(item.name);
-    if (!overwrite && existing.length && requested.has(item.name) && !opts.yes) {
+    let overwrite = opts.overwrite && isRequested(item);
+    if (!overwrite && existing.length && isRequested(item) && !opts.yes) {
       overwrite = answer(
         await p.confirm({
-          message: `${item.name} is already installed. Overwrite it?`,
+          message: `${qualified(item)} is already installed. Overwrite it?`,
           initialValue: false,
         }),
       );
@@ -121,7 +128,7 @@ export async function add(opts: AddOptions) {
     const res = await writeItemFiles(root, alias, config, item, { overwrite, dir: dirFor(item) });
     written.push(...res.written);
     // Only mention skipped files for what you asked for; existing dependencies are expected.
-    if (requested.has(item.name)) skipped.push(...res.skipped);
+    if (isRequested(item)) skipped.push(...res.skipped);
     for (const f of item.files) {
       if (f.type === "css") cssFiles.push(path.join(root, config.css.dir, f.path));
     }
@@ -161,7 +168,7 @@ export async function add(opts: AddOptions) {
   }
 
   const first = items.find(
-    (i) => requested.has(i.name) && (i.type === "registry:ui" || i.type === "registry:block"),
+    (i) => isRequested(i) && (i.type === "registry:ui" || i.type === "registry:block"),
   );
   // With --path the file sits right in that folder, so import it from there.
   const from = dir ? pathToAlias(root, alias, dir) : config.aliases.components;
@@ -189,7 +196,7 @@ async function preview(
       // Same rule as a real add: only what you named can be replaced.
       const action = !existsSync(dest)
         ? "add"
-        : opts.overwrite && requested.has(item.name)
+        : opts.overwrite && requested.has(qualified(item))
           ? "replace"
           : "exists";
       return { file, action, dest, rel: path.relative(root, dest) };

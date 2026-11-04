@@ -2,7 +2,7 @@ import path from "node:path";
 import { styleText } from "node:util";
 import { DEFAULT_REGISTRY, readConfig } from "../utils/config.ts";
 import { rewriteImports } from "../utils/files.ts";
-import { fetchItem, NotFoundError } from "../utils/registry.ts";
+import { fetchNamed, NotFoundError, qualified } from "../utils/registry.ts";
 import { CliError } from "../utils/ui.ts";
 
 export interface ViewOptions {
@@ -25,7 +25,7 @@ export async function view(opts: ViewOptions) {
   }
 
   for (const name of opts.names) {
-    const item = await fetchItem(registry, style, name).catch((error: unknown) => {
+    const item = await fetchNamed({ registry }, style, name).catch((error: unknown) => {
       if (error instanceof NotFoundError) {
         throw new CliError(`"${name}" isn't in the registry. Try: cladux search ${name}`);
       }
@@ -34,7 +34,7 @@ export async function view(opts: ViewOptions) {
 
     const kind = item.type.replace("registry:", "");
     console.log(
-      `\n${styleText("bold", item.name)}  ${styleText("dim", `${kind}, ${style} style`)}`,
+      `\n${styleText("bold", qualified(item))}  ${styleText("dim", `${kind}, ${style} style`)}`,
     );
     if (item.description) console.log(item.description);
     if (item.registryDependencies.length) {

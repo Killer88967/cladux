@@ -38,10 +38,10 @@
       "uniqueItems": true
     },
     "registryDependencies": {
-      "description": "Other items in the same registry this one needs. `cladux add` installs them first.",
+      "description": "Other items this one needs. `cladux add` installs them first. A plain name is in the same registry; @acme/button is in the registry named @acme.",
       "type": "array",
       "items": {
-        "$ref": "#/$defs/name"
+        "$ref": "#/$defs/dependency"
       },
       "uniqueItems": true
     },
@@ -74,6 +74,10 @@
     "name": {
       "type": "string",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "dependency": {
+      "type": "string",
+      "pattern": "^(@[a-z0-9]+(-[a-z0-9]+)*/)?[a-z0-9]+(-[a-z0-9]+)*$"
     },
     "type": {
       "description": "registry:ui for components, registry:block for page sections, registry:hook and registry:lib for code they share, registry:style for what `init` installs.",

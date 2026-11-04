@@ -6,7 +6,13 @@ import { createTwoFilesPatch } from "diff";
 import { CONFIG_FILE, readConfig, type Config } from "../utils/config.ts";
 import { rewriteImports, targetPath } from "../utils/files.ts";
 import { installedCheck } from "../utils/installed.ts";
-import { fetchIndex, fetchItem, NotFoundError, type RegistryItem } from "../utils/registry.ts";
+import {
+  fetchIndex,
+  fetchNamed,
+  NotFoundError,
+  qualified,
+  type RegistryItem,
+} from "../utils/registry.ts";
 import { findPathAlias, type PathAlias } from "../utils/tsconfig.ts";
 import { CliError } from "../utils/ui.ts";
 
@@ -40,7 +46,7 @@ export async function diff(opts: DiffOptions) {
   // Fetch in parallel, report in order.
   const items = await Promise.all(
     names.map((name) =>
-      fetchItem(config.registry, config.style, name).catch((error: unknown) => {
+      fetchNamed(config, config.style, name).catch((error: unknown) => {
         if (error instanceof NotFoundError) {
           throw new CliError(`"${name}" isn't in the registry. Try: cladux search ${name}`);
         }
@@ -52,12 +58,12 @@ export async function diff(opts: DiffOptions) {
   const changed: string[] = [];
   for (const item of items) {
     if (!item.files.some((f) => existsSync(targetPath(root, alias, config, item, f)))) {
-      console.log(`${item.name} isn't installed. Add it with: cladux add ${item.name}`);
+      console.log(`${qualified(item)} isn't installed. Add it with: cladux add ${qualified(item)}`);
       continue;
     }
     const patches = await itemPatches(root, alias, config, item);
     if (!patches.length) continue;
-    changed.push(`${item.name} (${patches.length} file${patches.length === 1 ? "" : "s"})`);
+    changed.push(`${qualified(item)} (${patches.length} file${patches.length === 1 ? "" : "s"})`);
     if (!summary) patches.forEach(printPatch);
   }
 

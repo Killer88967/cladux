@@ -9,7 +9,13 @@ import { fileContent, targetPath, writeItemFiles } from "../utils/files.ts";
 import { installedCheck } from "../utils/installed.ts";
 import { install, missingDeps } from "../utils/install.ts";
 import { fingerprint, lockKey, normalize, readLock, recordFiles } from "../utils/lock.ts";
-import { fetchIndex, fetchItem, NotFoundError, type RegistryFile } from "../utils/registry.ts";
+import {
+  fetchIndex,
+  fetchNamed,
+  NotFoundError,
+  qualified,
+  type RegistryFile,
+} from "../utils/registry.ts";
 import { findPathAlias } from "../utils/tsconfig.ts";
 import { CliError } from "../utils/ui.ts";
 
@@ -49,7 +55,7 @@ export async function update(opts: UpdateOptions) {
   spin.start("Fetching from the registry");
   const items = await Promise.all(
     names.map((name) =>
-      fetchItem(config.registry, config.style, name).catch((error: unknown) => {
+      fetchNamed(config, config.style, name).catch((error: unknown) => {
         spin.stop("Fetch failed");
         if (error instanceof NotFoundError) {
           throw new CliError(`"${name}" isn't in the registry. Try: cladux search ${name}`);
@@ -66,7 +72,7 @@ export async function update(opts: UpdateOptions) {
     [];
   for (const item of items) {
     if (!installed?.(item)) {
-      p.log.warn(`${item.name} isn't installed. Add it with: cladux add ${item.name}`);
+      p.log.warn(`${qualified(item)} isn't installed. Add it with: cladux add ${qualified(item)}`);
       continue;
     }
     for (const file of item.files) {

@@ -154,7 +154,7 @@ export async function init(opts: InitOptions) {
   // 3. Fetch and write.
   const spin = p.spinner();
   spin.start("Fetching from the registry");
-  const items = await resolveItems(registry, style, ["init"]);
+  const items = await resolveItems({ registry }, style, ["init"]);
   spin.stop("Fetched");
 
   const written: string[] = [];
