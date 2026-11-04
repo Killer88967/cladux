@@ -17,7 +17,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/docs/[[...slug]]">) {
   const { slug = [] } = await params;
   const doc = await getDoc(slug);
-  return doc ? { title: doc.metadata.title, description: doc.metadata.description } : {};
+  if (!doc) return {};
+  return {
+    title: doc.metadata.title,
+    description: doc.metadata.description,
+    // The same page as Markdown, written by scripts/llms.ts.
+    alternates: { types: { "text/markdown": `/docs/${slug.join("/")}.md`.replace("/.md", ".md") } },
+  };
 }
 
 export default async function DocPage({ params }: PageProps<"/docs/[[...slug]]">) {
