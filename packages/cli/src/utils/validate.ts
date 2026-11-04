@@ -54,7 +54,7 @@ export async function validateRegistry(registry: string) {
   }
   for (const entry of index.items) {
     for (const dep of entry.registryDependencies ?? []) {
-      if (!dep.startsWith("@") || !entries.has(dep)) {
+      if (!dep.startsWith("@") && !entries.has(dep)) {
         report("error", "index.json", `${entry.name} needs "${dep}", which isn't in the registry`);
       }
     }
