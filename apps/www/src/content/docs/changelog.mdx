@@ -6,6 +6,14 @@ export const metadata = {
 
 ## November 2026
 
+### CLI 0.3: your own registries
+
+- **Build a registry.** List your components in `cl-registry.json` and run `cladux build`. It finds the dependencies from your imports and writes both styles, so projects without Tailwind can install your components too. See [build](/docs/cli#build).
+- **Install from other registries.** Name them in `cl.json` and run `cladux add @acme/fancy-card`, with headers for private ones. See [Other registries](/docs/cli#other-registries).
+- **Check a registry.** `cladux registry validate` finds missing files, unknown dependencies and imports `add` wouldn't install.
+- **JSON schemas.** `cl.json`, registry items and `cl-registry.json` autocomplete in your editor, and every command checks `cl.json` before it starts.
+- **A library.** The registry code is on npm as [`cladux-registry`](/docs/registry), for tools of your own.
+
 ### CLI 0.2
 
 The CLI is on npm as [`cladux-ui`](https://www.npmjs.com/package/cladux-ui). Version 0.2 adds:

@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cladux.vercel.app/schema/registry-item.json",
+  "title": "Cladux registry item",
+  "description": "One component, block, hook or helper, with its files, in one style.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "name": {
+      "description": "Lowercase words joined by dashes, such as date-picker. It's what people type after `cladux add`.",
+      "$ref": "#/$defs/name"
+    },
+    "type": {
+      "$ref": "#/$defs/type"
+    },
+    "style": {
+      "description": "The style these files are written in: `tailwind` or `css`.",
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "description": "One sentence, shown by `cladux list` and on the site.",
+      "type": "string"
+    },
+    "new": {
+      "description": "Marked new on the site and in `cladux list`.",
+      "type": "boolean"
+    },
+    "dependencies": {
+      "description": "npm packages the files import, with a version range, such as clsx@^2.1.1.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^(@[a-z0-9][\\w.-]*/)?[a-z0-9][\\w.-]*(@.+)?$"
+      },
+      "uniqueItems": true
+    },
+    "registryDependencies": {
+      "description": "Other items this one needs. `cladux add` installs them first. A plain name is in the same registry; @acme/button is in the registry named @acme.",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/dependency"
+      },
+      "uniqueItems": true
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "description": "Where the file goes, relative to the folder for its type: aliases.components for ui, aliases.hooks for hook, aliases.lib for lib, css.dir for css.",
+            "type": "string",
+            "pattern": "^(?!/)(?!.*\\.\\.)[\\w./-]+$"
+          },
+          "type": {
+            "enum": ["ui", "hook", "lib", "css"]
+          },
+          "content": {
+            "type": "string"
+          }
+        },
+        "required": ["path", "type", "content"],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "required": ["name", "type", "style", "dependencies", "registryDependencies", "files"],
+  "additionalProperties": false,
+  "$defs": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "dependency": {
+      "type": "string",
+      "pattern": "^(@[a-z0-9]+(-[a-z0-9]+)*/)?[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "type": {
+      "description": "registry:ui for components, registry:block for page sections, registry:hook and registry:lib for code they share, registry:style for what `init` installs.",
+      "enum": ["registry:ui", "registry:block", "registry:hook", "registry:lib", "registry:style"]
+    }
+  }
+}

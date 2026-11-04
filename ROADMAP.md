@@ -33,7 +33,7 @@ changelog at /docs/changelog.
 
 ## 0.3 - Registry
 
-- [ ] `@cladux/registry`: fetch, resolve and install as a library
+- [x] `cladux-registry`: fetch, resolve and install as a library
 - [x] JSON Schema for `cl.json` and registry items, so editors autocomplete them
 - [x] `cladux build`: turn your own components into a registry, in both styles
 - [x] `cladux registry validate`

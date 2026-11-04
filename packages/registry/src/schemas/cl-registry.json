@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cladux.vercel.app/schema/cl-registry.json",
+  "title": "Cladux registry source",
+  "description": "What `cladux build` turns into a registry: your items and their files. Dependencies are found from the imports.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "style": {
+      "description": "The style your files are written in. Defaults to the style in cl.json, or tailwind.",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "css": {
+      "description": "Also build the plain-CSS style from the Tailwind files, so projects without Tailwind can install your items. Defaults to true when your files use Tailwind.",
+      "type": "boolean"
+    },
+    "stylesheet": {
+      "description": "The stylesheet with @import \"tailwindcss\" your components are styled against. Defaults to css.globals in cl.json.",
+      "type": "string",
+      "minLength": 1
+    },
+    "output": {
+      "description": "Where the registry is written. Defaults to public/r, so a Next.js or Vite site serves it at /r.",
+      "type": "string",
+      "minLength": 1
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "What people type after `cladux add`: lowercase words joined by dashes.",
+            "$ref": "registry-item.json#/$defs/name"
+          },
+          "type": {
+            "description": "Defaults to registry:ui.",
+            "$ref": "registry-item.json#/$defs/type"
+          },
+          "description": {
+            "description": "One sentence, shown by `cladux list`.",
+            "type": "string"
+          },
+          "new": {
+            "description": "Marked new in `cladux list`.",
+            "type": "boolean"
+          },
+          "files": {
+            "description": "The item's files, from the project root. A file's type comes from the item's type, and .css files are css.",
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "minLength": 1
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "type": {
+                      "enum": ["ui", "hook", "lib", "css"]
+                    }
+                  },
+                  "required": ["path"],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "docs": {
+            "description": "A Markdown file with usage and props, shown by `cladux docs`.",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": ["name", "files"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["items"],
+  "additionalProperties": false
+}

@@ -10,3 +10,4 @@ next-env.d.ts
 apps/www/src/lib/examples.generated.ts
 apps/www/src/lib/blocks.generated.ts
 apps/www/public/r
+apps/www/public/schema

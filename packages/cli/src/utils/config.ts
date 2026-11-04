@@ -1,6 +1,7 @@
 import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { CLADUX_REGISTRY, type Aliases, type Registries } from "cladux-registry";
 import type { Framework } from "./detect.ts";
 import { configIssues } from "./schema.ts";
 import { CliError } from "./ui.ts";
@@ -9,22 +10,12 @@ import { CliError } from "./ui.ts";
 export const CONFIG_FILE = "cl.json";
 
 // Where the registry lives. Override with --registry or CLADUX_REGISTRY.
-export const DEFAULT_REGISTRY = process.env.CLADUX_REGISTRY ?? "https://cladux.vercel.app/r";
+export const DEFAULT_REGISTRY = process.env.CLADUX_REGISTRY ?? CLADUX_REGISTRY;
 
-/** The aliases the registry files are written with; swapped for the user's on install. */
-export const REGISTRY_ALIASES = {
-  components: "@/components/cl",
-  hooks: "@/hooks",
-  lib: "@/lib",
-  utils: "@/lib/cl-utils",
-};
+export { REGISTRY_ALIASES, type Aliases, type Registries } from "cladux-registry";
 
 /** Lets editors validate and autocomplete cl.json. */
 export const CONFIG_SCHEMA = "https://cladux.vercel.app/schema/cl.json";
-
-export type Aliases = typeof REGISTRY_ALIASES;
-
-export type Registries = Record<string, string | { url: string; headers?: Record<string, string> }>;
 
 export interface Config {
   $schema?: string;

@@ -1,0 +1,54 @@
+{
+  "name": "cladux-registry",
+  "version": "0.0.0",
+  "description": "Fetch, resolve and check Cladux registries: the library the Cladux CLI is built on.",
+  "keywords": [
+    "cladux",
+    "registry",
+    "components",
+    "react",
+    "shadcn",
+    "json-schema"
+  ],
+  "homepage": "https://cladux.vercel.app/docs/registry",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Killer88967/cladux.git",
+    "directory": "packages/registry"
+  },
+  "bugs": {
+    "url": "https://github.com/Killer88967/cladux/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Killer88967",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    }
+  },
+  "scripts": {
+    "build": "node scripts/build.ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "devDependencies": {
+    "@cfworker/json-schema": "^4.1.6",
+    "@types/node": "^26.6.6",
+    "esbuild": "^0.28.2",
+    "typescript": "^7.0.2"
+  }
+}

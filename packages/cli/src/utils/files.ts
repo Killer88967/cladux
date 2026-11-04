@@ -1,27 +1,14 @@
 import { existsSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { REGISTRY_ALIASES, type Config } from "./config.ts";
+import { rewriteImports as rewrite } from "./registry.ts";
+import type { Config } from "./config.ts";
 import { fingerprint, lockKey, recordFiles } from "./lock.ts";
 import type { RegistryFile, RegistryItem } from "./registry.ts";
 import { aliasToPath, type PathAlias } from "./tsconfig.ts";
 
 /** Swaps the registry's default import aliases for the ones in cl.json. */
-export function rewriteImports(content: string, config: Config) {
-  const pairs: [string, string][] = [
-    // utils first: it sits under lib/, so it has to win over the lib rule.
-    [`"${REGISTRY_ALIASES.utils}"`, `"${config.aliases.utils}"`],
-    [`"${REGISTRY_ALIASES.components}/`, `"${config.aliases.components}/`],
-    [`"${REGISTRY_ALIASES.hooks}/`, `"${config.aliases.hooks}/`],
-    [`"${REGISTRY_ALIASES.lib}/`, `"${config.aliases.lib}/`],
-  ];
-  return content.replace(/"@\/[^"]*"/g, (spec) => {
-    for (const [from, to] of pairs) {
-      if (spec.startsWith(from)) return to + spec.slice(from.length);
-    }
-    return spec;
-  });
-}
+export const rewriteImports = (content: string, config: Config) => rewrite(content, config.aliases);
 
 /** A file's content as it's written to the project: CSS as is, code with your aliases. */
 export const fileContent = (file: RegistryFile, config: Config) =>

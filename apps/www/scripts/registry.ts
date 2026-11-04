@@ -280,6 +280,12 @@ items.sort((a, b) => a.name.localeCompare(b.name));
 const cssItems = await buildCssItems(items);
 
 await rm(OUT, { recursive: true, force: true });
+// The JSON schemas live with the registry library; the site serves them at /schema.
+const SCHEMAS = new URL("packages/registry/src/schemas/", ROOT);
+await mkdir(new URL("../schema/", OUT), { recursive: true });
+for (const file of await readdir(SCHEMAS)) {
+  await writeFile(new URL(`../schema/${file}`, OUT), await readFile(new URL(file, SCHEMAS)));
+}
 for (const [style, list] of [
   [STYLE, items],
   ["css", cssItems],

@@ -1,0 +1,84 @@
+export const metadata = {
+  title: "Registry library",
+  description:
+    "Fetch, resolve and check Cladux registries from your own code with cladux-registry.",
+  order: 2.5,
+};
+
+`cladux-registry` is the library the CLI is built on. Use it to install Cladux items from a script, a build step or a tool of your own. It has no runtime dependencies.
+
+```bash
+npm install cladux-registry
+```
+
+## Install items yourself
+
+`resolveItems` fetches the items you name and everything they need, dependencies first. `rewriteImports` points their imports at your folders.
+
+```ts
+import { resolveItems, rewriteImports } from "cladux-registry";
+
+const items = await resolveItems({ registry: "https://cladux.vercel.app/r" }, "tailwind", [
+  "button",
+]);
+
+for (const item of items) {
+  for (const file of item.files) {
+    const code = rewriteImports(file.content, {
+      components: "~/ui",
+      hooks: "~/hooks",
+      lib: "~/lib",
+      utils: "~/lib/utils",
+    });
+    // Write `code` to your components folder, or CSS files to your styles folder.
+  }
+}
+```
+
+[Other registries](/docs/cli#other-registries) work the same way, by namespace:
+
+```ts
+await resolveItems(
+  {
+    registry: "https://cladux.vercel.app/r",
+    registries: {
+      "@acme": {
+        url: "https://registry.acme.dev/r",
+        headers: { Authorization: "Bearer ${ACME_TOKEN}" },
+      },
+    },
+  },
+  "css",
+  ["@acme/fancy-card"],
+);
+```
+
+## Check a registry
+
+`validateRegistry` runs every check `cladux registry validate` does and returns them as a list. The schema checks return sentences a person can act on.
+
+```ts
+import { configIssues, validateRegistry } from "cladux-registry";
+
+const { issues } = await validateRegistry("./public/r");
+for (const issue of issues) console.log(issue.level, issue.file, issue.message);
+
+configIssues({ style: "sass" });
+// ['missing "tsx"', ..., 'style must be one of "tailwind", "css"']
+```
+
+## API
+
+| Export                                                      | What it does                                                  |
+| ----------------------------------------------------------- | ------------------------------------------------------------- |
+| `fetchIndex(registry)`                                      | A registry's `index.json`                                     |
+| `fetchItem(registry, style, name)`                          | One item's files in one style                                 |
+| `fetchNamed(config, style, name)`                           | One item by the name people type, `button` or `@acme/button`  |
+| `fetchDocs(registry, name)`                                 | An item's docs page as Markdown                               |
+| `resolveItems(config, style, names)`                        | Items and everything they need, dependencies first, each once |
+| `locate(config, name)`                                      | Which registry a name comes from, with its headers filled in  |
+| `rewriteImports(code, aliases)`                             | Swaps the registry's import paths for yours                   |
+| `validateRegistry(registry)`                                | Everything `cladux registry validate` checks                  |
+| `configIssues`, `indexIssues`, `itemIssues`, `sourceIssues` | The JSON Schema checks                                        |
+
+A registry is a URL or a folder. Errors are `RegistryError` (a bad config or refused access) and `NotFoundError` (no such item). The types, such as `RegistryItem` and `RegistryConfig`, are exported too. The schemas themselves are at [/schema](/schema/registry-item.json).

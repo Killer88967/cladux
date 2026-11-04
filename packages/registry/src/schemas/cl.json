@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cladux.vercel.app/schema/cl.json",
+  "title": "Cladux config",
+  "description": "Where the Cladux CLI puts components in this project. `cladux init` writes it, the other commands read it.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "style": {
+      "description": "`tailwind` for Tailwind v4 classes, `css` for a plain CSS file per component.",
+      "enum": ["tailwind", "css"]
+    },
+    "tsx": {
+      "description": "Components are written as TypeScript (.tsx).",
+      "type": "boolean"
+    },
+    "framework": {
+      "description": "The framework `init` detected.",
+      "enum": ["next", "react-router", "vite", "other"]
+    },
+    "registry": {
+      "description": "The registry to install from: a URL, or a folder for local testing.",
+      "type": "string",
+      "minLength": 1
+    },
+    "registries": {
+      "description": "More registries, by namespace. `cladux add @acme/button` installs button from the one named @acme. @cladux always means Cladux's own registry.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^@[a-z0-9]+(-[a-z0-9]+)*$"
+      },
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "description": "The registry's URL, or a folder.",
+            "type": "string",
+            "minLength": 1
+          },
+          {
+            "type": "object",
+            "properties": {
+              "url": {
+                "description": "The registry's URL, or a folder.",
+                "type": "string",
+                "minLength": 1
+              },
+              "headers": {
+                "description": "Sent with every request, for private registries. ${NAME} is replaced with the environment variable NAME, so tokens stay out of the file.",
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": ["url"],
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "css": {
+      "type": "object",
+      "properties": {
+        "globals": {
+          "description": "The stylesheet your app already loads, such as src/app/globals.css.",
+          "type": "string",
+          "minLength": 1
+        },
+        "dir": {
+          "description": "The folder for Cladux's CSS files.",
+          "type": "string",
+          "minLength": 1
+        },
+        "entry": {
+          "description": "The one stylesheet Cladux manages. Your globals stylesheet imports it once.",
+          "type": "string",
+          "minLength": 1
+        },
+        "tokens": {
+          "description": "Install Cladux's theme variables. false when the project already defines them, as with shadcn/ui.",
+          "type": "boolean"
+        }
+      },
+      "required": ["globals", "dir", "entry", "tokens"],
+      "additionalProperties": false
+    },
+    "aliases": {
+      "description": "Import paths, using the alias in your tsconfig.json.",
+      "type": "object",
+      "properties": {
+        "components": {
+          "description": "Where components go, such as @/components/cl.",
+          "$ref": "#/$defs/alias"
+        },
+        "hooks": {
+          "description": "Where hooks go, such as @/hooks.",
+          "$ref": "#/$defs/alias"
+        },
+        "lib": {
+          "description": "Where helpers go, such as @/lib.",
+          "$ref": "#/$defs/alias"
+        },
+        "utils": {
+          "description": "The cn() helper, such as @/lib/cl-utils.",
+          "$ref": "#/$defs/alias"
+        }
+      },
+      "required": ["components", "hooks", "lib", "utils"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["style", "tsx", "framework", "registry", "css", "aliases"],
+  "additionalProperties": false,
+  "$defs": {
+    "alias": {
+      "type": "string",
+      "pattern": "^[^/\\s]+(/[^/\\s]+)*$"
+    }
+  }
+}
