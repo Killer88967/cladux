@@ -146,7 +146,7 @@ export async function fetchNamed(config: RegistryConfig, style: string, spec: st
 /**
  * Fetches the named items and everything they depend on, dependencies first,
  * each item once. A plain dependency comes from the same registry as the item
- * that needs it; "@acme/button" comes from @acme.
+ * that needs it; "@acme/button" comes from \@acme.
  */
 export async function resolveItems(config: RegistryConfig, style: string, names: string[]) {
   const ordered: RegistryItem[] = [];
