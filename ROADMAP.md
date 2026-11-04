@@ -35,7 +35,7 @@ changelog at /docs/changelog.
 
 - [ ] `@cladux/registry`: fetch, resolve and install as a library
 - [x] JSON Schema for `cl.json` and registry items, so editors autocomplete them
-- [ ] `cladux build`: turn your own components into a registry, in both styles
+- [x] `cladux build`: turn your own components into a registry, in both styles
 - [x] `cladux registry validate`
 - [x] Other registries in `cl.json` (`@acme/button`), with auth headers
 
