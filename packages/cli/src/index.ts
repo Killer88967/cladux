@@ -9,6 +9,7 @@ import { diff } from "./commands/diff.ts";
 import { update } from "./commands/update.ts";
 import { docs } from "./commands/docs.ts";
 import { registryValidate } from "./commands/registry.ts";
+import { build } from "./commands/build.ts";
 import pkg from "../package.json" with { type: "json" };
 import { CliError, output } from "./utils/ui.ts";
 
@@ -24,6 +25,7 @@ Commands
   info                Show the project setup and what's installed
   diff                Compare your components with the registry
   update [names...]   Update components, keeping the files you changed
+  build [source]      Turn your components into a registry (reads cl-registry.json)
   registry validate [source]
                       Check a registry folder or URL before you publish it
 
@@ -128,6 +130,8 @@ async function main() {
       });
     case "docs":
       return docs({ cwd: values.cwd, names: rest, registry: values.registry });
+    case "build":
+      return build({ cwd: values.cwd, source: rest[0] });
     case "registry":
       if (rest[0] !== "validate") {
         throw new CliError("Usage: cladux registry validate [folder or URL]");

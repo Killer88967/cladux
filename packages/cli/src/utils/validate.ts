@@ -13,10 +13,10 @@ export interface Issue {
 }
 
 // Provided by the app itself, so items don't list them as dependencies.
-const PROVIDED = new Set(["react", "react-dom", "next", ...builtinModules]);
+export const PROVIDED = new Set(["react", "react-dom", "next", ...builtinModules]);
 
 /** "@base-ui/react/menu" -> "@base-ui/react", "clsx@^2" -> "clsx" */
-const packageName = (spec: string) => {
+export const packageName = (spec: string) => {
   const name = spec.replace(/(?!^)@.*$/, "");
   return name.startsWith("@") ? name.split("/").slice(0, 2).join("/") : name.split("/")[0]!;
 };

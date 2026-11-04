@@ -107,6 +107,36 @@ Brings installed components up to date. Files you haven't changed are replaced. 
 
 To tell your edits apart, the CLI saves a fingerprint of every file it writes in `cl-lock.json`. Commit it with your project. Components added before version 0.2 have no fingerprints yet, so `update` keeps them if they differ. `update <name> --force` replaces them and starts tracking them.
 
+## build
+
+Turns your own components into a registry that other projects can install from. List your items in `cl-registry.json` at the root of your project:
+
+```json
+{
+  "$schema": "https://cladux.vercel.app/schema/cl-registry.json",
+  "items": [
+    {
+      "name": "fancy-card",
+      "description": "A card that sparkles.",
+      "files": ["src/components/fancy-card.tsx", "src/components/fancy-card.css"],
+      "docs": "docs/fancy-card.md"
+    },
+    { "name": "sparkle", "files": ["src/components/sparkle.tsx"] },
+    { "name": "use-sparkle", "type": "registry:hook", "files": ["src/hooks/use-sparkle.ts"] }
+  ]
+}
+```
+
+<CliCommand args="build" />
+
+You don't list dependencies. `build` reads the imports:
+
+- **Another item's file** becomes a registry dependency, and the import is rewritten so it works wherever the item is installed.
+- **A Cladux component you added** becomes `@cladux/<name>`, so it's installed from Cladux.
+- **A package** becomes an npm dependency, at the version in your `package.json`.
+
+An import that isn't covered (a file in no item, or a package that isn't in `package.json`) stops the build and says which file to add. The registry goes to `public/r` (set `output` to change it), in the style your project uses (set `style` to change it), and is checked the same way `registry validate` checks it. Publish that folder with your site, and others add your items through [other registries](#other-registries).
+
 ## registry validate
 
 Checks a registry folder or URL before you publish it. Without one, it checks the registry in your `cl.json`.

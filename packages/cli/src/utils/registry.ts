@@ -14,6 +14,7 @@ export interface RegistryItem {
   type: "registry:ui" | "registry:block" | "registry:hook" | "registry:lib" | "registry:style";
   style: string;
   description?: string;
+  new?: boolean;
   dependencies: string[];
   registryDependencies: string[];
   files: RegistryFile[];

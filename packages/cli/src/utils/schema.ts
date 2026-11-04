@@ -3,11 +3,14 @@ import { Validator, type OutputUnit, type Schema } from "@cfworker/json-schema";
 import configSchema from "../../../../apps/www/public/schema/cl.json" with { type: "json" };
 import indexSchema from "../../../../apps/www/public/schema/registry.json" with { type: "json" };
 import itemSchema from "../../../../apps/www/public/schema/registry-item.json" with { type: "json" };
+import sourceSchema from "../../../../apps/www/public/schema/cl-registry.json" with { type: "json" };
 
 const configValidator = new Validator(configSchema as Schema, "2020-12", false);
 const itemValidator = new Validator(itemSchema as Schema, "2020-12", false);
+const sourceValidator = new Validator(sourceSchema as Schema, "2020-12", false);
 const indexValidator = new Validator(indexSchema as Schema, "2020-12", false);
 indexValidator.addSchema(itemSchema as Schema);
+sourceValidator.addSchema(itemSchema as Schema);
 
 // Errors that only say "something inside didn't match"; the one inside says what.
 const WRAPPERS = new Set(["properties", "items", "prefixItems", "$ref", "allOf", "false"]);
@@ -35,7 +38,9 @@ function explain(unit: OutputUnit) {
     case "propertyNames":
       return `${at}: "${quoted}" must start with @, such as @acme`;
     case "anyOf":
-      return `${at} must be a URL or folder, or { "url": ..., "headers": { ... } }`;
+      return /^registries\./.test(at)
+        ? `${at} must be a URL or folder, or { "url": ..., "headers": { ... } }`
+        : `${at} must be a file path, or { "path": ..., "type": ... }`;
     case "minItems":
     case "minLength":
       return `${at} can't be empty`;
@@ -76,3 +81,5 @@ export const configIssues = (data: unknown) => check(configValidator, data);
 export const indexIssues = (data: unknown) => check(indexValidator, data);
 /** Problems with one registry item file. */
 export const itemIssues = (data: unknown) => check(itemValidator, data);
+/** Problems with a cl-registry.json, the source `cladux build` reads. */
+export const sourceIssues = (data: unknown) => check(sourceValidator, data);

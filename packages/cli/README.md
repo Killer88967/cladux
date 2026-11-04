@@ -51,16 +51,17 @@ With no names, it shows a list to pick from.
 
 ### More commands
 
-| Command                             | What it does                                      |
-| ----------------------------------- | ------------------------------------------------- |
-| `list`                              | List every component and block                    |
-| `search <query>`                    | Find components and blocks by name or description |
-| `view <names...>`                   | Show an item's files without installing it        |
-| `docs <names...>`                   | Show a component's docs in the terminal           |
-| `info`                              | Show your setup and what's installed              |
-| `diff [names...]`                   | Compare your components with the registry         |
-| `update [names...]`                 | Update components, keeping the files you changed  |
-| `registry validate [folder or URL]` | Check a registry before you publish it            |
+| Command                             | What it does                                                    |
+| ----------------------------------- | --------------------------------------------------------------- |
+| `list`                              | List every component and block                                  |
+| `search <query>`                    | Find components and blocks by name or description               |
+| `view <names...>`                   | Show an item's files without installing it                      |
+| `docs <names...>`                   | Show a component's docs in the terminal                         |
+| `info`                              | Show your setup and what's installed                            |
+| `diff [names...]`                   | Compare your components with the registry                       |
+| `update [names...]`                 | Update components, keeping the files you changed                |
+| `registry validate [folder or URL]` | Check a registry before you publish it                          |
+| `build [source]`                    | Turn your components into a registry (reads `cl-registry.json`) |
 
 `update` keeps the files you edited unless you pass `--force`. It knows which
 ones you changed from `cl-lock.json`, which the CLI writes next to `cl.json`.
