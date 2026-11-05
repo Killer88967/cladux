@@ -74,6 +74,7 @@ style, theming, dark mode and using Cladux with shadcn/ui.
 | `cladux info`              | Shows your setup and what's installed                   |
 | `cladux diff [names...]`   | Compares your components with the registry              |
 | `cladux update [names...]` | Updates components, keeping the files you changed       |
+| `cladux apply <theme>`     | Applies a theme code from the Themes page               |
 | `cladux build`             | Turns your own components into a registry               |
 | `cladux registry validate` | Checks a registry before you publish it                 |
 

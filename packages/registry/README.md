@@ -58,6 +58,22 @@ for (const issue of issues) console.log(issue.level, issue.file, issue.message);
 configIssues(JSON.parse(cl)); // [] when a cl.json is valid
 ```
 
+## Theme codes
+
+A theme code such as `zinc-violet-lg` names a base color, an accent and a radius. Read one, and turn it into the CSS `cladux apply` writes:
+
+```ts
+import { fetchThemes, parseThemeCode, themeCss } from "cladux-registry";
+
+const colors = await fetchThemes("https://cladux.vercel.app/r");
+const theme = parseThemeCode("zinc-violet-lg", colors);
+// { base: "zinc", accent: "violet", radius: "lg" }
+
+const css = themeCss(theme, colors, "tailwind");
+```
+
+In the browser, import them from `cladux-registry/theme`, which leaves out everything that needs Node. `fetchThemes` isn't there, so load `themes.json` with `fetch`.
+
 ## API
 
 | Export                                                      | What it does                                                  |
@@ -69,11 +85,15 @@ configIssues(JSON.parse(cl)); // [] when a cl.json is valid
 | `resolveItems(config, style, names)`                        | Items and everything they need, dependencies first, each once |
 | `locate(config, name)`                                      | Which registry a name comes from, with its headers filled in  |
 | `rewriteImports(code, aliases)`                             | Swaps the registry's import paths for yours                   |
+| `fetchThemes(registry)`                                     | The colors theme codes are made from                          |
+| `parseThemeCode(code, colors)`, `themeCode(theme)`          | Reads a theme code, and writes one                            |
+| `themeCss(theme, colors, style)`                            | A theme as CSS, the way `cl-tokens.css` holds it              |
 | `validateRegistry(registry)`                                | Everything `cladux registry validate` checks, as a list       |
 | `configIssues`, `indexIssues`, `itemIssues`, `sourceIssues` | JSON Schema checks, as sentences a person can act on          |
 
 A registry is a URL or a folder. Errors are `RegistryError` (bad config or
-access) and `NotFoundError` (no such item). The types (`RegistryItem`,
+access), `NotFoundError` (no such item) and `ThemeError` (a theme code that
+doesn't read). The types (`RegistryItem`,
 `RegistryIndex`, `RegistryConfig`...) are exported too.
 
 ## Links

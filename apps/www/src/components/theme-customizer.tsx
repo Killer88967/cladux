@@ -32,6 +32,7 @@ import {
   type ThemeColors,
 } from "cladux-registry/theme";
 import { CopyButton } from "@/components/copy-button";
+import { InstallCommand } from "@/components/install-command";
 import { accentColors, baseColors } from "@/lib/themes";
 
 const colors: ThemeColors = { bases: baseColors, accents: accentColors };
@@ -99,7 +100,8 @@ function CopyCodeButton({ state }: { state: Theme }) {
         <DialogHeader>
           <DialogTitle>Theme</DialogTitle>
           <DialogDescription>
-            Paste this into your global stylesheet, after the Cladux import.
+            Apply it with the CLI, or paste the CSS into your global stylesheet, after the Cladux
+            import.
           </DialogDescription>
         </DialogHeader>
         <div className="flex items-center gap-2 rounded-lg border bg-muted/50 py-1 ps-3 pe-1 text-sm">
@@ -107,6 +109,7 @@ function CopyCodeButton({ state }: { state: Theme }) {
           <code className="font-mono font-medium">{themeCode(state)}</code>
           <CopyButton value={themeCode(state)} aria-label="Copy theme code" className="ms-auto" />
         </div>
+        <InstallCommand command={`npx cladux-ui@latest apply ${themeCode(state)}`} />
         <Tabs
           value={style}
           onValueChange={(v) => setStyle(v as "tailwind" | "css")}

@@ -5,7 +5,8 @@ import { ThemeCustomizer } from "@/components/theme-customizer";
 
 export const metadata: Metadata = {
   title: "Themes",
-  description: "Pick a base color, an accent and a radius, then copy the CSS variables.",
+  description:
+    "Pick a base color, an accent and a radius, then apply its theme code or copy the CSS variables.",
 };
 
 export default function ThemesPage() {
@@ -13,7 +14,7 @@ export default function ThemesPage() {
     <main>
       <PageHeader
         title="Make it yours"
-        description="Pick a base color, an accent and a radius. Everything on this page follows along, in light and dark. Then copy the variables into your project."
+        description="Pick a base color, an accent and a radius. Everything on this page follows along, in light and dark. Then apply its code with the CLI, or copy the variables into your project."
         className="pb-8 md:pb-10"
       />
       <div className="cl-container pb-20">

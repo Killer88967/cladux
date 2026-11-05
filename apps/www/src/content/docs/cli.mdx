@@ -75,6 +75,7 @@ Prints an item's files and what it needs, without installing anything. In a proj
 | Option            | What it does                                                   |
 | ----------------- | -------------------------------------------------------------- |
 | `--style <style>` | `tailwind` or `css` (default: from `cl.json`, else `tailwind`) |
+| `--theme <code>`  | Starts with a theme, such as `zinc-violet`                     |
 
 ## docs
 
@@ -106,6 +107,16 @@ Brings installed components up to date. Files you haven't changed are replaced. 
 | `--dry-run`   | Show what would change, write nothing |
 
 To tell your edits apart, the CLI saves a fingerprint of every file it writes in `cl-lock.json`. Commit it with your project. Components added before version 0.2 have no fingerprints yet, so `update` keeps them if they differ. `update <name> --force` replaces them and starts tracking them.
+
+## apply
+
+Applies a theme from [Themes](/themes). Pick a base color, an accent and a radius there, and copy its code: `zinc-violet` is the zinc base with the violet accent, and `stone-rose-lg` adds a larger radius.
+
+<CliCommand args="apply zinc-violet" />
+
+It rewrites `cl-tokens.css` in your project's style and saves the code in `cl.json`, so `info` shows it and setting up again with `init --force` keeps it. `update` never touches `cl-tokens.css`, so the theme stays.
+
+If your project defines the theme variables in its own stylesheet, as shadcn projects do, `apply` prints the CSS to paste instead.
 
 ## build
 
