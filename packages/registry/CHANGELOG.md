@@ -1,5 +1,11 @@
 # cladux-registry
 
+## 0.2.0
+
+### Minor Changes
+
+- 781107e: Theme codes. Pick a theme on https://cladux.vercel.app/themes and apply its code with `cladux apply zinc-violet`, or start with one: `cladux init --theme zinc-violet`. The code is saved in `cl.json`. `cladux-registry` reads theme codes and turns them into CSS, with a browser-safe `cladux-registry/theme` entry.
+
 ## 0.1.0
 
 ### Minor Changes

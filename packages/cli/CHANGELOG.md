@@ -1,5 +1,12 @@
 # cladux-ui
 
+## 0.4.0
+
+### Minor Changes
+
+- a4db6f4: `cladux mcp`: an MCP server, so AI assistants in Claude Code, Cursor, VS Code and other editors can search components, read their docs, add them to your project and apply themes. See https://cladux.vercel.app/docs/mcp.
+- 781107e: Theme codes. Pick a theme on https://cladux.vercel.app/themes and apply its code with `cladux apply zinc-violet`, or start with one: `cladux init --theme zinc-violet`. The code is saved in `cl.json`. `cladux-registry` reads theme codes and turns them into CSS, with a browser-safe `cladux-registry/theme` entry.
+
 ## 0.3.0
 
 ### Minor Changes
