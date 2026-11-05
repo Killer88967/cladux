@@ -121,14 +121,15 @@ export default function Page() {
 ```
 
 | Field         | What it does                                                                                                             |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------ | --- | ------- | ----------------------------------------------------------------------------------------- |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `style`       | `tailwind` or `css`: which version of each component `add` installs.                                                     |
 | `css.globals` | The stylesheet your app loads. `init` adds one import to it.                                                             |
 | `css.dir`     | Where the CSS files go.                                                                                                  |
 | `css.entry`   | The one file your stylesheet imports. `add` appends component CSS here.                                                  |
 | `css.tokens`  | `false` when your project already defines the theme variables (e.g. shadcn).                                             |
 | `aliases`     | Where components, hooks and helpers go. Imports in added files use these.                                                |
-| `registries`  | Optional. More registries to install from, as in `add @acme/button`. See [Other registries](/docs/cli#other-registries). |     | `theme` | The theme code `apply` last applied, such as `zinc-violet`. See [apply](/docs/cli#apply). |
+| `registries`  | Optional. More registries to install from, as in `add @acme/button`. See [Other registries](/docs/cli#other-registries). |
+| `theme`       | The theme code `apply` last applied, such as `zinc-violet`. See [apply](/docs/cli#apply).                                |
 
 ## Theming
 
