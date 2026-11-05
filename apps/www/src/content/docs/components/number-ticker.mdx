@@ -1,0 +1,84 @@
+export const metadata = {
+  title: "Number Ticker",
+  description: "A number that counts up to its value, or rolls its digits like an odometer.",
+  new: true,
+};
+
+<ComponentPreview name="number-ticker-demo" />
+
+## Usage
+
+```tsx
+import { NumberTicker } from "@cladux/ui";
+```
+
+```tsx
+<NumberTicker value={12480} />
+```
+
+`NumberTicker` renders an inline `<span>`, so it takes the font size and weight of the text around it.
+
+## Features
+
+- **It waits until you can see it.** The first animation starts when the number scrolls into view. Set `trigger="mount"` to start right away.
+- **It follows the value.** When `value` changes, the ticker moves from the number on screen to the new one.
+- **Nothing around it jumps.** Digits keep a fixed width while they change.
+- **It formats like the rest of your app.** `format` takes the same options as `Intl.NumberFormat`: currency, percent, compact numbers and decimals.
+- **It's read once.** Screen readers get the final number, not every number on the way.
+- **It respects reduced motion.** When the system asks for less motion, the number just shows.
+
+## Roll
+
+`effect="roll"` turns each digit like an odometer instead of counting through the numbers in between. Try changing the value:
+
+<ComponentPreview name="number-ticker-roll" />
+
+```tsx
+<NumberTicker effect="roll" value={value} />
+```
+
+## Formatting
+
+Pass `format` for currency, percent or compact numbers, and `prefix` or `suffix` for anything else. Without decimals in `format`, the ticker shows as many as the value has.
+
+<ComponentPreview name="number-ticker-format" />
+
+```tsx
+<NumberTicker value={48295.5} format={{ style: "currency", currency: "USD" }} />
+<NumberTicker value={0.999} format={{ style: "percent", maximumFractionDigits: 1 }} />
+<NumberTicker value={1200000} format={{ notation: "compact" }} suffix="+" />
+```
+
+## In a Stat
+
+Put it inside `StatValue` to count up the numbers on a dashboard.
+
+<ComponentPreview name="number-ticker-stat" />
+
+```tsx
+<StatValue>
+  <NumberTicker
+    value={48290}
+    format={{ style: "currency", currency: "USD", maximumFractionDigits: 0 }}
+  />
+</StatValue>
+```
+
+## API Reference
+
+| Prop       | Type                       | Default       |
+| ---------- | -------------------------- | ------------- |
+| `value`    | `number`                   |               |
+| `effect`   | `"count" \| "roll"`        | `"count"`     |
+| `from`     | `number`                   | `0`           |
+| `duration` | `number`                   | `1200`        |
+| `delay`    | `number`                   | `0`           |
+| `trigger`  | `"mount" \| "view"`        | `"view"`      |
+| `format`   | `Intl.NumberFormatOptions` |               |
+| `locale`   | `string`                   | the browser's |
+| `prefix`   | `string`                   |               |
+| `suffix`   | `string`                   |               |
+
+## Accessibility
+
+The moving digits are hidden from screen readers. A visually hidden copy of the final number, with its prefix and suffix, is read instead.

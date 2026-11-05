@@ -341,6 +341,7 @@ export {
   NavigationMenuViewport,
 } from "./navigation-menu/navigation-menu";
 export { NumberInput, type NumberInputProps } from "./number-input/number-input";
+export { NumberTicker, type NumberTickerProps } from "./number-ticker/number-ticker";
 export {
   Pagination,
   PaginationContent,
