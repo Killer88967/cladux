@@ -1,5 +1,6 @@
-// Bundles the CLI into dist/. The css-style converter (Babel, PostCSS) goes in its
-// own chunk that only `build` loads, so the other commands start as fast as before.
+// Bundles the CLI into dist/. The css-style converter (Babel, PostCSS) and the MCP
+// SDK go in their own chunks that only `build` and `mcp` load, so the other
+// commands start as fast as before.
 import { chmod, rm } from "node:fs/promises";
 import { build } from "esbuild";
 

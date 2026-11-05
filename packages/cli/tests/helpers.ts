@@ -7,12 +7,14 @@ import { afterEach, beforeEach, vi } from "vitest";
 const ITEMS = {
   utils: {
     type: "registry:lib",
+    description: "The cn() helper.",
     dependencies: ["clsx@^2.1.1"],
     registryDependencies: [],
     files: [{ path: "cl-utils.ts", type: "lib", content: "export const cn = () => '';\n" }],
   },
   init: {
     type: "registry:style",
+    description: "Theme variables.",
     dependencies: [],
     registryDependencies: ["utils"],
     files: [{ path: "cl-tokens.css", type: "css", content: ":root { --cl-radius: 0.5rem; }\n" }],
@@ -83,8 +85,9 @@ export const THEMES = {
 export async function writeRegistry(dir: string) {
   await mkdir(path.join(dir, "css"), { recursive: true });
   const items = Object.entries(ITEMS).map(([name, item]) => ({ name, style: "css", ...item }));
-  const index = items.map(({ name, type, registryDependencies }) => ({
+  const index = items.map(({ name, type, description, registryDependencies }) => ({
     name,
+    description,
     type,
     registryDependencies,
   }));

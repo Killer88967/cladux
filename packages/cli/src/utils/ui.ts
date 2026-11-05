@@ -3,6 +3,13 @@ import * as p from "@clack/prompts";
 /** --silent: nothing on screen, package managers included. */
 export const output = { silent: false };
 
+/**
+ * A spinner, or a stand-in with nothing on screen. Clack's spinner takes over
+ * stdin while it spins, and the MCP server reads its requests from stdin.
+ */
+export const spinner = () =>
+  output.silent ? { start() {}, stop() {}, message() {} } : p.spinner();
+
 /** An error meant for the user: printed without a stack trace. */
 export class CliError extends Error {}
 

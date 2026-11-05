@@ -27,6 +27,7 @@ Commands
   diff                Compare your components with the registry
   update [names...]   Update components, keeping the files you changed
   apply <theme>       Apply a theme code from cladux.vercel.app/themes
+  mcp                 Start an MCP server for AI assistants (stdio)
   build [source]      Turn your components into a registry (reads cl-registry.json)
   registry validate [source]
                       Check a registry folder or URL before you publish it
@@ -145,6 +146,9 @@ async function main() {
       return registryValidate({ cwd: values.cwd, source: rest[1] ?? values.registry });
     case "apply":
       return apply({ cwd: values.cwd, code: rest[0] });
+    case "mcp":
+      const { mcp } = await import("./commands/mcp.ts");
+      return mcp({ cwd: values.cwd });
     case "info":
       return info({ cwd: values.cwd });
     case "diff":

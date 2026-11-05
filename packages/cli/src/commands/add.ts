@@ -17,7 +17,7 @@ import {
   type RegistryItem,
 } from "../utils/registry.ts";
 import { findPathAlias, pathToAlias, type PathAlias } from "../utils/tsconfig.ts";
-import { answer, CliError } from "../utils/ui.ts";
+import { answer, CliError, spinner } from "../utils/ui.ts";
 import { printPatch } from "./diff.ts";
 import { createTwoFilesPatch } from "diff";
 
@@ -79,7 +79,7 @@ export async function add(opts: AddOptions) {
   }
 
   // 2. Fetch them and everything they need.
-  const spin = p.spinner();
+  const spin = spinner();
   spin.start("Fetching from the registry");
   let items: RegistryItem[];
   try {

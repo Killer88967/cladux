@@ -46,12 +46,14 @@
   "devDependencies": {
     "@clack/prompts": "^1.8.1",
     "@cladux/css-style": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.32.2",
     "@tailwindcss/node": "^4.3.4",
     "@types/node": "^26.6.6",
     "cladux-registry": "workspace:*",
     "diff": "^9.0.0",
     "esbuild": "^0.28.2",
     "tailwindcss": "^4.3.4",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.0",
+    "zod": "^4.6.7"
   }
 }
