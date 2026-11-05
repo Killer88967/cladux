@@ -10,6 +10,7 @@ await build({
   entryPoints: ["index", "theme"].map((name) => new URL(`src/${name}.ts`, root).pathname),
   outdir: new URL("dist/", root).pathname,
   bundle: true,
+  splitting: true,
   platform: "node",
   format: "esm",
   target: "node20",

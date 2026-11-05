@@ -30,8 +30,8 @@ import {
   type Radius,
   type Theme,
   type ThemeColors,
-} from "cladux-registry";
-import { CopyButton } from "./copy-button";
+} from "cladux-registry/theme";
+import { CopyButton } from "@/components/copy-button";
 import { accentColors, baseColors } from "@/lib/themes";
 
 const colors: ThemeColors = { bases: baseColors, accents: accentColors };

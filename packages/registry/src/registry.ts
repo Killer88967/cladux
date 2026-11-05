@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
-import type { ThemeColors } from "./theme";
+import type { ThemeColors } from "./theme.ts";
 
 /** Cladux's own registry. `@cladux/<name>` comes from here. */
 export const CLADUX_REGISTRY = "https://cladux.vercel.app/r";
