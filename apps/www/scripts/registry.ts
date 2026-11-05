@@ -8,6 +8,7 @@ import * as prettier from "prettier";
 import { buildCssStyle } from "@cladux/css-style";
 import * as tailwindNode from "@tailwindcss/node";
 import { blocks } from "../../../packages/ui/src/blocks/_blocks.ts";
+import { accentColors, baseColors } from "../src/lib/themes.ts";
 
 const ROOT = new URL("../../../", import.meta.url);
 const UI = new URL("packages/ui/src/", ROOT);
@@ -319,6 +320,10 @@ const index = {
   })),
 };
 await writeFile(new URL("index.json", OUT), `${JSON.stringify(index, null, 2)}\n`);
+await writeFile(
+  new URL("themes.json", OUT),
+  `${JSON.stringify({ bases: baseColors, accents: accentColors }, null, 2)}\n`,
+);
 
 console.log(`registry: ${items.length} items -> public/r/${STYLE} and public/r/css`);
 

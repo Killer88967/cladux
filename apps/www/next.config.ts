@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["*.app.github.dev"],
-  transpilePackages: ["@cladux/ui", "@cladux/utils"],
+  transpilePackages: ["@cladux/ui", "@cladux/utils", "cladux-registry"],
   // Some demos (aspect ratio, item, scroll area) use next/image with remote photos.
   images: {
     remotePatterns: [

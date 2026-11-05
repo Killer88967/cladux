@@ -1,9 +1,10 @@
 # Cladux
 
-[![License](https://img.shields.io/github/license/Killer88967/cladux)](./LICENSE)
-[![Docs](https://img.shields.io/badge/docs-cladux.vercel.app-black)](https://cladux.vercel.app)
-[![Last commit](https://img.shields.io/github/last-commit/Killer88967/cladux)](https://github.com/Killer88967/cladux/commits/main)
-[![Stars](https://img.shields.io/github/stars/Killer88967/cladux?style=flat)](https://github.com/Killer88967/cladux/stargazers)
+[![npm version](https://img.shields.io/npm/v/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=18181b&labelColor=18181b)](https://www.npmjs.com/package/cladux-ui)
+[![npm downloads](https://img.shields.io/npm/dm/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=cb3837&labelColor=18181b&label=downloads)](https://www.npmjs.com/package/cladux-ui)
+[![CI](https://img.shields.io/github/actions/workflow/status/Killer88967/cladux/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&color=2ea44f&labelColor=18181b&label=CI)](https://github.com/Killer88967/cladux/actions/workflows/ci.yml)
+[![license](https://img.shields.io/github/license/Killer88967/cladux?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=6366f1&labelColor=18181b)](https://github.com/Killer88967/cladux/blob/main/LICENSE)
+[![docs](https://img.shields.io/badge/docs-cladux.vercel.app-8b5cf6?style=for-the-badge&logo=vercel&logoColor=white&labelColor=18181b)](https://cladux.vercel.app)
 
 Accessible React components in shadcn/ui's look, plus the ones it leaves out.
 Add them to your project as **Tailwind classes or plain CSS files**: the CLI

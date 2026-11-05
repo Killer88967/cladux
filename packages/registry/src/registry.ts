@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import type { ThemeColors } from "./theme";
 
 /** Cladux's own registry. `@cladux/<name>` comes from here. */
 export const CLADUX_REGISTRY = "https://cladux.vercel.app/r";
@@ -101,6 +102,9 @@ export const fetchIndex = (registry: RegistrySource) => load<RegistryIndex>(regi
 /** A component's docs page as Markdown. */
 export const fetchDocs = (registry: RegistrySource, name: string) =>
   loadText(registry, `docs/${name}.md`);
+
+/** The colors a registry's themes are made from, for theme codes. */
+export const fetchThemes = (registry: RegistrySource) => load<ThemeColors>(registry, "themes.json");
 
 export const fetchItem = (registry: RegistrySource, style: string, name: string) =>
   load<RegistryItem>(registry, `${style}/${name}.json`);

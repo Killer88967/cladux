@@ -23,7 +23,8 @@
   "author": "Killer88967",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./theme": "./src/theme.ts"
   },
   "files": [
     "dist"
@@ -37,6 +38,10 @@
       ".": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
+      },
+      "./theme": {
+        "types": "./dist/theme.d.ts",
+        "default": "./dist/theme.js"
       }
     }
   },

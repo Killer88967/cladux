@@ -21,41 +21,29 @@ import {
   TooltipTrigger,
   useCopyToClipboard,
 } from "@cladux/ui";
-import { accentColors, baseColors, type ThemeVars } from "@/lib/themes";
+import {
+  DEFAULT_THEME,
+  parseThemeCode,
+  RADII,
+  themeCode,
+  themeCss,
+  type Radius,
+  type Theme,
+  type ThemeColors,
+} from "cladux-registry";
+import { CopyButton } from "./copy-button";
+import { accentColors, baseColors } from "@/lib/themes";
 
-const RADII = ["0", "0.3rem", "0.5rem", "0.625rem", "0.75rem", "1rem"];
+const colors: ThemeColors = { bases: baseColors, accents: accentColors };
 
-interface ThemeState {
-  base: string;
-  accent: string | null;
-  radius: string;
-}
-
-const DEFAULT: ThemeState = { base: "neutral", accent: null, radius: "0.625rem" };
-
-function resolve({ base, accent }: ThemeState) {
-  const b = baseColors.find((t) => t.name === base)!;
-  const a = accent ? accentColors.find((t) => t.name === accent) : undefined;
-  return {
-    light: { ...b.light, ...a?.light } as ThemeVars,
-    dark: { ...b.dark, ...a?.dark } as ThemeVars,
-  };
-}
-
-function block(selector: string, vars: ThemeVars, prefix: string, extra?: string) {
-  const lines = Object.entries(vars).map(([k, v]) => `  --${prefix}${k}: ${v};`);
-  if (extra) lines.unshift(extra);
-  return `${selector} {\n${lines.join("\n")}\n}`;
-}
-
-/** The CSS to paste: shadcn's names for the Tailwind style, `--cl-` names for the CSS style. */
-function themeCss(state: ThemeState, style: "tailwind" | "css") {
-  const { light, dark } = resolve(state);
-  const prefix = style === "css" ? "cl-" : "";
-  return [
-    block(":root", light, prefix, `  --${prefix}radius: ${state.radius};`),
-    block(style === "css" ? '.dark,\n[data-theme="dark"]' : ".dark", dark, prefix),
-  ].join("\n\n");
+/** The theme in the page's URL (?theme=zinc-violet), so a link opens it. */
+function themeFromUrl() {
+  const code = new URLSearchParams(window.location.search).get("theme");
+  try {
+    return code ? parseThemeCode(code, colors) : DEFAULT_THEME;
+  } catch {
+    return DEFAULT_THEME;
+  }
 }
 
 /** A dot showing a theme's primary color in light mode. */
@@ -96,10 +84,10 @@ function Option({
   );
 }
 
-function CopyCodeButton({ state }: { state: ThemeState }) {
+function CopyCodeButton({ state }: { state: Theme }) {
   const { copied, copy } = useCopyToClipboard();
   const [style, setStyle] = React.useState<"tailwind" | "css">("tailwind");
-  const code = themeCss(state, style);
+  const code = themeCss(state, colors, style);
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -114,6 +102,11 @@ function CopyCodeButton({ state }: { state: ThemeState }) {
             Paste this into your global stylesheet, after the Cladux import.
           </DialogDescription>
         </DialogHeader>
+        <div className="flex items-center gap-2 rounded-lg border bg-muted/50 py-1 ps-3 pe-1 text-sm">
+          <span className="text-muted-foreground">Theme code</span>
+          <code className="font-mono font-medium">{themeCode(state)}</code>
+          <CopyButton value={themeCode(state)} aria-label="Copy theme code" className="ms-auto" />
+        </div>
         <Tabs
           value={style}
           onValueChange={(v) => setStyle(v as "tailwind" | "css")}
@@ -127,7 +120,7 @@ function CopyCodeButton({ state }: { state: ThemeState }) {
             <TabsContent key={s} value={s} className="min-w-0">
               <div className="relative">
                 <pre className="max-h-96 overflow-auto rounded-lg border bg-muted/50 p-4 font-mono text-xs leading-relaxed">
-                  <code>{themeCss(state, s)}</code>
+                  <code>{themeCss(state, colors, s)}</code>
                 </pre>
                 <Button
                   size="sm"
@@ -156,9 +149,23 @@ function CopyCodeButton({ state }: { state: ThemeState }) {
  * and menus, switches to the theme while you're here.
  */
 export function ThemeCustomizer({ children }: { children: React.ReactNode }) {
-  const [state, setState] = React.useState<ThemeState>(DEFAULT);
-  const live = themeCss(state, "tailwind");
-  const isDefault = JSON.stringify(state) === JSON.stringify(DEFAULT);
+  const [state, setState] = React.useState<Theme>(DEFAULT_THEME);
+  const live = themeCss(state, colors, "tailwind");
+  const isDefault = themeCode(state) === themeCode(DEFAULT_THEME);
+
+  // Open the theme from the URL, then keep the URL up to date so it can be shared.
+  const [loaded, setLoaded] = React.useState(false);
+  React.useEffect(() => {
+    setState(themeFromUrl());
+    setLoaded(true);
+  }, []);
+  React.useEffect(() => {
+    if (!loaded) return;
+    const url = new URL(window.location.href);
+    if (isDefault) url.searchParams.delete("theme");
+    else url.searchParams.set("theme", themeCode(state));
+    window.history.replaceState(window.history.state, "", url);
+  }, [state, isDefault, loaded]);
 
   return (
     <>
@@ -184,8 +191,8 @@ export function ThemeCustomizer({ children }: { children: React.ReactNode }) {
           <div className="flex flex-wrap gap-1.5">
             <Option
               label="None"
-              selected={state.accent === null}
-              onClick={() => setState({ ...state, accent: null })}
+              selected={!state.accent}
+              onClick={() => setState({ ...state, accent: undefined })}
             />
             {accentColors.map((theme) => (
               <Tooltip key={theme.name}>
@@ -212,10 +219,10 @@ export function ThemeCustomizer({ children }: { children: React.ReactNode }) {
           <div className="grid gap-2">
             <Label>Radius</Label>
             <div className="flex flex-wrap gap-1.5">
-              {RADII.map((r) => (
+              {(Object.entries(RADII) as [Radius, string][]).map(([r, value]) => (
                 <Option
                   key={r}
-                  label={r === "0" ? "0" : r.replace("rem", "")}
+                  label={value.replace("rem", "")}
                   selected={state.radius === r}
                   onClick={() => setState({ ...state, radius: r })}
                 />
@@ -223,7 +230,7 @@ export function ThemeCustomizer({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="ms-auto flex gap-2">
-            <Button variant="ghost" disabled={isDefault} onClick={() => setState(DEFAULT)}>
+            <Button variant="ghost" disabled={isDefault} onClick={() => setState(DEFAULT_THEME)}>
               <RotateCcwIcon /> Reset
             </Button>
             <CopyCodeButton state={state} />
