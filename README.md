@@ -75,6 +75,7 @@ style, theming, dark mode and using Cladux with shadcn/ui.
 | `cladux diff [names...]`   | Compares your components with the registry              |
 | `cladux update [names...]` | Updates components, keeping the files you changed       |
 | `cladux apply <theme>`     | Applies a theme code from the Themes page               |
+| `cladux mcp`               | Starts an MCP server for AI assistants                  |
 | `cladux build`             | Turns your own components into a registry               |
 | `cladux registry validate` | Checks a registry before you publish it                 |
 

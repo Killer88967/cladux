@@ -1,0 +1,69 @@
+export const metadata = {
+  title: "MCP server",
+  description: "Let AI assistants find, read about and add Cladux components in your project.",
+  order: 2.2,
+};
+
+`cladux mcp` is an [MCP](https://modelcontextprotocol.io) server. Add it to your editor, and its AI assistant can look up Cladux components, read their docs, add them to your project and apply a theme. Ask for "a settings page with a dialog and a date picker" and it uses the components you'd get from `cladux add`, imported from your own folders.
+
+Set up your project with [`cladux init`](/docs/installation) first. The server works in the project it's started in.
+
+## Claude Code
+
+Run this in your project's folder:
+
+```bash
+claude mcp add cladux -- npx -y cladux-ui@latest mcp
+```
+
+To share it with your team, add `--scope project`. That writes it to `.mcp.json`, which you commit.
+
+## Cursor
+
+Add this to `.cursor/mcp.json` in your project:
+
+```json
+{
+  "mcpServers": {
+    "cladux": {
+      "command": "npx",
+      "args": ["-y", "cladux-ui@latest", "mcp", "--cwd", "${workspaceFolder}"]
+    }
+  }
+}
+```
+
+## VS Code
+
+Add this to `.vscode/mcp.json` in your project:
+
+```json
+{
+  "servers": {
+    "cladux": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "cladux-ui@latest", "mcp", "--cwd", "${workspaceFolder}"]
+    }
+  }
+}
+```
+
+## Other editors
+
+Any editor that runs MCP servers over stdio works. The command is `npx -y cladux-ui@latest mcp`. If the editor doesn't start it in your project's folder, pass the folder with `--cwd /path/to/project`.
+
+## Tools
+
+| Tool          | What the assistant can do                                                     |
+| ------------- | ----------------------------------------------------------------------------- |
+| `list_items`  | List or search components and blocks, and see which ones are new or installed |
+| `get_docs`    | Read a component's docs, with imports from your components folder             |
+| `view_item`   | Read an item's files without installing it                                    |
+| `get_project` | Read your style, theme and import aliases from `cl.json`                      |
+| `add_items`   | Add components and blocks, with everything they need                          |
+| `apply_theme` | Apply a theme code from [Themes](/themes), such as `zinc-violet`              |
+
+`add_items` writes the files and leaves npm packages to the assistant. It gets back the install command for your package manager and runs it, since an install can take longer than a tool call is allowed to.
+
+[Other registries](/docs/cli#other-registries) in your `cl.json` work too: ask for `@acme/fancy-card` and the server installs it from @acme.

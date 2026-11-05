@@ -42,7 +42,7 @@ changelog at /docs/changelog.
 ## 0.4 - Themes and AI
 
 - [x] Theme codes on /themes, applied with `cladux init --theme <code>` and `cladux apply <code>`
-- [ ] `cladux mcp`: an MCP server so AI assistants can search and add components
+- [x] `cladux mcp`: an MCP server so AI assistants can search and add components
 - [x] `llms.txt` for the docs, and a Markdown version of every page
 
 ## 0.5 - Docs and content

@@ -118,6 +118,14 @@ It rewrites `cl-tokens.css` in your project's style and saves the code in `cl.js
 
 If your project defines the theme variables in its own stylesheet, as shadcn projects do, `apply` prints the CSS to paste instead.
 
+## mcp
+
+Starts an MCP server, so AI assistants in your editor can search, read about and add components. See [MCP server](/docs/mcp) for each editor's setup.
+
+```bash
+npx -y cladux-ui@latest mcp
+```
+
 ## build
 
 Turns your own components into a registry that other projects can install from. List your items in `cl-registry.json` at the root of your project:

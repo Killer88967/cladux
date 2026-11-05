@@ -146,9 +146,10 @@ async function main() {
       return registryValidate({ cwd: values.cwd, source: rest[1] ?? values.registry });
     case "apply":
       return apply({ cwd: values.cwd, code: rest[0] });
-    case "mcp":
+    case "mcp": {
       const { mcp } = await import("./commands/mcp.ts");
       return mcp({ cwd: values.cwd });
+    }
     case "info":
       return info({ cwd: values.cwd });
     case "diff":
