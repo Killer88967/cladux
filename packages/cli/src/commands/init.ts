@@ -21,7 +21,7 @@ import {
 import { detectProject, findGlobalsCss } from "../utils/detect.ts";
 import { writeItemFiles } from "../utils/files.ts";
 import { install, missingDeps } from "../utils/install.ts";
-import { fetchIndex, resolveItems, themeCode } from "../utils/registry.ts";
+import { fetchIndex, resolveItems } from "../utils/registry.ts";
 import { loadTheme } from "../utils/theme.ts";
 import { findPathAlias } from "../utils/tsconfig.ts";
 import { answer, CliError, runCommand } from "../utils/ui.ts";
@@ -178,7 +178,7 @@ export async function init(opts: InitOptions) {
       const files = item.files
         .filter((f) => !skip.has(f.path))
         .map((f) => ({ ...f, content: withoutImports(f.content, existingImports) }))
-        .map((f) => (theme && f.path === "cl-tokens.css" ? { ...f, config: theme.css } : f));
+        .map((f) => (theme && f.path === "cl-tokens.css" ? { ...f, content: theme.css } : f));
       const res = await writeItemFiles(
         root,
         alias,

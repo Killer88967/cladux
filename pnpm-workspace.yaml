@@ -6,8 +6,8 @@ allowBuilds:
   esbuild: true
 
 minimumReleaseAgeExclude:
-  - lucide-react@1.64.0 || 1.65.0 || 1.67.0
-  - react-resizable-panels@4.15.2 || 4.15.3 || 4.16.1 || 4.17.0 || 4.18.0
+  - lucide-react@1.64.0 || 1.65.0 || 1.67.0 || 1.68.0
+  - react-resizable-panels@4.15.2 || 4.15.3 || 4.16.1 || 4.17.0 || 4.18.0 || 4.18.1
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"
   - "@shikijs/engine-oniguruma@4.6.0"
@@ -47,6 +47,7 @@ minimumReleaseAgeExclude:
   - next@16.4.4 || 16.4.5
   - tailwindcss@4.3.4
   - "@cfworker/json-schema@4.1.6"
+  - geist@1.9.1
 
 permissions:
   "@tanstack/react-table":
