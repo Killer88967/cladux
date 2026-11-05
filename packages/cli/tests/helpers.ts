@@ -55,6 +55,31 @@ const ITEMS = {
   },
 };
 
+export const THEMES = {
+  bases: [
+    {
+      name: "neutral",
+      title: "Neutral",
+      light: { background: "white", primary: "black" },
+      dark: { background: "black", primary: "white" },
+    },
+    {
+      name: "zinc",
+      title: "Zinc",
+      light: { background: "white", primary: "gray" },
+      dark: { background: "gray", primary: "white" },
+    },
+  ],
+  accents: [
+    {
+      name: "blue",
+      title: "Blue",
+      light: { primary: "blue" },
+      dark: { primary: "lightblue" },
+    },
+  ],
+};
+
 export async function writeRegistry(dir: string) {
   await mkdir(path.join(dir, "css"), { recursive: true });
   const items = Object.entries(ITEMS).map(([name, item]) => ({ name, style: "css", ...item }));
@@ -64,6 +89,7 @@ export async function writeRegistry(dir: string) {
     registryDependencies,
   }));
   await writeFile(path.join(dir, "index.json"), JSON.stringify({ styles: ["css"], items: index }));
+  await writeFile(path.join(dir, "themes.json"), JSON.stringify(THEMES));
   for (const item of items) {
     await writeFile(path.join(dir, "css", `${item.name}.json`), JSON.stringify(item));
   }

@@ -21,7 +21,8 @@ import {
 import { detectProject, findGlobalsCss } from "../utils/detect.ts";
 import { writeItemFiles } from "../utils/files.ts";
 import { install, missingDeps } from "../utils/install.ts";
-import { fetchIndex, resolveItems } from "../utils/registry.ts";
+import { fetchIndex, resolveItems, themeCode } from "../utils/registry.ts";
+import { loadTheme } from "../utils/theme.ts";
 import { findPathAlias } from "../utils/tsconfig.ts";
 import { answer, CliError, runCommand } from "../utils/ui.ts";
 
@@ -31,6 +32,7 @@ export interface InitOptions {
   force: boolean;
   skipInstall: boolean;
   style?: string;
+  theme?: string;
   registry?: string;
 }
 
@@ -42,7 +44,8 @@ export async function init(opts: InitOptions) {
 
   p.intro("Cladux");
 
-  if ((await readConfig(root)) && !opts.force) {
+  const previous = await readConfig(root);
+  if (previous && !opts.force) {
     if (opts.yes) throw new CliError(`${CONFIG_FILE} already exists. Use --force to overwrite it.`);
     const again = answer(
       await p.confirm({
@@ -87,6 +90,9 @@ export async function init(opts: InitOptions) {
         : `The registry doesn't have the "${style}" style.`,
     );
   }
+
+  const code = opts.theme ?? previous?.theme;
+  const theme = code ? await loadTheme(code, registry, style) : undefined;
 
   p.log.info(
     [
@@ -137,6 +143,7 @@ export async function init(opts: InitOptions) {
     tsx: true,
     framework: info.framework,
     registry,
+    ...(theme ? { theme: theme.code } : {}),
     css: {
       globals,
       dir: `${base}styles`,
@@ -170,7 +177,8 @@ export async function init(opts: InitOptions) {
       // Our own CSS: always refreshed.
       const files = item.files
         .filter((f) => !skip.has(f.path))
-        .map((f) => ({ ...f, content: withoutImports(f.content, existingImports) }));
+        .map((f) => ({ ...f, content: withoutImports(f.content, existingImports) }))
+        .map((f) => (theme && f.path === "cl-tokens.css" ? { ...f, config: theme.css } : f));
       const res = await writeItemFiles(
         root,
         alias,
@@ -225,6 +233,10 @@ export async function init(opts: InitOptions) {
   );
   if (skip.size)
     p.log.info(`Kept what your project already has from shadcn (skipped ${[...skip].join(", ")}).`);
+  if (theme && !tokens)
+    p.log.warn(
+      `${globals} defines the theme variables itself, so ${theme.code} wasn't applied. See the CSS with: cladux apply ${theme.code}`,
+    );
   if (style === "tailwind" && tokens && hasStarterVariables(globalsCss)) {
     p.log.warn(`${globals} still defines --background/--foreground, which override the theme.`);
   }

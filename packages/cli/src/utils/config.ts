@@ -24,6 +24,7 @@ export interface Config {
   framework: Framework;
   registry: string;
   registries?: Registries;
+  theme?: string;
   css: {
     /** The stylesheet the app already loads (globals.css, index.css...). */
     globals: string;

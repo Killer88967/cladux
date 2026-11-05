@@ -49,7 +49,7 @@ export async function info(opts: { cwd: string }) {
     ["Style", config.style],
     ["Globals CSS", config.css.globals],
     ...(config.style === "css" ? ([["CSS folder", config.css.dir]] as [string, string][]) : []),
-    ["Theme", config.css.tokens ? "Cladux tokens" : "your own variables"],
+    ["Theme", config.css.tokens ? (config.theme ?? "neutral") : "your own variables"],
   ]);
   section("Aliases", Object.entries(config.aliases));
 

@@ -10,6 +10,7 @@ import { update } from "./commands/update.ts";
 import { docs } from "./commands/docs.ts";
 import { registryValidate } from "./commands/registry.ts";
 import { build } from "./commands/build.ts";
+import { apply } from "./commands/apply.ts";
 import pkg from "../package.json" with { type: "json" };
 import { CliError, output } from "./utils/ui.ts";
 
@@ -25,6 +26,7 @@ Commands
   info                Show the project setup and what's installed
   diff                Compare your components with the registry
   update [names...]   Update components, keeping the files you changed
+  apply <theme>       Apply a theme code from cladux.vercel.app/themes
   build [source]      Turn your components into a registry (reads cl-registry.json)
   registry validate [source]
                       Check a registry folder or URL before you publish it
@@ -41,6 +43,7 @@ Options
 init
   -f, --force         Overwrite an existing cl.json
   --style             tailwind | css (default: detected)
+  --theme             A theme code, such as zinc-violet
 
 add
   -a, --all           Add every component
@@ -60,6 +63,7 @@ view
 Examples
   cladux init
   cladux add button card dialog
+  cladux apply zinc-violet
   cladux search date`;
 
 async function main() {
@@ -77,6 +81,7 @@ async function main() {
       path: { type: "string", short: "p" },
       silent: { type: "boolean", short: "s", default: false },
       style: { type: "string" },
+      theme: { type: "string" },
       registry: { type: "string" },
       "skip-install": { type: "boolean", default: false },
       help: { type: "boolean", short: "h", default: false },
@@ -101,6 +106,7 @@ async function main() {
         force: values.force,
         skipInstall: values["skip-install"],
         style: values.style,
+        theme: values.theme,
         registry: values.registry,
       });
     case "add":
@@ -137,6 +143,8 @@ async function main() {
         throw new CliError("Usage: cladux registry validate [folder or URL]");
       }
       return registryValidate({ cwd: values.cwd, source: rest[1] ?? values.registry });
+    case "apply":
+      return apply({ cwd: values.cwd, code: rest[0] });
     case "info":
       return info({ cwd: values.cwd });
     case "diff":

@@ -60,6 +60,11 @@
         ]
       }
     },
+    "theme": {
+      "description": "The theme code `cladux apply` last applied, such as zinc-violet. Make one at https://cladux.vercel.app/themes.",
+      "type": "string",
+      "pattern": "^[a-z]+(-[a-z]+){0,2}$"
+    },
     "css": {
       "type": "object",
       "properties": {
