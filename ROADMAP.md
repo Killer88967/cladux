@@ -60,9 +60,9 @@ changelog at /docs/changelog.
 For after 0.4:
 
 - [x] Number Ticker: numbers that count up or roll to a new value, for Stat and dashboards
-- [ ] Image Compare: a before and after slider
+- [x] Image Compare: a before and after slider
 - [ ] Date Range Picker with presets (last 7 days, this month)
-- [ ] Dock: a macOS-style bar of icons that grow under the pointer
+- [x] Dock: a macOS-style bar of icons that grow under the pointer
 - [ ] Signature Pad: draw a signature and export it as an image
 - [ ] Animated Text: more effects
 

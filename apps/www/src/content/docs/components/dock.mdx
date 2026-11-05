@@ -1,0 +1,90 @@
+export const metadata = {
+  title: "Dock",
+  description: "A macOS-style bar of icons that grow as the pointer passes over them.",
+  new: true,
+};
+
+<ComponentPreview name="dock-demo" />
+
+## Usage
+
+```tsx
+import { Dock, DockItem, DockSeparator } from "@cladux/ui";
+```
+
+```tsx
+<Dock>
+  <DockItem label="Home">
+    <HomeIcon />
+  </DockItem>
+  <DockItem label="Mail" active>
+    <MailIcon />
+  </DockItem>
+  <DockSeparator />
+  <DockItem label="Settings">
+    <SettingsIcon />
+  </DockItem>
+</Dock>
+```
+
+## Features
+
+- **Items grow like on a Mac.** The item under the pointer grows the most, its neighbors a little less, and they make room for each other.
+- **The page doesn't move.** The dock keeps its height, so growing items rise out of the top instead of pushing the content below.
+- **It works from the keyboard.** The dock is a toolbar: Tab reaches it, the arrow keys move between items, Home and End jump to either end, and the focused item grows and shows its label.
+- **Touch screens get plain buttons.** Nothing grows under a finger. Items are buttons you tap.
+- **Every item has a name.** `label` shows above the item on hover and focus, and screen readers read it.
+
+## Links
+
+Use `asChild` to render each item as a link, or as your router's `Link`.
+
+<ComponentPreview name="dock-links" />
+
+```tsx
+<DockItem label="Docs" asChild>
+  <a href="/docs">
+    <BookOpenIcon />
+  </a>
+</DockItem>
+```
+
+## Size and magnification
+
+`size` sets the items' size in pixels, `magnification` how much the one under the pointer grows, and `distance` how far the growing reaches. Style items with classes, such as a gradient for app icons.
+
+<ComponentPreview name="dock-apps" />
+
+```tsx
+<Dock size={48} magnification={2} distance={160}>
+  <DockItem label="Messages" className="bg-linear-to-b from-green-400 to-green-600 text-white">
+    <MessageCircleIcon />
+  </DockItem>
+</Dock>
+```
+
+## API Reference
+
+### Dock
+
+| Prop            | Type     | Default |
+| --------------- | -------- | ------- |
+| `size`          | `number` | `40`    |
+| `magnification` | `number` | `1.6`   |
+| `distance`      | `number` | `120`   |
+
+### DockItem
+
+| Prop      | Type      | Default |
+| --------- | --------- | ------- |
+| `label`   | `string`  |         |
+| `active`  | `boolean` | `false` |
+| `asChild` | `boolean` | `false` |
+
+### DockSeparator
+
+A vertical line between groups of items.
+
+## Accessibility
+
+The dock has the `toolbar` role, so screen readers announce it as one group, and the arrow keys move focus between its items. Each item takes its accessible name from `label`. The labels above the items and the active dots are only visual.

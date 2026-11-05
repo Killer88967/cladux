@@ -187,6 +187,7 @@ export {
   DialogTrigger,
 } from "./dialog/dialog";
 export { DirectionProvider, useDirection } from "./direction/direction";
+export { Dock, DockItem, DockSeparator, type DockProps, type DockItemProps } from "./dock/dock";
 export {
   Drawer,
   DrawerClose,
@@ -250,6 +251,7 @@ export {
   type FileUploadRejection,
 } from "./file-upload/file-upload";
 export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card/hover-card";
+export { ImageCompare, type ImageCompareProps } from "./image-compare/image-compare";
 export { Input } from "./input/input";
 export {
   InputGroup,

@@ -1,0 +1,80 @@
+export const metadata = {
+  title: "Image Compare",
+  description: "Two images on top of each other, with a divider you drag to compare them.",
+  new: true,
+};
+
+<ComponentPreview name="image-compare-demo" />
+
+## Usage
+
+```tsx
+import { ImageCompare } from "@cladux/ui";
+```
+
+```tsx
+<ImageCompare
+  className="aspect-video"
+  before={<img src="/before.jpg" alt="Before" />}
+  after={<img src="/after.jpg" alt="After" />}
+/>
+```
+
+Give it a size with classes, such as `aspect-video` and a width. Images inside fill it and crop to fit (`object-cover`), and `next/image` works the same way.
+
+## Features
+
+- **Drag anywhere.** Press anywhere on it and drag, not only on the handle. It works with a mouse, a pen or a finger.
+- **The page still scrolls.** On touch screens, swiping the other way scrolls the page instead of moving the divider.
+- **It works from the keyboard.** The handle is a slider: the arrow keys move it by 1%, Shift with an arrow by 10%, and Home and End go to either edge.
+- **Anything can go on either side.** `before` and `after` take any content: images, a `<video>`, a chart, or two versions of a component.
+
+## Labels
+
+`beforeLabel` and `afterLabel` add a tag in each corner.
+
+<ComponentPreview name="image-compare-labels" />
+
+```tsx
+<ImageCompare beforeLabel="Before" afterLabel="After" before={...} after={...} />
+```
+
+## Vertical
+
+`orientation="vertical"` puts `before` on top and `after` below. `defaultValue` sets where the divider starts, from 0 to 100.
+
+<ComponentPreview name="image-compare-vertical" />
+
+```tsx
+<ImageCompare orientation="vertical" defaultValue={40} before={...} after={...} />
+```
+
+## Controlled
+
+Pass `value` and `onValueChange` to move the divider from your own code.
+
+<ComponentPreview name="image-compare-controlled" />
+
+```tsx
+const [value, setValue] = React.useState(50);
+
+<ImageCompare value={value} onValueChange={setValue} before={...} after={...} />;
+```
+
+## API Reference
+
+| Prop            | Type                         | Default                            |
+| --------------- | ---------------------------- | ---------------------------------- |
+| `before`        | `ReactNode`                  |                                    |
+| `after`         | `ReactNode`                  |                                    |
+| `value`         | `number`                     |                                    |
+| `defaultValue`  | `number`                     | `50`                               |
+| `onValueChange` | `(value: number) => void`    |                                    |
+| `orientation`   | `"horizontal" \| "vertical"` | `"horizontal"`                     |
+| `beforeLabel`   | `ReactNode`                  |                                    |
+| `afterLabel`    | `ReactNode`                  |                                    |
+| `label`         | `string`                     | `"Divider between the two images"` |
+
+## Accessibility
+
+The handle is a slider with its position as a percentage, so screen readers announce where it is as it moves. Give both images an `alt` that says how they differ, such as "in black and white" and "in color".
