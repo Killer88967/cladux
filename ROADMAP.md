@@ -64,7 +64,7 @@ For after 0.4:
 - [x] Date Range Picker with presets (last 7 days, this month)
 - [x] Dock: a macOS-style bar of icons that grow under the pointer
 - [x] Signature Pad: draw a signature and export it as an image
-- [ ] Animated Text: more effects
+- [x] Animated Text: more effects
 
 ## Always
 
