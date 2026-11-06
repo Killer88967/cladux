@@ -16,3 +16,4 @@ apps/www/public/docs
 apps/www/public/docs.md
 apps/www/public/llms.txt
 apps/www/public/llms-full.txt
+apps/www/public/search.json
