@@ -1,0 +1,148 @@
+export const metadata = {
+  title: "Plain HTML",
+  description:
+    "Use Cladux on any website, without React: one stylesheet, one small script and cl-* classes.",
+  order: 1.5,
+};
+
+Cladux works without React. The plain-CSS components use `cl-*` classes on ordinary HTML, so they work on any site: static pages, a CMS, a server-rendered app, or a Rails, Django or Laravel view.
+
+## Setup
+
+Add the stylesheet and the script to your page:
+
+```html
+<link rel="stylesheet" href="https://cladux.vercel.app/cl/cl.css" />
+<script src="https://cladux.vercel.app/cl/cl.js" defer></script>
+```
+
+The stylesheet (about 34 KB) has the theme, a small reset, the components and the layout helpers below. The script (about 10 KB, no dependencies) opens dialogs, positions popovers and menus, switches tabs and shows toasts. Pages without those components don't need it.
+
+To serve the files yourself, save them from those URLs and link to your copies.
+
+## Components
+
+These components have a plain HTML version. Each page shows its markup next to the React version.
+
+| Needs only the stylesheet                                                                                                                                                                                                                                                                                                                                                                                                                          | Needs the script too                                                                                                                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Badge](/docs/components/badge), [Button](/docs/components/button), [Card](/docs/components/card), [Checkbox](/docs/components/checkbox), [Input](/docs/components/input), [Kbd](/docs/components/kbd), [Label](/docs/components/label), [Native Select](/docs/components/native-select), [Separator](/docs/components/separator), [Skeleton](/docs/components/skeleton), [Switch](/docs/components/switch), [Textarea](/docs/components/textarea) | [Dialog](/docs/components/dialog), [Popover](/docs/components/popover), [Dropdown Menu](/docs/components/dropdown-menu), [Tooltip](/docs/components/tooltip), [Tabs](/docs/components/tabs), [Toast](/docs/components/sonner) |
+
+Variants and sizes are `data-` attributes, the same names as the React props:
+
+```html
+<button class="cl-button" data-variant="outline" data-size="sm">Cancel</button>
+```
+
+## Theme and dark mode
+
+The theme is a set of CSS variables. Pick colors on [Themes](/themes), copy the Tailwind tab's CSS, and paste it into a stylesheet that loads after `cl.css`. (The plain HTML version uses the same variable names as Tailwind, such as `--primary`.)
+
+Dark mode turns on with `data-theme="dark"` or the `dark` class on a parent element, usually `<html>`:
+
+```html
+<html data-theme="dark"></html>
+```
+
+## The script
+
+The script works from attributes, so most pages need no JavaScript of your own. It listens on the whole document, so markup added later, by htmx or your own code, works too.
+
+### Dialog
+
+A button with `data-dialog-open` opens the `<dialog>` with that id. Buttons with `data-dialog-close` inside it close it, and so do Escape and a click on the backdrop.
+
+```html
+<button class="cl-button" data-dialog-open="confirm">Delete</button>
+
+<dialog class="cl-dialog" id="confirm">
+  ...
+  <button class="cl-button" data-variant="outline" data-dialog-close>Cancel</button>
+</dialog>
+```
+
+### Popover and Dropdown Menu
+
+These use the browser's popover attribute. `popovertarget` on a button opens the element with that id, and the script places it next to the button and keeps it there as the page scrolls.
+
+```html
+<button class="cl-button" popovertarget="menu">Open menu</button>
+
+<div class="cl-menu" id="menu" popover role="menu">
+  <button class="cl-menu-item" role="menuitem">Profile</button>
+  <button class="cl-menu-item" role="menuitem">Settings</button>
+</div>
+```
+
+- `data-side` (`top`, `right`, `bottom`, `left`) and `data-align` (`start`, `center`, `end`) set where it opens.
+- `data-anchor="some-id"` places it next to another element instead of the button.
+- In a menu, the arrow keys move between items and a click closes it. Add `data-keep-open` to an item to keep the menu open, such as for a checkbox item.
+
+### Tooltip
+
+Point `aria-describedby` at a `cl-tooltip` with `popover="manual"`. It shows on hover and on keyboard focus, and Escape hides it.
+
+```html
+<button class="cl-button" aria-describedby="tip">Hover</button>
+<div class="cl-tooltip" id="tip" role="tooltip" popover="manual">Add to library</div>
+```
+
+### Tabs
+
+In a `cl-tabs`, each `role="tab"` button shows the panel its `aria-controls` names and hides the others. The arrow keys, Home and End move between tabs.
+
+### Toast
+
+Add `data-toast` to a button to show a toast when it's clicked, with an optional `data-toast-description` and `data-toast-type` (`success`, `info`, `warning`, `error` or `loading`):
+
+```html
+<button class="cl-button" data-toast="Changes saved" data-toast-type="success">Save</button>
+```
+
+### From JavaScript
+
+The script adds a `cl` object to the page:
+
+```js
+cl.toast("Event created", { description: "Sunday at 9:00 AM" });
+cl.toast.success("Changes saved");
+cl.toast("Couldn't save", {
+  type: "error",
+  action: { label: "Retry", onClick: () => save() },
+});
+
+const dismiss = cl.toast.info("Uploading…", { duration: Infinity });
+dismiss(); // when you're done
+
+cl.openDialog("confirm");
+```
+
+| Function                    | What it does                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------- |
+| `cl.toast(title, options?)` | Shows a toast and returns a function that dismisses it                                |
+| `cl.toast.success(title)`   | The same for each type: `success`, `info`, `warning` and `error`                      |
+| `cl.openDialog(id)`         | Opens the dialog with that id                                                         |
+| `cl.start()`                | Turns everything on. The script calls it when it loads; calling it again does nothing |
+
+Toast options are `description`, `type`, `duration` (milliseconds, `Infinity` to stay until dismissed) and `action` (`{ label, onClick }`).
+
+## Layout helpers
+
+A few classes for laying out a page without writing CSS. Each takes a CSS variable for its spacing or size.
+
+<HtmlPreview name="layout" />
+
+| Class           | What it does                                                              | Variables                                |
+| --------------- | ------------------------------------------------------------------------- | ---------------------------------------- |
+| `.cl-stack`     | Children in a column, with a gap between them                             | `--cl-gap` (default `1rem`)              |
+| `.cl-cluster`   | Children in a row that wraps, centered on one line, like tags or buttons  | `--cl-gap` (default `0.5rem`)            |
+| `.cl-grid-auto` | A grid that fits as many columns as it can, each at least `--cl-min` wide | `--cl-min` (default `16rem`), `--cl-gap` |
+| `.cl-container` | Centers the page content, with a maximum width and padding on the sides   | `--cl-max` (default `72rem`)             |
+| `.cl-sr-only`   | Hides text from sight but keeps it for screen readers                     |                                          |
+
+```html
+<div class="cl-grid-auto" style="--cl-min: 12rem; --cl-gap: 1.5rem">
+  <div class="cl-card">...</div>
+  <div class="cl-card">...</div>
+</div>
+```

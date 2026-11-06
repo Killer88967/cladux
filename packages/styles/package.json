@@ -11,10 +11,15 @@
     "./tailwind.css": "./src/tailwind.css",
     "./base.css": "./src/base.css",
     "./utilities.css": "./src/utilities.css",
-    "./components/*": "./src/components/*"
+    "./components/*": "./src/components/*",
+    "./cl.css": "./dist/cl.css"
+  },
+  "scripts": {
+    "build": "node scripts/build.ts"
   },
   "files": [
-    "src"
+    "src",
+    "dist"
   ],
   "dependencies": {
     "@cladux/tokens": "workspace:*",
@@ -28,5 +33,8 @@
     "tailwindcss": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }

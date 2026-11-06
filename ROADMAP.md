@@ -47,8 +47,8 @@ changelog at /docs/changelog.
 
 ## 0.5 - Docs and content
 
-- [ ] Docs for `@cladux/utils`: the plain-JS runtime (dialogs, tabs, toasts) and `cn`
-- [ ] Docs for the CSS layout helpers (`.cl-stack`, `.cl-cluster`, `.cl-grid-auto`)
+- [x] Docs for `@cladux/utils`: the plain-JS runtime (dialogs, tabs, toasts) and `cn`
+- [x] Docs for the CSS layout helpers (`.cl-stack`, `.cl-cluster`, `.cl-grid-auto`)
 - [ ] Search across page content, blocks and examples
 - [ ] Charts page with ready-made charts
 - [ ] More blocks: app sidebar layouts, settings, 404, e-commerce

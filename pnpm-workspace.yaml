@@ -6,7 +6,7 @@ allowBuilds:
   esbuild: true
 
 minimumReleaseAgeExclude:
-  - lucide-react@1.64.0 || 1.65.0 || 1.67.0 || 1.68.0
+  - lucide-react@1.64.0 || 1.65.0 || 1.67.0 || 1.68.0 || 1.69.0
   - react-resizable-panels@4.15.2 || 4.15.3 || 4.16.1 || 4.17.0 || 4.18.0 || 4.18.1
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"
@@ -48,6 +48,34 @@ minimumReleaseAgeExclude:
   - tailwindcss@4.3.4
   - "@cfworker/json-schema@4.1.6"
   - geist@1.9.1
+  - "@tiptap/core@3.33.0"
+  - "@tiptap/extension-blockquote@3.33.0"
+  - "@tiptap/extension-bold@3.33.0"
+  - "@tiptap/extension-bubble-menu@3.33.0"
+  - "@tiptap/extension-bullet-list@3.33.0"
+  - "@tiptap/extension-code-block@3.33.0"
+  - "@tiptap/extension-code@3.33.0"
+  - "@tiptap/extension-document@3.33.0"
+  - "@tiptap/extension-dropcursor@3.33.0"
+  - "@tiptap/extension-floating-menu@3.33.0"
+  - "@tiptap/extension-gapcursor@3.33.0"
+  - "@tiptap/extension-hard-break@3.33.0"
+  - "@tiptap/extension-heading@3.33.0"
+  - "@tiptap/extension-horizontal-rule@3.33.0"
+  - "@tiptap/extension-italic@3.33.0"
+  - "@tiptap/extension-link@3.33.0"
+  - "@tiptap/extension-list-item@3.33.0"
+  - "@tiptap/extension-list-keymap@3.33.0"
+  - "@tiptap/extension-list@3.33.0"
+  - "@tiptap/extension-ordered-list@3.33.0"
+  - "@tiptap/extension-paragraph@3.33.0"
+  - "@tiptap/extension-strike@3.33.0"
+  - "@tiptap/extension-text@3.33.0"
+  - "@tiptap/extension-underline@3.33.0"
+  - "@tiptap/extensions@3.33.0"
+  - "@tiptap/pm@3.33.0"
+  - "@tiptap/react@3.33.0"
+  - "@tiptap/starter-kit@3.33.0"
 
 permissions:
   "@tanstack/react-table":

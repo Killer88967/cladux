@@ -1,0 +1,17 @@
+{
+  "Interface property method": {
+    "prefix": "p",
+    "scope": "typescript,typescriptreact",
+    "body": "${1:name}: ($2) => ${3:void};",
+  },
+  "Interface": {
+    "prefix": "inter",
+    "scope": "typescript,typescriptreact",
+    "body": "interface ${1:Name} {$2}",
+  },
+  "Interface Extends": {
+    "prefix": "exinter",
+    "scope": "typescript,typescriptreact",
+    "body": "interface ${1:Name} extends Omit<${3:\"\"}, ${4:\"\"}> {$5}",
+  },
+}

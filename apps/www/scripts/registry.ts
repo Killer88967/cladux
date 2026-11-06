@@ -287,6 +287,16 @@ await mkdir(new URL("../schema/", OUT), { recursive: true });
 for (const file of await readdir(SCHEMAS)) {
   await writeFile(new URL(`../schema/${file}`, OUT), await readFile(new URL(file, SCHEMAS)));
 }
+
+// The plain HTML version, at /cl/cl.css and /cl/cl.js: the stylesheet and the
+// runtime script, built by packages/styles and packages/utils.
+await mkdir(new URL("../cl/", OUT), { recursive: true });
+for (const [from, to] of [
+  ["packages/styles/dist/cl.css", "cl.css"],
+  ["packages/utils/dist/cl.js", "cl.js"],
+] as const) {
+  await writeFile(new URL(`../cl/${to}`, OUT), await readFile(new URL(from, ROOT)));
+}
 for (const [style, list] of [
   [STYLE, items],
   ["css", cssItems],
