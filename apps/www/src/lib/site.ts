@@ -10,6 +10,7 @@ export const mainNav = [
   { title: "Docs", href: "/docs" },
   { title: "Components", href: "/docs/components" },
   { title: "Blocks", href: "/blocks" },
+  { title: "Charts", href: "/charts" },
   { title: "Examples", href: "/examples" },
   { title: "Themes", href: "/themes" },
   { title: "Colors", href: "/colors" },

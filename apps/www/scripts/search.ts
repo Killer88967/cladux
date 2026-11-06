@@ -4,6 +4,7 @@
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { blocks } from "../../../packages/ui/src/blocks/_blocks.ts";
+import { charts } from "../../../packages/ui/src/charts/_charts.ts";
 import type { SearchEntry } from "../src/lib/search.ts";
 import { exampleNav, mainNav } from "../src/lib/site.ts";
 
@@ -96,6 +97,12 @@ const entries: SearchEntry[] = [
     title: b.title,
     href: `/blocks#${b.name}`,
     text: `${b.description} ${b.category} · ${b.name}`,
+  })),
+  ...charts.map((c) => ({
+    group: "Charts",
+    title: c.title,
+    href: `/charts#${c.name}`,
+    text: `${c.description} ${c.type} chart · ${c.name}`,
   })),
   ...exampleNav.map((e) => ({ group: "Examples", title: e.title, href: e.href })),
   ...mainNav

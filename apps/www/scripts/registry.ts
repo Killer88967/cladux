@@ -8,6 +8,7 @@ import * as prettier from "prettier";
 import { buildCssStyle } from "@cladux/css-style";
 import * as tailwindNode from "@tailwindcss/node";
 import { blocks } from "../../../packages/ui/src/blocks/_blocks.ts";
+import { charts } from "../../../packages/ui/src/charts/_charts.ts";
 import { accentColors, baseColors } from "../src/lib/themes.ts";
 
 const ROOT = new URL("../../../", import.meta.url);
@@ -213,6 +214,21 @@ for (const block of blocks) {
     dependencies: processed.dependencies,
     registryDependencies: processed.registryDependencies,
     files: [{ path: `blocks/${block.name}.tsx`, type: "ui", content: processed.content }],
+  });
+}
+
+// Charts: packages/ui/src/charts/<name>.tsx. They're blocks to the CLI, so they
+// install to <components>/blocks/ and `list` and `add` treat them the same.
+for (const chart of charts) {
+  const processed = processSource(await readFile(new URL(`charts/${chart.name}.tsx`, UI), "utf8"));
+  items.push({
+    name: chart.name,
+    type: "registry:block",
+    style: STYLE,
+    description: chart.description,
+    dependencies: processed.dependencies,
+    registryDependencies: processed.registryDependencies,
+    files: [{ path: `blocks/${chart.name}.tsx`, type: "ui", content: processed.content }],
   });
 }
 

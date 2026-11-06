@@ -50,7 +50,7 @@ changelog at /docs/changelog.
 - [x] Docs for `@cladux/utils`: the plain-JS runtime (dialogs, tabs, toasts) and `cn`
 - [x] Docs for the CSS layout helpers (`.cl-stack`, `.cl-cluster`, `.cl-grid-auto`)
 - [x] Search across page content, blocks and examples
-- [ ] Charts page with ready-made charts
+- [x] Charts page with ready-made charts
 - [ ] More blocks: app sidebar layouts, settings, 404, e-commerce
 - [ ] Right-to-left support and an RTL docs section
 - [ ] Open Graph images for every page
