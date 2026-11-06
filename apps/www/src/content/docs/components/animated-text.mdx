@@ -1,7 +1,7 @@
 export const metadata = {
   title: "Animated Text",
   description:
-    "Headlines that reveal word by word, rotating words, a typewriter, a shimmer, a gradient, a highlighter and a scramble.",
+    "Headlines that reveal word by word, rotating words, a typewriter, a shimmer, a gradient, a highlighter, a scramble, a wave and a glitch.",
   new: true,
 };
 
@@ -31,7 +31,8 @@ import { AnimatedText } from "@cladux/ui";
 
 ## Entrance effects
 
-`fade-up`, `blur-in`, `mask` and `pop` play once. `by` sets what comes in one after another: each `word` (the default), each `char`, or each `line` as the text wraps.
+`fade-up`, `blur-in`, `mask`, `pop`, `flip` and `bounce` play once. `flip` tips each piece up from flat, and `bounce` drops it in from above.
+`by` sets what comes in one after another: each `word` (the default), each `char`, or each `line` as the text wraps.
 
 <ComponentPreview name="animated-text-split" />
 
@@ -110,24 +111,38 @@ In the CSS style, set the colors with a `background-image` of your own:
 
 The highlight uses your theme's primary color. Set your own with a `from-` and a `to-` class of the same color, as above. `scramble` cycles through letters, digits and symbols; pass `characters` to use your own set, such as `"01"` or `"ABCDEF0123456789"`. Before JavaScript loads, it shows the real text.
 
+## Wave and glitch
+
+`wave` lifts each letter in turn, over and over. `glitch` slices the text into two colored copies and shifts them for a moment at the end of every loop. Both run only while the text is on screen, and `duration` sets the length of one loop.
+
+<ComponentPreview name="animated-text-wave" />
+
+```tsx
+<AnimatedText effect="wave">Hello there!</AnimatedText>
+
+<AnimatedText effect="glitch">System failure</AnimatedText>
+```
+
+`stagger` sets the time between one letter of the wave and the next. Set the glitch colors with the `--glitch-a` and `--glitch-b` CSS variables, such as `style={{ "--glitch-a": "red" }}` or a class of your own.
+
 ## API Reference
 
-| Prop         | Type                                                                                                                            | Default                                              |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `effect`     | `"fade-up" \| "blur-in" \| "mask" \| "pop" \| "typewriter" \| "rotate" \| "shimmer" \| "gradient" \| "highlight" \| "scramble"` | `"fade-up"`                                          |
-| `children`   | `string`                                                                                                                        |                                                      |
-| `by`         | `"word" \| "char" \| "line"`                                                                                                    | `"word"`                                             |
-| `trigger`    | `"mount" \| "view"`                                                                                                             | `"view"`                                             |
-| `once`       | `boolean`                                                                                                                       | `true`                                               |
-| `delay`      | `number`                                                                                                                        | `0`                                                  |
-| `stagger`    | `number`                                                                                                                        | 80 / 30 / 160 ms                                     |
-| `duration`   | `number`                                                                                                                        | `600`, `1000` for `highlight`, `1200` for `scramble` |
-| `words`      | `string[]`                                                                                                                      | for `rotate`                                         |
-| `interval`   | `number`                                                                                                                        | `2500`                                               |
-| `phrases`    | `string[]`                                                                                                                      | for `typewriter`                                     |
-| `speed`      | `number`                                                                                                                        | `50` ms a character                                  |
-| `cursor`     | `boolean`                                                                                                                       | `true`                                               |
-| `characters` | `string`                                                                                                                        | letters, digits and symbols, for `scramble`          |
+| Prop         | Type                                                                                                                                                                        | Default                                                                                      |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `effect`     | `"fade-up" \| "blur-in" \| "mask" \| "pop" \| "flip" \| "bounce" \| "typewriter" \| "rotate" \| "shimmer" \| "gradient" \| "highlight" \| "scramble" \| "wave" \| "glitch"` | `"fade-up"`                                                                                  |
+| `children`   | `string`                                                                                                                                                                    |                                                                                              |
+| `by`         | `"word" \| "char" \| "line"`                                                                                                                                                | `"word"`                                                                                     |
+| `trigger`    | `"mount" \| "view"`                                                                                                                                                         | `"view"`                                                                                     |
+| `once`       | `boolean`                                                                                                                                                                   | `true`                                                                                       |
+| `delay`      | `number`                                                                                                                                                                    | `0`                                                                                          |
+| `stagger`    | `number`                                                                                                                                                                    | 80 / 30 / 160 ms, `60` for `wave`                                                            |
+| `duration`   | `number`                                                                                                                                                                    | `600`, `1000` for `highlight`, `1200` for `scramble`, `2000` for `wave`, `3000` for `glitch` |
+| `words`      | `string[]`                                                                                                                                                                  | for `rotate`                                                                                 |
+| `interval`   | `number`                                                                                                                                                                    | `2500`                                                                                       |
+| `phrases`    | `string[]`                                                                                                                                                                  | for `typewriter`                                                                             |
+| `speed`      | `number`                                                                                                                                                                    | `50` ms a character                                                                          |
+| `cursor`     | `boolean`                                                                                                                                                                   | `true`                                                                                       |
+| `characters` | `string`                                                                                                                                                                    | letters, digits and symbols, for `scramble`                                                  |
 
 ## Accessibility
 

@@ -1,0 +1,75 @@
+export const metadata = {
+  title: "Date Range Picker",
+  description: "Pick a range of days on a calendar, or in one click with presets like Last 7 days.",
+  new: true,
+};
+
+<ComponentPreview clientOnly name="date-range-picker-demo" />
+
+## Usage
+
+```tsx
+import { DateRangePicker, type DateRange } from "@cladux/ui";
+```
+
+```tsx
+const [range, setRange] = React.useState<DateRange>();
+
+<DateRangePicker value={range} onValueChange={setRange} />;
+```
+
+Unlike the [Date Picker](/docs/components/date-picker) examples, which you put together from Calendar and Popover yourself, this is one component: the button, the calendar and the presets.
+
+## Features
+
+- **Presets in one click.** Today, Yesterday, Last 7 days, Last 30 days, This month, Last month and This year. Each is worked out when you click it, so "Today" is always today.
+- **The calendar keeps up.** Picking a preset jumps the calendar to it, and reopening shows the range you picked, not the month you last looked at.
+- **Dates read naturally.** The button shows "Jan 20 – Feb 9, 2026", written by the browser for `locale`, with no date library needed.
+- **It fits small screens.** On narrow screens the presets become a row you scroll, above the calendar.
+
+## Your own presets
+
+Pass `presets` with a label and a function that returns the range. `disabledDates` takes react-day-picker matchers, here to block days before today.
+
+<ComponentPreview clientOnly name="date-range-picker-presets" />
+
+```tsx
+const presets: DateRangePreset[] = [
+  { label: "Next 7 days", range: () => ({ from: inDays(0), to: inDays(6) }) },
+  { label: "Next 2 weeks", range: () => ({ from: inDays(0), to: inDays(13) }) },
+];
+
+<DateRangePicker presets={presets} disabledDates={{ before: inDays(0) }} />;
+```
+
+The default list is exported as `dateRangePresets`, to extend or reorder. Pass `presets={[]}` for none.
+
+## Controlled
+
+<ComponentPreview clientOnly name="date-range-picker-controlled" />
+
+```tsx
+<DateRangePicker value={range} onValueChange={setRange} numberOfMonths={1} />
+```
+
+## API Reference
+
+| Prop             | Type                                      | Default               |
+| ---------------- | ----------------------------------------- | --------------------- |
+| `value`          | `DateRange`                               |                       |
+| `defaultValue`   | `DateRange`                               |                       |
+| `onValueChange`  | `(range: DateRange \| undefined) => void` |                       |
+| `presets`        | `DateRangePreset[]`                       | `dateRangePresets`    |
+| `placeholder`    | `string`                                  | `"Pick a date range"` |
+| `numberOfMonths` | `number`                                  | `2`                   |
+| `disabledDates`  | `Matcher \| Matcher[]`                    |                       |
+| `locale`         | `string`                                  | the browser's         |
+| `align`          | `"start" \| "center" \| "end"`            | `"start"`             |
+
+It also takes the [Button](/docs/components/button) props, such as `id`, `className` and `disabled`.
+
+A `DateRangePreset` is `{ label: string; range: () => DateRange }`.
+
+## Accessibility
+
+The button names the picked range, or the placeholder. The calendar is react-day-picker's, which works from the keyboard: the arrow keys move between days, and Enter picks one. The selected preset is marked as pressed.

@@ -1,0 +1,82 @@
+export const metadata = {
+  title: "Signature Pad",
+  description: "Draw a signature with a mouse, a finger or a pen, and export it as an image.",
+  new: true,
+};
+
+<ComponentPreview name="signature-pad-demo" />
+
+## Usage
+
+```tsx
+import { SignaturePad } from "@cladux/ui";
+```
+
+```tsx
+<SignaturePad onValueChange={(png) => setSignature(png)} />
+```
+
+## Features
+
+- **It feels like ink.** Lines get thinner as you move faster, and follow the pressure of a pen. Curves stay smooth, even when you draw quickly.
+- **It's sharp on every screen.** The canvas draws at your screen's pixel density, and keeps the signature when it resizes.
+- **The ink follows your theme.** Without `color`, it draws in the text color and redraws when you switch to dark mode.
+- **Undo and Clear are built in.** Turn them off with `controls={false}` and use your own.
+- **Exports are cropped.** PNGs and SVGs are trimmed to the ink, with a transparent background, ready to place on a document.
+
+## Export
+
+`onValueChange` gets a PNG data URL after every stroke, or `null` when the pad is empty. For an SVG, or to clear it from your own code, use a ref.
+
+<ComponentPreview name="signature-pad-export" />
+
+```tsx
+const pad = React.useRef<SignaturePadHandle>(null);
+
+<SignaturePad ref={pad} color="#1d4ed8" onValueChange={setPng} />;
+
+const svg = pad.current?.toSVG();
+```
+
+## In a form
+
+Give it a `name`, and the signature goes with the form as a PNG data URL, like any other field. It's an empty string when nobody has signed.
+
+<ComponentPreview name="signature-pad-form" />
+
+```tsx
+<form action={submit}>
+  <SignaturePad name="signature" />
+  <Button type="submit">Submit</Button>
+</form>
+```
+
+## API Reference
+
+### SignaturePad
+
+| Prop            | Type                            | Default        |
+| --------------- | ------------------------------- | -------------- |
+| `onValueChange` | `(png: string \| null) => void` |                |
+| `color`         | `string`                        | the text color |
+| `strokeWidth`   | `number`                        | `2.5`          |
+| `placeholder`   | `string`                        | `"Sign here"`  |
+| `controls`      | `boolean`                       | `true`         |
+| `name`          | `string`                        |                |
+| `disabled`      | `boolean`                       | `false`        |
+| `label`         | `string`                        | a description  |
+| `ref`           | `Ref<SignaturePadHandle>`       |                |
+
+### SignaturePadHandle
+
+| Method      | Returns          | What it does                         |
+| ----------- | ---------------- | ------------------------------------ |
+| `isEmpty()` | `boolean`        | Whether anything has been drawn      |
+| `clear()`   |                  | Removes everything                   |
+| `undo()`    |                  | Removes the last stroke              |
+| `toPNG()`   | `string \| null` | A PNG data URL, cropped, transparent |
+| `toSVG()`   | `string \| null` | An SVG document, cropped             |
+
+## Accessibility
+
+The canvas has a label that says what it's for, and Undo and Clear are buttons with names. Drawing needs a pointer, so where a signature is required, offer another way too, such as typing your name.

@@ -8,12 +8,16 @@ type AnimatedTextEffect =
   | "blur-in"
   | "mask"
   | "pop"
+  | "flip"
+  | "bounce"
   | "typewriter"
   | "rotate"
   | "shimmer"
   | "gradient"
   | "highlight"
-  | "scramble";
+  | "scramble"
+  | "wave"
+  | "glitch";
 
 interface AnimatedTextProps extends Omit<React.ComponentProps<"span">, "children"> {
   /** The text. Not needed for `rotate`, or for `typewriter` with `phrases`. */
@@ -29,7 +33,10 @@ interface AnimatedTextProps extends Omit<React.ComponentProps<"span">, "children
   delay?: number;
   /** Entrance effects: milliseconds between one piece and the next. */
   stagger?: number;
-  /** Milliseconds it takes: each piece of an entrance effect, the highlight, or the scramble. */
+  /**
+   * Milliseconds it takes: each piece of an entrance effect, the highlight or the
+   * scramble; for `wave` and `glitch`, one loop.
+   */
   duration?: number;
   /** `rotate`: the words to cycle through. */
   words?: string[];
@@ -47,7 +54,7 @@ interface AnimatedTextProps extends Omit<React.ComponentProps<"span">, "children
 
 const EASE_OUT = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-const KEYFRAMES: Record<"fade-up" | "blur-in" | "mask" | "pop", Keyframe[]> = {
+const KEYFRAMES: Record<"fade-up" | "blur-in" | "mask" | "pop" | "flip" | "bounce", Keyframe[]> = {
   "fade-up": [
     { opacity: 0, transform: "translateY(0.4em)" },
     { opacity: 1, transform: "none" },
@@ -64,6 +71,16 @@ const KEYFRAMES: Record<"fade-up" | "blur-in" | "mask" | "pop", Keyframe[]> = {
   pop: [
     { opacity: 0, transform: "scale(0.6)" },
     { opacity: 1, transform: "scale(1.08)", offset: 0.6 },
+    { opacity: 1, transform: "none" },
+  ],
+  flip: [
+    { opacity: 0, transform: "perspective(600px) rotateX(-90deg)", transformOrigin: "50% 100%" },
+    { opacity: 1, transform: "perspective(600px) rotateX(0deg)", transformOrigin: "50% 100%" },
+  ],
+  bounce: [
+    { opacity: 0, transform: "translateY(-0.8em)" },
+    { opacity: 1, transform: "translateY(0.1em)", offset: 0.55 },
+    { opacity: 1, transform: "translateY(-0.04em)", offset: 0.8 },
     { opacity: 1, transform: "none" },
   ],
 };
@@ -103,7 +120,8 @@ function useInView(ref: React.RefObject<HTMLElement | null>, enabled: boolean, o
 /**
  * Animated headlines and phrases: entrance effects that reveal text word by
  * word, character by character or line by line, plus rotating words, a
- * typewriter, a shimmer, a flowing gradient, a highlighter and a scramble.
+ * typewriter, a shimmer, a flowing gradient, a highlighter, a scramble, a wave
+ * and a glitch.
  * The motion runs on the Web Animations API, so there are no keyframes to add,
  * and screen readers get the plain text once. With reduced motion turned on,
  * the text just shows.
@@ -146,6 +164,20 @@ function AnimatedText({
       >
         {children}
       </ScrambleText>
+    );
+  }
+  if (effect === "wave") {
+    return (
+      <WaveText delay={delay} stagger={stagger ?? 60} duration={duration ?? 2000} {...props}>
+        {children}
+      </WaveText>
+    );
+  }
+  if (effect === "glitch") {
+    return (
+      <GlitchText delay={delay} duration={duration ?? 3000} {...props}>
+        {children}
+      </GlitchText>
     );
   }
   if (effect === "shimmer" || effect === "gradient") {
@@ -561,6 +593,127 @@ function ScrambleText({
       <span aria-hidden className="col-start-1 row-start-1">
         {shown}
       </span>
+    </span>
+  );
+}
+
+function WaveText({
+  className,
+  children,
+  delay,
+  stagger,
+  duration,
+  ...props
+}: SpanProps & { children: string } & Required<
+    Pick<AnimatedTextProps, "delay" | "stagger" | "duration">
+  >) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  // Runs only while it's on screen, so it costs nothing elsewhere.
+  const inView = useInView(ref, true, false);
+
+  React.useEffect(() => {
+    const root = ref.current;
+    if (!root || !inView || reducedMotion() || typeof root.animate !== "function") return;
+    const pieces = [...root.querySelectorAll<HTMLElement>("[data-slot=animated-text-piece]")];
+    const animations = pieces.map((piece, i) =>
+      piece.animate(
+        [
+          { transform: "none" },
+          { transform: "translateY(-0.25em)", offset: 0.2 },
+          { transform: "none", offset: 0.4 },
+          { transform: "none" },
+        ],
+        { duration, delay: delay + i * stagger, iterations: Infinity, easing: "ease-in-out" },
+      ),
+    );
+    return () => animations.forEach((a) => a.cancel());
+  }, [inView, delay, stagger, duration, children]);
+
+  return (
+    <span data-slot="animated-text" data-effect="wave" className={className} {...props}>
+      <span className="sr-only">{children}</span>
+      <span ref={ref} aria-hidden>
+        {children
+          .trim()
+          .split(/\s+/)
+          .map((word, w) => (
+            <React.Fragment key={w}>
+              {w > 0 && " "}
+              <span className="inline-block whitespace-nowrap">
+                {graphemes(word).map((char, c) => (
+                  <span key={c} data-slot="animated-text-piece" className="inline-block">
+                    {char}
+                  </span>
+                ))}
+              </span>
+            </React.Fragment>
+          ))}
+      </span>
+    </span>
+  );
+}
+
+function GlitchText({
+  className,
+  children,
+  delay,
+  duration,
+  ...props
+}: SpanProps & { children: string } & Required<Pick<AnimatedTextProps, "delay" | "duration">>) {
+  const ref = React.useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, true, false);
+
+  React.useEffect(() => {
+    const root = ref.current;
+    if (!root || !inView || reducedMotion() || typeof root.animate !== "function") return;
+    const layers = [...root.querySelectorAll<HTMLElement>("[data-slot=animated-text-glitch]")];
+    const animations = layers.map((layer, n) => {
+      // Still for most of the loop, then five quick random slices. Each frame
+      // holds until the next (steps), so the slices jump instead of sliding.
+      const frames: Keyframe[] = [
+        { opacity: 0, easing: "steps(1, end)" },
+        { opacity: 0, offset: 0.86, easing: "steps(1, end)" },
+      ];
+      for (let k = 0; k < 5; k++) {
+        const top = Math.random() * 80;
+        const bottom = Math.max(0, 100 - top - (6 + Math.random() * 28));
+        const shift = (n ? -1 : 1) * (2 + Math.random() * 4);
+        frames.push({
+          opacity: 1,
+          clipPath: `inset(${top.toFixed(1)}% 0 ${bottom.toFixed(1)}% 0)`,
+          transform: `translate(${shift.toFixed(1)}px, ${(Math.random() * 2 - 1).toFixed(1)}px)`,
+          offset: 0.87 + k * 0.025,
+          easing: "steps(1, end)",
+        });
+      }
+      frames.push({ opacity: 0 });
+      return layer.animate(frames, { duration, delay, iterations: Infinity });
+    });
+    return () => animations.forEach((a) => a.cancel());
+  }, [inView, delay, duration, children]);
+
+  const layer = (color: string) => (
+    <span
+      aria-hidden
+      data-slot="animated-text-glitch"
+      className="pointer-events-none absolute inset-0 opacity-0"
+      style={{ color }}
+    >
+      {children}
+    </span>
+  );
+
+  return (
+    <span
+      ref={ref}
+      data-slot="animated-text"
+      data-effect="glitch"
+      className={cn("relative inline-block", className)}
+      {...props}
+    >
+      {children}
+      {layer("var(--glitch-a, #ff2bd6)")}
+      {layer("var(--glitch-b, #2be4ff)")}
     </span>
   );
 }

@@ -175,6 +175,13 @@ export {
 export { CopyButton } from "./copy-button/copy-button";
 export { Countdown, useCountdown, type CountdownParts } from "./countdown/countdown";
 export {
+  DateRangePicker,
+  dateRangePresets,
+  type DateRange,
+  type DateRangePickerProps,
+  type DateRangePreset,
+} from "./date-range-picker/date-range-picker";
+export {
   Dialog,
   DialogClose,
   DialogContent,
@@ -456,6 +463,11 @@ export {
   SidebarTrigger,
   useSidebar,
 } from "./sidebar/sidebar";
+export {
+  SignaturePad,
+  type SignaturePadHandle,
+  type SignaturePadProps,
+} from "./signature-pad/signature-pad";
 export { Skeleton } from "./skeleton/skeleton";
 export { Slider } from "./slider/slider";
 export { Toaster } from "./sonner/sonner";
