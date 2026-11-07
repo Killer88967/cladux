@@ -14,7 +14,7 @@ export function DatePickerDemo() {
         <Button
           variant="outline"
           data-empty={!date}
-          className="w-[212px] justify-between text-left font-normal data-[empty=true]:text-muted-foreground"
+          className="w-[212px] justify-between text-start font-normal data-[empty=true]:text-muted-foreground"
         >
           {date ? format(date, "PPP") : <span>Pick a date</span>}
           <ChevronDownIcon />

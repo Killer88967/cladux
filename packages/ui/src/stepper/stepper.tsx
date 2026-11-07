@@ -168,7 +168,7 @@ function StepperTrigger({
         }
       }}
       className={cn(
-        "flex items-center gap-3 rounded-md text-left outline-none group-data-[orientation=horizontal]/stepper:flex-col group-data-[orientation=horizontal]/stepper:text-center group-data-[orientation=vertical]/stepper:items-start focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-default",
+        "flex items-center gap-3 rounded-md text-start outline-none group-data-[orientation=horizontal]/stepper:flex-col group-data-[orientation=horizontal]/stepper:text-center group-data-[orientation=vertical]/stepper:items-start focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-default",
         className,
       )}
       {...props}

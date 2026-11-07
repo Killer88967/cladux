@@ -436,7 +436,7 @@ function TypewriterText({
           <span
             ref={cursorRef}
             data-slot="animated-text-cursor"
-            className="ml-[0.05em] inline-block h-[1em] w-[0.08em] translate-y-[0.12em] bg-current"
+            className="ms-[0.05em] inline-block h-[1em] w-[0.08em] translate-y-[0.12em] bg-current"
           />
         )}
       </span>

@@ -1,0 +1,61 @@
+export const metadata = {
+  title: "Right to left",
+  description: "Use Cladux in Arabic, Hebrew, Persian and other right-to-left languages.",
+  order: 1.7,
+};
+
+Every component mirrors for right-to-left languages. Padding, borders, rounded corners, menus, chevrons and switches all flip when the page is right to left. Toggle the direction to compare:
+
+<ComponentPreview name="direction-rtl" />
+
+## Setup
+
+Set `dir` on the page, and wrap your app in `DirectionProvider`:
+
+```tsx title="app/layout.tsx"
+import { DirectionProvider } from "@/components/cl/direction";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="ar" dir="rtl">
+      <body>
+        <DirectionProvider dir="rtl">{children}</DirectionProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+`dir` mirrors the layout. `DirectionProvider` tells the components that read the direction in JavaScript: menus open their submenus to the left, sliders and radio groups swap their arrow keys, and Carousel scrolls right to left. Add it with `npx cladux-ui@latest add direction`.
+
+For a page that switches language, set both from the same value, as the preview above does.
+
+## How it works
+
+The components use logical classes, which follow the direction instead of a fixed side:
+
+| Instead of                   | Components use               |
+| ---------------------------- | ---------------------------- |
+| `ml-*`, `mr-*`               | `ms-*`, `me-*`               |
+| `pl-*`, `pr-*`               | `ps-*`, `pe-*`               |
+| `left-*`, `right-*`          | `start-*`, `end-*`           |
+| `text-left`, `text-right`    | `text-start`, `text-end`     |
+| `rounded-l-*`, `rounded-r-*` | `rounded-s-*`, `rounded-e-*` |
+| `border-l`, `border-r`       | `border-s`, `border-e`       |
+
+Arrows and chevrons that point forward or back turn around with `rtl:rotate-180`, and the Switch thumb slides the other way with `rtl:`. The CSS style gets the same logical properties, such as `margin-inline-start`.
+
+Use the same classes in your own code, and add `rtl:rotate-180` to your own forward and back icons.
+
+## Components with a side
+
+A few components take a side, and keep it in either direction:
+
+- **Sheet** and **Drawer**: `side="left"` is always on the left. Use `side="right"` for the start of a right-to-left page.
+- **Sidebar**: pass `side="right"` on a right-to-left page.
+- **Image Compare**: "before" is always on the left, like a photo editor.
+- **Calendar**: pass `dir="rtl"` to `Calendar` so the days run right to left.
+
+## Plain HTML
+
+The [plain HTML](/docs/html) stylesheet uses logical properties too. Set `dir="rtl"` on `<html>`, and the components mirror.

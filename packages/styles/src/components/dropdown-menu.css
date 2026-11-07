@@ -51,7 +51,7 @@
   font: inherit;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  text-align: left;
+  text-align: start;
   text-decoration: none;
   cursor: default;
   outline: none;
@@ -79,7 +79,7 @@
 }
 
 .cl-menu-item[data-inset] {
-  padding-left: 1.75rem;
+  padding-inline-start: 1.75rem;
 }
 
 .cl-menu-item:disabled,
@@ -104,14 +104,14 @@
 
 /* Checkbox and radio items: room on the right for the check mark. */
 .cl-menu-item:is([role="menuitemcheckbox"], [role="menuitemradio"]) {
-  padding-right: 2rem;
-  padding-left: 0.375rem;
+  padding-inline-end: 2rem;
+  padding-inline-start: 0.375rem;
 }
 
 .cl-menu-item:is([role="menuitemcheckbox"], [role="menuitemradio"])::after {
   content: "";
   position: absolute;
-  right: 0.5rem;
+  inset-inline-end: 0.5rem;
   width: 1rem;
   height: 1rem;
   background-color: currentColor;
@@ -133,7 +133,7 @@
 }
 
 .cl-menu-label[data-inset] {
-  padding-left: 1.75rem;
+  padding-inline-start: 1.75rem;
 }
 
 .cl-menu-separator {
@@ -143,7 +143,7 @@
 }
 
 .cl-menu-shortcut {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--muted-foreground);
   font-size: 0.75rem;
   line-height: 1rem;

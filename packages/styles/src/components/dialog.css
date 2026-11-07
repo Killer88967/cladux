@@ -129,5 +129,5 @@
 .cl-dialog-close {
   position: absolute;
   top: 0.5rem;
-  right: 0.5rem;
+  inset-inline-end: 0.5rem;
 }

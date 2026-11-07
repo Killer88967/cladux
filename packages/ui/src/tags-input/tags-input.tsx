@@ -95,7 +95,7 @@ function TagsInput({
         <span
           key={`${tag}-${index}`}
           data-slot="tags-input-tag"
-          className="inline-flex h-6 max-w-full min-w-0 items-center gap-0.5 rounded-md bg-secondary pr-0.5 pl-2 text-xs font-medium text-secondary-foreground"
+          className="inline-flex h-6 max-w-full min-w-0 items-center gap-0.5 rounded-md bg-secondary ps-2 pe-0.5 text-xs font-medium text-secondary-foreground"
         >
           <span className="truncate">{tag}</span>
           <button

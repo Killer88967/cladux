@@ -26,7 +26,7 @@ function PasswordInput({
         autoComplete="current-password"
         spellCheck={false}
         disabled={disabled}
-        className="h-full w-full min-w-0 bg-transparent py-1 pl-2.5 text-base outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed md:text-sm"
+        className="h-full w-full min-w-0 bg-transparent py-1 ps-2.5 text-base outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed md:text-sm"
         {...props}
       />
       <button
@@ -36,7 +36,7 @@ function PasswordInput({
         aria-pressed={visible}
         disabled={disabled}
         onClick={() => setVisible((v) => !v)}
-        className="mr-1 flex size-6 shrink-0 items-center justify-center rounded-[min(var(--radius-md),10px)] text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:size-3.5"
+        className="me-1 flex size-6 shrink-0 items-center justify-center rounded-[min(var(--radius-md),10px)] text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none [&_svg]:size-3.5"
       >
         {visible ? <EyeOffIcon /> : <EyeIcon />}
       </button>
@@ -100,7 +100,7 @@ function PasswordStrength({
         <span
           data-slot="password-strength-label"
           aria-live="polite"
-          className="w-14 shrink-0 text-right text-muted-foreground"
+          className="w-14 shrink-0 text-end text-muted-foreground"
         >
           {value ? strengthLabels[score] : ""}
         </span>

@@ -313,7 +313,7 @@ function SignaturePad({
         onPointerCancel={onPointerUp}
       />
       {controls && (
-        <div data-slot="signature-pad-controls" className="absolute top-2 right-2 flex gap-1">
+        <div data-slot="signature-pad-controls" className="absolute end-2 top-2 flex gap-1">
           <Button
             type="button"
             variant="ghost"

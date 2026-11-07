@@ -40,11 +40,11 @@
 }
 
 .cl-button:has([data-icon="inline-start"]) {
-  padding-left: var(--_px-icon);
+  padding-inline-start: var(--_px-icon);
 }
 
 .cl-button:has([data-icon="inline-end"]) {
-  padding-right: var(--_px-icon);
+  padding-inline-end: var(--_px-icon);
 }
 
 .cl-button svg {

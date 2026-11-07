@@ -23,6 +23,11 @@ export async function generateMetadata({ params }: PageProps<"/docs/[[...slug]]"
     description: doc.metadata.description,
     // The same page as Markdown, written by scripts/llms.ts.
     alternates: { types: { "text/markdown": `/docs/${slug.join("/")}.md`.replace("/.md", ".md") } },
+    // The page's own preview image, from app/og/docs.
+    openGraph: {
+      siteName: "Cladux",
+      images: [{ url: `/og/docs/${slug.join("/")}`.replace(/\/$/, ""), width: 1200, height: 630 }],
+    },
   };
 }
 

@@ -28,7 +28,7 @@
 }
 
 .cl-tooltip:has(.cl-kbd) {
-  padding-right: 0.375rem;
+  padding-inline-end: 0.375rem;
 }
 
 /* The arrow: a small rotated square tucked under the edge facing the trigger. */

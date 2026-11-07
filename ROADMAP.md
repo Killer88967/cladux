@@ -52,8 +52,8 @@ changelog at /docs/changelog.
 - [x] Search across page content, blocks and examples
 - [x] Charts page with ready-made charts
 - [x] More blocks: app sidebar layouts, settings, 404, e-commerce
-- [ ] Right-to-left support and an RTL docs section
-- [ ] Open Graph images for every page
+- [x] Right-to-left support and an RTL docs section
+- [x] Open Graph images for every page
 
 ## Component ideas
 

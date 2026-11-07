@@ -46,7 +46,7 @@ export default function Hero01() {
               ["Open issues", "112", "−18 since Monday"],
               ["Releases", "9", "2 scheduled"],
             ].map(([label, value, note]) => (
-              <div key={label} className="rounded-lg border p-4 text-left">
+              <div key={label} className="rounded-lg border p-4 text-start">
                 <p className="text-sm text-muted-foreground">{label}</p>
                 <p className="mt-1 text-3xl font-semibold tabular-nums">{value}</p>
                 <p className="mt-1 text-xs text-muted-foreground">{note}</p>

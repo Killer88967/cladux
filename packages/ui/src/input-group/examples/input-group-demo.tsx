@@ -22,7 +22,7 @@ export default function InputGroupDemo() {
         <InputGroupAddon>
           <InputGroupText>https://</InputGroupText>
         </InputGroupAddon>
-        <InputGroupInput placeholder="example.com" className="pl-0.5!" />
+        <InputGroupInput placeholder="example.com" className="ps-0.5!" />
         <InputGroupAddon align="inline-end">
           <InputGroupText>.com</InputGroupText>
         </InputGroupAddon>
@@ -30,7 +30,7 @@ export default function InputGroupDemo() {
       <InputGroup>
         <InputGroupTextarea placeholder="Ask, search or chat..." />
         <InputGroupAddon align="block-end">
-          <InputGroupText className="ml-auto">52% used</InputGroupText>
+          <InputGroupText className="ms-auto">52% used</InputGroupText>
           <InputGroupButton variant="default" size="icon-xs" aria-label="Send">
             <ArrowUpIcon />
           </InputGroupButton>

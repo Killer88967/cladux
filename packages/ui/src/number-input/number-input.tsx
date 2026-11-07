@@ -92,7 +92,7 @@ function NumberInput({
           startRepeat(-step);
         }}
         onPointerLeave={stopRepeat}
-        className="flex h-full w-8 shrink-0 items-center justify-center rounded-l-[calc(var(--radius)-1px)] text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-3.5"
+        className="flex h-full w-8 shrink-0 items-center justify-center rounded-s-[calc(var(--radius)-1px)] text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-3.5"
       >
         <MinusIcon />
       </button>
@@ -150,7 +150,7 @@ function NumberInput({
           startRepeat(step);
         }}
         onPointerLeave={stopRepeat}
-        className="flex h-full w-8 shrink-0 items-center justify-center rounded-r-[calc(var(--radius)-1px)] text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-3.5"
+        className="flex h-full w-8 shrink-0 items-center justify-center rounded-e-[calc(var(--radius)-1px)] text-muted-foreground transition-colors outline-none hover:bg-muted hover:text-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-3.5"
       >
         <PlusIcon />
       </button>
