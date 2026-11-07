@@ -1,10 +1,16 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
   "ui": "tui",
+  "cacheMaxSize": "1GB",
+  "cacheMaxAge": "14d",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+      "outputs": ["dist/**"]
+    },
+    "www#build": {
+      "dependsOn": ["^build"],
+      "cache": false
     },
     "dev": {
       "dependsOn": ["^build"],
