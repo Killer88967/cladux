@@ -56,7 +56,19 @@ export async function getMeta(slug: string[]): Promise<DocMeta | null> {
   return null;
 }
 
-export async function getNav(): Promise<NavGroup[]> {
+/**
+ * The sidebar, worked out once per build or server: every page shows it (the
+ * header, the docs sidebar, the pager), and reading every doc for each one was
+ * most of the time spent generating pages.
+ */
+let nav: Promise<NavGroup[]> | undefined;
+export function getNav(): Promise<NavGroup[]> {
+  // In dev, docs change while the server runs, so read them every time.
+  if (process.env.NODE_ENV === "development") return readNav();
+  return (nav ??= readNav());
+}
+
+async function readNav(): Promise<NavGroup[]> {
   const groups = new Map<string, (NavItem & { order: number })[]>();
 
   for (const slug of await getDocSlugs()) {

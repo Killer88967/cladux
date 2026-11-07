@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "all": "pnpm build && pnpm typecheck && pnpm lint && pnpm test",
+    "all": "pnpm build && pnpm typecheck && pnpm lint && pnpm test && pnpm size",
     "dev": "turbo dev",
     "build": "turbo build",
     "lint": "turbo lint",

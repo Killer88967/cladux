@@ -2,12 +2,12 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { codeToHtml } from "shiki";
 import { Button } from "@cladux/ui";
 import { charts } from "@cladux/ui/charts/_charts";
 import { ChartCard } from "@/components/chart-card";
 import { PageHeader } from "@/components/page-header";
 import { chartComponents } from "@/lib/charts.generated";
+import { highlight } from "@/lib/highlight";
 
 export const metadata: Metadata = {
   title: "Charts",
@@ -27,10 +27,7 @@ export default async function ChartsPage() {
   const withCode = await Promise.all(
     charts.map(async (chart) => {
       const code = await source(chart.name);
-      const html = await codeToHtml(code, {
-        lang: "tsx",
-        themes: { light: "github-light", dark: "github-dark" },
-      });
+      const html = await highlight(code);
       return { ...chart, code, html };
     }),
   );

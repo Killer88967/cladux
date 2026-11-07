@@ -2,11 +2,11 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { codeToHtml } from "shiki";
 import { Button } from "@cladux/ui";
 import { blocks } from "@cladux/ui/blocks/_blocks";
 import { BlockViewer } from "@/components/block-viewer";
 import { PageHeader } from "@/components/page-header";
+import { highlight } from "@/lib/highlight";
 
 export const metadata: Metadata = {
   title: "Blocks",
@@ -27,10 +27,7 @@ export default async function BlocksPage() {
   const withCode = await Promise.all(
     blocks.map(async (block) => {
       const code = await source(block.name);
-      const html = await codeToHtml(code, {
-        lang: "tsx",
-        themes: { light: "github-light", dark: "github-dark" },
-      });
+      const html = await highlight(code);
       return { ...block, code, html };
     }),
   );

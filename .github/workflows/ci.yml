@@ -25,7 +25,17 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      # The site's build cache (Turbopack's and the highlighted code), so each run
+      # only rebuilds what changed. Starts over when the lockfile changes.
+      - uses: actions/cache@v6
+        with:
+          path: apps/www/.next/cache
+          key: next-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
+          restore-keys: next-${{ hashFiles('pnpm-lock.yaml') }}-
+
       - run: pnpm build
+
       - run: pnpm size
       - run: pnpm format:check
       - run: pnpm typecheck
