@@ -7,7 +7,7 @@ allowBuilds:
 
 minimumReleaseAgeExclude:
   - lucide-react@1.70.0
-  - react-resizable-panels@4.15.2 || 4.15.3 || 4.16.1 || 4.17.0 || 4.18.0 || 4.18.1 || 4.19.1
+  - react-resizable-panels@4.19.1
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"
   - "@shikijs/engine-oniguruma@4.6.0"
@@ -19,35 +19,35 @@ minimumReleaseAgeExclude:
   - shiki@4.6.0
   - "@babel/parser@8.1.0"
   - "@babel/types@8.1.0"
-  - "@next/env@16.4.4 || 16.4.5"
-  - "@next/mdx@16.4.4 || 16.4.5"
-  - "@next/swc-darwin-arm64@16.4.4 || 16.4.5"
-  - "@next/swc-darwin-x64@16.4.4 || 16.4.5"
-  - "@next/swc-linux-arm64-gnu@16.4.4 || 16.4.5"
-  - "@next/swc-linux-arm64-musl@16.4.4 || 16.4.5"
-  - "@next/swc-linux-x64-gnu@16.4.4 || 16.4.5"
-  - "@next/swc-linux-x64-musl@16.4.4 || 16.4.5"
-  - "@next/swc-win32-arm64-msvc@16.4.4 || 16.4.5"
-  - "@next/swc-win32-x64-msvc@16.4.4 || 16.4.5"
-  - "@tailwindcss/node@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-android-arm64@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-darwin-arm64@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-darwin-x64@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-freebsd-x64@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-linux-arm-gnueabihf@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-linux-arm64-gnu@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-linux-arm64-musl@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-linux-x64-gnu@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-linux-x64-musl@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-wasm32-wasi@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-win32-arm64-msvc@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide-win32-x64-msvc@4.3.4 || 4.3.5"
-  - "@tailwindcss/oxide@4.3.4 || 4.3.5"
-  - "@tailwindcss/postcss@4.3.4 || 4.3.5"
-  - next@16.4.4 || 16.4.5
-  - tailwindcss@4.3.4 || 4.3.5
+  - "@next/env@16.4.5"
+  - "@next/mdx@16.4.5"
+  - "@next/swc-darwin-arm64@16.4.5"
+  - "@next/swc-darwin-x64@16.4.5"
+  - "@next/swc-linux-arm64-gnu@16.4.5"
+  - "@next/swc-linux-arm64-musl@16.4.5"
+  - "@next/swc-linux-x64-gnu@16.4.5"
+  - "@next/swc-linux-x64-musl@16.4.5"
+  - "@next/swc-win32-arm64-msvc@16.4.5"
+  - "@next/swc-win32-x64-msvc@16.4.5"
+  - "@tailwindcss/node@4.3.5"
+  - "@tailwindcss/oxide-android-arm64@4.3.5"
+  - "@tailwindcss/oxide-darwin-arm64@4.3.5"
+  - "@tailwindcss/oxide-darwin-x64@4.3.5"
+  - "@tailwindcss/oxide-freebsd-x64@4.3.5"
+  - "@tailwindcss/oxide-linux-arm-gnueabihf@4.3.5"
+  - "@tailwindcss/oxide-linux-arm64-gnu@4.3.5"
+  - "@tailwindcss/oxide-linux-arm64-musl@4.3.5"
+  - "@tailwindcss/oxide-linux-x64-gnu@4.3.5"
+  - "@tailwindcss/oxide-linux-x64-musl@4.3.5"
+  - "@tailwindcss/oxide-wasm32-wasi@4.3.5"
+  - "@tailwindcss/oxide-win32-arm64-msvc@4.3.5"
+  - "@tailwindcss/oxide-win32-x64-msvc@4.3.5"
+  - "@tailwindcss/oxide@4.3.5"
+  - "@tailwindcss/postcss@4.3.5"
+  - next@16.4.5
+  - tailwindcss@4.3.5
   - "@cfworker/json-schema@4.1.6"
-  - geist@1.9.1 || 1.9.2
+  - geist@1.9.2
   - "@tiptap/core@3.33.0"
   - "@tiptap/extension-blockquote@3.33.0"
   - "@tiptap/extension-bold@3.33.0"
