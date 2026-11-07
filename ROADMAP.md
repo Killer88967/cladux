@@ -55,19 +55,45 @@ changelog at /docs/changelog.
 - [x] Right-to-left support and an RTL docs section
 - [x] Open Graph images for every page
 
+## 0.6 - Performance
+
+Measured on the 0.5 build: every page loads about 2.9 MB of JavaScript, `next build`
+spends 33 s compiling, and the CLI package is 2.5 MB.
+
+- [ ] Load each demo only on the pages that show it. `ComponentPreview` imports all 366 demos, so every page ships them all (a 1.5 MB chunk with Tiptap, Vaul, input-otp...)
+- [ ] The same for blocks and charts: `/view/<name>` and `/charts` import every one
+- [ ] A budget in CI: fail the build when a page's JavaScript or a package grows past its limit
+- [ ] Faster builds: highlight code with one shared Shiki instance, and cache highlighted code and the generated files between builds
+- [ ] `pnpm dev` starts without regenerating what hasn't changed, and the registry rebuilds on save
+- [ ] Keep Turborepo's cache small: the site's 300 MB `.next` is cached on every build and never cleaned up (19 GB after a few weeks), so cache only package builds and add `pnpm clean`
+- [ ] Smaller CLI: minify the bundle, and load the MCP SDK (1.4 MB) and the css-style converter (890 KB) as dependencies instead of bundling them, so no file is over 500 KB
+
+## 0.7 - Testing and accessibility
+
+- [ ] Tests for `cladux-registry` (resolving, theme codes, validation), run in CI
+- [ ] Tests for the plain HTML runtime: dialogs, menus, tabs and toasts in a real browser
+- [ ] End-to-end tests of the site in CI with Playwright: search, the theme customizer, copy buttons, the CLI against a fresh Next.js and Vite app
+- [ ] Accessibility checks (axe) on every docs page and block, in CI
+- [ ] Screenshots of every component in both styles, light and dark, left to right and right to left, compared on each pull request
+- [ ] Check that the Tailwind and plain CSS versions of each component still look the same
+
+## 0.8 - Plain HTML, everywhere
+
+- [ ] Versioned CDN files: publish `cl.css` and `cl.js` to npm, so jsDelivr and unpkg serve them by version
+- [ ] Plain HTML versions of more components: accordion, sheet, slider, combobox and carousel
+- [ ] A per-component CSS build, so a page loads only the components it uses
+- [ ] An ES module build of the runtime, for bundlers and frameworks without React
+
 ## Component ideas
 
-For after 0.4:
+For after 0.6:
 
-- [x] Number Ticker: numbers that count up or roll to a new value, for Stat and dashboards
-- [x] Image Compare: a before and after slider
-- [x] Date Range Picker with presets (last 7 days, this month)
-- [x] Dock: a macOS-style bar of icons that grow under the pointer
-- [x] Signature Pad: draw a signature and export it as an image
-- [x] Animated Text: more effects
+- [ ] Contribution graph: a year of activity as a grid of days, like GitHub's
+- [ ] Image Cropper, with zoom, aspect ratios and an exported image
+- [ ] Mention input: a textarea that suggests people after @
+- [ ] QR Code, drawn as SVG in the theme's colors
+- [ ] Masonry grid
 
 ## Always
 
-- [ ] The parity, behavior and end-to-end tests from the full-scale test, in CI
-- [ ] Accessibility checks (axe) on the docs pages
 - [ ] Keep up with the latest stable React, Next.js, Tailwind and Radix

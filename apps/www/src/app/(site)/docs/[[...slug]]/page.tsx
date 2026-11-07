@@ -6,7 +6,8 @@ import type { ComponentProps, ComponentType } from "react";
 import { Button } from "@cladux/ui";
 import { CliCommand } from "@/components/cli-command";
 import { DocH2, DocH3, headingId, textOf } from "@/components/doc-heading";
-import { getDoc, getDocSlugs, getInstall, getPager, type InstallInfo } from "@/lib/docs";
+import { getDoc } from "@/lib/doc-content";
+import { getDocSlugs, getInstall, getPager, type InstallInfo } from "@/lib/docs";
 
 export const dynamicParams = false;
 

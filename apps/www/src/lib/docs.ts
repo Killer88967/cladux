@@ -1,6 +1,5 @@
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import type { ComponentType } from "react";
 
 const DOCS_DIR = path.join(process.cwd(), "src/content/docs");
 
@@ -40,19 +39,20 @@ export async function getDocSlugs(): Promise<string[][]> {
     .map((parts) => (parts.at(-1) === "index" ? parts.slice(0, -1) : parts));
 }
 
-export async function getDoc(slug: string[]) {
+/**
+ * A doc's metadata, read from the file instead of importing it. Importing would
+ * make every page that shows the nav (all of them, through the header) bundle
+ * every doc, with every demo the docs show.
+ */
+export async function getMeta(slug: string[]): Promise<DocMeta | null> {
   const base = slug.join("/");
-  const candidates = base ? [base, `${base}/index`] : ["index"];
-
-  for (const file of candidates) {
-    try {
-      const mod = await import(`@/content/docs/${file}.mdx`);
-      return { Content: mod.default as ComponentType, metadata: mod.metadata as DocMeta };
-    } catch {
-      // Try the next candidate.
-    }
+  for (const file of base ? [base, `${base}/index`] : ["index"]) {
+    const source = await readFile(path.join(DOCS_DIR, `${file}.mdx`), "utf8").catch(() => null);
+    if (source === null) continue;
+    // The metadata is our own JS object literal, so evaluate it instead of parsing it.
+    const block = /^export const metadata = (\{[\s\S]*?\n\});\n/m.exec(source);
+    return block ? (new Function(`return ${block[1]}`)() as DocMeta) : null;
   }
-
   return null;
 }
 
@@ -60,16 +60,16 @@ export async function getNav(): Promise<NavGroup[]> {
   const groups = new Map<string, (NavItem & { order: number })[]>();
 
   for (const slug of await getDocSlugs()) {
-    const doc = await getDoc(slug);
-    if (!doc) continue;
+    const meta = await getMeta(slug);
+    if (!meta) continue;
 
     const key = slug.length > 1 ? slug[0]! : "";
     const items = groups.get(key) ?? [];
     items.push({
-      title: doc.metadata.title,
+      title: meta.title,
       href: `/docs/${slug.join("/")}`.replace(/\/$/, ""),
-      order: doc.metadata.order ?? Number.POSITIVE_INFINITY,
-      isNew: doc.metadata.new,
+      order: meta.order ?? Number.POSITIVE_INFINITY,
+      isNew: meta.new,
     });
     groups.set(key, items);
   }

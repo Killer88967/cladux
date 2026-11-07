@@ -1,16 +1,6 @@
-import type { ComponentType } from "react";
-import { generatedExamples } from "./examples.generated";
+import { examplePaths } from "./examples.generated";
 
-export interface Example {
-  Component: ComponentType;
-  /** Path from the repo root, used to show the source. */
-  file: string;
-}
-
-/** Every demo in packages/ui/src/<component>/examples, keyed by file name. */
-export const examples: Record<string, Example> = Object.fromEntries(
-  Object.entries(generatedExamples).map(([name, { Component, path }]) => [
-    name,
-    { Component, file: `packages/ui/src/${path}.tsx` },
-  ]),
+/** Every demo in packages/ui/src/\<component>/examples; its file, from the repo root. */
+export const exampleFiles: Record<string, string> = Object.fromEntries(
+  Object.entries(examplePaths).map(([name, path]) => [name, `packages/ui/src/${path}.tsx`]),
 );

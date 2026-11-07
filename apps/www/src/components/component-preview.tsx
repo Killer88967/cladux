@@ -2,7 +2,8 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { codeToHtml } from "shiki";
 import { ComponentPreviewTabs } from "@/components/component-preview-tabs";
-import { examples } from "@/lib/examples";
+import { Demo } from "@/components/demos.generated";
+import { exampleFiles } from "@/lib/examples";
 
 // Examples live outside the app; keep Turbopack from tracing the whole repo.
 const REPO_ROOT = path.join(/* turbopackIgnore: true */ process.cwd(), "../..");
@@ -23,20 +24,18 @@ export async function ComponentPreview({
   previewClassName,
   clientOnly,
 }: ComponentPreviewProps) {
-  const example = examples[name];
-  if (!example) throw new Error(`Unknown example "${name}"`);
+  const file = exampleFiles[name];
+  if (!file) throw new Error(`Unknown example "${name}}`);
 
-  const source = (await readFile(path.join(REPO_ROOT, example.file), "utf8")).trim();
+  const source = (await readFile(path.join(REPO_ROOT, file), "utf8")).trim();
   const html = await codeToHtml(source, {
     lang: "tsx",
     themes: { light: "github-light", dark: "github-dark" },
   });
 
-  const { Component } = example;
-
   return (
     <ComponentPreviewTabs
-      preview={<Component />}
+      preview={<Demo name={name} />}
       code={source}
       html={html}
       align={align}
