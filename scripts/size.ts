@@ -24,11 +24,8 @@ const BUDGETS = {
   } as Record<string, number>,
   /** Any one file in a package's dist, on disk. */
   file: 500,
-  /** Files allowed more, until 0.6 shrinks the CLI. Remove each one once it fits under `file`. */
-  files: {
-    "packages/cli/dist/chunks/mcp.js": 1400,
-    "packages/cli/dist/chunks/src.js": 900,
-  } as Record<string, number>,
+  /** Files allowed more than `file`, by name without the hash. Say why next to each one. */
+  files: {} as Record<string, number>,
 };
 
 const kb = (bytes: number) => Math.round(bytes / 1024);

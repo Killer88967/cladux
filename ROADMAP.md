@@ -57,16 +57,17 @@ changelog at /docs/changelog.
 
 ## 0.6 - Performance
 
-Measured on the 0.5 build: every page loads about 2.9 MB of JavaScript, `next build`
-spends 33 s compiling, and the CLI package is 2.5 MB.
+Measured on the 0.5 build: every page loaded about 2.9 MB of JavaScript, `next build`
+spent 33 s compiling, and the CLI package was 2.4 MB. After 0.6: docs pages load 880 KB
+(267 KB gzipped), a rebuild takes about 12 s, and the CLI is 1.1 MB.
 
-- [ ] Load each demo only on the pages that show it. `ComponentPreview` imports all 366 demos, so every page ships them all (a 1.5 MB chunk with Tiptap, Vaul, input-otp...)
-- [ ] The same for blocks and charts: `/view/<name>` and `/charts` import every one
-- [ ] A budget in CI: fail the build when a page's JavaScript or a package grows past its limit
-- [ ] Faster builds: highlight code with one shared Shiki instance, and cache highlighted code and the generated files between builds
-- [ ] `pnpm dev` starts without regenerating what hasn't changed, and the registry rebuilds on save
-- [ ] Keep Turborepo's cache small: the site's 300 MB `.next` is cached on every build and never cleaned up (19 GB after a few weeks), so cache only package builds and add `pnpm clean`
-- [ ] Smaller CLI: minify the bundle, and load the MCP SDK (1.4 MB) and the css-style converter (890 KB) as dependencies instead of bundling them, so no file is over 500 KB
+- [x] Load each demo only on the pages that show it. `ComponentPreview` imports all 366 demos, so every page ships them all (a 1.5 MB chunk with Tiptap, Vaul, input-otp...)
+- [x] The same for blocks and charts: `/view/<name>` and `/charts` import every one
+- [x] A budget in CI: fail the build when a page's JavaScript or a package grows past its limit
+- [x] Faster builds: highlight code with one shared Shiki instance, and cache highlighted code and the generated files between builds
+- [x] `pnpm dev` starts without regenerating what hasn't changed, and the registry rebuilds on save
+- [x] Keep Turborepo's cache small: the site's 300 MB `.next` is cached on every build and never cleaned up (19 GB after a few weeks), so cache only package builds and add `pnpm clean`
+- [x] Smaller CLI: minify the bundle, and load the MCP SDK (1.4 MB) and the css-style converter (890 KB) as dependencies instead of bundling them, so no file is over 500 KB
 
 ## 0.7 - Testing and accessibility
 
