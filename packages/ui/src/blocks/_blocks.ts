@@ -5,7 +5,7 @@ export interface BlockMeta {
   name: string;
   title: string;
   description: string;
-  category: "Marketing" | "Authentication" | "Application";
+  category: "Marketing" | "Authentication" | "Application" | "E-commerce";
 }
 
 export const blocks: BlockMeta[] = [
@@ -70,6 +70,12 @@ export const blocks: BlockMeta[] = [
     category: "Marketing",
   },
   {
+    name: "not-found-01",
+    title: "404 page",
+    description: "A page-not-found screen with search and helpful links.",
+    category: "Marketing",
+  },
+  {
     name: "login-01",
     title: "Login card",
     description: "A centered sign-in card with social sign-in.",
@@ -92,5 +98,29 @@ export const blocks: BlockMeta[] = [
     title: "Dashboard",
     description: "A sidebar, stats, a chart and recent activity.",
     category: "Application",
+  },
+  {
+    name: "sidebar-01",
+    title: "App sidebar",
+    description: "An app shell with a sidebar that collapses to icons, a header and breadcrumbs.",
+    category: "Application",
+  },
+  {
+    name: "settings-01",
+    title: "Settings",
+    description: "Profile, notification switches and a danger zone, with a section menu.",
+    category: "Application",
+  },
+  {
+    name: "product-01",
+    title: "Product page",
+    description: "Photos, rating, color and size pickers, quantity and add to bag.",
+    category: "E-commerce",
+  },
+  {
+    name: "cart-01",
+    title: "Shopping bag",
+    description: "Line items with quantities, a live order summary and a discount code.",
+    category: "E-commerce",
   },
 ];

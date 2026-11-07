@@ -21,7 +21,7 @@ async function source(name: string) {
   return raw.replace(/from "\.\.\/[\w-]+\/([\w-]+)"/g, 'from "@/components/cl/$1"').trim();
 }
 
-const categories = ["Marketing", "Authentication", "Application"] as const;
+const categories = ["Marketing", "Authentication", "Application", "E-commerce"] as const;
 
 export default async function BlocksPage() {
   const withCode = await Promise.all(
@@ -39,7 +39,7 @@ export default async function BlocksPage() {
     <main>
       <PageHeader
         title="Building blocks for the web"
-        description="Heroes, pricing tables, login screens and dashboards, built from Cladux components. Add one with a single command, in Tailwind or plain CSS."
+        description="Heroes, pricing tables, login screens, app shells and shop pages, built from Cladux components. Add one with a single command, in Tailwind or plain CSS."
       >
         <Button asChild>
           <a href="#navbar-01">Browse blocks</a>
