@@ -93,7 +93,6 @@
           "mdx"
         ],
         "js/ts.experimental.useTsgo": true,
-        "js/ts.tsdk": "node_modules/typescript/lib",
         "js/ts.tsdk.promptToUseWorkspaceVersion": true,
         "json.schemaDownload.enable": true,
         "license.author": "Killer88967",
