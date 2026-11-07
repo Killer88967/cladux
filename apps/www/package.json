@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "node scripts/examples.ts && node scripts/registry.ts && node scripts/llms.ts && node scripts/search.ts && next dev",
-    "build": "node scripts/examples.ts && node scripts/registry.ts && node scripts/llms.ts && node scripts/search.ts && next build",
+    "dev": "node scripts/generate.ts --dev",
+    "build": "node scripts/generate.ts && next build",
     "start": "next start",
+    "generate": "node scripts/generate.ts --force",
     "typecheck": "node scripts/examples.ts && next typegen && tsc --noEmit",
     "examples": "node scripts/examples.ts",
     "registry": "node scripts/registry.ts",
