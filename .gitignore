@@ -8,9 +8,9 @@ next-env.d.ts
 !.env.example
 .DS_Store
 apps/www/src/lib/examples.generated.ts
-apps/www/src/lib/blocks.generated.ts
 apps/www/src/lib/charts.generated.ts
 apps/www/src/components/demos.generated.tsx
+apps/www/src/components/blocks.generated.tsx
 apps/www/public/r
 apps/www/public/cl
 apps/www/public/schema

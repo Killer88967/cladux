@@ -9,6 +9,7 @@
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
+    "size": "node scripts/size.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "changeset": "changeset",

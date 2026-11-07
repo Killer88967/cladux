@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { blocks } from "@cladux/ui/blocks/_blocks";
-import { blockComponents } from "@/lib/blocks.generated";
+import { Block } from "@/components/blocks.generated";
 
 // A block on its own page, for the previews on /blocks (and for opening full screen).
 
@@ -17,12 +17,11 @@ export async function generateMetadata({ params }: PageProps<"/view/[name]">): P
 
 export default async function ViewBlock({ params }: PageProps<"/view/[name]">) {
   const { name } = await params;
-  const Block = blockComponents[name];
-  if (!Block) notFound();
+  if (!blocks.some((b) => b.name === name)) notFound();
   // The wrapper is what the preview on /blocks measures to size its iframe.
   return (
     <div id="block-root">
-      <Block />
+      <Block name={name} />
     </div>
   );
 }
