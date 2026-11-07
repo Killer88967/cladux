@@ -1,0 +1,89 @@
+export const metadata = {
+  title: "QR Code",
+  description: "A QR code drawn as an SVG, in your theme's colors.",
+  new: true,
+};
+
+<ComponentPreview name="qr-code-demo" />
+
+## Usage
+
+```tsx
+import { QrCode } from "@cladux/ui";
+```
+
+```tsx
+<QrCode value="https://example.com" />
+```
+
+## Features
+
+- **It follows your theme.** The code is drawn in the text color on the background color, so it switches with dark mode. Change either with classes, such as `text-primary`.
+- **Sharp at any size.** It's an SVG: a couple of paths, with no canvas and no images.
+- **Renders on the server.** No JavaScript runs in the browser, so it's in the HTML from the first paint.
+- **Three styles.** Classic squares, rounded corner markers, or dots.
+- **A logo in the middle.** Pass `image`, and the code makes room for it and raises its error correction so it still scans.
+
+## Styles
+
+`variant` changes the shape of the squares and the three corner markers. Classes change the colors: the squares use the text color, and the background uses the background color.
+
+<ComponentPreview name="qr-code-variants" />
+
+```tsx
+<QrCode value={url} variant="classic" />
+<QrCode value={url} variant="rounded" className="text-primary" />
+<QrCode value={url} variant="dots" className="bg-primary/10 text-primary" />
+```
+
+Keep enough contrast between the two colors. In dark mode the code is light on dark: phone cameras on iPhone and Android read that, but some older scanner apps only read dark squares on a light background. For print, or to be safe everywhere, fix the colors:
+
+```tsx
+<QrCode value={url} className="bg-white text-black" />
+```
+
+## With a logo
+
+`image` puts a picture in the middle. The squares under it are left out, and `level` goes up to H, so up to 30% of the code can be missing and it still scans. Keep `imageSize` (a share of the code's width) at 0.25 or less.
+
+<ComponentPreview name="qr-code-generator" />
+
+```tsx
+<QrCode value={url} variant="rounded" image="/logo.svg" />
+```
+
+The generator above downloads the code as an SVG file. The code is a plain `<svg>` with a `ref`, so you can save it, print it, or draw it onto a canvas for a PNG.
+
+## Error correction
+
+`level` sets how much of the code can be damaged or covered and still scan. Higher levels need more squares for the same text.
+
+| Level | Recovers up to | Good for                        |
+| ----- | -------------- | ------------------------------- |
+| `L`   | 7%             | Screens, the smallest code      |
+| `M`   | 15%            | Most uses (the default)         |
+| `Q`   | 25%            | Print that might get scuffed    |
+| `H`   | 30%            | Codes with a logo (set for you) |
+
+## API Reference
+
+### QrCode
+
+Also takes every `<svg>` prop, and a `ref` to the `<svg>`.
+
+| Prop        | Type                               | Default     |
+| ----------- | ---------------------------------- | ----------- |
+| `value`     | `string`                           |             |
+| `size`      | `number \| string`                 | `160`       |
+| `level`     | `"L" \| "M" \| "Q" \| "H"`         | `"M"`       |
+| `margin`    | `number`                           | `2`         |
+| `variant`   | `"classic" \| "rounded" \| "dots"` | `"classic"` |
+| `image`     | `string`                           |             |
+| `imageSize` | `number`                           | `0.22`      |
+| `label`     | `string`                           | the value   |
+
+The QR code encoding comes from [uqr](https://github.com/unjs/uqr) (MIT), a small library with no dependencies of its own. `cladux add qr-code` installs it.
+
+## Accessibility
+
+The code is an image with a label, the value by default. For a link, also show the link as text nearby, for people who can't scan it.

@@ -89,11 +89,11 @@ spent 33 s compiling, and the CLI package was 2.4 MB. After 0.6: docs pages load
 
 For after 0.6:
 
-- [ ] Contribution graph: a year of activity as a grid of days, like GitHub's
-- [ ] Image Cropper, with zoom, aspect ratios and an exported image
-- [ ] Mention input: a textarea that suggests people after @
-- [ ] QR Code, drawn as SVG in the theme's colors
-- [ ] Masonry grid
+- [x] Contribution graph: a year of activity as a grid of days, like GitHub's
+- [x] Image Cropper, with zoom, aspect ratios and an exported image
+- [x] Mention input: a textarea that suggests people after @
+- [x] QR Code, drawn as SVG in the theme's colors
+- [x] Masonry grid
 
 ## Always
 

@@ -172,6 +172,12 @@ export {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "./context-menu/context-menu";
+export {
+  ContributionGraph,
+  type ContributionDay,
+  type ContributionGraphDay,
+  type ContributionGraphProps,
+} from "./contribution-graph/contribution-graph";
 export { CopyButton } from "./copy-button/copy-button";
 export { Countdown, useCountdown, type CountdownParts } from "./countdown/countdown";
 export {
@@ -259,6 +265,13 @@ export {
 } from "./file-upload/file-upload";
 export { HoverCard, HoverCardContent, HoverCardTrigger } from "./hover-card/hover-card";
 export { ImageCompare, type ImageCompareProps } from "./image-compare/image-compare";
+export {
+  ImageCropper,
+  type CropArea,
+  type CropExportOptions,
+  type ImageCropperHandle,
+  type ImageCropperProps,
+} from "./image-cropper/image-cropper";
 export { Input } from "./input/input";
 export {
   InputGroup,
@@ -296,6 +309,13 @@ export { Kbd, KbdGroup } from "./kbd/kbd";
 export { Label } from "./label/label";
 export { Marker, MarkerContent, MarkerIcon, markerVariants } from "./marker/marker";
 export { Marquee, type MarqueeProps } from "./marquee/marquee";
+export { Masonry, type MasonryProps } from "./masonry/masonry";
+export {
+  MentionInput,
+  type MentionInputProps,
+  type MentionItem,
+  type MentionSource,
+} from "./mention-input/mention-input";
 export {
   Menubar,
   MenubarCheckboxItem,
@@ -377,6 +397,7 @@ export {
   PopoverTrigger,
 } from "./popover/popover";
 export { Progress } from "./progress/progress";
+export { QrCode, type QrCodeProps } from "./qr-code/qr-code";
 export {
   Questionnaire,
   QuestionnaireActions,

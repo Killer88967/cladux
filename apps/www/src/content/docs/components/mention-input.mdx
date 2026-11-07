@@ -1,0 +1,95 @@
+export const metadata = {
+  title: "Mention Input",
+  description: "A textarea that suggests people when you type @.",
+  new: true,
+};
+
+<ComponentPreview name="mention-input-demo" />
+
+## Usage
+
+```tsx
+import { MentionInput } from "@cladux/ui";
+```
+
+```tsx
+<MentionInput
+  items={[
+    { id: "ada", label: "Ada Lovelace", description: "Engineering" },
+    { id: "grace", label: "Grace Hopper" },
+  ]}
+  onMentionsChange={(people) => setNotify(people)}
+/>
+```
+
+## Features
+
+- **Suggestions open at the caret,** right under the @, and narrow down as you type. Names that start with what you typed come first.
+- **It's plain text.** The value is what you see, such as `Thanks @Ada Lovelace!`, so it saves, searches and sends like any other text. Mentions are highlighted behind the text.
+- **A mention lasts while its name does.** Edit or delete part of a name and it stops being a mention. `onMentionsChange` gets the people mentioned whenever that changes.
+- **Search your own way.** Pass a list, or a function that returns matches, sync or async. A slow search that comes back late is ignored.
+- **Like a combobox from the keyboard.** The up and down arrows move through the suggestions, Enter or Tab picks one, and Escape closes them.
+
+## Searching a server
+
+`items` can be a function that takes what was typed after the @ and returns the matches, or a promise of them. "Searching…" shows while it waits.
+
+<ComponentPreview name="mention-input-async" />
+
+```tsx
+async function searchPeople(query: string) {
+  const res = await fetch(`/api/people?q=${encodeURIComponent(query)}`);
+  return res.json(); // [{ id, label, description?, avatar? }]
+}
+
+<MentionInput items={searchPeople} onMentionsChange={setMentions} />;
+```
+
+## Other triggers
+
+`trigger` changes the character that starts a mention, for tags or channels:
+
+```tsx
+<MentionInput trigger="#" items={channels} placeholder="Type # for a channel" />
+```
+
+## In a form
+
+`MentionInput` takes the same props as a textarea, such as `name`, `required` and `rows`, so it goes with a form like one. The value is the plain text. To store who was mentioned, send the ids from `onMentionsChange` in a hidden field.
+
+```tsx
+<form action={post}>
+  <MentionInput name="comment" items={team} onMentionsChange={setMentions} />
+  <input type="hidden" name="mentions" value={mentions.map((m) => m.id).join(",")} />
+</form>
+```
+
+## API Reference
+
+### MentionInput
+
+Also takes every `<textarea>` prop.
+
+| Prop               | Type                                                                  | Default          |
+| ------------------ | --------------------------------------------------------------------- | ---------------- |
+| `items`            | `MentionItem[] \| (query) => MentionItem[] \| Promise<MentionItem[]>` |                  |
+| `value`            | `string`                                                              |                  |
+| `defaultValue`     | `string`                                                              | `""`             |
+| `onValueChange`    | `(value: string) => void`                                             |                  |
+| `onMentionsChange` | `(mentions: MentionItem[]) => void`                                   |                  |
+| `trigger`          | `string`                                                              | `"@"`            |
+| `limit`            | `number`                                                              | `6`              |
+| `emptyText`        | `string`                                                              | `"No one found"` |
+
+### MentionItem
+
+| Field         | Type     | What it is                                   |
+| ------------- | -------- | -------------------------------------------- |
+| `id`          | `string` | Your id for them                             |
+| `label`       | `string` | What's written after the trigger             |
+| `description` | `string` | A second line in the suggestions, optional   |
+| `avatar`      | `string` | An image URL, optional; initials without one |
+
+## Accessibility
+
+The textarea is a combobox: screen readers hear when suggestions open, and which one is active as the arrows move through them. Typing works as usual while they're open, and Escape closes them without changing the text. Mentions are plain text, so they read like the rest of the message.

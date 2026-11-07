@@ -1,0 +1,79 @@
+export const metadata = {
+  title: "Masonry",
+  description: "A grid of items with different heights, packed into even columns.",
+  new: true,
+};
+
+<ComponentPreview name="masonry-demo" />
+
+## Usage
+
+```tsx
+import { Masonry } from "@cladux/ui";
+```
+
+```tsx
+<Masonry columnWidth={240} gap={16}>
+  {posts.map((post) => (
+    <PostCard key={post.id} post={post} />
+  ))}
+</Masonry>
+```
+
+## Features
+
+- **Even columns.** Each item goes into the shortest column, so no column runs much longer than the others.
+- **Order stays left to right.** Item 2 sits next to item 1, not under it, and Tab and screen readers follow that order. CSS columns alone would go down each column first.
+- **It looks right before JavaScript runs.** On the server and the first paint, CSS columns lay it out; once the page loads, the items move into place.
+- **It keeps up.** When an image loads, a card grows, or the window resizes, the layout updates, and items slide to their new places.
+- **Responsive without breakpoints.** `columnWidth` fits as many columns as there's room for. Or set `columns` for a fixed number.
+
+## Images
+
+Give images a size before they load, such as an `aspect-ratio`, so the layout is right from the start instead of shifting as each one arrives. Without one, Masonry still updates when they load.
+
+<ComponentPreview name="masonry-images" />
+
+```tsx
+<Masonry columnWidth={160} gap={8}>
+  {photos.map((photo) => (
+    <img
+      key={photo.id}
+      src={photo.src}
+      alt={photo.alt}
+      style={{ aspectRatio: photo.width / photo.height }}
+      className="w-full rounded-lg object-cover"
+    />
+  ))}
+</Masonry>
+```
+
+## A fixed number of columns
+
+`columns` sets the count, whatever the width. Add or remove items and the rest slide into place.
+
+<ComponentPreview name="masonry-columns" />
+
+```tsx
+<Masonry columns={3} gap={10}>
+  {items}
+</Masonry>
+```
+
+For a different count at different widths, pick it with a media query, such as `useMediaQuery`, or use `columnWidth` and let the width decide.
+
+## API Reference
+
+### Masonry
+
+Also takes every `<div>` prop. Each child becomes one item.
+
+| Prop          | Type     | Default |
+| ------------- | -------- | ------- |
+| `columns`     | `number` |         |
+| `columnWidth` | `number` | `240`   |
+| `gap`         | `number` | `16`    |
+
+## Accessibility
+
+Items keep their order in the page, left to right and top to bottom, so Tab, screen readers and the visible layout agree. In right-to-left layouts, the first column is on the right. The slide when items move is turned off for people who ask for reduced motion.

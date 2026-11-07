@@ -1,0 +1,112 @@
+export const metadata = {
+  title: "Image Cropper",
+  description: "Move and zoom an image under a frame, then export the crop as an image.",
+  new: true,
+};
+
+<ComponentPreview name="image-cropper-demo" />
+
+## Usage
+
+```tsx
+import { ImageCropper } from "@cladux/ui";
+```
+
+```tsx
+<ImageCropper src={photo} aspect={4 / 3} onCropComplete={(area) => setArea(area)} />
+```
+
+## Features
+
+- **The frame stays put, the image moves.** Drag it, scroll or pinch to zoom, or use the zoom slider. Zooming keeps the point under your pointer or fingers in place.
+- **There's never an empty corner.** The image always covers the frame, however far you drag or zoom out.
+- **Any aspect ratio,** and a round frame for avatars.
+- **It works from the keyboard.** Tab to it, move with the arrow keys (Shift for bigger steps), zoom with plus and minus, and reset with 0.
+- **Exports are full quality.** The crop is cut from the original image, not the smaller one on screen, as a PNG, JPEG or WebP, at its own size or any width you ask for.
+
+## Aspect ratios
+
+`aspect` is the width divided by the height. Changing it keeps the image covering the new frame. `onCropComplete` gets the crop in the image's own pixels, after each move or zoom ends.
+
+<ComponentPreview name="image-cropper-aspect" />
+
+```tsx
+<ImageCropper src={photo} aspect={16 / 9} onCropComplete={setArea} />
+```
+
+## Avatars
+
+`shape="round"` shows a circle. To get the image, use a ref: `toDataURL()` and `toBlob()` cut the crop from the original image, and `round: true` cuts the corners off too. Pick a photo from your device to try it.
+
+<ComponentPreview name="image-cropper-avatar" />
+
+```tsx
+const cropper = React.useRef<ImageCropperHandle>(null);
+
+<ImageCropper ref={cropper} src={src} shape="round" />;
+
+// A 256 × 256 PNG with the corners cut off:
+const png = cropper.current?.toDataURL({ width: 256, round: true });
+
+// Or a Blob, to upload:
+const blob = await cropper.current?.toBlob({ type: "image/jpeg", quality: 0.9 });
+```
+
+For a photo the user picks, give the cropper `URL.createObjectURL(file)`, and revoke it when you're done with it.
+
+## Images from other sites
+
+A browser only lets a page read the pixels of an image from another site when that site allows it. Without that, the image still shows and crops, but exporting it fails. If the site sends the right header (most image CDNs do), add `crossOrigin="anonymous"`:
+
+```tsx
+<ImageCropper src="https://images.example.com/photo.jpg" crossOrigin="anonymous" />
+```
+
+If it doesn't, crop on your server instead: send it the `CropArea` from `onCropComplete` or `getCrop()`.
+
+## API Reference
+
+### ImageCropper
+
+| Prop             | Type                               | Default       |
+| ---------------- | ---------------------------------- | ------------- |
+| `src`            | `string`                           |               |
+| `alt`            | `string`                           | `""`          |
+| `aspect`         | `number`                           | `1`           |
+| `shape`          | `"rect" \| "round"`                | `"rect"`      |
+| `zoom`           | `number`                           |               |
+| `defaultZoom`    | `number`                           | `1`           |
+| `onZoomChange`   | `(zoom: number) => void`           |               |
+| `minZoom`        | `number`                           | `1`           |
+| `maxZoom`        | `number`                           | `4`           |
+| `onCropComplete` | `(area: CropArea) => void`         |               |
+| `controls`       | `boolean`                          | `true`        |
+| `grid`           | `boolean`                          | `true`        |
+| `crossOrigin`    | `"anonymous" \| "use-credentials"` |               |
+| `disabled`       | `boolean`                          | `false`       |
+| `label`          | `string`                           | a description |
+| `ref`            | `Ref<ImageCropperHandle>`          |               |
+
+### ImageCropperHandle
+
+| Method               | Returns                 | What it does                    |
+| -------------------- | ----------------------- | ------------------------------- |
+| `getCrop()`          | `CropArea \| null`      | The crop, in the image's pixels |
+| `toDataURL(options)` | `string \| null`        | The crop as a data URL          |
+| `toBlob(options)`    | `Promise<Blob \| null>` | The crop as a Blob, to upload   |
+| `reset()`            |                         | Back to no zoom, centered       |
+
+### CropExportOptions
+
+| Option    | Type      | Default          |
+| --------- | --------- | ---------------- |
+| `type`    | `string`  | `"image/png"`    |
+| `quality` | `number`  | the browser's    |
+| `width`   | `number`  | the crop's width |
+| `round`   | `boolean` | `false`          |
+
+`CropArea` is `{ x, y, width, height }`, in the image's own pixels.
+
+## Accessibility
+
+The cropper is one tab stop with a label that says how to use it. The arrow keys move the crop, plus and minus zoom, and 0 resets the zoom. The zoom slider is a regular slider with its own label. Give `alt` a description of the image.
