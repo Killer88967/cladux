@@ -15,14 +15,9 @@
     "cyan": "#56B6C2",
     "orange": "#D19A66"
   },
-  "transient_prompt": {
-    "foreground": "p:muted",
-    "foreground_templates": ["{{ if gt .Code 0 }}p:red{{ end }}"],
-    "template": "❯ "
-  },
   "secondary_prompt": {
     "foreground": "p:muted",
-    "template": "  ❯ "
+    "template": "❯ "
   },
   "blocks": [
     {
@@ -30,17 +25,10 @@
       "alignment": "left",
       "segments": [
         {
-          "type": "text",
-          "style": "plain",
-          "foreground": "p:muted",
-          "template": "╭─"
-        },
-        {
           "type": "path",
           "style": "plain",
-          "foreground": "p:bg",
-          "background": "p:blue",
-          "template": " ❐ {{ .Path }} ",
+          "foreground": "p:blue",
+          "template": "<b>{{ .Path }}</b>",
           "options": {
             "style": "agnoster_short",
             "max_depth": 3,
@@ -51,16 +39,15 @@
         {
           "type": "git",
           "style": "plain",
-          "foreground": "p:bg",
-          "background": "p:green",
-          "background_templates": [
+          "foreground": "p:green",
+          "foreground_templates": [
             "{{ if or .Working.Changed .Staging.Changed }}p:yellow{{ end }}",
             "{{ if or (gt .Ahead 0) (gt .Behind 0) }}p:cyan{{ end }}"
           ],
-          "template": " {{ .HEAD }}{{ .BranchStatus }}{{ if .Staging.Changed }} ✚{{ end }}{{ if .Working.Changed }} ●{{ end }}{{ if gt .StashCount 0 }} ⚑{{ .StashCount }}{{ end }} ",
+          "template": " <p:muted>on</> <b>{{ .HEAD }}</b>{{ if .BranchStatus }} {{ trim .BranchStatus }}{{ end }}{{ if .Staging.Changed }} ✚{{ end }}{{ if .Working.Changed }} ●{{ end }}{{ if gt .StashCount 0 }} ⚑{{ .StashCount }}{{ end }}",
           "options": {
             "branch_icon": "⎇ ",
-            "branch_identical_icon": "≡",
+            "branch_identical_icon": "",
             "branch_ahead_icon": "⇡",
             "branch_behind_icon": "⇣",
             "branch_gone_icon": "⊘",
@@ -72,85 +59,70 @@
             "merge_icon": "⑂ ",
             "no_commits_icon": "∅ "
           }
+        },
+        {
+          "type": "status",
+          "style": "plain",
+          "foreground": "p:purple",
+          "foreground_templates": ["{{ if gt .Code 0 }}p:red{{ end }}"],
+          "template": " ❯",
+          "options": { "always_enabled": true }
         }
       ]
     },
     {
-      "type": "prompt",
-      "alignment": "right",
-      "overflow": "hide",
+      "type": "rprompt",
       "segments": [
         {
-          "type": "text",
+          "type": "status",
           "style": "plain",
-          "foreground": "p:purple",
-          "template": "{{ if .Env.CLADUX_PM }} ⧉ {{ .Env.CLADUX_PM }}{{ end }}"
-        },
-        {
-          "type": "node",
-          "style": "plain",
-          "foreground": "p:green",
-          "template": " ⬢ {{ .Major }}.{{ .Minor }}",
-          "options": { "display_mode": "files" }
-        },
-        {
-          "type": "python",
-          "style": "plain",
-          "foreground": "p:yellow",
-          "template": " ∿ {{ .Major }}.{{ .Minor }}{{ if .Venv }} ({{ .Venv }}){{ end }}",
-          "options": { "display_mode": "files" }
-        },
-        {
-          "type": "go",
-          "style": "plain",
-          "foreground": "p:cyan",
-          "template": " ⊚ {{ .Major }}.{{ .Minor }}",
-          "options": { "display_mode": "files" }
-        },
-        {
-          "type": "rust",
-          "style": "plain",
-          "foreground": "p:orange",
-          "template": " ⛭ {{ .Major }}.{{ .Minor }}",
-          "options": { "display_mode": "files" }
+          "foreground": "p:red",
+          "template": "{{ if gt .Code 0 }}✘ {{ .Code }} {{ end }}",
+          "options": { "always_enabled": true }
         },
         {
           "type": "executiontime",
           "style": "plain",
           "foreground": "p:orange",
-          "template": " ◷ {{ .FormattedMs }}",
+          "template": "◷ {{ .FormattedMs }} ",
           "options": {
             "threshold": 2000,
             "style": "round"
           }
         },
         {
-          "type": "status",
-          "style": "plain",
-          "foreground": "p:red",
-          "template": "{{ if gt .Code 0 }} ✘ {{ .Code }}{{ end }}",
-          "options": { "always_enabled": true }
-        }
-      ]
-    },
-    {
-      "type": "prompt",
-      "alignment": "left",
-      "newline": true,
-      "segments": [
-        {
           "type": "text",
           "style": "plain",
-          "foreground": "p:muted",
-          "template": "╰─"
+          "foreground": "p:purple",
+          "template": "{{ if .Env.CLADUX_PM }}⧉ {{ .Env.CLADUX_PM }} {{ end }}"
         },
         {
-          "type": "status",
+          "type": "node",
           "style": "plain",
-          "foreground": "p:blue",
-          "foreground_templates": ["{{ if gt .Code 0 }}p:red{{ end }}"],
-          "template": "❯",
-          "options": { "always_enabled": true }
+          "foreground": "p:green",
+          "template": "⬢ {{ .Major }}.{{ .Minor }} ",
+          "options": { "display_mode": "files" }
+        },
+        {
+          "type": "python",
+          "style": "plain",
+          "foreground": "p:yellow",
+          "template": "∿ {{ .Major }}.{{ .Minor }}{{ if .Venv }} ({{ .Venv }}){{ end }} ",
+          "options": { "display_mode": "files" }
+        },
+        {
+          "type": "go",
+          "style": "plain",
+          "foreground": "p:cyan",
+          "template": "⊚ {{ .Major }}.{{ .Minor }} ",
+          "options": { "display_mode": "files" }
+        },
+        {
+          "type": "rust",
+          "style": "plain",
+          "foreground": "p:orange",
+          "template": "⛭ {{ .Major }}.{{ .Minor }} ",
+          "options": { "display_mode": "files" }
         }
       ]
     }
