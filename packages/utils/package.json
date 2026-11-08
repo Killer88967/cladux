@@ -13,8 +13,7 @@
     "./cl.js": "./dist/cl.js"
   },
   "scripts": {
-    "build": "esbuild src/dom/auto.ts --bundle --format=iife --minify --target=es2022 --outfile=dist/cl.js",
-    "build:nm": "esbuild src/dom/auto.ts --bundle --format=iife --target=es2022 --outfile=dist/cl.js",
+    "build": "node scripts/build.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -26,6 +25,7 @@
     "dist"
   ],
   "devDependencies": {
+    "@types/node": "^26.6.6",
     "esbuild": "^0.28.2"
   }
 }
