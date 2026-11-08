@@ -25,4 +25,6 @@ apps/visual/report
 apps/e2e/test-results
 apps/e2e/playwright-report
 packages/html/cl.css
+packages/html/cl.min.css
 packages/html/cl.js
+packages/html/cl.min.js

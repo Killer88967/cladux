@@ -26,12 +26,16 @@
   "style": "cl.css",
   "exports": {
     "./cl.css": "./cl.css",
+    "./cl.min.css": "./cl.min.css",
     "./cl.js": "./cl.js",
+    "./cl.min.js": "./cl.min.js",
     "./package.json": "./package.json"
   },
   "files": [
     "cl.css",
-    "cl.js"
+    "cl.min.css",
+    "cl.js",
+    "cl.min.js"
   ],
   "sideEffects": true,
   "scripts": {
