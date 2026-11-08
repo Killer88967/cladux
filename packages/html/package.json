@@ -1,0 +1,48 @@
+{
+  "name": "cladux-html",
+  "version": "0.1.0",
+  "description": "Cladux for plain HTML: one stylesheet and one small script, from a CDN or npm.",
+  "keywords": [
+    "cladux",
+    "css",
+    "html",
+    "components",
+    "ui",
+    "cdn",
+    "shadcn"
+  ],
+  "homepage": "https://cladux.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Killer88967/cladux.git",
+    "directory": "packages/html"
+  },
+  "bugs": {
+    "url": "https://github.com/Killer88967/cladux/issues"
+  },
+  "license": "Apache-2.0",
+  "author": "Killer88967",
+  "type": "module",
+  "style": "cl.css",
+  "exports": {
+    "./cl.css": "./cl.css",
+    "./cl.js": "./cl.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "cl.css",
+    "cl.js"
+  ],
+  "sideEffects": true,
+  "scripts": {
+    "build": "node scripts/build.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@cladux/styles": "workspace:*",
+    "@cladux/utils": "workspace:*",
+    "@types/node": "^26.6.6"
+  }
+}

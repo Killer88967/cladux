@@ -442,6 +442,18 @@ importers:
         specifier: ^26.6.6
         version: 26.6.6
 
+  packages/html:
+    devDependencies:
+      "@cladux/styles":
+        specifier: workspace:*
+        version: link:../styles
+      "@cladux/utils":
+        specifier: workspace:*
+        version: link:../utils
+      "@types/node":
+        specifier: ^26.6.6
+        version: 26.6.6
+
   packages/registry:
     devDependencies:
       "@cfworker/json-schema":
