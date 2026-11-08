@@ -2,6 +2,10 @@
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "version": 4,
   "final_space": true,
+  "transient_prompt": {
+    "foreground": "#5C6370",
+    "template": "❯ "
+  },
   "blocks": [
     {
       "type": "prompt",
@@ -13,23 +17,29 @@
           "foreground": "#61AFEF",
           "template": "{{ .Path }}",
           "options": {
-            "style": "full"
+            "style": "agnoster_short",
+            "max_depth": 3,
+            "home_icon": "~"
           }
         },
         {
           "type": "git",
           "style": "plain",
           "foreground": "#98C379",
-          "template": " ({{ .HEAD }}{{ if .Working.Changed }} *{{ end }}{{ if .Staging.Changed }} +{{ end }}{{ if gt .Behind 0 }} ↓{{ .Behind }}{{ end }}{{ if gt .Ahead 0 }} ↑{{ .Ahead }}{{ end }})",
+          "foreground_templates": ["{{ if or .Working.Changed .Staging.Changed }}#E5C07B{{ end }}"],
+          "template": " {{ .HEAD }}{{ if .Working.Changed }} *{{ end }}{{ if .Staging.Changed }} +{{ end }}{{ if gt .StashCount 0 }} ${{ .StashCount }}{{ end }}{{ if gt .Behind 0 }} ↓{{ .Behind }}{{ end }}{{ if gt .Ahead 0 }} ↑{{ .Ahead }}{{ end }}",
           "options": {
             "branch_icon": "",
             "branch_ahead_icon": "",
             "branch_behind_icon": "",
-            "commit_icon": "",
-            "tag_icon": "",
-            "rebase_icon": "",
-            "cherry_pick_icon": "",
-            "merge_icon": "",
+            "branch_identical_icon": "",
+            "branch_gone_icon": "",
+            "commit_icon": "@",
+            "tag_icon": "#",
+            "rebase_icon": "rebase ",
+            "cherry_pick_icon": "pick ",
+            "revert_icon": "revert ",
+            "merge_icon": "merge ",
             "no_commits_icon": ""
           }
         },
@@ -37,62 +47,67 @@
           "type": "text",
           "style": "plain",
           "foreground": "#C678DD",
-          "template": "{{ if .Env.CLADUX_PM }} [{{ .Env.CLADUX_PM }}]{{ end }}"
+          "template": "{{ if .Env.CLADUX_PM }} {{ .Env.CLADUX_PM }}{{ end }}"
         },
         {
           "type": "node",
           "style": "plain",
-          "foreground": "#98C379",
+          "foreground": "#5C6370",
           "template": " node {{ .Full }}",
-          "options": {
-            "display_mode": "files",
-            "fetch_version": true
-          }
+          "options": { "display_mode": "files" }
         },
         {
           "type": "python",
           "style": "plain",
-          "foreground": "#E5C07B",
-          "template": " python {{ .Full }}",
-          "options": {
-            "display_mode": "files",
-            "fetch_version": true
-          }
+          "foreground": "#5C6370",
+          "template": " py {{ .Full }}",
+          "options": { "display_mode": "files" }
         },
         {
           "type": "go",
           "style": "plain",
-          "foreground": "#56B6C2",
+          "foreground": "#5C6370",
           "template": " go {{ .Full }}",
-          "options": {
-            "display_mode": "files",
-            "fetch_version": true
-          }
+          "options": { "display_mode": "files" }
         },
         {
           "type": "rust",
           "style": "plain",
-          "foreground": "#D19A66",
+          "foreground": "#5C6370",
           "template": " rust {{ .Full }}",
+          "options": { "display_mode": "files" }
+        },
+        {
+          "type": "executiontime",
+          "style": "plain",
+          "foreground": "#D19A66",
+          "template": " {{ .FormattedMs }}",
           "options": {
-            "display_mode": "files",
-            "fetch_version": true
+            "threshold": 2000,
+            "style": "round"
           }
         },
         {
           "type": "status",
           "style": "plain",
           "foreground": "#E06C75",
-          "template": "{{ if gt .Code 0 }} [exit {{ .Code }}]{{ end }}",
-          "options": {
-            "always_enabled": true
-          }
-        },
+          "template": "{{ if gt .Code 0 }} exit {{ .Code }}{{ end }}",
+          "options": { "always_enabled": true }
+        }
+      ]
+    },
+    {
+      "type": "prompt",
+      "alignment": "left",
+      "newline": true,
+      "segments": [
         {
-          "type": "text",
+          "type": "status",
           "style": "plain",
           "foreground": "#61AFEF",
-          "template": " >"
+          "foreground_templates": ["{{ if gt .Code 0 }}#E06C75{{ end }}"],
+          "template": "❯",
+          "options": { "always_enabled": true }
         }
       ]
     }

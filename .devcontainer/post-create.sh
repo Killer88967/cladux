@@ -22,7 +22,7 @@ if ! command -v oh-my-posh >/dev/null 2>&1; then
 
   mkdir -p "$OMP_BIN_DIR"
 
-  curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "$OMP_BIN_DIR"
+  curl -fsSL https://ohmyposh.dev/install.sh | bash -s -- -d "$OMP_BIN_DIR"
 fi
 
 # Ensure Oh My Posh is available in this script.
