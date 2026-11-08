@@ -7,8 +7,10 @@ import { createHighlighter } from "shiki";
 // with each result saved in .next/cache, so the next build reuses it instead of
 // highlighting the same code again. Change VERSION to start the cache over
 // (after changing the themes, say).
-const VERSION = 1;
-const THEMES = { light: "github-light", dark: "github-dark" } as const;
+const VERSION = 2;
+// GitHub's high-contrast light theme: the only light one whose every color reads at
+// 4.5:1 on the code background (WCAG AA). github-dark-default does in dark mode.
+const THEMES = { light: "github-light-high-contrast", dark: "github-dark-default" } as const;
 const LANGS = ["tsx", "html"] as const;
 const CACHE = path.join(/* turbopackIgnore: true */ process.cwd(), ".next/cache/highlight");
 

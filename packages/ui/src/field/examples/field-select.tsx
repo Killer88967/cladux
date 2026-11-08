@@ -13,9 +13,9 @@ import {
 export default function FieldSelect() {
   return (
     <Field className="w-full max-w-xs">
-      <FieldLabel>Department</FieldLabel>
+      <FieldLabel htmlFor="field-department">Department</FieldLabel>
       <Select>
-        <SelectTrigger>
+        <SelectTrigger id="field-department">
           <SelectValue placeholder="Choose department" />
         </SelectTrigger>
         <SelectContent>

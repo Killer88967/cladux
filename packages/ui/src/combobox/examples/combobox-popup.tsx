@@ -69,6 +69,7 @@ export function ComboboxPopup() {
     <>
       <Combobox items={countries} defaultValue={countries[0]}>
         <ComboboxTrigger
+          aria-label="Country"
           render={<Button variant="outline" className="w-64 justify-between font-normal" />}
         >
           <ComboboxValue />

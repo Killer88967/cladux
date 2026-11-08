@@ -51,7 +51,7 @@ export function ItemDropdown() {
               <Item size="xs" className="w-full p-2">
                 <ItemMedia>
                   <Avatar className="size-[--spacing(6.5)]">
-                    <AvatarImage src={person.avatar} className="grayscale" />
+                    <AvatarImage src={person.avatar} alt={person.username} className="grayscale" />
                     <AvatarFallback>{person.username.charAt(0)}</AvatarFallback>
                   </Avatar>
                 </ItemMedia>

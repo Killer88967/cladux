@@ -19,3 +19,8 @@ apps/www/public/docs.md
 apps/www/public/llms.txt
 apps/www/public/llms-full.txt
 apps/www/public/search.json
+packages/ui/.visual
+apps/visual/screenshots*
+apps/visual/report
+apps/e2e/test-results
+apps/e2e/playwright-report

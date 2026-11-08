@@ -58,7 +58,7 @@ export function CollapsibleSettings() {
             </CollapsibleContent>
           </FieldGroup>
           <CollapsibleTrigger asChild>
-            <Button variant="outline" size="icon">
+            <Button variant="outline" size="icon" aria-label={isOpen ? "Collapse" : "Expand"}>
               {isOpen ? <MinimizeIcon /> : <MaximizeIcon />}
             </Button>
           </CollapsibleTrigger>

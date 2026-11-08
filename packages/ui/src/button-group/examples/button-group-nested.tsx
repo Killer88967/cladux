@@ -15,7 +15,7 @@ export function ButtonGroupNested() {
   return (
     <ButtonGroup>
       <ButtonGroup>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>

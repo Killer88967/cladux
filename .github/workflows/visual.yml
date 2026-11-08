@@ -1,0 +1,69 @@
+name: Visual changes
+
+# On each pull request: screenshots of every demo in both styles, light and
+# dark, left to right and right to left, from the base branch and from the pull
+# request, compared. The job summary lists what changed; the visual-report
+# artifact shows each one before and after. It doesn't fail on changes, which
+# are often the point of the pull request.
+
+on:
+  pull_request:
+
+concurrency:
+  group: visual-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  visual:
+    name: Screenshots, before and after
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: head
+
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          path: base
+
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: head/package.json
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          cache: pnpm
+          cache-dependency-path: head/pnpm-lock.yaml
+
+      - name: Screenshots of the pull request
+        working-directory: head
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+          pnpm --filter visual exec playwright install --with-deps chromium
+          pnpm --filter visual harness
+          pnpm --filter visual shoot --out "$GITHUB_WORKSPACE/shots/head"
+
+      # The base branch, through the pull request's harness, so both are taken
+      # the same way (and it works before the harness exists on the base branch).
+      - name: Screenshots of the base branch
+        working-directory: base
+        run: |
+          rm -rf apps/visual && cp -r ../head/apps/visual apps/visual
+          rm -rf apps/visual/node_modules apps/visual/dist
+          pnpm install --no-frozen-lockfile
+          pnpm build
+          pnpm --filter visual harness
+          pnpm --filter visual shoot --out "$GITHUB_WORKSPACE/shots/base"
+
+      - name: Compare
+        working-directory: head
+        run: pnpm --filter visual compare "$GITHUB_WORKSPACE/shots/base" "$GITHUB_WORKSPACE/shots/head"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: visual-report
+          path: head/apps/visual/report/runs
+          retention-days: 14

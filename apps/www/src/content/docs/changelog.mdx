@@ -6,6 +6,17 @@ export const metadata = {
 
 ## November 2026
 
+### Accessibility
+
+- Every docs page and block is now checked with [axe](https://github.com/dequelabs/axe-core) in light and dark mode on each change, and the problems it found are fixed:
+  - Code is highlighted with GitHub's high-contrast light theme, so every color reads at 4.5:1 or better.
+  - [Slider](/docs/components/slider) puts its `aria-label` on the thumbs, where screen readers look for it, so labelled sliders are announced by name.
+  - [Calendar](/docs/components/calendar) day buttons are labelled with the number they show ("Sunday, March 1, 2026"), which voice control needs.
+  - [Scroll Area](/docs/components/scroll-area) and [Virtual List](/docs/components/virtual-list) can be scrolled with the keyboard.
+  - [Item](/docs/components/item)s inside an `ItemGroup` are list items, [Combobox](/docs/components/combobox)'s icon buttons have names, and [Rich Text Editor](/docs/components/rich-text-editor) takes a `label`.
+  - The avatar fallback and trace details have enough contrast, and every demo's buttons, inputs and progress bars have names.
+- The plain HTML runtime, the site's search, theme customizer and copy buttons, and the CLI in fresh Next.js and Vite apps all have browser tests.
+
 ### Plain HTML
 
 - [Plain HTML](/docs/html) has its own page: setup, the components that work without React, every attribute the script reads, `cl.toast()` and `cl.openDialog()`, and the layout helpers (`cl-stack`, `cl-cluster`, `cl-grid-auto`, `cl-container`).

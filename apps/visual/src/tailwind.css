@@ -1,0 +1,14 @@
+/* The Tailwind style, set up the way `cladux init` sets up a project. */
+@import "./fonts.css";
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+@import "../../../packages/ui/.visual/tailwind/css/cl.css";
+
+@source "../../../packages/ui/.visual/tailwind";
+@source "../../../packages/ui/src/*/examples/*.tsx";
+@source "./";
+
+@theme {
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+}

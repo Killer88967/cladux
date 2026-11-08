@@ -14,7 +14,7 @@ export default function ButtonGroupSize() {
         <Button variant="outline" size="sm">
           Group
         </Button>
-        <Button variant="outline" size="icon-sm">
+        <Button variant="outline" size="icon-sm" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>
@@ -22,7 +22,7 @@ export default function ButtonGroupSize() {
         <Button variant="outline">Default</Button>
         <Button variant="outline">Button</Button>
         <Button variant="outline">Group</Button>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" size="icon" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>
@@ -36,7 +36,7 @@ export default function ButtonGroupSize() {
         <Button variant="outline" size="lg">
           Group
         </Button>
-        <Button variant="outline" size="icon-lg">
+        <Button variant="outline" size="icon-lg" aria-label="Add">
           <PlusIcon />
         </Button>
       </ButtonGroup>

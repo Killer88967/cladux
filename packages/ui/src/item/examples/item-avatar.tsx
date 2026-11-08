@@ -18,7 +18,7 @@ export function ItemAvatar() {
       <Item variant="outline">
         <ItemMedia>
           <Avatar className="size-10">
-            <AvatarImage src="https://github.com/evilrabbit.png" />
+            <AvatarImage src="https://github.com/evilrabbit.png" alt="Evil Rabbit" />
             <AvatarFallback>ER</AvatarFallback>
           </Avatar>
         </ItemMedia>

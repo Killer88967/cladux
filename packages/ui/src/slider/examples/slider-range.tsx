@@ -1,5 +1,13 @@
 import { Slider } from "@cladux/ui";
 
 export function SliderRange() {
-  return <Slider defaultValue={[25, 50]} max={100} step={5} className="mx-auto w-full max-w-xs" />;
+  return (
+    <Slider
+      defaultValue={[25, 50]}
+      max={100}
+      step={5}
+      className="mx-auto w-full max-w-xs"
+      aria-label="Price range"
+    />
+  );
 }

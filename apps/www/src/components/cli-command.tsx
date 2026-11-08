@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@cladux/ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@cladux/ui";
 import { CopyButton } from "@/components/copy-button";
 
 const CLI = "cladux-ui@latest";
@@ -63,7 +63,8 @@ interface CliCommandProps {
 
 export function CliCommand({ args, packages }: CliCommandProps) {
   const [manager, setManager] = usePackageManager();
-  const command = packages ? `${ADD[manager]} ${packages}` : `${RUN[manager]} ${CLI} ${args ?? ""}`;
+  const commandFor = (m: Manager) =>
+    (packages ? `${ADD[m]} ${packages}` : `${RUN[m]} ${CLI} ${args ?? ""}`).trim();
 
   return (
     <div className="my-6 overflow-hidden rounded-lg border bg-muted/50">
@@ -75,13 +76,16 @@ export function CliCommand({ args, packages }: CliCommandProps) {
             </TabsTrigger>
           ))}
         </TabsList>
+        {/* One panel per manager, so each tab controls a real panel. */}
+        {MANAGERS.map((m) => (
+          <TabsContent key={m} value={m} className="relative">
+            <pre className="overflow-x-auto p-4 pr-12 font-mono text-sm leading-relaxed">
+              <code>{commandFor(m)}</code>
+            </pre>
+            <CopyButton value={commandFor(m)} className="absolute top-2.5 right-2" />
+          </TabsContent>
+        ))}
       </Tabs>
-      <div className="relative">
-        <pre className="overflow-x-auto p-4 pr-12 font-mono text-sm leading-relaxed">
-          <code>{command.trim()}</code>
-        </pre>
-        <CopyButton value={command.trim()} className="absolute top-2.5 right-2" />
-      </div>
     </div>
   );
 }

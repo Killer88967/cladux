@@ -2,7 +2,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@cladux/ui";
 
 export function InputOTPDemo() {
   return (
-    <InputOTP maxLength={6} defaultValue="123456">
+    <InputOTP maxLength={6} defaultValue="123456" aria-label="One-time code">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

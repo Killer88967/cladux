@@ -28,7 +28,7 @@ export function ComboboxMultiple() {
               {values.map((value: string) => (
                 <ComboboxChip key={value}>{value}</ComboboxChip>
               ))}
-              <ComboboxChipsInput />
+              <ComboboxChipsInput aria-label="Frameworks" />
             </React.Fragment>
           )}
         </ComboboxValue>

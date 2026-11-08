@@ -55,6 +55,8 @@ interface RichTextEditorProps extends Omit<
   extensions?: AnyExtension[];
   /** Defaults to a toolbar and the content. */
   children?: React.ReactNode;
+  /** What screen readers call the text area. */
+  label?: string;
 }
 
 function RichTextEditor(props: RichTextEditorProps) {
@@ -74,6 +76,7 @@ function EditorHost({
   editable = true,
   autofocus = false,
   extensions = [],
+  label = "Rich text editor",
   ...props
 }: RichTextEditorProps) {
   const onChange = React.useRef(onValueChange);
@@ -93,6 +96,7 @@ function EditorHost({
       ...extensions,
     ],
     onUpdate: ({ editor }) => onChange.current?.(editor.getHTML(), editor),
+    editorProps: { attributes: { "aria-label": label, "aria-multiline": "true" } },
   });
 
   // Follow a controlled value that changed outside the editor.
@@ -120,6 +124,7 @@ function EditorFrame({
   placeholder: _placeholder,
   autofocus: _autofocus,
   extensions: _extensions,
+  label: _label,
   ...props
 }: RichTextEditorProps & { editor: Editor | null }) {
   return (

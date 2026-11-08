@@ -5,7 +5,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@cladux/ui";
 
 export function InputOTPFourDigits() {
   return (
-    <InputOTP maxLength={4} pattern={REGEXP_ONLY_DIGITS}>
+    <InputOTP maxLength={4} pattern={REGEXP_ONLY_DIGITS} aria-label="PIN">
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

@@ -6,7 +6,10 @@ import { Slot } from "radix-ui";
 
 import { Separator } from "../separator/separator";
 
-function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
+/** Items inside an ItemGroup are list items. */
+const ItemGroupContext = React.createContext(false);
+
+function ItemGroup({ className, children, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       role="list"
@@ -16,7 +19,9 @@ function ItemGroup({ className, ...props }: React.ComponentProps<"div">) {
         className,
       )}
       {...props}
-    />
+    >
+      <ItemGroupContext.Provider value={true}>{children}</ItemGroupContext.Provider>
+    </div>
   );
 }
 
@@ -61,8 +66,11 @@ function Item({
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof itemVariants> & { asChild?: boolean }) {
   const Comp = asChild ? Slot.Root : "div";
+  const inGroup = React.useContext(ItemGroupContext);
   return (
     <Comp
+      // A link or button keeps its own role.
+      role={inGroup && !asChild ? "listitem" : undefined}
       data-slot="item"
       data-variant={variant}
       data-size={size}

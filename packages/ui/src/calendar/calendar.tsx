@@ -17,6 +17,7 @@ function Calendar({
   buttonVariant = "ghost",
   locale,
   formatters,
+  labels,
   components,
   ...props
 }: React.ComponentProps<typeof DayPicker> & {
@@ -38,6 +39,24 @@ function Calendar({
       formatters={{
         formatMonthDropdown: (date) => date.toLocaleString(locale?.code, { month: "short" }),
         ...formatters,
+      }}
+      labels={{
+        // "Sunday, November 1, 2026": the label includes the number on the button,
+        // which voice control needs ("click 1"). The default says "1st".
+        labelDayButton: (date, modifiers) =>
+          [
+            modifiers.today && "Today",
+            date.toLocaleDateString(locale?.code, {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            }),
+            modifiers.selected && "selected",
+          ]
+            .filter(Boolean)
+            .join(", "),
+        ...labels,
       }}
       classNames={{
         root: cn("w-fit", defaultClassNames.root),

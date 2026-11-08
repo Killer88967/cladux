@@ -7,7 +7,7 @@ export function InputOTPInvalid() {
   const [value, setValue] = React.useState("000000");
 
   return (
-    <InputOTP maxLength={6} value={value} onChange={setValue}>
+    <InputOTP maxLength={6} value={value} onChange={setValue} aria-label="One-time code">
       <InputOTPGroup>
         <InputOTPSlot index={0} aria-invalid />
         <InputOTPSlot index={1} aria-invalid />

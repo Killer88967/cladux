@@ -215,6 +215,8 @@ function VirtualList<T>({
     <div
       ref={scrollRef}
       data-slot="virtual-list"
+      // Focusable, so the arrow keys and Page Down scroll it.
+      tabIndex={0}
       onScroll={(e) => {
         setScrollTop(e.currentTarget.scrollTop);
         onScroll?.(e);

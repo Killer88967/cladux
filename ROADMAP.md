@@ -71,12 +71,12 @@ spent 33 s compiling, and the CLI package was 2.4 MB. After 0.6: docs pages load
 
 ## 0.7 - Testing and accessibility
 
-- [ ] Tests for `cladux-registry` (resolving, theme codes, validation), run in CI
-- [ ] Tests for the plain HTML runtime: dialogs, menus, tabs and toasts in a real browser
-- [ ] End-to-end tests of the site in CI with Playwright: search, the theme customizer, copy buttons, the CLI against a fresh Next.js and Vite app
-- [ ] Accessibility checks (axe) on every docs page and block, in CI
-- [ ] Screenshots of every component in both styles, light and dark, left to right and right to left, compared on each pull request
-- [ ] Check that the Tailwind and plain CSS versions of each component still look the same
+- [x] Tests for `cladux-registry` (resolving, theme codes, validation), run in CI
+- [x] Tests for the plain HTML runtime: dialogs, menus, tabs and toasts in a real browser
+- [x] End-to-end tests of the site in CI with Playwright: search, the theme customizer, copy buttons, the CLI against a fresh Next.js and Vite app
+- [x] Accessibility checks (axe) on every docs page and block, in CI
+- [x] Screenshots of every component in both styles, light and dark, left to right and right to left, compared on each pull request
+- [x] Check that the Tailwind and plain CSS versions of each component still look the same
 
 ## 0.8 - Plain HTML, everywhere
 

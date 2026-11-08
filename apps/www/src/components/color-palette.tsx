@@ -97,11 +97,10 @@ export function ColorPalette() {
                   type="button"
                   onClick={() => copy(id, value)}
                   title={value}
-                  aria-label={`Copy ${value}`}
                   className="group flex flex-col gap-1.5 rounded-md text-left outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
                 >
                   <span
-                    className="relative flex aspect-[4/3] w-full items-center justify-center rounded-md ring-1 ring-foreground/10 transition-transform ring-inset group-hover:scale-[1.04] sm:aspect-square"
+                    className="relative flex aspect-4/3 w-full items-center justify-center rounded-md ring-1 ring-foreground/10 transition-transform ring-inset group-hover:scale-[1.04] sm:aspect-square"
                     style={{ backgroundColor: color.oklch }}
                   >
                     {copied === id && (
@@ -115,6 +114,8 @@ export function ColorPalette() {
                     <span className="block font-medium">{color.scale}</span>
                     <span className="block truncate text-muted-foreground">{color.hex}</span>
                   </span>
+                  {/* The name starts with what's shown, so voice control can say "click 500". */}
+                  <span className="sr-only">, copy {value}</span>
                 </button>
               );
             })}

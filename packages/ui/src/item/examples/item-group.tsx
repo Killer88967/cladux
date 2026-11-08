@@ -40,7 +40,7 @@ export function ItemGroupExample() {
         <Item key={person.username} variant="outline">
           <ItemMedia>
             <Avatar>
-              <AvatarImage src={person.avatar} className="grayscale" />
+              <AvatarImage src={person.avatar} alt={person.username} className="grayscale" />
               <AvatarFallback>{person.username.charAt(0)}</AvatarFallback>
             </Avatar>
           </ItemMedia>
@@ -49,7 +49,7 @@ export function ItemGroupExample() {
             <ItemDescription>{person.email}</ItemDescription>
           </ItemContent>
           <ItemActions>
-            <Button variant="ghost" size="icon" className="rounded-full">
+            <Button variant="ghost" size="icon" className="rounded-full" aria-label="Add">
               <PlusIcon />
             </Button>
           </ItemActions>

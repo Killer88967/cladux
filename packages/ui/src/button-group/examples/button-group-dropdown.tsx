@@ -27,7 +27,7 @@ export default function ButtonGroupDropdown() {
       <Button variant="outline">Follow</Button>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="ps-2!">
+          <Button variant="outline" className="ps-2!" aria-label="More options">
             <ChevronDownIcon />
           </Button>
         </DropdownMenuTrigger>

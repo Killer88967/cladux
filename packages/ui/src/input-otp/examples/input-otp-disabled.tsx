@@ -2,7 +2,13 @@ import { InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@cladu
 
 export function InputOTPDisabled() {
   return (
-    <InputOTP id="input-otp-disabled" maxLength={6} disabled defaultValue="123456">
+    <InputOTP
+      id="input-otp-disabled"
+      maxLength={6}
+      disabled
+      defaultValue="123456"
+      aria-label="One-time code"
+    >
       <InputOTPGroup>
         <InputOTPSlot index={0} />
         <InputOTPSlot index={1} />

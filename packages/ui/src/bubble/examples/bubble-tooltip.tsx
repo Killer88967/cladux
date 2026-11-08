@@ -20,7 +20,7 @@ export function BubbleTooltipDemo() {
         <BubbleReactions className="p-0">
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon-xs">
+              <Button variant="ghost" size="icon-xs" aria-label="Read">
                 <CheckIcon />
               </Button>
             </TooltipTrigger>

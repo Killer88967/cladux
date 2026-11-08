@@ -7,7 +7,12 @@ export function InputOTPPattern() {
   return (
     <Field className="w-fit">
       <FieldLabel htmlFor="digits-only">Digits Only</FieldLabel>
-      <InputOTP id="digits-only" maxLength={6} pattern={REGEXP_ONLY_DIGITS}>
+      <InputOTP
+        aria-label="One-time code"
+        id="digits-only"
+        maxLength={6}
+        pattern={REGEXP_ONLY_DIGITS}
+      >
         <InputOTPGroup>
           <InputOTPSlot index={0} />
           <InputOTPSlot index={1} />

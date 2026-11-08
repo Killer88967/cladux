@@ -3,11 +3,11 @@ import { Field, FieldLabel, Progress } from "@cladux/ui";
 export function ProgressWithLabel() {
   return (
     <Field className="w-full max-w-sm">
-      <FieldLabel htmlFor="progress-upload">
+      <FieldLabel id="progress-upload-label">
         <span>Upload progress</span>
         <span className="ms-auto">66%</span>
       </FieldLabel>
-      <Progress value={66} id="progress-upload" />
+      <Progress value={66} aria-labelledby="progress-upload-label" />
     </Field>
   );
 }

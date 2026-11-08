@@ -133,7 +133,7 @@ export function BlockViewer({ name, title, description, code, html }: BlockViewe
               components/cl/blocks/{name}.tsx
             </div>
             <div
-              className="max-h-[32rem] overflow-auto text-sm leading-relaxed [&_pre]:p-4"
+              className="max-h-128 overflow-auto text-sm leading-relaxed [&_pre]:p-4"
               dangerouslySetInnerHTML={{ __html: html }}
             />
             <CopyButton value={code} className="absolute top-1 right-2" />

@@ -72,7 +72,6 @@ function Stepper({
       <div
         data-slot="stepper"
         data-orientation={orientation}
-        aria-orientation={orientation}
         className={cn(
           "group/stepper flex w-full data-[orientation=horizontal]:flex-row data-[orientation=horizontal]:items-start data-[orientation=vertical]:flex-col",
           className,

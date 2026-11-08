@@ -20,7 +20,11 @@ const withMDX = createMDX({
     // Plugins are given by name so the config works with Turbopack.
     remarkPlugins: ["remark-gfm"],
     rehypePlugins: [
-      ["@shikijs/rehype", { themes: { light: "github-light", dark: "github-dark" } }],
+      // The same themes as src/lib/highlight.ts, chosen for contrast.
+      [
+        "@shikijs/rehype",
+        { themes: { light: "github-light-high-contrast", dark: "github-dark-default" } },
+      ],
     ],
   },
 });

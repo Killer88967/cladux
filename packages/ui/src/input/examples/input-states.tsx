@@ -6,7 +6,7 @@ export default function InputStates() {
       <Input placeholder="Default" />
       <Input placeholder="Disabled" disabled />
       <Input placeholder="Invalid" aria-invalid="true" />
-      <Input type="file" />
+      <Input type="file" aria-label="File" />
     </div>
   );
 }

@@ -1,0 +1,27 @@
+/*
+ * The plain CSS style: the components use only their own stylesheets. Tailwind
+ * is here for the demos' own layout classes (flex, gap...), and only scans the
+ * demos, so a Tailwind class left in a component would show up unstyled.
+ */
+@import "./fonts.css";
+@import "tailwindcss" source(none);
+@import "tw-animate-css";
+@import "../../../packages/ui/.visual/tailwind/css/cl.css";
+/*
+ * In a layer below Tailwind's utilities, so a demo's own classes (className="w-full")
+ * win over the component's, as they do in the Tailwind style through tailwind-merge.
+ */
+@import "../../../packages/ui/.visual/css/css/cl.css" layer(components);
+
+@source "../../../packages/ui/src/*/examples/*.tsx";
+@source "./";
+
+@theme {
+  --font-sans: "Geist", sans-serif;
+  --font-mono: "Geist Mono", monospace;
+}
+
+:root {
+  --cl-font-sans: "Geist", sans-serif;
+  --cl-font-mono: "Geist Mono", monospace;
+}

@@ -35,7 +35,11 @@ let highlighter: Promise<HighlighterCore> | undefined;
 
 function getHighlighter() {
   highlighter ??= createHighlighterCore({
-    themes: [import("shiki/themes/github-light.mjs"), import("shiki/themes/github-dark.mjs")],
+    // GitHub's themes with enough contrast for WCAG AA on a light and a dark background.
+    themes: [
+      import("shiki/themes/github-light-high-contrast.mjs"),
+      import("shiki/themes/github-dark-default.mjs"),
+    ],
     langs: [],
     engine: createJavaScriptRegexEngine({ forgiving: true }),
   });
@@ -79,7 +83,7 @@ export async function loadHighlighter(language: string) {
       const tokenize = (text: string) =>
         shiki.codeToTokens(text, {
           lang,
-          themes: { light: "github-light", dark: "github-dark" },
+          themes: { light: "github-light-high-contrast", dark: "github-dark-default" },
           defaultColor: false,
           grammarState: state,
         }).tokens;
