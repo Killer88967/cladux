@@ -7,7 +7,7 @@ await build({
   entryPoints: [new URL("../src/index.css", import.meta.url).pathname],
   outfile: new URL("../dist/cl.css", import.meta.url).pathname,
   bundle: true,
-  minify: true,
+  // minify: true,
   target: ["chrome120", "edge120", "firefox125", "safari17"],
   logLevel: "info",
 });

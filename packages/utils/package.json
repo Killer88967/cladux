@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "esbuild src/dom/auto.ts --bundle --format=iife --minify --target=es2022 --outfile=dist/cl.js",
+    "build:nm": "esbuild src/dom/auto.ts --bundle --format=iife --target=es2022 --outfile=dist/cl.js",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -1,0 +1,164 @@
+/*
+ * CSS-only Accordion. The same classes as accordion.tsx (shadcn/ui, MIT,
+ * "nova" style), written out as CSS. Native <details>, so it needs no
+ * script: Enter and Space open an item, and items with the same name open
+ * one at a time. It slides open in CSS; with cl.js it slides shut in Safari too.
+ *
+ * <div class="cl-accordion">
+ *   <details class="cl-accordion-item" name="faq" open>    the same name: one open at a time
+ *     <summary class="cl-accordion-trigger">Is it accessible?</summary>
+ *     <div class="cl-accordion-content">Yes. It's a native details element.</div>
+ *   </details>
+ * </div>
+ */
+
+/* Accordion: flex w-full flex-col */
+.cl-accordion {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+/* AccordionItem: not-last:border-b */
+.cl-accordion-item:not(:last-child) {
+  border-bottom: 1px solid var(--border);
+}
+
+/*
+ * AccordionTrigger: relative flex flex-1 items-start justify-between
+ * rounded-lg border border-transparent py-2.5 text-start text-sm font-medium
+ * transition-all outline-none
+ */
+.cl-accordion-trigger {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.625rem 0;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  text-align: start;
+  outline: none;
+  cursor: pointer;
+  list-style: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* No browser triangle: the chevron below replaces it. */
+.cl-accordion-trigger::-webkit-details-marker {
+  display: none;
+}
+
+/* hover:underline */
+@media (hover: hover) {
+  .cl-accordion-trigger:hover {
+    text-decoration: underline;
+  }
+}
+
+/* focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 */
+.cl-accordion-trigger:focus-visible {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+/*
+ * disabled:pointer-events-none disabled:opacity-50. <details> can't be
+ * disabled, so mark it with data-disabled (and tabindex="-1" on the summary).
+ */
+.cl-accordion-item[data-disabled] > .cl-accordion-trigger {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/*
+ * The chevron: ms-auto size-4 shrink-0 text-muted-foreground. React swaps a
+ * ChevronDown for a ChevronUp; turning the down one over draws the same thing.
+ */
+.cl-accordion-trigger::after {
+  content: "";
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  margin-inline-start: auto;
+  background-color: var(--muted-foreground);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+.cl-accordion-item[open] > .cl-accordion-trigger::after {
+  rotate: 180deg;
+}
+
+/*
+ * AccordionContent's outer part: overflow-hidden text-sm, and
+ * animate-accordion-down / animate-accordion-up, which run the height from 0
+ * to the content's height in 200ms, ease-out. Radix measures that height
+ * with JavaScript. Here a grid row going from 0fr to 1fr does the same in
+ * CSS, in Safari and Firefox too. Browsers without ::details-content open it
+ * straight away.
+ */
+.cl-accordion-item::details-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition:
+    grid-template-rows 200ms ease-out,
+    content-visibility 200ms ease-out allow-discrete;
+}
+
+.cl-accordion-item[open]::details-content {
+  grid-template-rows: 1fr;
+}
+
+.cl-accordion-item[data-closing]::details-content {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-accordion-item::details-content {
+    transition: none;
+  }
+}
+
+/*
+ * AccordionContent's inner part: pt-0 pb-2.5 [&_a]:underline
+ * [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4.
+ * The pb-2.5 is an empty block at the end, so it slides with the text: as
+ * padding it would stay 10px tall while the row closes.
+ */
+.cl-accordion-content {
+  min-height: 0;
+  overflow: hidden;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.cl-accordion-content::after {
+  content: "";
+  display: block;
+  height: 0.625rem;
+}
+
+.cl-accordion-content a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .cl-accordion-content a:hover {
+    color: var(--foreground);
+  }
+}
+
+.cl-accordion-content p:not(:last-child) {
+  margin-bottom: 1rem;
+}
