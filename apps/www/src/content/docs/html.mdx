@@ -33,9 +33,9 @@ To check that the CDN serves exactly what was published, add an `integrity` attr
 
 These components have a plain HTML version. Each page shows its markup next to the React version.
 
-| Needs only the stylesheet                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Needs the script too                                                                                                                                                                                                                                           |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Accordion](/docs/components/accordion), [Badge](/docs/components/badge), [Button](/docs/components/button), [Card](/docs/components/card), [Checkbox](/docs/components/checkbox), [Input](/docs/components/input), [Kbd](/docs/components/kbd), [Label](/docs/components/label), [Native Select](/docs/components/native-select), [Separator](/docs/components/separator), [Skeleton](/docs/components/skeleton), [Switch](/docs/components/switch), [Textarea](/docs/components/textarea) | [Dialog](/docs/components/dialog), [Sheet](/docs/components/sheet), [Popover](/docs/components/popover), [Dropdown Menu](/docs/components/dropdown-menu), [Tooltip](/docs/components/tooltip), [Tabs](/docs/components/tabs), [Toast](/docs/components/sonner) |
+| Needs only the stylesheet                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Needs the script too                                                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Accordion](/docs/components/accordion), [Badge](/docs/components/badge), [Button](/docs/components/button), [Card](/docs/components/card), [Checkbox](/docs/components/checkbox), [Input](/docs/components/input), [Kbd](/docs/components/kbd), [Label](/docs/components/label), [Native Select](/docs/components/native-select), [Separator](/docs/components/separator), [Skeleton](/docs/components/skeleton), [Switch](/docs/components/switch), [Textarea](/docs/components/textarea) | [Dialog](/docs/components/dialog), [Sheet](/docs/components/sheet), [Popover](/docs/components/popover), [Dropdown Menu](/docs/components/dropdown-menu), [Tooltip](/docs/components/tooltip), [Tabs](/docs/components/tabs), [Slider](/docs/components/slider), [Toast](/docs/components/sonner) |
 
 Variants and sizes are `data-` attributes, the same names as the React props:
 
@@ -99,6 +99,15 @@ Point `aria-describedby` at a `cl-tooltip` with `popover="manual"`. It shows on 
 ### Tabs
 
 In a `cl-tabs`, each `role="tab"` button shows the panel its `aria-controls` names and hides the others. The arrow keys, Home and End move between tabs.
+
+### Slider
+
+A `cl-slider` is a native range input. The script fills its track up to the thumb as it moves, which Chrome and Safari can't do in CSS. It fills the sliders on the page when it starts, and again after a form reset.
+
+```html
+<input class="cl-slider" type="range" min="0" max="100" value="75" aria-label="Volume" />
+```
+
 
 ### Toast
 

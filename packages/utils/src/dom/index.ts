@@ -12,6 +12,7 @@ import {
   onTooltipLeave,
   repositionOpen,
 } from "./floating";
+import { onFormReset, onSliderInput, setupSliders } from "./slider";
 import { onTabClick, onTabKeyDown, setupTabs } from "./tabs";
 import { onToastClick, toast } from "./toast";
 
@@ -25,7 +26,7 @@ const asElement = (target: EventTarget | null) => (target instanceof Element ? t
 
 /**
  * Turns on the behavior for the CSS-only components: accordions, dialogs, popovers,
- * dropdown menus, tooltips, tabs and toasts. Listeners are delegated to the
+ * dropdown menus, tooltips, tabs, sliders and toasts. Listeners are delegated to the
  * document, so markup added later works too. Safe to call more than once.
  */
 export function start() {
@@ -48,6 +49,15 @@ export function start() {
     if (!target) return;
     onMenuKeyDown(event, target);
     onTabKeyDown(event, target);
+  });
+
+  document.addEventListener("input", (event) => {
+    const target = asElement(event.target);
+    if (target) onSliderInput(target);
+  });
+  document.addEventListener("reset", (event) => {
+    const target = asElement(event.target);
+    if (target) onFormReset(target);
   });
 
   // Popover toggle events don't bubble, so listen in the capture phase.
@@ -79,7 +89,10 @@ export function start() {
   window.addEventListener("scroll", repositionOpen, { capture: true, passive: true });
   window.addEventListener("resize", repositionOpen, { passive: true });
 
-  const ready = () => setupTabs();
+  const ready = () => {
+    setupTabs();
+    setupSliders();
+  };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", ready);
   else ready();
 }
