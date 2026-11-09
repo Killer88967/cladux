@@ -59,6 +59,10 @@ export function start() {
     const target = asElement(event.target);
     if (target) onFormReset(target);
   });
+  document.addEventListener("pointerdown", (event) => {
+    const target = asElement(event.target);
+    if (target) onSliderPointerDown(event, target);
+  });
 
   // Popover toggle events don't bubble, so listen in the capture phase.
   document.addEventListener("beforetoggle", onFloatingBeforeToggle, true);
