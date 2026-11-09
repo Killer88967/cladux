@@ -7,7 +7,7 @@ allowBuilds:
 
 minimumReleaseAgeExclude:
   - lucide-react@1.70.0
-  - react-resizable-panels@4.19.1
+  - react-resizable-panels@4.21.0
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"
   - "@shikijs/engine-oniguruma@4.6.0"
@@ -76,6 +76,8 @@ minimumReleaseAgeExclude:
   - "@tiptap/pm@3.33.0"
   - "@tiptap/react@3.33.0"
   - "@tiptap/starter-kit@3.33.0"
+  - "@tabler/icons-react@3.51.0"
+  - "@tabler/icons@3.51.0"
 
 permissions:
   "@tanstack/react-table":

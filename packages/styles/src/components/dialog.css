@@ -1,8 +1,9 @@
 /*
- * CSS-only Dialog. Matches the shadcn/ui Dialog (MIT, "nova" style).
- * Uses the native <dialog> element. Open it with a button that has
- * data-dialog-open="<dialog id>", close it with any [data-dialog-close] inside.
- * The small runtime (@cladux/utils/cl.js) wires those up.
+ * CSS-only Dialog. The same classes as dialog.tsx (shadcn/ui, MIT, "nova"
+ * style), written out as CSS. A native <dialog>: a button with
+ * data-dialog-open="<id>" opens it, anything with data-dialog-close closes
+ * it, and so do Escape and a click on the backdrop. The small runtime (cl.js)
+ * wires those up.
  *
  * <button class="cl-button" data-variant="outline" data-dialog-open="edit">Edit</button>
  * <dialog class="cl-dialog" id="edit">
@@ -15,20 +16,29 @@
  *   <button class="cl-button cl-dialog-close" data-variant="ghost" data-size="icon-sm" data-dialog-close aria-label="Close">x</button>
  * </dialog>
  */
+
+/*
+ * DialogContent: fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)]
+ * -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm
+ * text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none,
+ * and animate-in fade-in-0 zoom-in-95 (the same going out).
+ *
+ * The browser gives a <dialog> its own size, margin, padding and border, so
+ * those are set here too. Without height: auto, Safari stretches it to the
+ * full height of the screen.
+ */
 .cl-dialog {
   position: fixed;
-  inset: auto;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
+  inset: 50% auto auto 50%;
   z-index: 50;
   gap: 1rem;
   width: 100%;
+  height: auto;
   max-width: calc(100% - 2rem);
   max-height: none;
   margin: 0;
   padding: 1rem;
-  border: 0 solid var(--border);
+  border: 0;
   border-radius: calc(var(--radius) * 1.4);
   background-color: var(--popover);
   color: var(--popover-foreground);
@@ -36,11 +46,12 @@
   line-height: 1.25rem;
   outline: none;
   box-shadow: 0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent);
+  translate: -50% -50%;
   opacity: 0;
   scale: 0.95;
   transition-property: opacity, scale, display, overlay;
   transition-duration: 100ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: ease;
   transition-behavior: allow-discrete;
 }
 
@@ -57,10 +68,19 @@
   }
 }
 
+/* sm:max-w-sm */
+@media (width >= 40rem) {
+  .cl-dialog {
+    max-width: 24rem;
+  }
+}
+
+/* DialogOverlay: bg-black/10 duration-100 backdrop-blur-xs, fading in and out */
 .cl-dialog::backdrop {
   background-color: rgb(0 0 0 / 0);
   transition-property: background-color, backdrop-filter, display, overlay;
   transition-duration: 100ms;
+  transition-timing-function: ease;
   transition-behavior: allow-discrete;
 }
 
@@ -76,18 +96,21 @@
   }
 }
 
-@media (width >= 40rem) {
-  .cl-dialog {
-    max-width: 24rem;
+@media (prefers-reduced-motion: reduce) {
+  .cl-dialog,
+  .cl-dialog::backdrop {
+    transition-duration: 0s;
   }
 }
 
+/* DialogHeader: flex flex-col gap-2 */
 .cl-dialog-header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
+/* DialogTitle: text-base leading-none font-medium */
 .cl-dialog-title {
   margin: 0;
   font-size: 1rem;
@@ -95,6 +118,10 @@
   font-weight: 500;
 }
 
+/*
+ * DialogDescription: text-sm text-muted-foreground *:[a]:underline
+ * *:[a]:underline-offset-3 *:[a]:hover:text-foreground
+ */
 .cl-dialog-description {
   margin: 0;
   color: var(--muted-foreground);
@@ -107,6 +134,16 @@
   text-underline-offset: 3px;
 }
 
+@media (hover: hover) {
+  .cl-dialog-description > a:hover {
+    color: var(--foreground);
+  }
+}
+
+/*
+ * DialogFooter: -mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t
+ * bg-muted/50 p-4 sm:flex-row sm:justify-end
+ */
 .cl-dialog-footer {
   display: flex;
   flex-direction: column-reverse;
@@ -114,8 +151,7 @@
   margin: 0 -1rem -1rem;
   padding: 1rem;
   border-top: 1px solid var(--border);
-  border-bottom-left-radius: calc(var(--radius) * 1.4);
-  border-bottom-right-radius: calc(var(--radius) * 1.4);
+  border-radius: 0 0 calc(var(--radius) * 1.4) calc(var(--radius) * 1.4);
   background-color: color-mix(in oklab, var(--muted) 50%, transparent);
 }
 
@@ -126,6 +162,7 @@
   }
 }
 
+/* The close button: absolute end-2 top-2 */
 .cl-dialog-close {
   position: absolute;
   top: 0.5rem;
