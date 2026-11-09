@@ -251,3 +251,9 @@ You can trigger the combobox from a button or any other component by using the `
 You can add an addon to the combobox by using the `InputGroupAddon` component inside the `ComboboxInput`.
 
 <ComponentPreview name="combobox-input-group" />
+
+## CSS only
+
+A text input that filters the list as you type, with the small runtime script doing the work: clicking the input or the chevron, or pressing an arrow key, opens the list; typing filters it (case and accents don't count); the arrow keys move the highlight and Enter picks it; Escape or clicking away closes it and puts the picked item's text back. The script adds the ARIA roles and ids. Add an `<input type="hidden" name="...">` inside to send the pick with a form: it gets the item's `data-value`, or its text. See [Plain HTML](/docs/html).
+
+<HtmlPreview name="combobox" />

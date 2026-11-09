@@ -1,0 +1,278 @@
+/*
+ * CSS-only Combobox. The same classes as combobox.tsx and input-group.tsx
+ * (shadcn/ui, MIT, "nova" style), written out as CSS. A text input that
+ * filters a list as you type. The small runtime (cl.js) opens the list,
+ * filters it, moves the highlight with the arrow keys and picks an item.
+ *
+ * <div class="cl-combobox">
+ *   <input class="cl-combobox-input" role="combobox" aria-controls="fw-list" aria-label="Framework" placeholder="Select a framework">
+ *   <button class="cl-combobox-trigger" type="button" tabindex="-1" aria-label="Show options"></button>
+ *   <div class="cl-combobox-content" popover="manual">
+ *     <div class="cl-combobox-empty">No items found.</div>
+ *     <div class="cl-combobox-list" role="listbox" id="fw-list">
+ *       <div class="cl-combobox-item" role="option">Next.js</div>
+ *       ...
+ *     </div>
+ *   </div>
+ *   <input type="hidden" name="framework">    optional: gets the picked item's data-value or text
+ * </div>
+ */
+
+/*
+ * InputGroup: relative flex h-8 w-full min-w-0 items-center rounded-lg border
+ * border-input transition-colors outline-none, and the ComboboxInput's w-auto.
+ */
+.cl-combobox {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  min-width: 0;
+  border: 1px solid var(--input);
+  border-radius: var(--radius);
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* has-[[data-slot=input-group-control]:focus-visible]:border-ring ring-3 ring-ring/50 */
+.cl-combobox:has(> .cl-combobox-input:focus-visible) {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+/* has-aria-invalid: border-destructive ring-3 ring-destructive/20 */
+.cl-combobox:has(> .cl-combobox-input[aria-invalid="true"]) {
+  border-color: var(--destructive);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 20%, transparent);
+}
+
+/* has-disabled:bg-input/50 has-disabled:opacity-50 */
+.cl-combobox:has(> .cl-combobox-input:disabled) {
+  background-color: color-mix(in oklab, var(--input) 50%, transparent);
+  opacity: 0.5;
+}
+
+:where(.dark, [data-theme="dark"]) .cl-combobox {
+  background-color: color-mix(in oklab, var(--input) 30%, transparent);
+}
+
+:where(.dark, [data-theme="dark"]) .cl-combobox:has(> .cl-combobox-input:disabled) {
+  background-color: color-mix(in oklab, var(--input) 80%, transparent);
+}
+
+:where(.dark, [data-theme="dark"]) .cl-combobox:has(> .cl-combobox-input[aria-invalid="true"]) {
+  border-color: color-mix(in oklab, var(--destructive) 50%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--destructive) 40%, transparent);
+}
+
+/*
+ * Input, inside the group: flex-1 h-8 min-w-0 px-2.5 py-1 text-base md:text-sm
+ * border-0 bg-transparent, and pe-1.5 for the button after it.
+ */
+.cl-combobox-input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  height: 2rem;
+  padding: 0.25rem 0.375rem 0.25rem 0.625rem;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  color: inherit;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  outline: none;
+}
+
+.cl-combobox-input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.cl-combobox-input:disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+@media (width >= 48rem) {
+  .cl-combobox-input {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+/*
+ * The trigger: an InputGroupButton, ghost and icon-xs (size-6, rounded
+ * radius - 3px), in an inline-end addon (pe-2, me-[-0.3rem] with a button),
+ * with a ChevronDown (size-4 text-muted-foreground).
+ */
+.cl-combobox-trigger {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-inline-end: 0.2rem;
+  padding: 0;
+  border: 0;
+  border-radius: calc(var(--radius) - 3px);
+  background-color: transparent;
+  cursor: default;
+  transition-property: color, background-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.cl-combobox-trigger::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--muted-foreground);
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+@media (hover: hover) {
+  /* Ghost hover; the chevron stays muted, and it's not shaded while the list is open. */
+  .cl-combobox-trigger:hover {
+    background-color: var(--muted);
+  }
+}
+
+.cl-combobox-trigger:disabled {
+  pointer-events: none;
+}
+
+/*
+ * ComboboxContent: max-h-72 w-(--anchor-width) min-w-[calc(var(--anchor-width)+--spacing(7))]
+ * overflow-hidden rounded-lg bg-popover text-popover-foreground shadow-md
+ * ring-1 ring-foreground/10, 6px below the input and lined up with its start.
+ * The open animation is the shared one in floating.css.
+ */
+.cl-combobox-content {
+  display: none;
+  width: var(--cl-anchor-width, auto);
+  min-width: max(9rem, calc(var(--cl-anchor-width, 0px) + 1.75rem));
+  max-height: min(18rem, var(--cl-available-height, 18rem));
+  overflow: hidden;
+  padding: 0;
+  border-radius: var(--radius);
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--foreground) 10%, transparent),
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.cl-combobox-content:popover-open {
+  display: block;
+}
+
+/* ComboboxList: max-h-[calc(18rem-2.25rem)] scroll-py-1 overflow-y-auto overscroll-contain p-1 data-empty:p-0 */
+.cl-combobox-list {
+  max-height: min(15.75rem, calc(var(--cl-available-height, 18rem) - 2.25rem));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scroll-padding-block: 0.25rem;
+  scrollbar-width: none;
+  padding: 0.25rem;
+}
+
+.cl-combobox-list::-webkit-scrollbar {
+  display: none;
+}
+
+.cl-combobox-content[data-empty] .cl-combobox-list {
+  padding: 0;
+}
+
+/*
+ * ComboboxItem: relative flex w-full cursor-default items-center gap-2
+ * rounded-md py-1 ps-1.5 pe-8 text-sm select-none, data-highlighted:bg-accent
+ * data-highlighted:text-accent-foreground, data-disabled:opacity-50.
+ */
+.cl-combobox-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding-block: 0.25rem;
+  padding-inline: 0.375rem 2rem;
+  border-radius: calc(var(--radius) * 0.8);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  cursor: default;
+  user-select: none;
+  outline: none;
+}
+
+.cl-combobox-item[hidden] {
+  display: none;
+}
+
+.cl-combobox-item[data-highlighted] {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+}
+
+.cl-combobox-item[aria-disabled="true"] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.cl-combobox-item svg {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  pointer-events: none;
+}
+
+/* ComboboxItemIndicator: absolute end-2 size-4, with a Check, on the picked item. */
+.cl-combobox-item[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline-end: 0.5rem;
+  width: 1rem;
+  height: 1rem;
+  background-color: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  pointer-events: none;
+}
+
+/* ComboboxLabel: px-2 py-1.5 text-xs text-muted-foreground */
+.cl-combobox-label {
+  padding: 0.375rem 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+/* ComboboxSeparator: -mx-1 my-1 h-px bg-border */
+.cl-combobox-separator {
+  height: 1px;
+  margin: 0.25rem -0.25rem;
+  background-color: var(--border);
+}
+
+/* ComboboxEmpty: hidden w-full justify-center py-2 text-center text-sm text-muted-foreground, shown when nothing matches */
+.cl-combobox-empty {
+  display: none;
+  justify-content: center;
+  width: 100%;
+  padding-block: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+}
+
+.cl-combobox-content[data-empty] .cl-combobox-empty {
+  display: flex;
+}

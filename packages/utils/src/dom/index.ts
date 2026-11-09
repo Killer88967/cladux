@@ -1,4 +1,14 @@
 import { onAccordionClick } from "./accordion";
+import {
+  onComboboxClick,
+  onComboboxFocusOut,
+  onComboboxInput,
+  onComboboxKeyDown,
+  onComboboxPointerDown,
+  onComboboxPointerMove,
+  repositionComboboxes,
+  setupComboboxes,
+} from "./combobox";
 import { onDialogClick, openDialog } from "./dialog";
 import {
   hideAllTooltips,
@@ -26,7 +36,7 @@ const asElement = (target: EventTarget | null) => (target instanceof Element ? t
 
 /**
  * Turns on the behavior for the CSS-only components: accordions, dialogs, popovers,
- * dropdown menus, tooltips, tabs, sliders and toasts. Listeners are delegated to the
+ * dropdown menus, tooltips, tabs, sliders, comboboxes and toasts. Listeners are delegated to the
  * document, so markup added later works too. Safe to call more than once.
  */
 export function start() {
@@ -37,6 +47,7 @@ export function start() {
     const target = asElement(event.target);
     if (!target) return;
     onAccordionClick(event, target);
+    onComboboxClick(target);
     onDialogClick(event, target);
     onMenuClick(target);
     onTabClick(target);
@@ -47,13 +58,16 @@ export function start() {
     const target = asElement(event.target);
     if (event.key === "Escape") hideAllTooltips();
     if (!target) return;
+    onComboboxKeyDown(event, target);
     onMenuKeyDown(event, target);
     onTabKeyDown(event, target);
   });
 
   document.addEventListener("input", (event) => {
     const target = asElement(event.target);
-    if (target) onSliderInput(target);
+    if (!target) return;
+    onComboboxInput(target);
+    onSliderInput(target);
   });
   document.addEventListener("reset", (event) => {
     const target = asElement(event.target);
@@ -61,7 +75,9 @@ export function start() {
   });
   document.addEventListener("pointerdown", (event) => {
     const target = asElement(event.target);
-    if (target) onSliderPointerDown(event, target);
+    if (!target) return;
+    onComboboxPointerDown(event, target);
+    onSliderPointerDown(event, target);
   });
 
   // Popover toggle events don't bubble, so listen in the capture phase.
@@ -71,7 +87,9 @@ export function start() {
 
   document.addEventListener("pointermove", (event) => {
     const target = asElement(event.target);
-    if (target) onMenuPointerMove(target);
+    if (!target) return;
+    onComboboxPointerMove(target);
+    onMenuPointerMove(target);
   });
   document.addEventListener("pointerover", (event) => {
     const target = asElement(event.target);
@@ -87,15 +105,22 @@ export function start() {
   });
   document.addEventListener("focusout", (event) => {
     const target = asElement(event.target);
-    if (target) onTooltipLeave(event, target);
+    if (!target) return;
+    onComboboxFocusOut(event, target);
+    onTooltipLeave(event, target);
   });
 
-  window.addEventListener("scroll", repositionOpen, { capture: true, passive: true });
-  window.addEventListener("resize", repositionOpen, { passive: true });
+  const reposition = () => {
+    repositionOpen();
+    repositionComboboxes();
+  };
+  window.addEventListener("scroll", reposition, { capture: true, passive: true });
+  window.addEventListener("resize", reposition, { passive: true });
 
   const setup = (root: ParentNode) => {
     setupTabs(root);
     setupSliders(root);
+    setupComboboxes(root);
   };
   const ready = () => {
     setup(document);

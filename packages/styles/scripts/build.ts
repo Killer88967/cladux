@@ -17,7 +17,8 @@ const options: BuildOptions = {
 
 // Readable: esbuild leaves a "/* src/base.css */" line above each file it bundles; take those out.
 const readable = await build({ ...options, write: false });
-const css = readable.outputFiles[0]!.text.replace(/^\/\* .+\.css \*\/\n/gm, "");
+const cleaned = readable.outputFiles[0]!.text.replace(/^\/\* .+\.css \*\/\n/gm, "");
+const css = cleaned.replace(/\n{3,}/g, "\n\n").trim();
 await mkdir(outDir, { recursive: true });
 await writeFile(`${outDir}cl.css`, css);
 

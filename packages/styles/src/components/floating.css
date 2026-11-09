@@ -6,7 +6,8 @@
  */
 .cl-popover,
 .cl-menu,
-.cl-tooltip {
+.cl-tooltip,
+.cl-combobox-content {
   --_slide: 0.5rem;
 
   position: fixed;
@@ -25,7 +26,8 @@
 
 .cl-popover:popover-open,
 .cl-menu:popover-open,
-.cl-tooltip:popover-open {
+.cl-tooltip:popover-open,
+.cl-combobox-content:popover-open {
   opacity: 1;
   scale: 1;
 }
@@ -33,24 +35,25 @@
 @starting-style {
   .cl-popover:popover-open,
   .cl-menu:popover-open,
-  .cl-tooltip:popover-open {
+  .cl-tooltip:popover-open,
+  .cl-combobox-content:popover-open {
     opacity: 0;
     scale: 0.95;
   }
 
-  :is(.cl-popover, .cl-menu, .cl-tooltip):popover-open[data-placed="bottom"] {
+  :is(.cl-popover, .cl-menu, .cl-tooltip, .cl-combobox-content):popover-open[data-placed="bottom"] {
     translate: 0 calc(var(--_slide) * -1);
   }
 
-  :is(.cl-popover, .cl-menu, .cl-tooltip):popover-open[data-placed="top"] {
+  :is(.cl-popover, .cl-menu, .cl-tooltip, .cl-combobox-content):popover-open[data-placed="top"] {
     translate: 0 var(--_slide);
   }
 
-  :is(.cl-popover, .cl-menu, .cl-tooltip):popover-open[data-placed="left"] {
+  :is(.cl-popover, .cl-menu, .cl-tooltip, .cl-combobox-content):popover-open[data-placed="left"] {
     translate: var(--_slide) 0;
   }
 
-  :is(.cl-popover, .cl-menu, .cl-tooltip):popover-open[data-placed="right"] {
+  :is(.cl-popover, .cl-menu, .cl-tooltip, .cl-combobox-content):popover-open[data-placed="right"] {
     translate: calc(var(--_slide) * -1) 0;
   }
 }
