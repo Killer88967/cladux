@@ -1,0 +1,49 @@
+<button class="cl-button" data-variant="outline" data-dialog-open="sheet-demo">Open</button>
+
+<dialog class="cl-sheet" id="sheet-demo" aria-labelledby="sheet-demo-title">
+  <div class="cl-sheet-header">
+    <h2 class="cl-sheet-title" id="sheet-demo-title">Edit profile</h2>
+    <p class="cl-sheet-description">
+      Make changes to your profile here. Click save when you're done.
+    </p>
+  </div>
+  <form
+    class="cl-stack"
+    method="dialog"
+    id="sheet-demo-form"
+    style="--cl-gap: 1.5rem; padding: 0 1rem"
+  >
+    <div class="cl-stack" style="--cl-gap: 0.75rem">
+      <label class="cl-label" for="sheet-demo-name">Name</label>
+      <input class="cl-input" id="sheet-demo-name" value="Pedro Duarte" />
+    </div>
+    <div class="cl-stack" style="--cl-gap: 0.75rem">
+      <label class="cl-label" for="sheet-demo-username">Username</label>
+      <input class="cl-input" id="sheet-demo-username" value="@peduarte" />
+    </div>
+  </form>
+  <div class="cl-sheet-footer">
+    <button class="cl-button" type="submit" form="sheet-demo-form">Save changes</button>
+    <button class="cl-button" data-variant="outline" data-dialog-close>Close</button>
+  </div>
+  <button
+    class="cl-button cl-sheet-close"
+    data-variant="ghost"
+    data-size="icon-sm"
+    data-dialog-close
+    aria-label="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  </button>
+</dialog>

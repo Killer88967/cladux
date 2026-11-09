@@ -18,7 +18,7 @@ export function onDialogClick(event: MouseEvent, target: Element) {
   }
 
   // A click on the backdrop lands on the <dialog> itself, outside its box.
-  if (target instanceof HTMLDialogElement && target.matches(".cl-dialog")) {
+  if (target instanceof HTMLDialogElement && target.matches(".cl-dialog, .cl-sheet")) {
     const r = target.getBoundingClientRect();
     const inside =
       event.clientX >= r.left &&

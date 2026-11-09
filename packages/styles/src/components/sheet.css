@@ -1,0 +1,171 @@
+/*
+ * CSS-only Sheet. The same classes as sheet.tsx (shadcn/ui, MIT, "nova"
+ * style), written out as CSS. A native <dialog> that slides in from an edge
+ * of the screen. It opens and closes like the Dialog: data-dialog-open on a
+ * button, data-dialog-close inside, Escape, or a click on the backdrop. The
+ * small runtime (cl.js) wires those up.
+ *
+ * <button class="cl-button" data-variant="outline" data-dialog-open="settings">Open</button>
+ * <dialog class="cl-sheet" id="settings" data-side="right">    top, right (the default), bottom or left
+ *   <div class="cl-sheet-header">
+ *     <h2 class="cl-sheet-title">Edit profile</h2>
+ *     <p class="cl-sheet-description">Make changes here.</p>
+ *   </div>
+ *   ...
+ *   <div class="cl-sheet-footer">...</div>
+ *   <button class="cl-button cl-sheet-close" data-variant="ghost" data-size="icon-sm" data-dialog-close aria-label="Close">x</button>
+ * </dialog>
+ */
+
+/*
+ * SheetContent: fixed z-50 flex flex-col gap-4 bg-popover bg-clip-padding
+ * text-sm text-popover-foreground shadow-lg transition duration-200
+ * ease-in-out, and animate-in fade-in-0 slide-in-from-<side>-10 (the same
+ * going out).
+ */
+.cl-sheet {
+  --_from: 2.5rem 0;
+  position: fixed;
+  inset: 0 0 0 auto;
+  z-index: 50;
+  gap: 1rem;
+  width: 75%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0 solid var(--border);
+  border-left-width: 1px;
+  background-color: var(--popover);
+  background-clip: padding-box;
+  color: var(--popover-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  opacity: 0;
+  translate: var(--_from);
+  transition-property: opacity, translate, display, overlay;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
+  transition-behavior: allow-discrete;
+}
+
+.cl-sheet[open] {
+  display: flex;
+  flex-direction: column;
+  opacity: 1;
+  translate: 0 0;
+}
+
+@starting-style {
+  .cl-sheet[open] {
+    opacity: 0;
+    translate: var(--_from);
+  }
+}
+
+/* data-[side=left]: inset-y-0 left-0 h-full w-3/4 border-r */
+.cl-sheet[data-side="left"] {
+  --_from: -2.5rem 0;
+  inset: 0 auto 0 0;
+  border-left-width: 0;
+  border-right-width: 1px;
+}
+
+/* data-[side=top] and data-[side=bottom]: inset-x-0 h-auto, with border-b or border-t */
+.cl-sheet:is([data-side="top"], [data-side="bottom"]) {
+  width: auto;
+  height: auto;
+  border-left-width: 0;
+}
+
+.cl-sheet[data-side="top"] {
+  --_from: 0 -2.5rem;
+  inset: 0 0 auto 0;
+  border-bottom-width: 1px;
+}
+
+.cl-sheet[data-side="bottom"] {
+  --_from: 0 2.5rem;
+  inset: auto 0 0 0;
+  border-top-width: 1px;
+}
+
+/* data-[side=left]:sm:max-w-sm data-[side=right]:sm:max-w-sm */
+@media (width >= 40rem) {
+  .cl-sheet:not([data-side="top"], [data-side="bottom"]) {
+    max-width: 24rem;
+  }
+}
+
+/* SheetOverlay: bg-black/10 duration-100 backdrop-blur-xs, fading in and out */
+.cl-sheet::backdrop {
+  background-color: rgb(0 0 0 / 0);
+  transition-property: background-color, backdrop-filter, display, overlay;
+  transition-duration: 100ms;
+  transition-behavior: allow-discrete;
+}
+
+.cl-sheet[open]::backdrop {
+  background-color: rgb(0 0 0 / 0.1);
+  backdrop-filter: blur(4px);
+}
+
+@starting-style {
+  .cl-sheet[open]::backdrop {
+    background-color: rgb(0 0 0 / 0);
+    backdrop-filter: blur(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-sheet,
+  .cl-sheet::backdrop {
+    transition-duration: 0s;
+  }
+}
+
+/* SheetHeader: flex flex-col gap-0.5 p-4 */
+.cl-sheet-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: 1rem;
+}
+
+/* SheetFooter: mt-auto flex flex-col gap-2 p-4 */
+.cl-sheet-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding: 1rem;
+}
+
+/* SheetTitle: text-base font-medium text-foreground */
+.cl-sheet-title {
+  margin: 0;
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+}
+
+/* SheetDescription: text-sm text-muted-foreground */
+.cl-sheet-description {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+/* The close button: absolute end-3 top-3 */
+.cl-sheet-close {
+  position: absolute;
+  top: 0.75rem;
+  inset-inline-end: 0.75rem;
+}
