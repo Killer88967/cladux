@@ -1,0 +1,386 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/cladux-html@0.1.0/cl.css"
+/>
+<script src="https://cdn.jsdelivr.net/npm/cladux-html@0.1.0/cl.js"></script>
+
+<div class="cl-cluster">
+  <button
+    class="cl-button"
+    data-variant="outline"
+    data-dialog-open="sheet-side-left"
+  >
+    Left
+  </button>
+  <button
+    class="cl-button"
+    data-variant="outline"
+    data-dialog-open="sheet-side-top"
+  >
+    Top
+  </button>
+  <button
+    class="cl-button"
+    data-variant="outline"
+    data-dialog-open="sheet-side-right"
+  >
+    Right
+  </button>
+  <button
+    class="cl-button"
+    data-variant="outline"
+    data-dialog-open="sheet-side-bottom"
+  >
+    Bottom
+  </button>
+</div>
+
+<dialog
+  class="cl-sheet"
+  id="sheet-side-top"
+  data-side="top"
+  aria-labelledby="sheet-side-top-title"
+  style="max-height: 50vh"
+>
+  <div class="cl-sheet-header">
+    <h2 class="cl-sheet-title" id="sheet-side-top-title">Edit profile</h2>
+    <p class="cl-sheet-description">
+      Make changes to your profile here. Click save when you're done.
+    </p>
+  </div>
+  <div style="overflow-y: auto; scrollbar-width: none; padding: 0 1rem">
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+  </div>
+  <div class="cl-sheet-footer">
+    <button class="cl-button" data-dialog-close>Save changes</button>
+    <button class="cl-button" data-variant="outline" data-dialog-close>
+      Cancel
+    </button>
+  </div>
+  <button
+    class="cl-button cl-sheet-close"
+    data-variant="ghost"
+    data-size="icon-sm"
+    data-dialog-close
+    aria-label="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  </button>
+</dialog>
+
+<dialog
+  class="cl-sheet"
+  id="sheet-side-right"
+  data-side="right"
+  aria-labelledby="sheet-side-right-title"
+>
+  <div class="cl-sheet-header">
+    <h2 class="cl-sheet-title" id="sheet-side-right-title">Edit profile</h2>
+    <p class="cl-sheet-description">
+      Make changes to your profile here. Click save when you're done.
+    </p>
+  </div>
+  <div style="overflow-y: auto; scrollbar-width: none; padding: 0 1rem">
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+  </div>
+  <div class="cl-sheet-footer">
+    <button class="cl-button" data-dialog-close>Save changes</button>
+    <button class="cl-button" data-variant="outline" data-dialog-close>
+      Cancel
+    </button>
+  </div>
+  <button
+    class="cl-button cl-sheet-close"
+    data-variant="ghost"
+    data-size="icon-sm"
+    data-dialog-close
+    aria-label="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  </button>
+</dialog>
+
+<dialog
+  class="cl-sheet"
+  id="sheet-side-bottom"
+  data-side="bottom"
+  aria-labelledby="sheet-side-bottom-title"
+  style="max-height: 50vh"
+>
+  <div class="cl-sheet-header">
+    <h2 class="cl-sheet-title" id="sheet-side-bottom-title">Edit profile</h2>
+    <p class="cl-sheet-description">
+      Make changes to your profile here. Click save when you're done.
+    </p>
+  </div>
+  <div style="overflow-y: auto; scrollbar-width: none; padding: 0 1rem">
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+  </div>
+  <div class="cl-sheet-footer">
+    <button class="cl-button" data-dialog-close>Save changes</button>
+    <button class="cl-button" data-variant="outline" data-dialog-close>
+      Cancel
+    </button>
+  </div>
+  <button
+    class="cl-button cl-sheet-close"
+    data-variant="ghost"
+    data-size="icon-sm"
+    data-dialog-close
+    aria-label="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  </button>
+</dialog>
+
+<dialog
+  class="cl-sheet"
+  id="sheet-side-left"
+  data-side="left"
+  aria-labelledby="sheet-side-left-title"
+>
+  <div class="cl-sheet-header">
+    <h2 class="cl-sheet-title" id="sheet-side-left-title">Edit profile</h2>
+    <p class="cl-sheet-description">
+      Make changes to your profile here. Click save when you're done.
+    </p>
+  </div>
+  <div style="overflow-y: auto; scrollbar-width: none; padding: 0 1rem">
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+    <p style="margin: 0 0 0.5rem; line-height: 1.625">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </p>
+  </div>
+  <div class="cl-sheet-footer">
+    <button class="cl-button" data-dialog-close>Save changes</button>
+    <button class="cl-button" data-variant="outline" data-dialog-close>
+      Cancel
+    </button>
+  </div>
+  <button
+    class="cl-button cl-sheet-close"
+    data-variant="ghost"
+    data-size="icon-sm"
+    data-dialog-close
+    aria-label="Close"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
+    </svg>
+  </button>
+</dialog>
