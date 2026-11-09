@@ -12,7 +12,7 @@ import {
   onTooltipLeave,
   repositionOpen,
 } from "./floating";
-import { onFormReset, onSliderInput, setupSliders } from "./slider";
+import { onFormReset, onSliderInput, onSliderPointerDown, setupSliders } from "./slider";
 import { onTabClick, onTabKeyDown, setupTabs } from "./tabs";
 import { onToastClick, toast } from "./toast";
 
@@ -89,9 +89,17 @@ export function start() {
   window.addEventListener("scroll", repositionOpen, { capture: true, passive: true });
   window.addEventListener("resize", repositionOpen, { passive: true });
 
+  const setup = (root: ParentNode) => {
+    setupTabs(root);
+    setupSliders(root);
+  };
   const ready = () => {
-    setupTabs();
-    setupSliders();
+    setup(document);
+    new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.addedNodes) if (node instanceof Element) setup(node);
+      }
+    }).observe(document.body, { childList: true, subtree: true });
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", ready);
   else ready();

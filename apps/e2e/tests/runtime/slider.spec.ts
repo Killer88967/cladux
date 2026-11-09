@@ -38,3 +38,40 @@ test("fills again after a form reset", async ({ page }) => {
   await expect(slider).toHaveValue("75");
   await expect.poll(() => fill(slider)).toBe("75%");
 });
+
+test("fills a slider added to the page later", async ({ page }) => {
+  await page.evaluate(() => {
+    const box = document.createElement("div");
+    box.innerHTML = '<input class="cl-slider" type="range" value="30" aria-label="Later">';
+    document.body.append(box);
+  });
+  await expect.poll(() => fill(page.getByRole("slider", { name: "Later" }))).toBe("30%");
+});
+
+test("drags from anywhere on the track with a finger", async ({ page }) => {
+  const slider = page.getByRole("slider", { name: "Volume" });
+  const box = (await slider.boundingBox())!;
+  const y = box.y + box.height / 2;
+  const at = (ratio: number) => box.x + 6 + ratio * (box.width - 12);
+  await slider.evaluate((el) => {
+    (window as unknown as { changes: number }).changes = 0;
+    el.addEventListener("change", () => (window as unknown as { changes: number }).changes++);
+  });
+
+  // A real touch, so the browser makes touch pointer events from it.
+  const cdp = await page.context().newCDPSession(page);
+  const touch = (type: "touchCancel" | "touchEnd" | "touchMove" | "touchStart", x: number) =>
+    cdp.send("Input.dispatchTouchEvent", {
+      type,
+      touchPoints: type === "touchEnd" ? [] : [{ x, y }],
+    });
+
+  await touch("touchStart", at(0.2));
+  await expect(slider).toHaveValue("20");
+  await touch("touchMove", at(0.5));
+  await touch("touchMove", at(0.9));
+  await expect(slider).toHaveValue("90");
+  expect(await fill(slider)).toBe("90%");
+  await touch("touchEnd", 0);
+  expect(await page.evaluate(() => (window as unknown as { changes: number }).changes)).toBe(1);
+});

@@ -102,7 +102,7 @@ In a `cl-tabs`, each `role="tab"` button shows the panel its `aria-controls` nam
 
 ### Slider
 
-A `cl-slider` is a native range input. The script fills its track up to the thumb as it moves, which Chrome and Safari can't do in CSS. It fills the sliders on the page when it starts, and again after a form reset.
+A `cl-slider` is a native range input. The script fills its track up to the thumb as it moves, which Chrome and Safari can't do in CSS, including for sliders added later and after a form reset. On a touch screen, a finger can drag it from anywhere on the track, not just the thumb.
 
 ```html
 <input class="cl-slider" type="range" min="0" max="100" value="75" aria-label="Volume" />

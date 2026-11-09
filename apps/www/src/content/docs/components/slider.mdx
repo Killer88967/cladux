@@ -47,6 +47,6 @@ Use the `disabled` prop to disable the slider.
 
 A native range input, so it works with the keyboard, in forms and with screen readers on its own. It has one thumb; for a range with two thumbs, use the React Slider. Add `disabled` to turn it off.
 
-The small runtime script fills the track up to the thumb in Chrome and Safari (Firefox does it by itself). Without the script, or for a slider added to the page later, set where the fill starts with `style="--cl-slider-fill: 75%"`. See [Plain HTML](/docs/html).
+The small runtime script fills the track up to the thumb in Chrome and Safari (Firefox does it by itself), and on touch screens it lets a finger drag from anywhere on the track, not just the thumb. Without the script, set the fill yourself with `style="--cl-slider-fill: 75%"`. See [Plain HTML](/docs/html).
 
 <HtmlPreview name="slider" />

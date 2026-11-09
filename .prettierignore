@@ -1,2 +1,2 @@
 # Generated files prettier shouldn't touch (.gitignore is respected too).
-# pnpm-lock.yaml
+pnpm-lock.yaml
