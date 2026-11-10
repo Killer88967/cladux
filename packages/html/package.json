@@ -1,7 +1,7 @@
 {
   "name": "cladux-html",
   "version": "0.2.0",
-  "description": "Cladux for plain HTML: one stylesheet and one small script, from a CDN or npm.",
+  "description": "Cladux for plain HTML: one stylesheet, or just the components you use, and one small script, from a CDN or npm.",
   "keywords": [
     "cladux",
     "css",
@@ -27,6 +27,9 @@
   "exports": {
     "./cl.css": "./cl.css",
     "./cl.min.css": "./cl.min.css",
+    "./core.css": "./core.css",
+    "./core.min.css": "./core.min.css",
+    "./components/*": "./components/*",
     "./cl.js": "./cl.js",
     "./cl.min.js": "./cl.min.js",
     "./package.json": "./package.json"
@@ -34,6 +37,9 @@
   "files": [
     "cl.css",
     "cl.min.css",
+    "core.css",
+    "core.min.css",
+    "components",
     "cl.js",
     "cl.min.js"
   ],

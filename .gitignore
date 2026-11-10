@@ -28,3 +28,6 @@ packages/html/cl.css
 packages/html/cl.min.css
 packages/html/cl.js
 packages/html/cl.min.js
+packages/html/core.css
+packages/html/core.min.css
+packages/html/components

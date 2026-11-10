@@ -78,8 +78,7 @@
 /*
  * CarouselPrevious and CarouselNext: Buttons, outline and icon-sm, with
  * absolute touch-manipulation rounded-full. Beside the slides, or above and
- * below them, turned, when they're vertical. Inside .cl-carousel, so the
- * round corners win over the button size's.
+ * below them, turned, when they're vertical.
  */
 .cl-carousel :is(.cl-carousel-previous, .cl-carousel-next) {
   position: absolute;
@@ -87,6 +86,11 @@
   margin-block: auto;
   border-radius: calc(infinity * 1px);
   touch-action: manipulation;
+}
+
+/* Round over the button size's corners, whichever stylesheet loads first. */
+.cl-carousel .cl-button:is(.cl-carousel-previous, .cl-carousel-next) {
+  border-radius: calc(infinity * 1px);
 }
 
 /* -start-12 */

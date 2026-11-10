@@ -3,7 +3,15 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "outputs": ["cl.css", "cl.min.css", "cl.js", "cl.min.js"]
+      "outputs": [
+        "cl.css",
+        "cl.min.css",
+        "core.css",
+        "core.min.css",
+        "components/**",
+        "cl.js",
+        "cl.min.js"
+      ]
     }
   }
 }
