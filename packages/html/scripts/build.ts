@@ -4,8 +4,9 @@
 //   https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/cl.min.css
 //
 // From @cladux/styles: cl.css (everything), core.css (everything but the
-// components) and components/<name>.css. From @cladux/utils: cl.js. Each one
-// readable and minified (.min).
+// components) and components/<name>.css. From @cladux/utils: cl.js (a classic
+// script that starts itself) and cl.mjs (an ES module), with the module's
+// types in types/. Each one readable and minified (.min).
 import { mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 
 const ROOT = new URL("../", import.meta.url);
@@ -21,10 +22,20 @@ for (const name of ["cl.css", "cl.min.css", "core.css", "core.min.css"]) {
 for (const name of await readdir(new URL("components/", STYLES))) {
   files.push([new URL(`components/${name}`, STYLES), `components/${name}`]);
 }
-for (const name of ["cl.js", "cl.min.js"]) files.push([new URL(name, UTILS), name]);
+for (const name of ["cl.js", "cl.min.js", "cl.mjs", "cl.min.mjs"]) {
+  files.push([new URL(name, UTILS), name]);
+}
 
 await mkdir(new URL("components/", ROOT), { recursive: true });
 for (const [from, to] of files) {
   await writeFile(new URL(to, ROOT), banner + (await readFile(from, "utf8")));
 }
-console.log(`cladux-html: ${files.length} files for v${version}`);
+
+// The types, as they are.
+await mkdir(new URL("types/", ROOT), { recursive: true });
+const types = await readdir(new URL("types/", UTILS));
+for (const name of types) {
+  await writeFile(new URL(`types/${name}`, ROOT), await readFile(new URL(`types/${name}`, UTILS)));
+}
+
+console.log(`cladux-html: ${files.length} files and ${types.length} type files for v${version}`);

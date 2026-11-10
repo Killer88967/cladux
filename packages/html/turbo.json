@@ -10,7 +10,10 @@
         "core.min.css",
         "components/**",
         "cl.js",
-        "cl.min.js"
+        "cl.min.js",
+        "cl.mjs",
+        "cl.min.mjs",
+        "types/**"
       ]
     }
   }

@@ -31,3 +31,6 @@ packages/html/cl.min.js
 packages/html/core.css
 packages/html/core.min.css
 packages/html/components
+packages/html/cl.mjs
+packages/html/cl.min.mjs
+packages/html/types

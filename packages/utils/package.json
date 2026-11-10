@@ -5,15 +5,17 @@
   "type": "module",
   "sideEffects": [
     "./dist/cl.js",
+    "./dist/cl.min.js",
     "./src/dom/auto.ts"
   ],
   "exports": {
     ".": "./src/index.ts",
     "./dom": "./src/dom/index.ts",
-    "./cl.js": "./dist/cl.js"
+    "./cl.js": "./dist/cl.js",
+    "./cl.mjs": "./dist/cl.mjs"
   },
   "scripts": {
-    "build": "node scripts/build.ts",
+    "build": "tsc -p tsconfig.types.json && node scripts/build.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

@@ -6,7 +6,7 @@ allowBuilds:
   esbuild: true
 
 minimumReleaseAgeExclude:
-  - lucide-react@1.70.0
+  - lucide-react@1.71.0
   - react-resizable-panels@4.21.0
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"

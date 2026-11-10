@@ -24,7 +24,21 @@
   "author": "Killer88967",
   "type": "module",
   "style": "cl.css",
+  "module": "cl.mjs",
+  "types": "types/index.d.ts",
   "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./cl.mjs"
+    },
+    "./cl.mjs": {
+      "types": "./types/index.d.ts",
+      "default": "./cl.mjs"
+    },
+    "./cl.min.mjs": {
+      "types": "./types/index.d.ts",
+      "default": "./cl.min.mjs"
+    },
     "./cl.css": "./cl.css",
     "./cl.min.css": "./cl.min.css",
     "./core.css": "./core.css",
@@ -43,7 +57,11 @@
     "cl.js",
     "cl.min.js"
   ],
-  "sideEffects": true,
+  "sideEffects": [
+    "*.css",
+    "./cl.js",
+    "./cl.min.js"
+  ],
   "scripts": {
     "build": "node scripts/build.ts"
   },
