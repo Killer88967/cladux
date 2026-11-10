@@ -1,8 +1,19 @@
 # Cladux
 
-[![npm version](https://img.shields.io/npm/v/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=18181b&labelColor=18181b)](https://www.npmjs.com/package/cladux-ui)
+<!-- [![npm version](https://img.shields.io/npm/v/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=18181b&labelColor=18181b)](https://www.npmjs.com/package/cladux-ui)
 [![npm downloads](https://img.shields.io/npm/dm/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=cb3837&labelColor=18181b&label=downloads)](https://www.npmjs.com/package/cladux-ui)
 [![CI](https://img.shields.io/github/actions/workflow/status/Killer88967/cladux/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&color=2ea44f&labelColor=18181b&label=CI)](https://github.com/Killer88967/cladux/actions/workflows/ci.yml)
+[![license](https://img.shields.io/github/license/Killer88967/cladux?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=6366f1&labelColor=18181b)](https://github.com/Killer88967/cladux/blob/main/LICENSE)
+[![docs](https://img.shields.io/badge/docs-cladux.vercel.app-8b5cf6?style=for-the-badge&logo=vercel&logoColor=white&labelColor=18181b)](https://cladux.vercel.app) -->
+
+<!-- Package versions -->
+[![cladux-ui](https://img.shields.io/npm/v/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=cb3837&label=cladux-ui)](https://www.npmjs.com/package/cladux-ui)
+[![cladux-registry](https://img.shields.io/npm/v/cladux-registry?style=for-the-badge&logo=npm&logoColor=white&color=cb3837&label=cladux-registry)](https://www.npmjs.com/package/cladux-registry)
+[![cladux-html](https://img.shields.io/npm/v/cladux-html?style=for-the-badge&logo=npm&logoColor=white&color=cb3837&label=cladux-html)](https://www.npmjs.com/package/cladux-html)
+
+<!-- Repository information -->
+[![npm downloads](https://img.shields.io/npm/dm/cladux-ui?style=for-the-badge&logo=npm&logoColor=white&color=18181b&label=downloads)](https://www.npmjs.com/package/cladux-ui)
+[![CI](https://img.shields.io/github/actions/workflow/status/Killer88967/cladux/ci.yml?branch=main&style=for-the-badge&logo=githubactions&logoColor=white&color=2ea44f&label=CI)](https://github.com/Killer88967/cladux/actions/workflows/ci.yml)
 [![license](https://img.shields.io/github/license/Killer88967/cladux?style=for-the-badge&logo=opensourceinitiative&logoColor=white&color=6366f1&labelColor=18181b)](https://github.com/Killer88967/cladux/blob/main/LICENSE)
 [![docs](https://img.shields.io/badge/docs-cladux.vercel.app-8b5cf6?style=for-the-badge&logo=vercel&logoColor=white&labelColor=18181b)](https://cladux.vercel.app)
 
