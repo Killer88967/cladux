@@ -304,12 +304,14 @@ for (const file of await readdir(SCHEMAS)) {
   await writeFile(new URL(`../schema/${file}`, OUT), await readFile(new URL(file, SCHEMAS)));
 }
 
-// The plain HTML version, at /cl/cl.css and /cl/cl.js: the stylesheet and the
-// runtime script, built by packages/styles and packages/utils.
+// The plain HTML version, at /cl/: the stylesheet and the runtime script, readable
+// and minified, built by packages/styles and packages/utils.
 await mkdir(new URL("../cl/", OUT), { recursive: true });
 for (const [from, to] of [
   ["packages/styles/dist/cl.css", "cl.css"],
+  ["packages/styles/dist/cl.min.css", "cl.min.css"],
   ["packages/utils/dist/cl.js", "cl.js"],
+  ["packages/utils/dist/cl.min.js", "cl.min.js"],
 ] as const) {
   await writeFile(new URL(`../cl/${to}`, OUT), await readFile(new URL(from, ROOT)));
 }

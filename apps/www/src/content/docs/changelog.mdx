@@ -21,6 +21,10 @@ export const metadata = {
 
 - [Plain HTML](/docs/html) has its own page: setup, the components that work without React, every attribute the script reads, `cl.toast()` and `cl.openDialog()`, and the layout helpers (`cl-stack`, `cl-cluster`, `cl-grid-auto`, `cl-container`).
 - The stylesheet and the script are online, at `/cl/cl.css` and `/cl/cl.js`, so a page can link to them directly.
+- They're on npm as [`cladux-html`](https://www.npmjs.com/package/cladux-html), so jsDelivr and unpkg serve each version at a link that never changes. Version 0.2.0 adds minified files, `cl.min.css` and `cl.min.js`.
+- Five more components work without React: [Accordion](/docs/components/accordion#css-only) (no script needed), [Sheet](/docs/components/sheet#css-only), [Slider](/docs/components/slider#css-only), [Combobox](/docs/components/combobox#css-only) and [Carousel](/docs/components/carousel#css-only).
+- The plain HTML [Dialog](/docs/components/dialog#css-only) no longer fills the whole height of the screen in Safari.
+- The script sets up markup added to the page later, such as by htmx or a framework.
 - [Installation](/docs/installation#the-cn-helper) explains the `cn()` helper.
 
 ### Right to left

@@ -12,19 +12,21 @@ Cladux works without React. The plain-CSS components use `cl-*` classes on ordin
 Add the stylesheet and the script to your page. They're published to npm as [`cladux-html`](https://www.npmjs.com/package/cladux-html), so jsDelivr serves them by version:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cladux-html@0.1.0/cl.css" />
-<script src="https://cdn.jsdelivr.net/npm/cladux-html@0.1.0/cl.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cladux-html@0.2.0/cl.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cladux-html@0.2.0/cl.min.js" defer></script>
 ```
 
-The stylesheet (about 34 KB) has the theme, a small reset, the components and the layout helpers below. The script (about 10 KB, no dependencies) opens dialogs, positions popovers and menus, switches tabs and shows toasts. Pages without those components don't need it.
+The stylesheet (about 8 KB gzipped) has the theme, a small reset, the components and the layout helpers below. The script (about 7 KB gzipped, no dependencies) runs the components in the "Needs the script too" column: it opens dialogs and sheets, positions popovers and menus, switches tabs, filters comboboxes, moves carousels and shows toasts. Pages without those components don't need it.
+
+`cl.css` and `cl.js` are the same files, readable, for when you want to look inside or debug.
 
 Keep the exact version in the links, so an update never changes your site without you knowing. Check [npm](https://www.npmjs.com/package/cladux-html) for the latest version, and the [changelog](/docs/changelog) before moving up.
 
 ### Other ways to get them
 
-- **unpkg:** the same paths, such as `https://unpkg.com/cladux-html@0.1.0/cl.css`.
+- **unpkg:** the same paths, such as `https://unpkg.com/cladux-html@0.2.0/cl.min.css`.
 - **npm**, for a site with a bundler: `npm install cladux-html`, then `import "cladux-html/cl.css"` and `import "cladux-html/cl.js"`.
-- **Always the newest:** `https://cladux.vercel.app/cl/cl.css` and `/cl/cl.js` follow every change to the site. Handy for trying things out, but not for a site you don't want changing under you.
+- **Always the newest:** `https://cladux.vercel.app/cl/cl.min.css` and `/cl/cl.min.js` follow every change to the site. Handy for trying things out, but not for a site you don't want changing under you.
 - **Your own copy:** download the two files and serve them yourself.
 
 To check that the CDN serves exactly what was published, add an `integrity` attribute: [jsDelivr](https://www.jsdelivr.com/package/npm/cladux-html) shows the hash for each file.
