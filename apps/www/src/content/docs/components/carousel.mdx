@@ -231,3 +231,11 @@ export function Example() {
 ```
 
 <ComponentPreview name="carousel-plugin" previewClassName="sm:h-[32rem]" />
+
+## CSS only
+
+The browser's own scrolling moves the slides and scroll snapping stops them on one, so swiping and trackpads work without any script. The small runtime script adds the rest: the previous and next buttons, the left and right arrow keys, buttons that turn off at the ends, and dragging with a mouse. It also labels the slides ("1 of 5") and makes them reachable from the keyboard.
+
+Set `--cl-carousel-per-view` to show more than one slide at a time, and `--cl-carousel-gap` for the space between them. Add `data-orientation="vertical"` to stack them, and give `.cl-carousel-content` a height. See [Plain HTML](/docs/html).
+
+<HtmlPreview name="carousel" />

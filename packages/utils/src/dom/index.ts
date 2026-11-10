@@ -1,5 +1,12 @@
 import { onAccordionClick } from "./accordion";
 import {
+  onCarouselClick,
+  onCarouselKeyDown,
+  onCarouselPointerDown,
+  onCarouselScroll,
+  setupCarousels,
+} from "./carousel";
+import {
   onComboboxClick,
   onComboboxFocusOut,
   onComboboxInput,
@@ -36,7 +43,7 @@ const asElement = (target: EventTarget | null) => (target instanceof Element ? t
 
 /**
  * Turns on the behavior for the CSS-only components: accordions, dialogs, popovers,
- * dropdown menus, tooltips, tabs, sliders, comboboxes and toasts. Listeners are delegated to the
+ * dropdown menus, tooltips, tabs, sliders, comboboxes, carousels and toasts. Listeners are delegated to the
  * document, so markup added later works too. Safe to call more than once.
  */
 export function start() {
@@ -47,6 +54,7 @@ export function start() {
     const target = asElement(event.target);
     if (!target) return;
     onAccordionClick(event, target);
+    onCarouselClick(target);
     onComboboxClick(target);
     onDialogClick(event, target);
     onMenuClick(target);
@@ -58,6 +66,7 @@ export function start() {
     const target = asElement(event.target);
     if (event.key === "Escape") hideAllTooltips();
     if (!target) return;
+    onCarouselKeyDown(event, target);
     onComboboxKeyDown(event, target);
     onMenuKeyDown(event, target);
     onTabKeyDown(event, target);
@@ -76,6 +85,7 @@ export function start() {
   document.addEventListener("pointerdown", (event) => {
     const target = asElement(event.target);
     if (!target) return;
+    onCarouselPointerDown(event, target);
     onComboboxPointerDown(event, target);
     onSliderPointerDown(event, target);
   });
@@ -116,11 +126,15 @@ export function start() {
   };
   window.addEventListener("scroll", reposition, { capture: true, passive: true });
   window.addEventListener("resize", reposition, { passive: true });
+  // The carousel buttons turn on and off as it scrolls, and when it changes size.
+  document.addEventListener("scroll", onCarouselScroll, { capture: true, passive: true });
+  window.addEventListener("resize", () => setupCarousels(), { passive: true });
 
   const setup = (root: ParentNode) => {
     setupTabs(root);
     setupSliders(root);
     setupComboboxes(root);
+    setupCarousels(root);
   };
   const ready = () => {
     setup(document);

@@ -1,0 +1,123 @@
+/*
+ * CSS-only Carousel. The same look as carousel.tsx (shadcn/ui, MIT), which
+ * uses Embla. Here the browser's own scrolling moves the slides, and scroll
+ * snapping stops them on a slide, so a swipe or a trackpad works without
+ * any script. The small runtime (cl.js) wires up the buttons and the arrow
+ * keys, turns the buttons off at the ends, and lets a mouse drag the slides.
+ *
+ * <div class="cl-carousel" role="region" aria-roledescription="carousel" aria-label="Photos">
+ *   <div class="cl-carousel-content">
+ *     <div class="cl-carousel-item">...</div>
+ *     ...
+ *   </div>
+ *   <button class="cl-button cl-carousel-previous" data-variant="outline" data-size="icon-sm" aria-label="Previous slide">...</button>
+ *   <button class="cl-button cl-carousel-next" data-variant="outline" data-size="icon-sm" aria-label="Next slide">...</button>
+ * </div>
+ *
+ * --cl-carousel-per-view sets how many slides show at once (the React
+ * basis-1/2, basis-1/3), and --cl-carousel-gap the space between them (the
+ * React -ms-4 and ps-4). data-orientation="vertical" stacks them; give the
+ * content a height.
+ */
+
+/* Carousel: relative */
+.cl-carousel {
+  --cl-carousel-per-view: 1;
+  --cl-carousel-gap: 1rem;
+
+  position: relative;
+}
+
+/* CarouselContent: overflow-hidden, with a flex row inside. */
+.cl-carousel-content {
+  display: flex;
+  gap: var(--cl-carousel-gap);
+  overflow: auto hidden;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--radius);
+  outline: none;
+}
+
+.cl-carousel-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* The script makes it focusable, so the arrow keys work; it shows a ring then. */
+.cl-carousel-content:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent);
+}
+
+/* While a mouse drags it, it follows the mouse; it snaps again after. */
+.cl-carousel-content[data-dragging] {
+  scroll-snap-type: none;
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* CarouselItem: min-w-0 shrink-0 grow-0 basis-full */
+.cl-carousel-item {
+  flex: 0 0
+    calc(
+      (100% - (var(--cl-carousel-per-view) - 1) * var(--cl-carousel-gap)) /
+        var(--cl-carousel-per-view)
+    );
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.cl-carousel[data-orientation="vertical"] .cl-carousel-content {
+  flex-direction: column;
+  overflow: hidden auto;
+  overscroll-behavior-x: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+}
+
+/*
+ * CarouselPrevious and CarouselNext: Buttons, outline and icon-sm, with
+ * absolute touch-manipulation rounded-full. Beside the slides, or above and
+ * below them, turned, when they're vertical. Inside .cl-carousel, so the
+ * round corners win over the button size's.
+ */
+.cl-carousel :is(.cl-carousel-previous, .cl-carousel-next) {
+  position: absolute;
+  inset-block: 0;
+  margin-block: auto;
+  border-radius: calc(infinity * 1px);
+  touch-action: manipulation;
+}
+
+/* -start-12 */
+.cl-carousel-previous {
+  inset-inline-start: -3rem;
+}
+
+/* -end-12 */
+.cl-carousel-next {
+  inset-inline-end: -3rem;
+}
+
+/* rtl:rotate-180 on the chevrons */
+.cl-carousel:not([data-orientation="vertical"])
+  :is(.cl-carousel-previous, .cl-carousel-next):dir(rtl)
+  svg {
+  rotate: 180deg;
+}
+
+/* -top-12 and -bottom-12, left-1/2 -translate-x-1/2 rotate-90 */
+.cl-carousel[data-orientation="vertical"] :is(.cl-carousel-previous, .cl-carousel-next) {
+  inset: auto auto auto 50%;
+  margin: 0;
+  translate: -50% 0;
+  rotate: 90deg;
+}
+
+.cl-carousel[data-orientation="vertical"] .cl-carousel-previous {
+  top: -3rem;
+}
+
+.cl-carousel[data-orientation="vertical"] .cl-carousel-next {
+  bottom: -3rem;
+}
