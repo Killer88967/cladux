@@ -1,6 +1,6 @@
 {
   "name": "cladux-html",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Cladux for plain HTML: one stylesheet, or just the components you use, and one small script, from a CDN or npm.",
   "keywords": [
     "cladux",
