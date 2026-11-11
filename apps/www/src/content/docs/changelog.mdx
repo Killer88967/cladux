@@ -25,6 +25,8 @@ export const metadata = {
 - Five more components work without React: [Accordion](/docs/components/accordion#css-only) (no script needed), [Sheet](/docs/components/sheet#css-only), [Slider](/docs/components/slider#css-only), [Combobox](/docs/components/combobox#css-only) and [Carousel](/docs/components/carousel#css-only).
 - The plain HTML [Dialog](/docs/components/dialog#css-only) no longer fills the whole height of the screen in Safari.
 - The script sets up markup added to the page later, such as by htmx or a framework.
+- Version 0.3.0 can [load only the components a page uses](/docs/html#only-the-components-you-use): `core.css` plus a file per component, such as `components/dialog.css`.
+- The script is also an [ES module](/docs/html#as-an-es-module), `cl.mjs`, with TypeScript types, for bundlers and frameworks without React: `import { start, toast } from "cladux-html"`.
 - [Installation](/docs/installation#the-cn-helper) explains the `cn()` helper.
 
 ### Right to left

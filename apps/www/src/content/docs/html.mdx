@@ -12,8 +12,8 @@ Cladux works without React. The plain-CSS components use `cl-*` classes on ordin
 Add the stylesheet and the script to your page. They're published to npm as [`cladux-html`](https://www.npmjs.com/package/cladux-html), so jsDelivr serves them by version:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cladux-html@0.2.0/cl.min.css" />
-<script src="https://cdn.jsdelivr.net/npm/cladux-html@0.2.0/cl.min.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/cl.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/cl.min.js" defer></script>
 ```
 
 The stylesheet (about 8 KB gzipped) has the theme, a small reset, the components and the layout helpers below. The script (about 7 KB gzipped, no dependencies) runs the components in the "Needs the script too" column: it opens dialogs and sheets, positions popovers and menus, switches tabs, filters comboboxes, moves carousels and shows toasts. Pages without those components don't need it.
@@ -22,10 +22,28 @@ The stylesheet (about 8 KB gzipped) has the theme, a small reset, the components
 
 Keep the exact version in the links, so an update never changes your site without you knowing. Check [npm](https://www.npmjs.com/package/cladux-html) for the latest version, and the [changelog](/docs/changelog) before moving up.
 
+### Only the components you use
+
+`cl.min.css` has every component. To load less, use `core.min.css` (the theme, the reset and the layout helpers, about 1.2 KB gzipped) and a file for each component on the page:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/core.min.css" />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/components/button.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/components/dialog.min.css"
+/>
+```
+
+The files are named after the components: `components/dropdown-menu.min.css`, `components/native-select.min.css` and so on. They can load in any order, and your own CSS still wins over them. Toasts need `components/toast.min.css` even though the script makes their markup.
+
 ### Other ways to get them
 
-- **unpkg:** the same paths, such as `https://unpkg.com/cladux-html@0.2.0/cl.min.css`.
-- **npm**, for a site with a bundler: `npm install cladux-html`, then `import "cladux-html/cl.css"` and `import "cladux-html/cl.js"`.
+- **unpkg:** the same paths, such as `https://unpkg.com/cladux-html@0.3.0/cl.min.css`.
+- **npm**, for a site with a bundler: `npm install cladux-html`, then `import "cladux-html/cl.css"` (or `core.css` and the component files) and use the script as an [ES module](#as-an-es-module).
 - **Always the newest:** `https://cladux.vercel.app/cl/cl.min.css` and `/cl/cl.min.js` follow every change to the site. Handy for trying things out, but not for a site you don't want changing under you.
 - **Your own copy:** download the two files and serve them yourself.
 
@@ -152,6 +170,28 @@ cl.openDialog("confirm");
 | `cl.start()`                | Turns everything on. The script calls it when it loads; calling it again does nothing |
 
 Toast options are `description`, `type`, `duration` (milliseconds, `Infinity` to stay until dismissed) and `action` (`{ label, onClick }`).
+
+### As an ES module
+
+For a bundler (Vite, webpack, esbuild) or a framework without React (Svelte, Vue, Astro), import the functions instead. The module, `cl.mjs`, doesn't start itself or add `window.cl`: call `start()` once, when the page is ready. It comes with TypeScript types.
+
+```js
+import { start, toast, openDialog } from "cladux-html";
+
+start();
+toast.success("Changes saved");
+```
+
+Without a bundler, import it from the CDN:
+
+```html
+<script type="module">
+  import { start, toast } from "https://cdn.jsdelivr.net/npm/cladux-html@0.3.0/cl.min.mjs";
+  start();
+</script>
+```
+
+Use either the module or `cl.js` on a page, not both.
 
 ## Layout helpers
 

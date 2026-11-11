@@ -82,8 +82,8 @@ spent 33 s compiling, and the CLI package was 2.4 MB. After 0.6: docs pages load
 
 - [x] Versioned CDN files: publish `cl.css` and `cl.js` to npm, so jsDelivr and unpkg serve them by version
 - [x] Plain HTML versions of more components: accordion, sheet, slider, combobox and carousel
-- [ ] A per-component CSS build, so a page loads only the components it uses
-- [ ] An ES module build of the runtime, for bundlers and frameworks without React
+- [x] A per-component CSS build, so a page loads only the components it uses
+- [x] An ES module build of the runtime, for bundlers and frameworks without React
 
 ## Component ideas
 
