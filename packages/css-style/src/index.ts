@@ -157,7 +157,8 @@ interface FindOptions {
 
 /**
  * Finds the class strings in one component and decides a class name for each.
- * Class strings live in className="...", in cn(...) calls and in cva(...).
+ * Class strings live in className="...", in cn(...) calls, in cva(...), and in
+ * constants passed to cn() (const labelClass = "...").
  * tailwind-merge's effect is applied here, at build time: unconditional class
  * strings in one cn() are merged, and cva base classes a variant would drop
  * move into the variants that keep them.
@@ -181,6 +182,27 @@ function findSites(code: string, file: string, opts: FindOptions) {
       if (/^[A-Z]/.test(name)) localComponents.add(name);
     }
   }
+
+  // Constants passed to cn() by name: their string is a class string too.
+  const classConstants = new Set<string>();
+  const findConstants = (node: unknown) => {
+    if (!node || typeof node !== "object") return;
+    const n = node as Node;
+    if (n.type === "CallExpression") {
+      const callee = n.callee as Node;
+      if (callee.type === "Identifier" && callee.name === "cn") {
+        for (const arg of n.arguments as Node[]) {
+          if (arg.type === "Identifier") classConstants.add(arg.name as string);
+        }
+      }
+    }
+    for (const key of Object.keys(n)) {
+      if (key === "loc" || key === "leadingComments" || key === "trailingComments") continue;
+      const value = n[key];
+      for (const child of Array.isArray(value) ? value : [value]) findConstants(child);
+    }
+  };
+  findConstants(ast.program);
 
   const unique = (raw: string) => {
     // Never contain a substring some rule tests for, e.g. "size-" in [class*='size-'].
@@ -447,6 +469,18 @@ function findSites(code: string, file: string, opts: FindOptions) {
         tier,
       );
       return;
+    }
+
+    if (node.type === "VariableDeclarator" && (node.id as Node).type === "Identifier") {
+      const name = (node.id as Node).name as string;
+      const value = literalValue(node.init as Node | null);
+      if (classConstants.has(name) && value !== undefined) {
+        return addSite(
+          node.init as Node,
+          value,
+          `${fileBase}__${kebab(name.replace(/Class(es)?$/, ""))}`,
+        );
+      }
     }
 
     if (node.type === "CallExpression" && !handled.has(node)) {

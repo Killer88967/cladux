@@ -88,7 +88,7 @@ spent 33 s compiling, and the CLI package was 2.4 MB. After 0.6: docs pages load
 ## 0.9 - Every browser
 
 - [x] Run the plain HTML runtime tests in WebKit and Firefox in CI, not just Chromium, so Safari bugs show up before a push
-- [ ] Field spacing in the plain CSS style (label-to-control and field-to-field gaps), which also affects radio groups and date pickers
+- [x] Field spacing in the plain CSS style (label-to-control and field-to-field gaps), which also affects radio groups and date pickers
 - [ ] Combobox input stretches to full width in the plain CSS style
 - [ ] Mention Input text stays 16px in the plain CSS style
 - [ ] Decide on the shadcn palette contrast (muted text on muted, destructive tint)
