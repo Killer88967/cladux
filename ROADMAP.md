@@ -85,6 +85,45 @@ spent 33 s compiling, and the CLI package was 2.4 MB. After 0.6: docs pages load
 - [x] A per-component CSS build, so a page loads only the components it uses
 - [x] An ES module build of the runtime, for bundlers and frameworks without React
 
+## 0.9 - Every browser
+
+- [ ] Run the plain HTML runtime tests in WebKit and Firefox in CI, not just Chromium, so Safari bugs show up before a push
+- [ ] Field spacing in the plain CSS style (label-to-control and field-to-field gaps), which also affects radio groups and date pickers
+- [ ] Combobox input stretches to full width in the plain CSS style
+- [ ] Mention Input text stays 16px in the plain CSS style
+- [ ] Decide on the shadcn palette contrast (muted text on muted, destructive tint)
+- [ ] Fix the known differences between the Tailwind and plain CSS styles, or write down why each one stays
+
+## 0.10 - More plain HTML
+
+- [ ] Alert Dialog, Drawer and Hover Card, built on the dialog and popover code
+- [ ] Radio Group, Toggle Group, Progress, Avatar and Alert
+- [ ] Context Menu and Menubar, built on the dropdown menu
+- [ ] Select: a custom one, with the Combobox's keyboard handling
+
+## 0.11 - Themes and design tokens
+
+- [ ] Export a theme as design tokens (the W3C JSON format), for Figma and other tools
+- [ ] Radius, font and shadow on /themes, not just colors
+- [ ] More preset themes, and `cladux theme` to switch between them
+
+## 0.12 - Docs to try things in
+
+- [ ] A props playground on each component page: change the variant, size or state and see the code change
+- [ ] A "Copy for AI" button on each page, with its Markdown version
+- [ ] More blocks: dashboards, sign-in flows and marketing sections
+
+## 1.0 - Stable
+
+- [ ] A versioning policy: what counts as a breaking change for the components, the CLI and `cladux-html`
+- [ ] `cladux migrate`: move a shadcn project to Cladux
+- [ ] A pass through every docs page and README, then the 1.0 releases
+
+## After 1.0
+
+- [ ] Web Components versions of the plain HTML components, such as `<cl-dialog>`
+- [ ] Vue or Svelte versions
+
 ## Component ideas
 
 For after 0.6:
