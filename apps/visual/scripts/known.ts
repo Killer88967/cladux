@@ -13,8 +13,4 @@ export const UNSTABLE = [
  * fixed; the compare script says when one matches again.
  * `node scripts/compare.ts styles --update` rewrites this list from a run.
  */
-export const KNOWN_STYLE_DIFFERENCES: Record<string, string> = {
-  "pagination-icons-only": "Differs by up to 0.3%. Not looked into yet.",
-  "rich-text-editor-controlled": "Differs by up to 0.3%. Not looked into yet.",
-  "rich-text-editor-demo": "Differs by up to 0.4%. Not looked into yet.",
-};
+export const KNOWN_STYLE_DIFFERENCES: Record<string, string> = {};
