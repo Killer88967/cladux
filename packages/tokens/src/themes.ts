@@ -1,4 +1,6 @@
 // Theme values for shadcn/ui (MIT) - https://ui.shadcn.com/theme
+// Two light-mode values are darker than shadcn's, so text passes WCAG AA (4.5:1):
+// muted-foreground (4.6:1 on muted) and destructive (4.6:1 on its 10% tint).
 
 export type ThemeVars = Record<string, string>;
 
@@ -24,10 +26,10 @@ export const neutral: Theme = {
     secondary: "oklch(0.97 0 0)",
     "secondary-foreground": "oklch(0.205 0 0)",
     muted: "oklch(0.97 0 0)",
-    "muted-foreground": "oklch(0.556 0 0)",
+    "muted-foreground": "oklch(0.542 0 0)",
     accent: "oklch(0.97 0 0)",
     "accent-foreground": "oklch(0.205 0 0)",
-    destructive: "oklch(0.577 0.245 27.325)",
+    destructive: "oklch(0.486 0.245 27.325)",
     border: "oklch(0.922 0 0)",
     input: "oklch(0.922 0 0)",
     ring: "oklch(0.708 0 0)",

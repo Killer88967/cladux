@@ -15,6 +15,7 @@ export const metadata = {
   - [Scroll Area](/docs/components/scroll-area) and [Virtual List](/docs/components/virtual-list) can be scrolled with the keyboard.
   - [Item](/docs/components/item)s inside an `ItemGroup` are list items, [Combobox](/docs/components/combobox)'s icon buttons have names, and [Rich Text Editor](/docs/components/rich-text-editor) takes a `label`.
   - The avatar fallback and trace details have enough contrast, and every demo's buttons, inputs and progress bars have names.
+- In light mode, muted text and red (destructive) text are a little darker than shadcn's in every base color, so they read at 4.5:1 on the muted gray and on the pale red of destructive buttons, badges and alerts. Dark mode keeps shadcn's colors. For shadcn's exact light values, set `--muted-foreground: oklch(0.556 0 0)` and `--destructive: oklch(0.577 0.245 27.325)`.
 - The plain HTML runtime, the site's search, theme customizer and copy buttons, and the CLI in fresh Next.js and Vite apps all have browser tests.
 
 ### Plain HTML

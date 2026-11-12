@@ -118,7 +118,7 @@ function BannerDescription({ className, ...props }: React.ComponentProps<"p">) {
     <p
       data-slot="banner-description"
       className={cn(
-        "opacity-80 [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-3",
+        "opacity-80 group-data-[variant=destructive]/banner:opacity-100 [&_a]:font-medium [&_a]:underline [&_a]:underline-offset-3",
         className,
       )}
       {...props}

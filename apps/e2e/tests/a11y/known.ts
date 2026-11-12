@@ -17,22 +17,8 @@ export const KNOWN: Known[] = [
   {
     rule: "color-contrast",
     reason:
-      "shadcn's palette: muted text on the muted gray is 4.3:1 (AA needs 4.5). Changing it would make our themes differ from shadcn's.",
+      "shadcn's nova look in dark mode: destructive buttons, badges and alerts use red text on a dark red tint (about 4:1). A red light enough for 4.5:1 reads as pink, so dark mode keeps shadcn's red; light mode's is darker and passes.",
     colors: [
-      ["#737373", "#f5f5f5"],
-      ["#737373", "#f3f3f3"],
-    ],
-  },
-  {
-    rule: "color-contrast",
-    reason:
-      "shadcn's nova look: destructive buttons, badges and alerts use red text on a pale red tint (about 4:1).",
-    colors: [
-      ["#e7000b", "#fde6e7"],
-      ["#e7000b", "#f8e1e2"],
-      ["#ec2e37", "#fde6e7"],
-      ["#ea1a23", "#ffffff"],
-      ["#ec333c", "#ffffff"],
       ["#ff6467", "#4c2d2d"],
       ["#d35456", "#231313"],
       ["#d15457", "#171717"],
