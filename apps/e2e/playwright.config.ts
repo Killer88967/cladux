@@ -15,14 +15,11 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [
-    // The plain HTML runtime (cl.js and cl.css), on the example pages.
     { name: "runtime", testDir: "tests/runtime" },
-    // The site: search, the theme customizer, copy buttons.
+    { name: "runtime-webkit", testDir: "tests/runtime", use: devices["Desktop Safari"] },
+    { name: "runtime-firefox", testDir: "tests/runtime", use: devices["Desktop Firefox"] },
     { name: "site", testDir: "tests/site" },
-    // axe on every docs page and block.
-    // Pages with thousands of elements take axe a while.
     { name: "a11y", testDir: "tests/a11y", timeout: 120_000 },
-    // The CLI in fresh Next.js and Vite apps. Slow, and needs npm: run on its own.
     { name: "cli", testDir: "tests/cli", timeout: 15 * 60_000 },
   ],
   webServer: {

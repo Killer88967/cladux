@@ -9,7 +9,7 @@ test("opens from its button and closes with the close buttons", async ({ page })
 
   await page.getByRole("button", { name: "Edit profile" }).click();
   await expect(dialog).toBeVisible();
-  await expect(dialog).toHaveJSProperty("open", true);
+  await expect(dialog).toHaveAttribute("open");
 
   await dialog.getByRole("button", { name: "Cancel" }).click();
   await expect(dialog).toBeHidden();

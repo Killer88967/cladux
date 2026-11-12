@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "e2e": "playwright test --project=runtime --project=site --project=a11y",
+    "e2e": "playwright test --project=runtime --project=runtime-webkit --project=runtime-firefox --project=site --project=a11y",
     "e2e:cli": "playwright test --project=cli",
     "typecheck": "tsc --noEmit"
   },

@@ -6,7 +6,7 @@ allowBuilds:
   esbuild: true
 
 minimumReleaseAgeExclude:
-  - lucide-react@1.71.0
+  - lucide-react@1.72.0
   - react-resizable-panels@4.21.0
   - "@shikijs/core@4.6.0"
   - "@shikijs/engine-javascript@4.6.0"
@@ -17,8 +17,8 @@ minimumReleaseAgeExclude:
   - "@shikijs/themes@4.6.0"
   - "@shikijs/types@4.6.0"
   - shiki@4.6.0
-  - "@babel/parser@8.1.0"
-  - "@babel/types@8.1.0"
+  - "@babel/parser@8.1.2"
+  - "@babel/types@8.1.2"
   - "@next/env@16.4.6"
   - "@next/mdx@16.4.6"
   - "@next/swc-darwin-arm64@16.4.6"
@@ -98,6 +98,15 @@ minimumReleaseAgeExclude:
   - "@rolldown/binding-win32-x64-msvc@1.2.18"
   - rolldown@1.2.18
   - vite@8.3.8
+  - "@babel/helper-string-parser@8.1.2"
+  - "@turbo/darwin-64@2.11.11"
+  - "@turbo/darwin-arm64@2.11.11"
+  - "@turbo/linux-64@2.11.11"
+  - "@turbo/linux-arm64@2.11.11"
+  - "@turbo/windows-64@2.11.11"
+  - "@turbo/windows-arm64@2.11.11"
+  - prettier@3.10.0
+  - turbo@2.11.11
 
 permissions:
   "@tanstack/react-table":

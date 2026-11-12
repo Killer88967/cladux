@@ -64,7 +64,7 @@ jobs:
           key: next-${{ hashFiles('pnpm-lock.yaml') }}-${{ github.sha }}
           restore-keys: next-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm build
-      - run: pnpm --filter e2e exec playwright install --with-deps chromium
+      - run: pnpm --filter e2e exec playwright install --with-deps chromium webkit firefox
 
       # The plain HTML runtime, the site (search, themes, copy buttons) and axe on every page.
       - run: pnpm e2e

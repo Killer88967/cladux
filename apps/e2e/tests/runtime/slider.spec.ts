@@ -48,7 +48,8 @@ test("fills a slider added to the page later", async ({ page }) => {
   await expect.poll(() => fill(page.getByRole("slider", { name: "Later" }))).toBe("30%");
 });
 
-test("drags from anywhere on the track with a finger", async ({ page }) => {
+test("drags from anywhere on the track with a finger", async ({ page, browserName }) => {
+  test.skip(browserName !== "chromium", "touch is sent through Chromium's DevTools protocol");
   const slider = page.getByRole("slider", { name: "Volume" });
   const box = (await slider.boundingBox())!;
   const y = box.y + box.height / 2;
